@@ -473,11 +473,31 @@ export const PeptidePageTemplate = ({
       <section className="py-20 px-4 bg-card">
         <div className="container mx-auto max-w-6xl">
           <Tabs defaultValue="about" className="w-full">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 sm:grid-cols-4 mb-12 h-auto gap-1">
-              <TabsTrigger value="about">About</TabsTrigger>
-              <TabsTrigger value="how-it-works">Preclinical Findings</TabsTrigger>
-              <TabsTrigger value="benefits">Research Areas</TabsTrigger>
-              <TabsTrigger value="storage">Storage</TabsTrigger>
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 sm:grid-cols-4 mb-12 h-auto gap-2 bg-muted/50 p-2 rounded-xl">
+              <TabsTrigger
+                value="about"
+                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+              >
+                About
+              </TabsTrigger>
+              <TabsTrigger
+                value="how-it-works"
+                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+              >
+                Preclinical Findings
+              </TabsTrigger>
+              <TabsTrigger
+                value="benefits"
+                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+              >
+                Research Areas
+              </TabsTrigger>
+              <TabsTrigger
+                value="storage"
+                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+              >
+                Storage
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="about" className="mt-0">
