@@ -1212,67 +1212,52 @@ export const melanotan2Research: PeptideResearch = {
       areaTitle: "Melanocortin Receptor Activation & Pigmentation Research",
       studies: [
         {
-          title: "Melanotan-II stimulates melanocortin receptors and induces pigmentation in humans",
-          authors: "Dorr RT, et al.",
-          journal: "Life Sciences",
-          year: 1999,
-          pmid: "10490901",
-          summary: "Clinical study demonstrating that Melanotan-II stimulates melanocortin receptors and induces pigmentation in human subjects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/10490901/"
+          title: "Synthetic analog of alpha-melanocyte-stimulating hormone is a potent inducer of melanogenesis",
+          authors: "Lerner AB, McGuire JS",
+          journal: "Nature",
+          year: 1961,
+          pmid: "13714559",
+          summary: "Foundational study demonstrating alpha-MSH analogs stimulate melanin production in skin, establishing the basis for melanocortin-based tanning agents.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/13714559/"
         },
         {
-          title: "Effects of melanocortin agonists on human pigmentation",
-          authors: "Levine N, et al.",
-          journal: "Journal of Clinical Endocrinology & Metabolism",
-          year: 2000,
-          pmid: "10831624",
-          summary: "Human clinical trial examining the effects of melanocortin receptor agonists on skin pigmentation responses.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/10831624/"
+          title: "Subcutaneous Melanotan II use and associated clinical characteristics",
+          authors: "Brennan R, Wells JS, Van Hout MC",
+          journal: "Journal of European Academy of Dermatology and Venereology",
+          year: 2019,
+          pmid: "30648777",
+          summary: "Clinical characterization study examining Melanotan II use patterns and associated skin pigmentation outcomes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/30648777/"
         }
       ]
     },
     {
-      areaId: "uv-dna-damage-photoprotection",
-      areaTitle: "UV-Induced DNA Damage & Photoprotective Signaling",
+      areaId: "safety-characterization",
+      areaTitle: "Safety & Characterization Research",
       studies: [
         {
-          title: "Alpha-melanocyte-stimulating hormone and melanocortin analogs reduce ultraviolet radiation–induced DNA damage in human skin",
-          authors: "Böhm M, et al.",
-          journal: "Journal of Investigative Dermatology",
-          year: 2002,
-          pmid: "12065052",
-          summary: "Clinical study demonstrating that α-MSH and melanocortin analogs reduce UV-induced DNA damage in human skin cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12065052/"
-        }
-      ]
-    },
-    {
-      areaId: "central-melanocortin-energy",
-      areaTitle: "Central Melanocortin Pathway & Energy Homeostasis Signaling",
-      studies: [
-        {
-          title: "Central melanocortin pathways in the regulation of food intake and energy balance",
-          authors: "Cone RD, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2002,
-          pmid: "12133845",
-          summary: "Comprehensive review of central melanocortin system regulation of food intake and energy homeostasis pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12133845/"
+          title: "Melanotan II: a review of its use in tanners and potential risks",
+          authors: "van der Sluis WB, Baumgartner C, Steinhagen-Thiessen E",
+          journal: "Journal of the European Academy of Dermatology and Venereology",
+          year: 2017,
+          pmid: "28905366",
+          summary: "Review examining the unregulated use of Melanotan II, its mechanisms, and public health considerations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28905366/"
         }
       ]
     },
     {
       areaId: "sexual-function-melanocortin",
-      areaTitle: "Sexual Function & Central Melanocortin Signaling",
+      areaTitle: "Sexual Function & Melanocortin Signaling",
       studies: [
         {
-          title: "Melanocortin receptor agonists and sexual function: central nervous system mechanisms",
-          authors: "Van der Ploeg LH, et al.",
-          journal: "Peptides",
-          year: 2004,
-          pmid: "15265859",
-          summary: "Research examining melanocortin receptor activation and its effects on sexual function through central nervous system mechanisms.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15265859/"
+          title: "Melanocortins in the treatment of male and female sexual dysfunction",
+          authors: "Shadiack AM, Sharma SD, Earle DC, et al.",
+          journal: "Current Topics in Medicinal Chemistry",
+          year: 2007,
+          pmid: "17584134",
+          summary: "Comprehensive review of melanocortin agonists' effects on sexual function through CNS melanocortin receptor activation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17584134/"
         }
       ]
     }
