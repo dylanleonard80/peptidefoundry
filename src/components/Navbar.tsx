@@ -114,7 +114,7 @@ const Navbar = ({
             {isFoundryClubPage ? <div className="flex items-center gap-1 lg:gap-1.5 px-2 lg:px-3 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary font-semibold shadow-[0_0_12px_hsl(var(--primary)/0.5)] whitespace-nowrap text-sm lg:text-base">
                 <Hexagon className="h-3.5 w-3.5 lg:h-4 lg:w-4 drop-shadow-[0_0_4px_hsl(var(--primary)/0.6)]" />
                 Foundry Club
-              </div> : <FoundryClubLink className="flex items-center gap-1 lg:gap-1.5 px-2 lg:px-3 py-1.5 rounded-full bg-foundry-club-dark border border-primary/40 text-primary font-medium hover:bg-foundry-club-dark/80 transition-all shadow-[0_0_12px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_16px_hsl(var(--primary)/0.6)] whitespace-nowrap text-sm lg:text-base">
+              </div> : <FoundryClubLink className="flex items-center gap-1 lg:gap-1.5 px-2 lg:px-3 py-1.5 rounded-full bg-charcoal border border-primary/40 text-primary font-medium hover:bg-charcoal/80 transition-all shadow-[0_0_12px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_16px_hsl(var(--primary)/0.6)] whitespace-nowrap text-sm lg:text-base">
                 <Hexagon className="h-3.5 w-3.5 lg:h-4 lg:w-4 drop-shadow-[0_0_4px_hsl(var(--primary)/0.6)]" />
                 Foundry Club
               </FoundryClubLink>}
@@ -125,7 +125,7 @@ const Navbar = ({
             {/* Account Button */}
             {user ? <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className={cn("flex items-center gap-1.5 lg:gap-2 max-w-[140px] lg:max-w-[180px]", isMember && "bg-foundry-club-dark border-primary/50 text-primary hover:bg-foundry-club-dark/90 hover:text-primary shadow-[0_0_12px_hsl(var(--primary)/0.4)]")}>
+                  <Button variant="outline" size="sm" className={cn("flex items-center gap-1.5 lg:gap-2 max-w-[140px] lg:max-w-[180px]", isMember && "bg-charcoal border-primary/50 text-primary hover:bg-charcoal/90 hover:text-primary shadow-[0_0_12px_hsl(var(--primary)/0.4)]")}>
                     {isMember ? <Hexagon className="h-4 w-4 flex-shrink-0 drop-shadow-[0_0_4px_hsl(var(--primary)/0.8)]" /> : <User className="h-4 w-4 flex-shrink-0" />}
                     <span className="truncate text-sm">
                       {profile?.first_name?.trim() || (user.user_metadata as any)?.first_name?.trim() || user.email?.split("@")[0] || 'Account'}
@@ -245,7 +245,7 @@ const Navbar = ({
           <FoundryClubLink onClick={() => {
           setIsMenuOpen(false);
           document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg bg-foundry-club-dark border border-primary/40 my-[6px] flex items-center justify-center gap-2 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
+        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg bg-charcoal border border-primary/40 my-[6px] flex items-center justify-center gap-2 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
             <Hexagon className="h-5 w-5 drop-shadow-[0_0_6px_hsl(var(--primary)/0.6)]" />
             Foundry Club
           </FoundryClubLink>

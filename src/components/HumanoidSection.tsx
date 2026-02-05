@@ -88,7 +88,7 @@ const HumanoidSection = ({ className }: HumanoidSectionProps) => {
       </div>
 
       {/* Foundry Club - Own Section */}
-      <div className="container mx-auto px-6 lg:px-8 max-w-5xl mt-16 md:mt-24">
+      <div className="container mx-auto px-6 lg:px-8 max-w-5xl mt-16 md:mt-24 mb-16 md:mb-24">
         <div className="relative overflow-hidden rounded-2xl bg-charcoal p-10 md:p-14 text-center">
           {/* Subtle glow */}
           <div

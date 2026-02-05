@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
@@ -49,6 +49,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const hasFetchedRef = useRef(false);
   const previousUserRef = useRef<string | null>(null);
+  // Ref to track the latest items for sync operations (prevents race conditions)
+  const itemsRef = useRef<CartItem[]>(items);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
 
   // Load cart on mount and when user changes
   useEffect(() => {
@@ -151,27 +158,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const addItem = async (item: Omit<CartItem, 'quantity'>) => {
-    let nextItems: CartItem[] = [];
+  const addItem = useCallback(async (item: Omit<CartItem, 'quantity'>) => {
+    // Compute new items from the ref (latest state) to avoid race conditions
+    const currentItems = itemsRef.current;
+    const existingIndex = currentItems.findIndex(
+      (i) => i.peptide_name === item.peptide_name && i.size === item.size
+    );
 
-    setItems((prev) => {
-      const existingIndex = prev.findIndex(
-        (i) => i.peptide_name === item.peptide_name && i.size === item.size
+    let nextItems: CartItem[];
+    if (existingIndex >= 0) {
+      nextItems = currentItems.map((i) =>
+        i.peptide_name === item.peptide_name && i.size === item.size
+          ? { ...i, quantity: i.quantity + 1 }
+          : i
       );
+    } else {
+      nextItems = [...currentItems, { ...item, quantity: 1 }];
+    }
 
-      if (existingIndex >= 0) {
-        nextItems = prev.map((i) =>
-          i.peptide_name === item.peptide_name && i.size === item.size
-            ? { ...i, quantity: i.quantity + 1 }
-            : i
-        );
-      } else {
-        nextItems = [...prev, { ...item, quantity: 1 }];
-      }
-
-      return nextItems;
-    });
-
+    // Update ref immediately to prevent race conditions with rapid calls
+    itemsRef.current = nextItems;
+    setItems(nextItems);
     await syncCart(nextItems);
 
     toast({
@@ -180,51 +187,54 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return true;
-  };
+  }, [toast, user]);
 
-  const updateQuantity = async (peptideName: string, size: string, quantity: number) => {
+  const updateQuantity = useCallback(async (peptideName: string, size: string, quantity: number) => {
     if (quantity < 1) {
       await removeItem(peptideName, size);
       return;
     }
 
-    let nextItems: CartItem[] = [];
+    // Compute new items from the ref to avoid race conditions
+    const currentItems = itemsRef.current;
+    const nextItems = currentItems.map((item) =>
+      item.peptide_name === peptideName && item.size === size
+        ? { ...item, quantity }
+        : item
+    );
 
-    setItems((prev) => {
-      nextItems = prev.map((item) =>
-        item.peptide_name === peptideName && item.size === size
-          ? { ...item, quantity }
-          : item
-      );
-      return nextItems;
-    });
-
+    // Update ref immediately to prevent race conditions
+    itemsRef.current = nextItems;
+    setItems(nextItems);
     await syncCart(nextItems);
-  };
+  }, [user]);
 
-  const removeItem = async (peptideName: string, size: string) => {
-    let nextItems: CartItem[] = [];
+  const removeItem = useCallback(async (peptideName: string, size: string) => {
+    // Compute new items from the ref to avoid race conditions
+    const currentItems = itemsRef.current;
+    const nextItems = currentItems.filter(
+      (item) => !(item.peptide_name === peptideName && item.size === size)
+    );
 
-    setItems((prev) => {
-      nextItems = prev.filter((item) => !(item.peptide_name === peptideName && item.size === size));
-      return nextItems;
-    });
-
+    // Update ref immediately to prevent race conditions
+    itemsRef.current = nextItems;
+    setItems(nextItems);
     await syncCart(nextItems);
 
     toast({
       title: 'Removed from cart',
       description: `${peptideName} (${size})`,
     });
-  };
+  }, [toast, user]);
 
-  const clearCart = async () => {
+  const clearCart = useCallback(async () => {
+    itemsRef.current = [];
     setItems([]);
     localStorage.removeItem(CART_STORAGE_KEY);
     if (user) {
       await syncCart([]);
     }
-  };
+  }, [user]);
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 0; // Free shipping on all orders

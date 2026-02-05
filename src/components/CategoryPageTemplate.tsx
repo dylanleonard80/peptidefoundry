@@ -46,10 +46,10 @@ const GlassPeptideCard = ({
           {/* Image Section with Glass Effect */}
           <div className="relative min-h-40 h-52 overflow-hidden flex items-center justify-center rounded-t-lg">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent" />
-            <img 
-              src={card.image || peptideVial} 
-              alt={`${card.name} vial`} 
-              className="w-44 h-44 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10" 
+            <img
+              src={card.image || peptideVial}
+              alt={`${card.name} vial`}
+              className="w-44 h-44 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10"
             />
             
             {/* Floating Badges */}
@@ -91,14 +91,14 @@ const GlassPeptideCard = ({
                     const price = card.prices?.[size] ?? (index === 0 ? card.startingPrice : undefined);
                     const displayPrice = price && isMember ? getMemberPrice(price, card.slug, size) : price;
                     return (
-                      <Badge 
-                        key={index} 
-                        variant="outline" 
+                      <Badge
+                        key={index}
+                        variant="outline"
                         className={`text-xs px-2 py-0.5 whitespace-nowrap flex-shrink-0 backdrop-blur-md transition-all duration-300 ${
-                          isMember && price 
-                            ? 'bg-primary/20 border-primary/50 text-primary font-medium shadow-[0_0_12px_rgba(255,107,0,0.3)]' 
-                            : price 
-                              ? 'bg-white/10 border-primary/30 text-primary font-medium group-hover:bg-primary/10' 
+                          isMember && price
+                            ? 'bg-primary/20 border-primary/50 text-primary font-medium shadow-[0_0_12px_rgba(255,107,0,0.3)]'
+                            : price
+                              ? 'bg-white/10 border-primary/30 text-primary font-medium group-hover:bg-primary/10'
                               : 'bg-white/5 border-white/20'
                         }`}
                       >
@@ -132,9 +132,9 @@ const CategoryPageTemplate = ({ title, subtitle, getPeptides }: CategoryPageTemp
   const { isMember, getMemberPrice } = useMembership();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
-      
+
       <main className="container mx-auto px-4 pt-32 sm:pt-36 pb-16">
         {/* Hero Section - matching AllPeptides title style */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -147,7 +147,7 @@ const CategoryPageTemplate = ({ title, subtitle, getPeptides }: CategoryPageTemp
         </div>
 
         {/* Peptides Grid - using glass cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mb-16 overflow-hidden">
           {peptides.map((peptide, index) => (
             <GlassPeptideCard 
               key={index} 

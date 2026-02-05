@@ -17,6 +17,7 @@ interface FloatingHexagon {
 
 const CONFIG = {
   count: 30,
+  mobileCount: 12,
   sizes: { min: 30, max: 100 },
   opacity: { min: 0.15, max: 0.35 },
   duration: { min: 12, max: 20 },
@@ -62,15 +63,18 @@ const FloatingHexagonBackground = () => {
   }, []);
 
   const hexagons = useMemo(() => generateHexagons(CONFIG.count), []);
+  const mobileHexagons = useMemo(() => generateHexagons(CONFIG.mobileCount), []);
 
-  // Disable animations on mobile for performance
-  if (prefersReducedMotion || isMobile) {
+  // Disable animations if user prefers reduced motion
+  if (prefersReducedMotion) {
     return null;
   }
 
+  const displayHexagons = isMobile ? mobileHexagons : hexagons;
+
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
-      {hexagons.map((hex) => (
+      {displayHexagons.map((hex) => (
         <motion.div
           key={hex.id}
           className="absolute"

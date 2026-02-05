@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -46,6 +46,9 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [orderNotes, setOrderNotes] = useState('');
   const [bacQuantity, setBacQuantity] = useState(1);
+  // Rate limiting: prevent rapid checkout clicks (2 second cooldown)
+  const lastCheckoutClickRef = useRef<number>(0);
+  const CHECKOUT_COOLDOWN_MS = 2000;
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
     street: '',
@@ -77,6 +80,13 @@ const Checkout = () => {
     }
   }, [user, items, profile, navigate]);
   const handleProceedToPayment = async () => {
+    // Rate limiting: prevent rapid clicks
+    const now = Date.now();
+    if (now - lastCheckoutClickRef.current < CHECKOUT_COOLDOWN_MS) {
+      return;
+    }
+    lastCheckoutClickRef.current = now;
+
     // Validate shipping address (including email for guests)
     const validationResult = shippingSchema.safeParse(shippingAddress);
     if (!validationResult.success) {

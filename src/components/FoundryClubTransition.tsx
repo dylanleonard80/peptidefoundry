@@ -167,14 +167,14 @@ const FoundryClubTransition = ({ isActive, onComplete }: FoundryClubTransitionPr
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: TIMING.overlayFadeIn }}
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-foundry-club-dark overflow-hidden"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-charcoal overflow-hidden"
         >
           {/* Background gradient overlay */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="absolute inset-0 bg-gradient-to-br from-foundry-club-dark via-foundry-club-dark to-primary/10" 
+            className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal to-primary/10" 
           />
           
           {/* Radial glow at center */}

@@ -72,16 +72,18 @@ const getCategoryBackground = (title: string): string | null => {
 const GlassCardComponent = ({
   card,
   isMember,
-  getMemberPrice
+  getMemberPrice,
+  fullWidth = false
 }: {
   card: PeptideCard;
   isMember: boolean;
   getMemberPrice: (price: number, slug?: string, size?: string) => number;
+  fullWidth?: boolean;
 }) => {
   const isBlend = card.tags.includes("Blend");
   const isGlowOrKlow = card.slug === 'glow' || card.slug === 'klow';
-  return <Link to={`/${card.slug}`} className="block">
-      <Card className="w-[200px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden transition-all duration-500 group flex flex-col cursor-pointer relative border-0 bg-transparent">
+  return <Link to={`/${card.slug}`} className={fullWidth ? "block w-full" : "block"}>
+      <Card className={`${fullWidth ? 'w-full' : 'w-[200px] sm:w-[240px] flex-shrink-0'} h-[320px] overflow-hidden transition-all duration-500 group flex flex-col cursor-pointer relative border-0 bg-transparent`}>
         {/* Frosted Glass Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-lg border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group-hover:shadow-[0_16px_48px_rgba(255,107,0,0.15)] group-hover:border-primary/30 transition-all duration-500" />
         
@@ -184,7 +186,7 @@ const PeptideCardComponent = ({
                 {card.sizes.map((size, index) => {
               const price = card.prices?.[size] ?? (index === 0 ? card.startingPrice : undefined);
               const displayPrice = price && isMember ? getMemberPrice(price, card.slug, size) : price;
-              return <Badge key={index} variant="outline" className={`text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 whitespace-nowrap flex-shrink-0 ${isMember && price ? 'bg-foundry-club-dark border-primary/50 text-primary font-medium shadow-[0_0_8px_rgba(255,107,0,0.3)]' : price ? 'bg-primary/10 border-primary/30 text-primary font-medium' : 'bg-primary/5 border-primary/20'}`}>
+              return <Badge key={index} variant="outline" className={`text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 whitespace-nowrap flex-shrink-0 ${isMember && price ? 'bg-charcoal border-primary/50 text-primary font-medium shadow-[0_0_8px_rgba(255,107,0,0.3)]' : price ? 'bg-primary/10 border-primary/30 text-primary font-medium' : 'bg-primary/5 border-primary/20'}`}>
                       {displayPrice ? <span className="flex items-center gap-1">
                           {isMember && <Hexagon className="h-2 sm:h-2.5 w-2 sm:w-2.5 text-primary" />}
                           {size} - ${displayPrice}
@@ -325,7 +327,7 @@ const PeptidesCatalog = ({
         </div>}
 
       {/* Selected Category View - Grid like CategoryPageTemplate */}
-      {selectedCategory && selectedCategoryData ? <section className="py-8">
+      {selectedCategory && selectedCategoryData ? <section className="py-8 overflow-x-hidden">
           <div className="container px-4 sm:px-6 lg:px-8">
             {/* Category Title */}
             <div className="max-w-3xl mx-auto text-center mb-12">
@@ -335,8 +337,8 @@ const PeptidesCatalog = ({
             </div>
 
             {/* Peptides Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {selectedCategoryData.cards.map(card => <GlassCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} />)}
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 overflow-hidden">
+              {selectedCategoryData.cards.map(card => <GlassCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} fullWidth />)}
             </div>
           </div>
         </section> : viewMode === 'category' ?

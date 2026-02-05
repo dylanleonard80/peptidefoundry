@@ -8,6 +8,7 @@ import { Suspense, lazy } from "react";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
   useSmoothScroll();
@@ -93,8 +94,9 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <ScrollToTop />
-            <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingSpinner />}>
+                <Routes>
                 {/* Home page - peptide catalog */}
                 <Route path="/" element={<Index />} />
                 <Route path="/sign-in" element={<SignIn />} />
@@ -158,8 +160,9 @@ const App = () => (
 
                 {/* Catch-all */}
                 <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </BrowserRouter>
         </SmoothScrollProvider>
       </TooltipProvider>
