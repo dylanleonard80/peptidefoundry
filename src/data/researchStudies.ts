@@ -1038,20 +1038,22 @@ export const selankResearch: PeptideResearch = {
       areaTitle: "Anxiolytic Research",
       studies: [
         {
-          title: "Anxiolytic action of the synthetic peptide Selank",
-          authors: "Seredenin SB, Kozlovskaia MM, Blednov IuA, et al.",
+          title: "Morphological Changes in the Large Intestine of Rats Subjected to Chronic Restraint Stress and Treated with Selank",
+          authors: "Mukhina AYu, Medvedeva OA, Sviridov PS, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 1998,
-          summary: "Foundational study demonstrating Selank's anxiolytic effects in preclinical models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9698220/"
+          year: 2020,
+          pmid: "32651826",
+          summary: "Study showing Selank decreased corticosterone levels and reduced pathomorphological manifestations of stress in rats.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/32651826/"
         },
         {
-          title: "Selank peptide in the regulation of anxiety-like behavior in rats",
-          authors: "Kozlovskaya MM, Kozlovskii II, Valdman EA",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2003,
-          summary: "Study of Selank's effects on anxiety-related behaviors in animal models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/14562003/"
+          title: "Effect of Selank on Functional State of Rat Hepatocytes under Conditions of Restraint Stress",
+          authors: "Fomenko EV, Bobyntsev II, Krivosheeva LN, et al.",
+          journal: "Bulletin of Experimental Biology and Medicine",
+          year: 2017,
+          pmid: "28853100",
+          summary: "Study demonstrating Selank's antistress and antioxidant effects on hepatocytes during acute and chronic restraint stress.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28853100/"
         }
       ]
     },
@@ -1060,54 +1062,13 @@ export const selankResearch: PeptideResearch = {
       areaTitle: "Cognitive Enhancement",
       studies: [
         {
-          title: "The optimizing action of the synthetic peptide Selank on a conditioned active avoidance reflex in rats",
-          authors: "Kozlovskii II, Danchev ND",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2003,
-          summary: "Investigation of Selank's effects on learning and memory processes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/14562005/"
-        }
-      ]
-    },
-    {
-      areaId: "immunomodulation",
-      areaTitle: "Immunomodulation",
-      studies: [
-        {
-          title: "Effects of Selank on the main parameters of the immunity status in patients with anxiety-phobic disorders",
-          authors: "Zozulia AA, Neznamov GG, Siuniakov TS, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 2008,
-          summary: "Clinical study of Selank's immunomodulatory effects in patients with anxiety disorders.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/18833124/"
-        }
-      ]
-    },
-    {
-      areaId: "gaba",
-      areaTitle: "GABA Modulation",
-      studies: [
-        {
-          title: "Selank modulates the expression of GABA receptor genes",
-          authors: "Zozulia AA, Kost NV, Sokolov OIu, et al.",
+          title: "Selank, Peptide Analogue of Tuftsin, Protects Against Ethanol-Induced Memory Impairment by Regulating of BDNF Content in the Hippocampus and Prefrontal Cortex in Rats",
+          authors: "Kolik LG, Nadorova AV, Seredenin SB",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2009,
-          summary: "Study of Selank's effects on GABA receptor gene expression and GABAergic neurotransmission.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19513108/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
-      studies: [
-        {
-          title: "Neuroprotective action of Selank in the model of incomplete global ischemia",
-          authors: "Kolik LG, Nadorova AV, Kozlovskaya MM",
-          journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2008,
-          summary: "Preclinical study of Selank's neuroprotective effects against ischemic damage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19110594/"
+          year: 2019,
+          pmid: "31625062",
+          summary: "Study showing Selank prevented ethanol-induced memory and attention disturbances through BDNF regulation in brain structures.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31625062/"
         }
       ]
     },
@@ -1115,12 +1076,13 @@ export const selankResearch: PeptideResearch = {
       areaId: "bdnf",
       areaTitle: "BDNF Expression",
       studies: [
-      {
+        {
           title: "Intranasal administration of the peptide Selank regulates BDNF expression in the rat hippocampus in vivo",
-          authors: "Dolotov OV, Karpenko EA, Inozemtseva LS, et al.",
+          authors: "Inozemtseva LS, Karpenko EA, Dolotov OV, et al.",
           journal: "Doklady Biological Sciences",
           year: 2008,
-          summary: "Study demonstrating Selank's upregulation of BDNF and neurotrophic factor expression.",
+          pmid: "18841804",
+          summary: "Study demonstrating intranasal Selank's upregulation of brain-derived neurotrophic factor (BDNF) expression in the hippocampus.",
           url: "https://pubmed.ncbi.nlm.nih.gov/18841804/"
         }
       ]
@@ -1133,51 +1095,40 @@ export const semaxResearch: PeptideResearch = {
   peptideSlug: "semax",
   researchAreas: [
     {
-      areaId: "cognitive",
-      areaTitle: "Cognitive Research",
+      areaId: "neuroprotection",
+      areaTitle: "Neuroprotection & Stroke Research",
       studies: [
         {
-          title: "The nootropic drug Semax: a review of its mechanisms of action",
-          authors: "Ashmarin IP, Nezavibatko VN, Myasoedov NF, et al.",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2005,
-          summary: "Comprehensive review of Semax's nootropic mechanisms and cognitive enhancement effects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15881280/"
+          title: "The Peptide Drug ACTH(4-7)PGP (Semax) Suppresses mRNA Transcripts Encoding Proinflammatory Mediators Induced by Reversible Ischemia of the Rat Brain",
+          authors: "Dergunova LV, Dmitrieva VG, Filippenkov IB, et al.",
+          journal: "Molekulyarnaya Biologiya",
+          year: 2021,
+          pmid: "34097675",
+          summary: "Study demonstrating Semax's neuroprotective and immunomodulatory effects in ischemic stroke through suppression of proinflammatory gene transcripts.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34097675/"
         },
         {
-          title: "Effect of Semax on memory and learning processes",
-          authors: "Eremin KO, Kudrin VS, Saransaari P, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2004,
-          summary: "Study of Semax's effects on memory formation and learning in experimental models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15313787/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
-      studies: [
-        {
-          title: "Neuroprotective effects of semax in acute period of ischemic stroke",
-          authors: "Gusev EI, Skvortsova VI, Miasoedov NF, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 1997,
-          summary: "Clinical study of Semax's neuroprotective effects in stroke patients.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9289838/"
+          title: "Antistress Action of Melanocortin Derivatives Associated with Correction of Gene Expression Patterns in the Hippocampus of Male Rats Following Acute Stress",
+          authors: "Filippenkov IB, Stavchansky VV, Denisova AE, et al.",
+          journal: "International Journal of Molecular Sciences",
+          year: 2021,
+          pmid: "34576218",
+          summary: "Study showing Semax administration attenuated stress-induced behavioral alterations and corrected over 1500 differentially expressed genes in the hippocampus.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34576218/"
         }
       ]
     },
     {
       areaId: "bdnf",
-      areaTitle: "BDNF Upregulation",
+      areaTitle: "BDNF & Neurotrophic Signaling",
       studies: [
-      {
+        {
           title: "Semax, an analog of ACTH(4-10) with cognitive effects, regulates BDNF and trkB expression in the rat hippocampus",
           authors: "Dolotov OV, Karpenko EA, Inozemtseva LS, et al.",
           journal: "Brain Research",
           year: 2006,
-          summary: "Study demonstrating Semax's robust upregulation of brain-derived neurotrophic factor.",
+          pmid: "16996037",
+          summary: "Study demonstrating Semax's robust upregulation of brain-derived neurotrophic factor (BDNF) and its receptor trkB in the hippocampus.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16996037/"
         }
       ]
@@ -1188,39 +1139,12 @@ export const semaxResearch: PeptideResearch = {
       studies: [
         {
           title: "Semax and Pro-Gly-Pro activate the transcription of neurotrophins and their receptor genes after cerebral ischemia",
-          authors: "Stavchanskii VV, Yuzhakov VV, Botsina AY, et al.",
+          authors: "Stavchansky VV, Yuzhakov VV, Botsina AY, et al.",
           journal: "Cellular and Molecular Neurobiology",
-          year: 2009,
-          summary: "Study of Semax's effects on neural progenitor cells and new neuron formation.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19633950/"
-        }
-      ]
-    },
-    {
-      areaId: "stroke-recovery",
-      areaTitle: "Stroke Recovery Research",
-      studies: [
-        {
-          title: "Effectiveness of semax in acute period of hemispheric ischemic stroke (a clinical and electrophysiological study)",
-          authors: "Gusev EI, Skvortsova VI, Miasoedov NF, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 2001,
-          summary: "Review of Semax's effects on stroke recovery and neurological outcomes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11517472/"
-        }
-      ]
-    },
-    {
-      areaId: "neurotransmitter",
-      areaTitle: "Neurotransmitter Modulation",
-      studies: [
-        {
-          title: "Semax, an ACTH(4-10) analogue with nootropic properties, activates dopaminergic and serotoninergic brain systems in rodents",
-          authors: "Eremin KO, Kudrin VS, Rayevsky KS",
-          journal: "Neurochemical Research",
-          year: 2005,
-          summary: "Investigation of Semax's effects on dopamine and serotonin system function.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16362768/"
+          year: 2011,
+          pmid: "21618062",
+          summary: "Study showing Semax activates transcription of neurotrophin genes (BDNF, NGF, NT-3) and their receptors after ischemia.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/21618062/"
         }
       ]
     }
@@ -1232,94 +1156,47 @@ export const dsipResearch: PeptideResearch = {
   peptideSlug: "dsip",
   researchAreas: [
     {
-      areaId: "sleep-quality",
-      areaTitle: "Sleep Quality Enhancement",
-      studies: [
-        {
-          title: "Delta sleep inducing peptide (DSIP) and human sleep-waking behavior",
-          authors: "Iyer KS, Marks GA, Kastin AJ, et al.",
-          journal: "Peptides",
-          year: 1983,
-          summary: "Study examining DSIP's effects on sleep architecture and sleep quality parameters.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6189138/"
-        },
-        {
-          title: "Characterization, properties and multivariate functions of delta sleep-inducing peptide (DSIP)",
-          authors: "Schoenenberger GA",
-          journal: "European Neurology",
-          year: 1984,
-          summary: "Comprehensive review of DSIP's sleep-promoting mechanisms and properties.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6391811/"
-        }
-      ]
-    },
-    {
-      areaId: "stress-reduction",
-      areaTitle: "Stress Reduction",
-      studies: [
-        {
-          title: "The anti-stress effect of DSIP",
-          authors: "Graf MV, Kastin AJ",
-          journal: "Life Sciences",
-          year: 1982,
-          summary: "Study demonstrating DSIP's protective effects against stress-induced hormonal changes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/7006724/"
-        }
-      ]
-    },
-    {
       areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
+      areaTitle: "Neuroprotection & Cardioprotection",
       studies: [
         {
-          title: "Delta sleep-inducing peptide protects neurons from oxidative damage",
-          authors: "Yehuda S, Carasso RL, Mostofsky DI",
-          journal: "Peptides",
-          year: 1987,
-          summary: "Preclinical study of DSIP's neuroprotective effects under metabolic stress conditions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/3332395/"
+          title: "DSIP-Like KND Peptide Reduces Brain Infarction in C57Bl/6 and Reduces Myocardial Infarction in SD Rats When Administered during Reperfusion",
+          authors: "Tukhovskaya EA, Ismailova AM, Negmatova GN, et al.",
+          journal: "Biomedicines",
+          year: 2021,
+          pmid: "33918965",
+          summary: "Study demonstrating DSIP-like peptide reduces brain and myocardial infarction when administered during reperfusion, indicating neuroprotective and cardioprotective effects.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/33918965/"
         }
       ]
     },
     {
-      areaId: "pain-modulation",
-      areaTitle: "Pain Modulation",
+      areaId: "sleep-regulation",
+      areaTitle: "Sleep Regulation Research",
       studies: [
         {
-          title: "Analgesic effect of delta sleep-inducing peptide in humans",
-          authors: "Larbig W, Gerber WD, Kluck M, et al.",
-          journal: "Psychopharmacology",
+          title: "Delta-sleep-inducing peptide (DSIP): an update",
+          authors: "Graf MV, Kastin AJ",
+          journal: "Peptides",
+          year: 1986,
+          pmid: "3534547",
+          summary: "Comprehensive review of DSIP's mechanisms in sleep regulation and its multiple physiological functions.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3534547/"
+        }
+      ]
+    },
+    {
+      areaId: "stress-response",
+      areaTitle: "Stress Response Modulation",
+      studies: [
+        {
+          title: "Delta sleep-inducing peptide (DSIP): stress, sleep and the hypothalamus",
+          authors: "Graf MV, Kastin AJ",
+          journal: "Neuroscience & Biobehavioral Reviews",
           year: 1984,
-          summary: "Clinical study of DSIP's effects on pain perception and endogenous opioid release.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6381346/"
-        }
-      ]
-    },
-    {
-      areaId: "cardiovascular",
-      areaTitle: "Cardiovascular Protection",
-      studies: [
-        {
-          title: "Hemodynamic effects of DSIP in hypertensive subjects",
-          authors: "Schneider-Helmert D, Gnirss F, Schoenenberger GA",
-          journal: "Clinical and Experimental Pharmacology and Physiology",
-          year: 1982,
-          summary: "Study of DSIP's effects on blood pressure and cardiovascular parameters.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6206622/"
-        }
-      ]
-    },
-    {
-      areaId: "metabolic",
-      areaTitle: "Metabolic Regulation",
-      studies: [
-        {
-          title: "DSIP and thyroid function: thermoregulatory effects",
-          authors: "Graf MV, Christen H, Schoenenberger GA",
-          journal: "Peptides",
-          year: 1983,
-          summary: "Investigation of DSIP's effects on thyroid function and metabolic regulation.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6425113/"
+          pmid: "6396244",
+          summary: "Review of DSIP's effects on stress responses and its interactions with the hypothalamic-pituitary-adrenal axis.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/6396244/"
         }
       ]
     }
