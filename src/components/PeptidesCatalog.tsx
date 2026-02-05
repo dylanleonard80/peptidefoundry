@@ -283,7 +283,7 @@ const PeptidesCatalog = ({
       {!showHeader && <div className="py-8 sm:py-12">
           <div className="container px-4 sm:px-6 lg:px-8">
             {/* Category Pills */}
-            <div className="flex justify-center gap-4 sm:gap-6 lg:gap-8 overflow-x-auto pb-2 scrollbar-hide py-[16px]">
+            <div className="flex justify-start md:justify-center gap-4 sm:gap-6 lg:gap-8 overflow-x-auto pb-2 scrollbar-hide py-[16px] pl-4 md:pl-0">
               {categoryItems.map(category => {
             const isSelected = selectedCategory === category.sectionTitle;
             return <button key={category.id} onClick={() => {
@@ -343,14 +343,21 @@ const PeptidesCatalog = ({
           </div>
         </section> : viewMode === 'category' ?
     // All Categories View
-    peptideSections.map((section, index) => <section key={index} id={`category-section-${index}`} className="border-b py-[13px] scroll-mt-24">
+    <>
+      {/* All Peptides Title */}
+      <div className="max-w-3xl mx-auto text-center mb-8 pt-4">
+        <h2 className="text-3xl sm:text-4xl font-display font-bold tracking-tight">
+          All Peptides
+        </h2>
+      </div>
+      {peptideSections.map((section, index) => <section key={index} id={`category-section-${index}`} className="border-b py-[13px] scroll-mt-24">
             <div className="container px-4 sm:px-6 lg:px-8">
               <div className="relative">
                 <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
                   <div className="flex gap-4 w-max">
                     {/* Title Card - Glassmorphism Style */}
                     {section.link ? <Link to={section.link} className="block group">
-                        <Card className="w-[200px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(255,107,0,0.4)] hover:border-primary/60">
+                        <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(255,107,0,0.4)] hover:border-primary/60">
                           {/* Glowing orb effects */}
                           <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
                           <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
@@ -383,7 +390,7 @@ const PeptidesCatalog = ({
                             </div>
                           </CardContent>
                         </Card>
-                      </Link> : <Card className="w-[200px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative">
+                      </Link> : <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative">
                         {/* Glowing orb effects */}
                         <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl" />
                         <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl" />
@@ -414,7 +421,8 @@ const PeptidesCatalog = ({
                 </div>
               </div>
             </div>
-          </section>) :
+          </section>)}
+    </> :
     // Alphabetical View
     <section className="py-8">
           <div className="container px-4 sm:px-6 lg:px-8">

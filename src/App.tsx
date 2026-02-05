@@ -28,6 +28,12 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 const FoundryClub = lazy(() => import("./pages/FoundryClub"));
 
+// Legal pages
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
+const ShippingPolicy = lazy(() => import("./pages/ShippingPolicy"));
+
 // Dashboard pages
 const DashboardIndex = lazy(() => import("./pages/dashboard/Index"));
 const DashboardOrders = lazy(() => import("./pages/dashboard/Orders"));
@@ -108,6 +114,12 @@ const App = () => (
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/order-success" element={<OrderSuccess />} />
                 <Route path="/foundry-club" element={<FoundryClub />} />
+
+                {/* Legal pages */}
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/shipping-policy" element={<ShippingPolicy />} />
 
                 {/* Dashboard pages */}
                 <Route path="/dashboard" element={<DashboardIndex />} />

@@ -76,7 +76,10 @@ const Navbar = ({
       <header className={cn("fixed left-0 right-0 z-40 py-2 sm:py-3 md:py-4 transition-all duration-500", isFoundryClubPage ? "top-[28px]" : "top-0", isScrolled ? isFoundryClubPage ? "bg-charcoal/95 backdrop-blur-md shadow-lg shadow-black/20" : "bg-[hsl(30,25%,97%)]/90 backdrop-blur-md shadow-sm shadow-charcoal/5" : isFoundryClubPage ? "bg-charcoal/80 backdrop-blur-sm" : "bg-transparent", className)}>
         <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 my-[9px]">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 min-w-0" onClick={scrollToTop} aria-label="Peptide Foundry">
-            <img alt="Peptide Foundry Logo" width={180} height={72} className="h-[clamp(2.7rem,3.6vw,3.6rem)] md:h-[clamp(2.25rem,4.5vw,4.5rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
+            {/* Short logo for mobile */}
+            <img alt="Peptide Foundry Logo" width={56} height={56} className="h-14 w-auto object-contain md:hidden" src="/short-logo.svg" />
+            {/* Full logo for desktop */}
+            <img alt="Peptide Foundry Logo" width={180} height={72} className="hidden md:block h-[clamp(2.25rem,4.5vw,4.5rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
           </Link>
 
           {/* Search Bar - Desktop & Tablet */}
@@ -180,15 +183,79 @@ const Navbar = ({
               </Link>}
           </nav>
 
-          {/* Mobile Cart & Menu button */}
-          <div className="md:hidden flex items-center gap-2">
+          {/* Mobile icons */}
+          <div className="md:hidden flex items-center gap-1">
+            {/* Search */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn("relative", isFoundryClubPage && "text-white hover:bg-white/10")}
+              onClick={() => setSearchOpen(!searchOpen)}
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+
+            {/* Account */}
+            <Link to={user ? "/dashboard" : "/sign-in"}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn("relative", isFoundryClubPage && "text-white hover:bg-white/10")}
+                aria-label={user ? "Dashboard" : "Sign in"}
+              >
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+
+            {/* Cart */}
             <Cart isFoundryClubPage={isFoundryClubPage} />
-            <button className={cn("p-3 focus:outline-none", isFoundryClubPage ? "text-white" : "text-gray-700")} onClick={toggleMenu} aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+
+            {/* Menu */}
+            <button className={cn("p-2 focus:outline-none", isFoundryClubPage ? "text-white" : "text-gray-700")} onClick={toggleMenu} aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Search Dropdown */}
+      <div className={cn(
+        "fixed left-0 right-0 z-30 md:hidden bg-background/95 backdrop-blur-md border-b border-border shadow-lg transition-all duration-300",
+        isFoundryClubPage ? "top-[92px]" : "top-[64px]",
+        searchOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+      )}>
+        <div className="p-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search peptides..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="pl-10 pr-4 w-full h-11"
+            />
+          </div>
+          {filteredPeptides.length > 0 && searchQuery.length > 0 && (
+            <div className="mt-2 border rounded-lg max-h-64 overflow-y-auto bg-background">
+              {filteredPeptides.map(peptide => (
+                <button
+                  key={peptide.slug}
+                  onClick={() => {
+                    navigate(`/${peptide.slug}`);
+                    setSearchQuery("");
+                    setSearchOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-3 hover:bg-muted/50 border-b last:border-b-0 transition-colors"
+                >
+                  <div className="font-medium">{peptide.name}</div>
+                  <div className="text-sm text-muted-foreground line-clamp-1">{peptide.benefit}</div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Mobile Navigation */}
       <div className={cn("fixed inset-0 z-[100] bg-white flex flex-col pt-6 px-6 md:hidden transition-all duration-300 ease-in-out", isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none")}>
@@ -223,12 +290,6 @@ const Navbar = ({
           document.body.style.overflow = '';
         }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-0">
             Home
-          </Link>
-          <Link to="/all-peptides" onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[12px]">
-            All Peptides
           </Link>
           <Link to="/about" onClick={() => {
           setIsMenuOpen(false);
