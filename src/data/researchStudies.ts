@@ -326,13 +326,22 @@ export const sermorelinResearch: PeptideResearch = {
       areaTitle: "Endogenous Growth Hormone Secretion — Human",
       studies: [
         {
-          title: "[A case of gastric carcinoma initially presenting bone metastasis and later transverse myelopathy]",
-          authors: "Ito K, Kurokawa F, Matsui K, et al.",
-          journal: "Gan No Rinsho",
-          year: 1985,
-          summary: "Clinical case study examining metastatic patterns and disease progression.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/2984445/",
-          pmid: "2984445"
+          title: "Sermorelin: a review of its use in the diagnosis and treatment of children with idiopathic growth hormone deficiency",
+          authors: "Prakash A, Goa KL",
+          journal: "BioDrugs",
+          year: 1999,
+          summary: "Comprehensive review demonstrating sermorelin as a well-tolerated GHRH analogue that specifically stimulates growth hormone secretion from the anterior pituitary for diagnosis and treatment of GH deficiency.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18031173/",
+          pmid: "18031173"
+        },
+        {
+          title: "Once daily subcutaneous growth hormone-releasing hormone therapy accelerates growth in growth hormone-deficient children during the first year of therapy",
+          authors: "Geref International Study Group",
+          journal: "Journal of Clinical Endocrinology & Metabolism",
+          year: 1996,
+          summary: "Multicenter study showing once-daily GHRH therapy significantly increases growth velocity in GH-deficient children with good tolerability and no adverse changes in biochemical or hormonal parameters.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/8772599/",
+          pmid: "8772599"
         }
       ]
     },
@@ -341,13 +350,22 @@ export const sermorelinResearch: PeptideResearch = {
       areaTitle: "Age-Related Somatotropic Axis Decline — Human",
       studies: [
         {
-          title: "Oxyhemoglobin affinity in patients with sleep apnea syndrome",
-          authors: "Racineux JL, Zerah F, Gaultier C, et al.",
-          journal: "American Review of Respiratory Disease",
-          year: 1991,
-          summary: "Study examining oxygen transport parameters in sleep-related conditions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/1900401/",
-          pmid: "1900401"
+          title: "Sermorelin: a better approach to management of adult-onset growth hormone insufficiency?",
+          authors: "Walker RF",
+          journal: "Clinical Interventions in Aging",
+          year: 2006,
+          summary: "Editorial review examining sermorelin as an alternative approach to recombinant GH for managing adult-onset growth hormone insufficiency with potentially better safety profile.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18046908/",
+          pmid: "18046908"
+        },
+        {
+          title: "Growth Hormone Secretagogue Treatment in Hypogonadal Men Raises Serum Insulin-Like Growth Factor-1 Levels",
+          authors: "Sigalos JT, Pastuszak AW",
+          journal: "World Journal of Men's Health",
+          year: 2018,
+          summary: "Clinical study investigating sermorelin and other GH secretagogues as safe alternatives for increasing endogenous GH, showing significant elevation in serum IGF-1 levels in hypogonadal men.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28830317/",
+          pmid: "28830317"
         }
       ]
     },
