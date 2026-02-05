@@ -799,8 +799,9 @@ export const ghkcuResearch: PeptideResearch = {
           authors: "Pickart L, Vasquez-Soltero JM, Margolina A",
           journal: "BioMed Research International",
           year: 2015,
-          summary: "Study of GHK-Cu's antioxidant properties and anti-inflammatory signaling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/25813519/"
+          pmid: "26236730",
+          summary: "Comprehensive review of GHK-Cu's antioxidant properties, anti-inflammatory signaling pathways, and modulation of over 4,000 human genes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/26236730/"
         }
       ]
     },
@@ -809,12 +810,13 @@ export const ghkcuResearch: PeptideResearch = {
       areaTitle: "Tissue Repair & Remodeling",
       studies: [
         {
-          title: "Stimulation of collagen production in fibroblast cultures by the tripeptide-copper complex GHK-Cu",
-          authors: "Pollard JD, Quan S, Kang T, et al.",
-          journal: "Archives of Facial Plastic Surgery",
-          year: 2005,
-          summary: "Investigation of GHK-Cu's effects on collagen production and wound healing in fibroblast models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15824199/"
+          title: "Stimulation of collagen synthesis in fibroblast cultures by the tripeptide-copper complex glycyl-L-histidyl-L-lysine-Cu2+",
+          authors: "Maquart FX, Pickart L, Laurent M, Gillery P, Monboisse JC, Borel JP",
+          journal: "FEBS Letters",
+          year: 1988,
+          pmid: "3169264",
+          summary: "Foundational study demonstrating GHK-Cu's stimulating effect on collagen synthesis by fibroblasts at nanomolar concentrations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3169264/"
         }
       ]
     },
@@ -876,44 +878,33 @@ export const epithalonResearch: PeptideResearch = {
           authors: "Khavinson VKh, Bondarev IE, Butyugov AA",
           journal: "Bulletin of Experimental Biology and Medicine",
           year: 2003,
-          summary: "Key study demonstrating epithalon's activation of telomerase and telomere lengthening in human cells.",
+          pmid: "12937682",
+          summary: "Key study demonstrating epithalon's activation of telomerase and telomere lengthening in human fibroblast cells.",
           url: "https://pubmed.ncbi.nlm.nih.gov/12937682/"
+        }
+      ]
+    },
+    {
+      areaId: "neuroendocrine",
+      areaTitle: "Neuroendocrine Regulation",
+      studies: [
+        {
+          title: "Synthetic tetrapeptide epitalon restores disturbed neuroendocrine regulation in senescent monkeys",
+          authors: "Khavinson V, Goncharova N, Lapin B",
+          journal: "Neuroendocrinology Letters",
+          year: 2001,
+          pmid: "11524632",
+          summary: "Study showing Epitalon significantly stimulates melatonin synthesis in senescent monkeys, normalizing circadian rhythm of cortisol secretion.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/11524632/"
         },
         {
-          title: "Effect of Epithalon on biomarkers of aging, life span and spontaneous tumor incidence in female Swiss-derived SHR mice",
-          authors: "Anisimov VN, Khavinson VKh, Mikhalski AI, et al.",
-          journal: "Biogerontology",
-          year: 2002,
-          summary: "Preclinical study of epithalon's effects on aging biomarkers and lifespan in mouse models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12014832/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection & Cognitive Health",
-      studies: [
-        {
           title: "Anti-aging peptide bioregulators induce reactivation of chromatin",
-          authors: "Khavinson VKh, Lezhava TA, Malinin VV, et al.",
+          authors: "Lezhava T, Monaselidze J, Kadotani T, et al.",
           journal: "Georgian Medical News",
           year: 2006,
-          summary: "Review of epithalon and related peptides' neuroprotective effects in aging models.",
+          pmid: "16705247",
+          summary: "Study showing Epitalon activates synthetic processes through deheterochromatinization in lymphocytes of elderly individuals.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16705247/"
-        }
-      ]
-    },
-    {
-      areaId: "antioxidant",
-      areaTitle: "Powerful Antioxidant Action",
-      studies: [
-        {
-          title: "Antioxidant effects of epithalon on aging-related oxidative stress",
-          authors: "Khavinson VKh, Morozov VG",
-          journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2002,
-          summary: "Study demonstrating epithalon's reduction of oxidative damage markers in tissue samples.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12558979/"
         }
       ]
     },
@@ -921,12 +912,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "circadian",
       areaTitle: "Circadian Rhythm Regulation",
       studies: [
-      {
+        {
           title: "Effect of peptide preparation epithalamin on circadian rhythm of epiphyseal melatonin-producing function in elderly people",
           authors: "Korkushko OV, Khavinson VKh, Shatilo VB, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
           year: 2004,
-          summary: "Clinical study of epithalon's effects on melatonin production and circadian rhythm normalization.",
+          pmid: "15452611",
+          summary: "Clinical study showing Epithalamin modulates pineal gland melatonin-producing function, increasing melatonin in subjects with initially low pineal activity.",
           url: "https://pubmed.ncbi.nlm.nih.gov/15452611/"
         }
       ]
@@ -935,12 +927,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "cardiovascular",
       areaTitle: "Cardiovascular Protection",
       studies: [
-      {
+        {
           title: "Geroprotective effect of epithalamine (pineal gland peptide preparation) in elderly subjects with accelerated aging",
-          authors: "Khavinson VKh, Korkushko OV, Shatilo VB, et al.",
+          authors: "Korkushko OV, Khavinson VKh, Shatilo VB, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2007,
-          summary: "Long-term study including cardiovascular health outcomes in epithalon-treated subjects.",
+          year: 2006,
+          pmid: "17426848",
+          summary: "12-year randomized study showing epithalamine decreased functional age and cardiovascular mortality by 2-fold in elderly subjects with accelerated aging.",
           url: "https://pubmed.ncbi.nlm.nih.gov/17426848/"
         }
       ]
@@ -949,12 +942,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "anti-cancer",
       areaTitle: "Anti-Cancer Properties",
       studies: [
-      {
+        {
           title: "Effect of the synthetic pineal peptide epitalon on spontaneous carcinogenesis in female C3H/He mice",
-          authors: "Anisimov VN, Khavinson VKh, Provinciali M, et al.",
-          journal: "Vopr Onkol",
+          authors: "Kossoy G, Anisimov VN, Ben-Hur H, et al.",
+          journal: "In Vivo",
           year: 2006,
-          summary: "Preclinical study of epithalon's tumor-suppressive effects in animal models.",
+          pmid: "16634527",
+          summary: "Preclinical study showing long-term Epitalon treatment decreased malignant tumors and prevented metastases in mice.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16634527/"
         }
       ]
@@ -993,12 +987,13 @@ export const pt141Research: PeptideResearch = {
       areaTitle: "CNS-Mediated Arousal",
       studies: [
         {
-          title: "Central mechanisms of sexual function: implications for CNS-targeted therapeutics",
-          authors: "Pfaus JG",
-          journal: "Neuroscience & Biobehavioral Reviews",
-          year: 2009,
-          summary: "Review of central nervous system pathways involved in sexual arousal, including melanocortin signaling.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19442684/"
+          title: "Selective facilitation of sexual solicitation in the female rat by a melanocortin receptor agonist",
+          authors: "Pfaus JG, Shadiack A, Van Soest T, et al.",
+          journal: "Proceedings of the National Academy of Sciences",
+          year: 2004,
+          pmid: "15226502",
+          summary: "Landmark study showing PT-141 selectively stimulates solicitational behaviors in female rats through central melanocortin receptors, indicating its role in female sexual desire.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/15226502/"
         }
       ]
     },
@@ -1021,12 +1016,13 @@ export const pt141Research: PeptideResearch = {
       areaTitle: "Enhanced Libido",
       studies: [
         {
-          title: "Selective facilitation of sexual solicitation in the female rat by a melanocortin receptor agonist",
-          authors: "Pfaus JG, Shadiack A, Van Soest T, et al.",
-          journal: "Proceedings of the National Academy of Sciences",
-          year: 2004,
-          summary: "Preclinical study of melanocortin agonists' effects on sexual desire and solicitation behavior.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15226502/"
+          title: "Bremelanotide for the Treatment of Hypoactive Sexual Desire Disorder: Two Randomized Phase 3 Trials",
+          authors: "Kingsberg SA, Clayton AH, Portman D, et al.",
+          journal: "Obstetrics & Gynecology",
+          year: 2019,
+          pmid: "31599840",
+          summary: "Phase 3 trials demonstrating PT-141 (bremelanotide) significantly improved sexual desire and reduced distress in premenopausal women with hypoactive sexual desire disorder.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31599840/"
         }
       ]
     }
