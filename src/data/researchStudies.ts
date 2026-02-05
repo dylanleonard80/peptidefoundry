@@ -635,13 +635,22 @@ export const tesamorelinResearch: PeptideResearch = {
       areaTitle: "IGF-1 Modulation via GHRH Analog Signaling — Human",
       studies: [
         {
-          title: "The glycation gap is associated with changes in systolic blood pressure: the DCCT/EDIC study",
-          authors: "Nayak AU, Holland MR, Engelbrecht M, et al.",
-          journal: "Diabetes Care",
+          title: "Effects of a growth hormone-releasing hormone analog on endogenous GH pulsatility and insulin sensitivity in healthy men",
+          authors: "Stanley TL, Chen CY, Grinspoon SK, et al.",
+          journal: "Journal of Clinical Endocrinology & Metabolism",
           year: 2011,
-          summary: "Study examining the glycation gap consistency over time in diabetes patients, demonstrating stable individual patterns in glycemic assessments.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/21715524/",
-          pmid: "21715524"
+          summary: "Clinical study demonstrating tesamorelin augments basal and pulsatile GH secretion in healthy men, with significant increase in IGF-1 levels while maintaining insulin-stimulated glucose uptake.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20943777/",
+          pmid: "20943777"
+        },
+        {
+          title: "Effects of tesamorelin, a growth hormone-releasing factor, in HIV-infected patients with abdominal fat accumulation: a randomized placebo-controlled trial with a safety extension",
+          authors: "Falutz J, Allas S, Kotler D, et al.",
+          journal: "Journal of Acquired Immune Deficiency Syndromes",
+          year: 2010,
+          summary: "Randomized trial showing tesamorelin significantly increased IGF-1 levels while reducing trunk fat and waist circumference, with no clinically meaningful changes in glucose parameters.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20101189/",
+          pmid: "20101189"
         }
       ]
     }
