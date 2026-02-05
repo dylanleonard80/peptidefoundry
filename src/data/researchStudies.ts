@@ -2417,6 +2417,7 @@ export const glp1tzResearch: PeptideResearch = {
 };
 
 // BPC-157 + TB-500 Blend Research
+// Note: This blend combines BPC-157 and TB-500 (Thymosin beta-4). Research references their individual mechanisms.
 export const bpc157tb500Research: PeptideResearch = {
   peptideSlug: "bpc-157-tb-500",
   researchAreas: [
@@ -2425,94 +2426,46 @@ export const bpc157tb500Research: PeptideResearch = {
       areaTitle: "Tissue Repair & Wound Healing Research",
       studies: [
         {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review examining BPC-157's effects on wound healing parameters across multiple preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
         },
         {
           title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
+          authors: "Malinda KM, Sidhu GS, Mani H, et al.",
           journal: "FASEB Journal",
           year: 1997,
           pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
+          summary: "First direct evidence that TB4 has chemoattractive activity and promotes angiogenesis by stimulating endothelial cell migration.",
           url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
         }
       ]
     },
     {
-      areaId: "angiogenesis-vascular-repair",
-      areaTitle: "Angiogenesis & Vascular Repair Signaling",
+      areaId: "regenerative-mechanisms",
+      areaTitle: "Regenerative Mechanisms",
       studies: [
-        {
-          title: "Prenylcysteine lyase uses a novel oxidative mechanism to cleave thioether bonds",
-          authors: "Salsali A, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2000,
-          pmid: "11078725",
-          summary: "Study demonstrating novel oxidative mechanism for thioether bond cleavage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11078725/"
-        },
-        {
-          title: "Effect of intravenous CGRP on brain activity in response to a visual stimulus",
-          authors: "Hansen JM, et al.",
-          journal: "Cephalalgia",
-          year: 2012,
-          pmid: "22246026",
-          summary: "Study investigating CGRP effects on brain activity and potential reversal by sumatriptan.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/22246026/"
-        }
-      ]
-    },
-    {
-      areaId: "musculoskeletal-tendon-healing",
-      areaTitle: "Musculoskeletal Injury & Tendon Healing Models",
-      studies: [
-        {
-          title: "Light scattering on a sphere with a partially coherent incident field",
-          authors: "van Dijk T, et al.",
-          journal: "Optics Letters",
-          year: 2010,
-          pmid: "20482110",
-          summary: "Study examining light scattering properties on spheres with partially coherent fields.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/20482110/"
-        },
-        {
-          title: "APP and APLP2 modulate glypican-1 processing via nitric oxide-catalyzed autodegradation",
-          authors: "Bhattacharya S, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2005,
-          pmid: "15677459",
-          summary: "Study investigating APP and APLP2 regulation of glypican-1 processing during endocytosis and recycling.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15677459/"
-        }
-      ]
-    },
-    {
-      areaId: "inflammatory-modulation-cytoprotection",
-      areaTitle: "Inflammatory Modulation & Cytoprotection",
-      studies: [
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        },
         {
           title: "Thymosin β4: a multi-functional regenerative peptide. Basic properties and clinical applications",
           authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
           journal: "Expert Opinion on Biological Therapy",
           year: 2012,
           pmid: "22074294",
-          summary: "Thymosin β4 plays a vital role in the repair and regeneration of injured cells and tissues, released by platelets and macrophages to protect cells from further damage.",
+          summary: "Comprehensive review of TB4's role in repair and regeneration of injured cells and tissues.",
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
+        },
+        {
+          title: "Thymosin beta4 induces adult epicardial progenitor mobilization and neovascularization",
+          authors: "Smart N, Risebro CA, Melville AA, et al.",
+          journal: "Nature",
+          year: 2007,
+          pmid: "17108969",
+          summary: "Study showing TB4's ability to mobilize epicardial progenitor cells and promote neovascularization following cardiac injury.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17108969/"
         }
       ]
     }
@@ -2614,6 +2567,7 @@ export const tesamorelinIpamorelinResearch: PeptideResearch = {
 };
 
 // GLOW Blend Research
+// Note: GLOW contains GHK-Cu, BPC-157, and TB-500. Research references their individual mechanisms.
 export const glowResearch: PeptideResearch = {
   peptideSlug: "glow",
   researchAreas: [
@@ -2622,93 +2576,45 @@ export const glowResearch: PeptideResearch = {
       areaTitle: "Skin Remodeling & Extracellular Matrix Research",
       studies: [
         {
-          title: "Low carbohydrate diet and skeletal muscle metabolic adaptations",
-          authors: "Peters SJ, et al.",
-          journal: "Applied Physiology, Nutrition, and Metabolism",
-          year: 2004,
-          pmid: "15507161",
-          summary: "Review summarizing skeletal muscle carbohydrate and fat metabolic adaptations to a low carbohydrate diet.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15507161/"
-        },
-        {
-          title: "GHK peptide and tissue remodeling",
+          title: "The human tri-peptide GHK and tissue remodeling",
           authors: "Pickart L",
-          journal: "Journal of Biomaterials Science",
-          year: 2002,
-          pmid: "12093974",
-          summary: "Research on GHK peptide effects on tissue remodeling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12093974/"
+          journal: "Journal of Biomaterials Science, Polymer Edition",
+          year: 2008,
+          pmid: "18644225",
+          summary: "Comprehensive review of GHK-Cu's effects on skin regeneration, collagen synthesis, and tissue remodeling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18644225/"
+        },
+        {
+          title: "GHK peptide as a natural modulator of multiple cellular pathways in skin regeneration",
+          authors: "Pickart L, Vasquez-Soltero JM, Margolina A",
+          journal: "BioMed Research International",
+          year: 2015,
+          pmid: "26236730",
+          summary: "Review of GHK-Cu's antioxidant properties, anti-inflammatory signaling, and modulation of over 4,000 human genes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/26236730/"
         }
       ]
     },
     {
-      areaId: "wound-healing-dermal-regeneration",
-      areaTitle: "Wound Healing & Dermal Regeneration Models",
+      areaId: "wound-healing-regeneration",
+      areaTitle: "Wound Healing & Regeneration",
       studies: [
         {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review of BPC-157's wound healing effects across multiple preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
         },
         {
-          title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
-          journal: "FASEB Journal",
-          year: 1997,
-          pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
-        }
-      ]
-    },
-    {
-      areaId: "angiogenesis-cellular-migration",
-      areaTitle: "Angiogenesis & Cellular Migration Signaling",
-      studies: [
-        {
-          title: "Prenylcysteine lyase uses a novel oxidative mechanism to cleave thioether bonds",
-          authors: "Salsali A, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2000,
-          pmid: "11078725",
-          summary: "Study demonstrating novel oxidative mechanism for thioether bond cleavage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11078725/"
-        },
-        {
-          title: "Effect of intravenous CGRP on brain activity in response to a visual stimulus",
-          authors: "Hansen JM, et al.",
-          journal: "Cephalalgia",
-          year: 2012,
-          pmid: "22246026",
-          summary: "Study investigating CGRP effects on brain activity and potential reversal by sumatriptan.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/22246026/"
-        }
-      ]
-    },
-    {
-      areaId: "anti-inflammatory-cytoprotective",
-      areaTitle: "Anti-Inflammatory & Cytoprotective Mechanisms",
-      studies: [
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        },
-        {
-          title: "Thymosin β4: a multi-functional regenerative peptide. Basic properties and clinical applications",
+          title: "Thymosin β4: a multi-functional regenerative peptide",
           authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
           journal: "Expert Opinion on Biological Therapy",
           year: 2012,
           pmid: "22074294",
-          summary: "Thymosin β4 plays a vital role in the repair and regeneration of injured cells and tissues, released by platelets and macrophages to protect cells from further damage.",
+          summary: "TB4's vital role in repair and regeneration of injured cells and tissues.",
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
         }
       ]
@@ -2717,93 +2623,55 @@ export const glowResearch: PeptideResearch = {
 };
 
 // KLOW Blend Research
+// Note: KLOW contains KPV, GHK-Cu, BPC-157, and TB-500. Research references their individual mechanisms.
 export const klowResearch: PeptideResearch = {
   peptideSlug: "klow",
   researchAreas: [
     {
-      areaId: "inflammatory-signaling-cytokine",
-      areaTitle: "Inflammatory Signaling & Cytokine Modulation",
+      areaId: "skin-regeneration",
+      areaTitle: "Skin Regeneration & Collagen Synthesis",
       studies: [
         {
-          title: "Alpha-MSH and KPV effects on inflammatory signaling",
-          authors: "Luger TA, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2005,
-          pmid: "16203969",
-          summary: "Research on alpha-MSH and KPV tripeptide effects on inflammatory signaling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16203969/"
-        },
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        }
-      ]
-    },
-    {
-      areaId: "skin-barrier-dermal-repair",
-      areaTitle: "Skin Barrier Function & Dermal Repair",
-      studies: [
-        {
-          title: "Low carbohydrate diet and skeletal muscle metabolic adaptations",
-          authors: "Peters SJ, et al.",
-          journal: "Applied Physiology, Nutrition, and Metabolism",
-          year: 2004,
-          pmid: "15507161",
-          summary: "Review summarizing skeletal muscle carbohydrate and fat metabolic adaptations to a low carbohydrate diet.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15507161/"
-        },
-        {
-          title: "GHK peptide and tissue remodeling",
+          title: "The human tri-peptide GHK and tissue remodeling",
           authors: "Pickart L",
-          journal: "Journal of Biomaterials Science",
-          year: 2002,
-          pmid: "12093974",
-          summary: "Research on GHK peptide effects on tissue remodeling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12093974/"
-        }
-      ]
-    },
-    {
-      areaId: "tissue-repair-wound-healing",
-      areaTitle: "Tissue Repair & Wound Healing Models",
-      studies: [
-        {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          journal: "Journal of Biomaterials Science, Polymer Edition",
+          year: 2008,
+          pmid: "18644225",
+          summary: "Comprehensive review of GHK-Cu's effects on skin regeneration, collagen synthesis, and tissue remodeling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18644225/"
         },
         {
-          title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
-          journal: "FASEB Journal",
-          year: 1997,
-          pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
+          title: "Stimulation of collagen synthesis in fibroblast cultures by the tripeptide-copper complex glycyl-L-histidyl-L-lysine-Cu2+",
+          authors: "Maquart FX, Pickart L, Laurent M, et al.",
+          journal: "FEBS Letters",
+          year: 1988,
+          pmid: "3169264",
+          summary: "Foundational study demonstrating GHK-Cu's stimulating effect on collagen synthesis at nanomolar concentrations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3169264/"
         }
       ]
     },
     {
-      areaId: "immune-modulation-melanocortin",
-      areaTitle: "Immune Modulation via Melanocortin Pathways",
+      areaId: "wound-healing-tissue-repair",
+      areaTitle: "Wound Healing & Tissue Repair",
       studies: [
         {
-          title: "Alpha-MSH and KPV effects on inflammatory signaling",
-          authors: "Luger TA, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2005,
-          pmid: "16203969",
-          summary: "Research on alpha-MSH and KPV tripeptide effects on immune modulation via melanocortin pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16203969/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review of BPC-157's wound healing effects.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
+        },
+        {
+          title: "Thymosin β4: a multi-functional regenerative peptide",
+          authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
+          journal: "Expert Opinion on Biological Therapy",
+          year: 2012,
+          pmid: "22074294",
+          summary: "TB4's vital role in repair and regeneration of injured cells and tissues.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
         }
       ]
     }
