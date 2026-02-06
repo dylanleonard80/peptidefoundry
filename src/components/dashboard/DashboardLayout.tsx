@@ -17,7 +17,6 @@ import {
   ChevronLeft,
   Newspaper,
   Calculator,
-  ClipboardList,
   Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,7 +40,7 @@ const navItems = [
 ];
 
 const adminNavItems = [
-  { path: "/admin/applications", label: "Applications", icon: ClipboardList },
+  { path: "/admin", label: "Admin Panel", icon: Shield },
 ];
 
 export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {

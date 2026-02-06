@@ -86,6 +86,13 @@ const GLP1SG = lazy(() => import("./pages/GLP1SG"));
 const GLP1TZ = lazy(() => import("./pages/GLP1TZ"));
 const TesamorelinIpamorelin = lazy(() => import("./pages/TesamorelinIpamorelin"));
 
+// Admin pages
+const AdminIndex = lazy(() => import("./pages/admin/Index"));
+const AdminSales = lazy(() => import("./pages/admin/SalesOverview"));
+const AdminOrders = lazy(() => import("./pages/admin/OrderManagement"));
+const AdminInventory = lazy(() => import("./pages/admin/Inventory"));
+const AdminActivity = lazy(() => import("./pages/admin/Activity"));
+
 // Supplies
 const BacteriostaticWater = lazy(() => import("./pages/BacteriostaticWater"));
 
@@ -166,6 +173,13 @@ const App = () => (
                 <Route path="/glp-1sg" element={<GLP1SG />} />
                 <Route path="/glp-1tz" element={<GLP1TZ />} />
                 <Route path="/tesamorelin-ipamorelin" element={<TesamorelinIpamorelin />} />
+
+                {/* Admin pages */}
+                <Route path="/admin" element={<AdminIndex />} />
+                <Route path="/admin/sales" element={<AdminSales />} />
+                <Route path="/admin/orders" element={<AdminOrders />} />
+                <Route path="/admin/inventory" element={<AdminInventory />} />
+                <Route path="/admin/activity" element={<AdminActivity />} />
 
                 {/* Supplies */}
                 <Route path="/bacteriostatic-water" element={<BacteriostaticWater />} />

@@ -12,6 +12,7 @@ import cellularHealthBg from "/category-cellular-health.webp";
 import hormonalSexualBg from "/category-hormonal-sexual.jpg";
 import cognitionMoodBg from "/category-cognition-mood.webp";
 import { useMembership } from "@/hooks/useMembership";
+import { useAllProductStock } from "@/hooks/useProductStock";
 import { peptideSections, PeptideCard } from "@/data/peptides";
 
 // Category data for the selector
@@ -73,12 +74,14 @@ const GlassCardComponent = ({
   card,
   isMember,
   getMemberPrice,
-  fullWidth = false
+  fullWidth = false,
+  outOfStock = false
 }: {
   card: PeptideCard;
   isMember: boolean;
   getMemberPrice: (price: number, slug?: string, size?: string) => number;
   fullWidth?: boolean;
+  outOfStock?: boolean;
 }) => {
   const isBlend = card.tags.includes("Blend");
   const isGlowOrKlow = card.slug === 'glow' || card.slug === 'klow';
@@ -102,6 +105,11 @@ const GlassCardComponent = ({
             <img src={card.image || peptideVial} alt={`${card.name} vial`} className="w-44 h-44 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10" />
             
             {/* Floating Badges */}
+            {outOfStock && <div className="absolute top-2 left-2 z-20">
+                <Badge className="text-[10px] shadow-sm backdrop-blur-md bg-gray-500/70 border-gray-400/40 text-white">
+                  Out of Stock
+                </Badge>
+              </div>}
             {isBlend && <div className="absolute top-2 right-2 flex gap-2">
                 <Badge className="text-xs shadow-lg backdrop-blur-md bg-white/20 border-white/30 text-foreground">
                   Blend
@@ -157,14 +165,16 @@ const GlassCardComponent = ({
 const PeptideCardComponent = ({
   card,
   isMember,
-  getMemberPrice
+  getMemberPrice,
+  outOfStock = false
 }: {
   card: PeptideCard;
   isMember: boolean;
   getMemberPrice: (price: number, slug?: string, size?: string) => number;
+  outOfStock?: boolean;
 }) => {
   if (card.cardStyle === 'glass') {
-    return <GlassCardComponent card={card} isMember={isMember} getMemberPrice={getMemberPrice} />;
+    return <GlassCardComponent card={card} isMember={isMember} getMemberPrice={getMemberPrice} outOfStock={outOfStock} />;
   }
   const isBlend = card.tags.includes("Blend");
   return <Link to={`/${card.slug}`} className="block">
@@ -217,6 +227,7 @@ const PeptidesCatalog = ({
     isMember,
     getMemberPrice
   } = useMembership();
+  const { stockMap } = useAllProductStock();
 
   // Get all unique peptides sorted alphabetically
   const alphabeticalPeptides = useMemo(() => {
@@ -338,7 +349,7 @@ const PeptidesCatalog = ({
 
             {/* Peptides Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 overflow-hidden">
-              {selectedCategoryData.cards.map(card => <GlassCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} fullWidth />)}
+              {selectedCategoryData.cards.map(card => <GlassCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} fullWidth outOfStock={stockMap[card.slug] === false} />)}
             </div>
           </div>
         </section> : viewMode === 'category' ?
@@ -416,7 +427,7 @@ const PeptidesCatalog = ({
                       </Card>}
 
                     {/* Peptide Cards */}
-                    {section.cards.map(card => <PeptideCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} />)}
+                    {section.cards.map(card => <PeptideCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} outOfStock={stockMap[card.slug] === false} />)}
                   </div>
                 </div>
               </div>

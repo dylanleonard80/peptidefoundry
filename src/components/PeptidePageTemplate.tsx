@@ -25,6 +25,7 @@ import { getMemberPriceBySlug, getSavingsBySlug } from "@/data/priceData";
 import { PopularStacks } from "@/components/PopularStacks";
 import { ResearchStudiesSheet } from "@/components/ResearchStudiesSheet";
 import { getResearchByArea, ResearchStudy } from "@/data/researchStudies";
+import { useProductStock } from "@/hooks/useProductStock";
 
 // Component specs for blend peptides
 interface ComponentSpec {
@@ -94,9 +95,11 @@ export const PeptidePageTemplate = ({
     getMemberPrice,
     loading: memberLoading
   } = useMembership();
+  const { productInStock, variantStock } = useProductStock(slug);
   const [selectedSize, setSelectedSize] = useState(Object.keys(prices)[0] || "10mg");
   const [quantity, setQuantity] = useState(1);
   const selectedSizeKey = selectedSize.trim();
+  const isSizeOutOfStock = !productInStock || variantStock[selectedSizeKey] === false;
   const selectedSizeNoSpaces = selectedSizeKey.replace(/\s+/g, "");
 
   const baseImage =
@@ -367,7 +370,7 @@ export const PeptidePageTemplate = ({
                       </div>
                     </FoundryClubLink>}
 
-                  <Button size="lg" className="w-full group" onClick={async () => {
+                  <Button size="lg" className="w-full group" disabled={isSizeOutOfStock} onClick={async () => {
                   await addItem({
                     peptide_name: peptideName,
                     size: selectedSize,
@@ -379,7 +382,7 @@ export const PeptidePageTemplate = ({
                   });
                 }}>
                     <ShoppingCart className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                    Add to Cart
+                    {isSizeOutOfStock ? "Out of Stock" : "Add to Cart"}
                   </Button>
 
 
@@ -450,7 +453,7 @@ export const PeptidePageTemplate = ({
             </div>
             
             {/* Add to Cart Button */}
-            <Button size="default" className="shrink-0" onClick={async () => {
+            <Button size="default" className="shrink-0" disabled={isSizeOutOfStock} onClick={async () => {
             await addItem({
               peptide_name: peptideName,
               size: selectedSize,
@@ -462,7 +465,7 @@ export const PeptidePageTemplate = ({
             });
           }}>
               <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
+              {isSizeOutOfStock ? "Out of Stock" : "Add to Cart"}
             </Button>
           </div>
 
