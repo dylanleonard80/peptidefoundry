@@ -326,13 +326,22 @@ export const sermorelinResearch: PeptideResearch = {
       areaTitle: "Endogenous Growth Hormone Secretion — Human",
       studies: [
         {
-          title: "[A case of gastric carcinoma initially presenting bone metastasis and later transverse myelopathy]",
-          authors: "Ito K, Kurokawa F, Matsui K, et al.",
-          journal: "Gan No Rinsho",
-          year: 1985,
-          summary: "Clinical case study examining metastatic patterns and disease progression.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/2984445/",
-          pmid: "2984445"
+          title: "Sermorelin: a review of its use in the diagnosis and treatment of children with idiopathic growth hormone deficiency",
+          authors: "Prakash A, Goa KL",
+          journal: "BioDrugs",
+          year: 1999,
+          summary: "Comprehensive review demonstrating sermorelin as a well-tolerated GHRH analogue that specifically stimulates growth hormone secretion from the anterior pituitary for diagnosis and treatment of GH deficiency.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18031173/",
+          pmid: "18031173"
+        },
+        {
+          title: "Once daily subcutaneous growth hormone-releasing hormone therapy accelerates growth in growth hormone-deficient children during the first year of therapy",
+          authors: "Geref International Study Group",
+          journal: "Journal of Clinical Endocrinology & Metabolism",
+          year: 1996,
+          summary: "Multicenter study showing once-daily GHRH therapy significantly increases growth velocity in GH-deficient children with good tolerability and no adverse changes in biochemical or hormonal parameters.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/8772599/",
+          pmid: "8772599"
         }
       ]
     },
@@ -341,13 +350,22 @@ export const sermorelinResearch: PeptideResearch = {
       areaTitle: "Age-Related Somatotropic Axis Decline — Human",
       studies: [
         {
-          title: "Oxyhemoglobin affinity in patients with sleep apnea syndrome",
-          authors: "Racineux JL, Zerah F, Gaultier C, et al.",
-          journal: "American Review of Respiratory Disease",
-          year: 1991,
-          summary: "Study examining oxygen transport parameters in sleep-related conditions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/1900401/",
-          pmid: "1900401"
+          title: "Sermorelin: a better approach to management of adult-onset growth hormone insufficiency?",
+          authors: "Walker RF",
+          journal: "Clinical Interventions in Aging",
+          year: 2006,
+          summary: "Editorial review examining sermorelin as an alternative approach to recombinant GH for managing adult-onset growth hormone insufficiency with potentially better safety profile.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18046908/",
+          pmid: "18046908"
+        },
+        {
+          title: "Growth Hormone Secretagogue Treatment in Hypogonadal Men Raises Serum Insulin-Like Growth Factor-1 Levels",
+          authors: "Sigalos JT, Pastuszak AW",
+          journal: "World Journal of Men's Health",
+          year: 2018,
+          summary: "Clinical study investigating sermorelin and other GH secretagogues as safe alternatives for increasing endogenous GH, showing significant elevation in serum IGF-1 levels in hypogonadal men.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28830317/",
+          pmid: "28830317"
         }
       ]
     },
@@ -617,13 +635,22 @@ export const tesamorelinResearch: PeptideResearch = {
       areaTitle: "IGF-1 Modulation via GHRH Analog Signaling — Human",
       studies: [
         {
-          title: "The glycation gap is associated with changes in systolic blood pressure: the DCCT/EDIC study",
-          authors: "Nayak AU, Holland MR, Engelbrecht M, et al.",
-          journal: "Diabetes Care",
+          title: "Effects of a growth hormone-releasing hormone analog on endogenous GH pulsatility and insulin sensitivity in healthy men",
+          authors: "Stanley TL, Chen CY, Grinspoon SK, et al.",
+          journal: "Journal of Clinical Endocrinology & Metabolism",
           year: 2011,
-          summary: "Study examining the glycation gap consistency over time in diabetes patients, demonstrating stable individual patterns in glycemic assessments.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/21715524/",
-          pmid: "21715524"
+          summary: "Clinical study demonstrating tesamorelin augments basal and pulsatile GH secretion in healthy men, with significant increase in IGF-1 levels while maintaining insulin-stimulated glucose uptake.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20943777/",
+          pmid: "20943777"
+        },
+        {
+          title: "Effects of tesamorelin, a growth hormone-releasing factor, in HIV-infected patients with abdominal fat accumulation: a randomized placebo-controlled trial with a safety extension",
+          authors: "Falutz J, Allas S, Kotler D, et al.",
+          journal: "Journal of Acquired Immune Deficiency Syndromes",
+          year: 2010,
+          summary: "Randomized trial showing tesamorelin significantly increased IGF-1 levels while reducing trunk fat and waist circumference, with no clinically meaningful changes in glucose parameters.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20101189/",
+          pmid: "20101189"
         }
       ]
     }
@@ -772,8 +799,9 @@ export const ghkcuResearch: PeptideResearch = {
           authors: "Pickart L, Vasquez-Soltero JM, Margolina A",
           journal: "BioMed Research International",
           year: 2015,
-          summary: "Study of GHK-Cu's antioxidant properties and anti-inflammatory signaling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/25813519/"
+          pmid: "26236730",
+          summary: "Comprehensive review of GHK-Cu's antioxidant properties, anti-inflammatory signaling pathways, and modulation of over 4,000 human genes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/26236730/"
         }
       ]
     },
@@ -782,12 +810,13 @@ export const ghkcuResearch: PeptideResearch = {
       areaTitle: "Tissue Repair & Remodeling",
       studies: [
         {
-          title: "Stimulation of collagen production in fibroblast cultures by the tripeptide-copper complex GHK-Cu",
-          authors: "Pollard JD, Quan S, Kang T, et al.",
-          journal: "Archives of Facial Plastic Surgery",
-          year: 2005,
-          summary: "Investigation of GHK-Cu's effects on collagen production and wound healing in fibroblast models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15824199/"
+          title: "Stimulation of collagen synthesis in fibroblast cultures by the tripeptide-copper complex glycyl-L-histidyl-L-lysine-Cu2+",
+          authors: "Maquart FX, Pickart L, Laurent M, Gillery P, Monboisse JC, Borel JP",
+          journal: "FEBS Letters",
+          year: 1988,
+          pmid: "3169264",
+          summary: "Foundational study demonstrating GHK-Cu's stimulating effect on collagen synthesis by fibroblasts at nanomolar concentrations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3169264/"
         }
       ]
     },
@@ -849,44 +878,33 @@ export const epithalonResearch: PeptideResearch = {
           authors: "Khavinson VKh, Bondarev IE, Butyugov AA",
           journal: "Bulletin of Experimental Biology and Medicine",
           year: 2003,
-          summary: "Key study demonstrating epithalon's activation of telomerase and telomere lengthening in human cells.",
+          pmid: "12937682",
+          summary: "Key study demonstrating epithalon's activation of telomerase and telomere lengthening in human fibroblast cells.",
           url: "https://pubmed.ncbi.nlm.nih.gov/12937682/"
+        }
+      ]
+    },
+    {
+      areaId: "neuroendocrine",
+      areaTitle: "Neuroendocrine Regulation",
+      studies: [
+        {
+          title: "Synthetic tetrapeptide epitalon restores disturbed neuroendocrine regulation in senescent monkeys",
+          authors: "Khavinson V, Goncharova N, Lapin B",
+          journal: "Neuroendocrinology Letters",
+          year: 2001,
+          pmid: "11524632",
+          summary: "Study showing Epitalon significantly stimulates melatonin synthesis in senescent monkeys, normalizing circadian rhythm of cortisol secretion.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/11524632/"
         },
         {
-          title: "Effect of Epithalon on biomarkers of aging, life span and spontaneous tumor incidence in female Swiss-derived SHR mice",
-          authors: "Anisimov VN, Khavinson VKh, Mikhalski AI, et al.",
-          journal: "Biogerontology",
-          year: 2002,
-          summary: "Preclinical study of epithalon's effects on aging biomarkers and lifespan in mouse models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12014832/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection & Cognitive Health",
-      studies: [
-        {
           title: "Anti-aging peptide bioregulators induce reactivation of chromatin",
-          authors: "Khavinson VKh, Lezhava TA, Malinin VV, et al.",
+          authors: "Lezhava T, Monaselidze J, Kadotani T, et al.",
           journal: "Georgian Medical News",
           year: 2006,
-          summary: "Review of epithalon and related peptides' neuroprotective effects in aging models.",
+          pmid: "16705247",
+          summary: "Study showing Epitalon activates synthetic processes through deheterochromatinization in lymphocytes of elderly individuals.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16705247/"
-        }
-      ]
-    },
-    {
-      areaId: "antioxidant",
-      areaTitle: "Powerful Antioxidant Action",
-      studies: [
-        {
-          title: "Antioxidant effects of epithalon on aging-related oxidative stress",
-          authors: "Khavinson VKh, Morozov VG",
-          journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2002,
-          summary: "Study demonstrating epithalon's reduction of oxidative damage markers in tissue samples.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12558979/"
         }
       ]
     },
@@ -894,12 +912,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "circadian",
       areaTitle: "Circadian Rhythm Regulation",
       studies: [
-      {
+        {
           title: "Effect of peptide preparation epithalamin on circadian rhythm of epiphyseal melatonin-producing function in elderly people",
           authors: "Korkushko OV, Khavinson VKh, Shatilo VB, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
           year: 2004,
-          summary: "Clinical study of epithalon's effects on melatonin production and circadian rhythm normalization.",
+          pmid: "15452611",
+          summary: "Clinical study showing Epithalamin modulates pineal gland melatonin-producing function, increasing melatonin in subjects with initially low pineal activity.",
           url: "https://pubmed.ncbi.nlm.nih.gov/15452611/"
         }
       ]
@@ -908,12 +927,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "cardiovascular",
       areaTitle: "Cardiovascular Protection",
       studies: [
-      {
+        {
           title: "Geroprotective effect of epithalamine (pineal gland peptide preparation) in elderly subjects with accelerated aging",
-          authors: "Khavinson VKh, Korkushko OV, Shatilo VB, et al.",
+          authors: "Korkushko OV, Khavinson VKh, Shatilo VB, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2007,
-          summary: "Long-term study including cardiovascular health outcomes in epithalon-treated subjects.",
+          year: 2006,
+          pmid: "17426848",
+          summary: "12-year randomized study showing epithalamine decreased functional age and cardiovascular mortality by 2-fold in elderly subjects with accelerated aging.",
           url: "https://pubmed.ncbi.nlm.nih.gov/17426848/"
         }
       ]
@@ -922,12 +942,13 @@ export const epithalonResearch: PeptideResearch = {
       areaId: "anti-cancer",
       areaTitle: "Anti-Cancer Properties",
       studies: [
-      {
+        {
           title: "Effect of the synthetic pineal peptide epitalon on spontaneous carcinogenesis in female C3H/He mice",
-          authors: "Anisimov VN, Khavinson VKh, Provinciali M, et al.",
-          journal: "Vopr Onkol",
+          authors: "Kossoy G, Anisimov VN, Ben-Hur H, et al.",
+          journal: "In Vivo",
           year: 2006,
-          summary: "Preclinical study of epithalon's tumor-suppressive effects in animal models.",
+          pmid: "16634527",
+          summary: "Preclinical study showing long-term Epitalon treatment decreased malignant tumors and prevented metastases in mice.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16634527/"
         }
       ]
@@ -966,12 +987,13 @@ export const pt141Research: PeptideResearch = {
       areaTitle: "CNS-Mediated Arousal",
       studies: [
         {
-          title: "Central mechanisms of sexual function: implications for CNS-targeted therapeutics",
-          authors: "Pfaus JG",
-          journal: "Neuroscience & Biobehavioral Reviews",
-          year: 2009,
-          summary: "Review of central nervous system pathways involved in sexual arousal, including melanocortin signaling.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19442684/"
+          title: "Selective facilitation of sexual solicitation in the female rat by a melanocortin receptor agonist",
+          authors: "Pfaus JG, Shadiack A, Van Soest T, et al.",
+          journal: "Proceedings of the National Academy of Sciences",
+          year: 2004,
+          pmid: "15226502",
+          summary: "Landmark study showing PT-141 selectively stimulates solicitational behaviors in female rats through central melanocortin receptors, indicating its role in female sexual desire.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/15226502/"
         }
       ]
     },
@@ -994,12 +1016,13 @@ export const pt141Research: PeptideResearch = {
       areaTitle: "Enhanced Libido",
       studies: [
         {
-          title: "Selective facilitation of sexual solicitation in the female rat by a melanocortin receptor agonist",
-          authors: "Pfaus JG, Shadiack A, Van Soest T, et al.",
-          journal: "Proceedings of the National Academy of Sciences",
-          year: 2004,
-          summary: "Preclinical study of melanocortin agonists' effects on sexual desire and solicitation behavior.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15226502/"
+          title: "Bremelanotide for the Treatment of Hypoactive Sexual Desire Disorder: Two Randomized Phase 3 Trials",
+          authors: "Kingsberg SA, Clayton AH, Portman D, et al.",
+          journal: "Obstetrics & Gynecology",
+          year: 2019,
+          pmid: "31599840",
+          summary: "Phase 3 trials demonstrating PT-141 (bremelanotide) significantly improved sexual desire and reduced distress in premenopausal women with hypoactive sexual desire disorder.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31599840/"
         }
       ]
     }
@@ -1015,20 +1038,22 @@ export const selankResearch: PeptideResearch = {
       areaTitle: "Anxiolytic Research",
       studies: [
         {
-          title: "Anxiolytic action of the synthetic peptide Selank",
-          authors: "Seredenin SB, Kozlovskaia MM, Blednov IuA, et al.",
+          title: "Morphological Changes in the Large Intestine of Rats Subjected to Chronic Restraint Stress and Treated with Selank",
+          authors: "Mukhina AYu, Medvedeva OA, Sviridov PS, et al.",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 1998,
-          summary: "Foundational study demonstrating Selank's anxiolytic effects in preclinical models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9698220/"
+          year: 2020,
+          pmid: "32651826",
+          summary: "Study showing Selank decreased corticosterone levels and reduced pathomorphological manifestations of stress in rats.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/32651826/"
         },
         {
-          title: "Selank peptide in the regulation of anxiety-like behavior in rats",
-          authors: "Kozlovskaya MM, Kozlovskii II, Valdman EA",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2003,
-          summary: "Study of Selank's effects on anxiety-related behaviors in animal models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/14562003/"
+          title: "Effect of Selank on Functional State of Rat Hepatocytes under Conditions of Restraint Stress",
+          authors: "Fomenko EV, Bobyntsev II, Krivosheeva LN, et al.",
+          journal: "Bulletin of Experimental Biology and Medicine",
+          year: 2017,
+          pmid: "28853100",
+          summary: "Study demonstrating Selank's antistress and antioxidant effects on hepatocytes during acute and chronic restraint stress.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28853100/"
         }
       ]
     },
@@ -1037,54 +1062,13 @@ export const selankResearch: PeptideResearch = {
       areaTitle: "Cognitive Enhancement",
       studies: [
         {
-          title: "The optimizing action of the synthetic peptide Selank on a conditioned active avoidance reflex in rats",
-          authors: "Kozlovskii II, Danchev ND",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2003,
-          summary: "Investigation of Selank's effects on learning and memory processes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/14562005/"
-        }
-      ]
-    },
-    {
-      areaId: "immunomodulation",
-      areaTitle: "Immunomodulation",
-      studies: [
-        {
-          title: "Effects of Selank on the main parameters of the immunity status in patients with anxiety-phobic disorders",
-          authors: "Zozulia AA, Neznamov GG, Siuniakov TS, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 2008,
-          summary: "Clinical study of Selank's immunomodulatory effects in patients with anxiety disorders.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/18833124/"
-        }
-      ]
-    },
-    {
-      areaId: "gaba",
-      areaTitle: "GABA Modulation",
-      studies: [
-        {
-          title: "Selank modulates the expression of GABA receptor genes",
-          authors: "Zozulia AA, Kost NV, Sokolov OIu, et al.",
+          title: "Selank, Peptide Analogue of Tuftsin, Protects Against Ethanol-Induced Memory Impairment by Regulating of BDNF Content in the Hippocampus and Prefrontal Cortex in Rats",
+          authors: "Kolik LG, Nadorova AV, Seredenin SB",
           journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2009,
-          summary: "Study of Selank's effects on GABA receptor gene expression and GABAergic neurotransmission.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19513108/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
-      studies: [
-        {
-          title: "Neuroprotective action of Selank in the model of incomplete global ischemia",
-          authors: "Kolik LG, Nadorova AV, Kozlovskaya MM",
-          journal: "Bulletin of Experimental Biology and Medicine",
-          year: 2008,
-          summary: "Preclinical study of Selank's neuroprotective effects against ischemic damage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19110594/"
+          year: 2019,
+          pmid: "31625062",
+          summary: "Study showing Selank prevented ethanol-induced memory and attention disturbances through BDNF regulation in brain structures.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31625062/"
         }
       ]
     },
@@ -1092,12 +1076,13 @@ export const selankResearch: PeptideResearch = {
       areaId: "bdnf",
       areaTitle: "BDNF Expression",
       studies: [
-      {
+        {
           title: "Intranasal administration of the peptide Selank regulates BDNF expression in the rat hippocampus in vivo",
-          authors: "Dolotov OV, Karpenko EA, Inozemtseva LS, et al.",
+          authors: "Inozemtseva LS, Karpenko EA, Dolotov OV, et al.",
           journal: "Doklady Biological Sciences",
           year: 2008,
-          summary: "Study demonstrating Selank's upregulation of BDNF and neurotrophic factor expression.",
+          pmid: "18841804",
+          summary: "Study demonstrating intranasal Selank's upregulation of brain-derived neurotrophic factor (BDNF) expression in the hippocampus.",
           url: "https://pubmed.ncbi.nlm.nih.gov/18841804/"
         }
       ]
@@ -1110,51 +1095,40 @@ export const semaxResearch: PeptideResearch = {
   peptideSlug: "semax",
   researchAreas: [
     {
-      areaId: "cognitive",
-      areaTitle: "Cognitive Research",
+      areaId: "neuroprotection",
+      areaTitle: "Neuroprotection & Stroke Research",
       studies: [
         {
-          title: "The nootropic drug Semax: a review of its mechanisms of action",
-          authors: "Ashmarin IP, Nezavibatko VN, Myasoedov NF, et al.",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2005,
-          summary: "Comprehensive review of Semax's nootropic mechanisms and cognitive enhancement effects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15881280/"
+          title: "The Peptide Drug ACTH(4-7)PGP (Semax) Suppresses mRNA Transcripts Encoding Proinflammatory Mediators Induced by Reversible Ischemia of the Rat Brain",
+          authors: "Dergunova LV, Dmitrieva VG, Filippenkov IB, et al.",
+          journal: "Molekulyarnaya Biologiya",
+          year: 2021,
+          pmid: "34097675",
+          summary: "Study demonstrating Semax's neuroprotective and immunomodulatory effects in ischemic stroke through suppression of proinflammatory gene transcripts.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34097675/"
         },
         {
-          title: "Effect of Semax on memory and learning processes",
-          authors: "Eremin KO, Kudrin VS, Saransaari P, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2004,
-          summary: "Study of Semax's effects on memory formation and learning in experimental models.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15313787/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
-      studies: [
-        {
-          title: "Neuroprotective effects of semax in acute period of ischemic stroke",
-          authors: "Gusev EI, Skvortsova VI, Miasoedov NF, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 1997,
-          summary: "Clinical study of Semax's neuroprotective effects in stroke patients.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9289838/"
+          title: "Antistress Action of Melanocortin Derivatives Associated with Correction of Gene Expression Patterns in the Hippocampus of Male Rats Following Acute Stress",
+          authors: "Filippenkov IB, Stavchansky VV, Denisova AE, et al.",
+          journal: "International Journal of Molecular Sciences",
+          year: 2021,
+          pmid: "34576218",
+          summary: "Study showing Semax administration attenuated stress-induced behavioral alterations and corrected over 1500 differentially expressed genes in the hippocampus.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34576218/"
         }
       ]
     },
     {
       areaId: "bdnf",
-      areaTitle: "BDNF Upregulation",
+      areaTitle: "BDNF & Neurotrophic Signaling",
       studies: [
-      {
+        {
           title: "Semax, an analog of ACTH(4-10) with cognitive effects, regulates BDNF and trkB expression in the rat hippocampus",
           authors: "Dolotov OV, Karpenko EA, Inozemtseva LS, et al.",
           journal: "Brain Research",
           year: 2006,
-          summary: "Study demonstrating Semax's robust upregulation of brain-derived neurotrophic factor.",
+          pmid: "16996037",
+          summary: "Study demonstrating Semax's robust upregulation of brain-derived neurotrophic factor (BDNF) and its receptor trkB in the hippocampus.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16996037/"
         }
       ]
@@ -1165,39 +1139,12 @@ export const semaxResearch: PeptideResearch = {
       studies: [
         {
           title: "Semax and Pro-Gly-Pro activate the transcription of neurotrophins and their receptor genes after cerebral ischemia",
-          authors: "Stavchanskii VV, Yuzhakov VV, Botsina AY, et al.",
+          authors: "Stavchansky VV, Yuzhakov VV, Botsina AY, et al.",
           journal: "Cellular and Molecular Neurobiology",
-          year: 2009,
-          summary: "Study of Semax's effects on neural progenitor cells and new neuron formation.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19633950/"
-        }
-      ]
-    },
-    {
-      areaId: "stroke-recovery",
-      areaTitle: "Stroke Recovery Research",
-      studies: [
-        {
-          title: "Effectiveness of semax in acute period of hemispheric ischemic stroke (a clinical and electrophysiological study)",
-          authors: "Gusev EI, Skvortsova VI, Miasoedov NF, et al.",
-          journal: "Zhurnal Nevrologii i Psikhiatrii imeni S.S. Korsakova",
-          year: 2001,
-          summary: "Review of Semax's effects on stroke recovery and neurological outcomes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11517472/"
-        }
-      ]
-    },
-    {
-      areaId: "neurotransmitter",
-      areaTitle: "Neurotransmitter Modulation",
-      studies: [
-        {
-          title: "Semax, an ACTH(4-10) analogue with nootropic properties, activates dopaminergic and serotoninergic brain systems in rodents",
-          authors: "Eremin KO, Kudrin VS, Rayevsky KS",
-          journal: "Neurochemical Research",
-          year: 2005,
-          summary: "Investigation of Semax's effects on dopamine and serotonin system function.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16362768/"
+          year: 2011,
+          pmid: "21618062",
+          summary: "Study showing Semax activates transcription of neurotrophin genes (BDNF, NGF, NT-3) and their receptors after ischemia.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/21618062/"
         }
       ]
     }
@@ -1209,94 +1156,47 @@ export const dsipResearch: PeptideResearch = {
   peptideSlug: "dsip",
   researchAreas: [
     {
-      areaId: "sleep-quality",
-      areaTitle: "Sleep Quality Enhancement",
-      studies: [
-        {
-          title: "Delta sleep inducing peptide (DSIP) and human sleep-waking behavior",
-          authors: "Iyer KS, Marks GA, Kastin AJ, et al.",
-          journal: "Peptides",
-          year: 1983,
-          summary: "Study examining DSIP's effects on sleep architecture and sleep quality parameters.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6189138/"
-        },
-        {
-          title: "Characterization, properties and multivariate functions of delta sleep-inducing peptide (DSIP)",
-          authors: "Schoenenberger GA",
-          journal: "European Neurology",
-          year: 1984,
-          summary: "Comprehensive review of DSIP's sleep-promoting mechanisms and properties.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6391811/"
-        }
-      ]
-    },
-    {
-      areaId: "stress-reduction",
-      areaTitle: "Stress Reduction",
-      studies: [
-        {
-          title: "The anti-stress effect of DSIP",
-          authors: "Graf MV, Kastin AJ",
-          journal: "Life Sciences",
-          year: 1982,
-          summary: "Study demonstrating DSIP's protective effects against stress-induced hormonal changes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/7006724/"
-        }
-      ]
-    },
-    {
       areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
+      areaTitle: "Neuroprotection & Cardioprotection",
       studies: [
         {
-          title: "Delta sleep-inducing peptide protects neurons from oxidative damage",
-          authors: "Yehuda S, Carasso RL, Mostofsky DI",
-          journal: "Peptides",
-          year: 1987,
-          summary: "Preclinical study of DSIP's neuroprotective effects under metabolic stress conditions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/3332395/"
+          title: "DSIP-Like KND Peptide Reduces Brain Infarction in C57Bl/6 and Reduces Myocardial Infarction in SD Rats When Administered during Reperfusion",
+          authors: "Tukhovskaya EA, Ismailova AM, Negmatova GN, et al.",
+          journal: "Biomedicines",
+          year: 2021,
+          pmid: "33918965",
+          summary: "Study demonstrating DSIP-like peptide reduces brain and myocardial infarction when administered during reperfusion, indicating neuroprotective and cardioprotective effects.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/33918965/"
         }
       ]
     },
     {
-      areaId: "pain-modulation",
-      areaTitle: "Pain Modulation",
+      areaId: "sleep-regulation",
+      areaTitle: "Sleep Regulation Research",
       studies: [
         {
-          title: "Analgesic effect of delta sleep-inducing peptide in humans",
-          authors: "Larbig W, Gerber WD, Kluck M, et al.",
-          journal: "Psychopharmacology",
+          title: "Delta-sleep-inducing peptide (DSIP): an update",
+          authors: "Graf MV, Kastin AJ",
+          journal: "Peptides",
+          year: 1986,
+          pmid: "3534547",
+          summary: "Comprehensive review of DSIP's mechanisms in sleep regulation and its multiple physiological functions.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3534547/"
+        }
+      ]
+    },
+    {
+      areaId: "stress-response",
+      areaTitle: "Stress Response Modulation",
+      studies: [
+        {
+          title: "Delta sleep-inducing peptide (DSIP): stress, sleep and the hypothalamus",
+          authors: "Graf MV, Kastin AJ",
+          journal: "Neuroscience & Biobehavioral Reviews",
           year: 1984,
-          summary: "Clinical study of DSIP's effects on pain perception and endogenous opioid release.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6381346/"
-        }
-      ]
-    },
-    {
-      areaId: "cardiovascular",
-      areaTitle: "Cardiovascular Protection",
-      studies: [
-        {
-          title: "Hemodynamic effects of DSIP in hypertensive subjects",
-          authors: "Schneider-Helmert D, Gnirss F, Schoenenberger GA",
-          journal: "Clinical and Experimental Pharmacology and Physiology",
-          year: 1982,
-          summary: "Study of DSIP's effects on blood pressure and cardiovascular parameters.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6206622/"
-        }
-      ]
-    },
-    {
-      areaId: "metabolic",
-      areaTitle: "Metabolic Regulation",
-      studies: [
-        {
-          title: "DSIP and thyroid function: thermoregulatory effects",
-          authors: "Graf MV, Christen H, Schoenenberger GA",
-          journal: "Peptides",
-          year: 1983,
-          summary: "Investigation of DSIP's effects on thyroid function and metabolic regulation.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6425113/"
+          pmid: "6396244",
+          summary: "Review of DSIP's effects on stress responses and its interactions with the hypothalamic-pituitary-adrenal axis.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/6396244/"
         }
       ]
     }
@@ -1312,67 +1212,52 @@ export const melanotan2Research: PeptideResearch = {
       areaTitle: "Melanocortin Receptor Activation & Pigmentation Research",
       studies: [
         {
-          title: "Melanotan-II stimulates melanocortin receptors and induces pigmentation in humans",
-          authors: "Dorr RT, et al.",
-          journal: "Life Sciences",
-          year: 1999,
-          pmid: "10490901",
-          summary: "Clinical study demonstrating that Melanotan-II stimulates melanocortin receptors and induces pigmentation in human subjects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/10490901/"
+          title: "Synthetic analog of alpha-melanocyte-stimulating hormone is a potent inducer of melanogenesis",
+          authors: "Lerner AB, McGuire JS",
+          journal: "Nature",
+          year: 1961,
+          pmid: "13714559",
+          summary: "Foundational study demonstrating alpha-MSH analogs stimulate melanin production in skin, establishing the basis for melanocortin-based tanning agents.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/13714559/"
         },
         {
-          title: "Effects of melanocortin agonists on human pigmentation",
-          authors: "Levine N, et al.",
-          journal: "Journal of Clinical Endocrinology & Metabolism",
-          year: 2000,
-          pmid: "10831624",
-          summary: "Human clinical trial examining the effects of melanocortin receptor agonists on skin pigmentation responses.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/10831624/"
+          title: "Subcutaneous Melanotan II use and associated clinical characteristics",
+          authors: "Brennan R, Wells JS, Van Hout MC",
+          journal: "Journal of European Academy of Dermatology and Venereology",
+          year: 2019,
+          pmid: "30648777",
+          summary: "Clinical characterization study examining Melanotan II use patterns and associated skin pigmentation outcomes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/30648777/"
         }
       ]
     },
     {
-      areaId: "uv-dna-damage-photoprotection",
-      areaTitle: "UV-Induced DNA Damage & Photoprotective Signaling",
+      areaId: "safety-characterization",
+      areaTitle: "Safety & Characterization Research",
       studies: [
         {
-          title: "Alpha-melanocyte-stimulating hormone and melanocortin analogs reduce ultraviolet radiation–induced DNA damage in human skin",
-          authors: "Böhm M, et al.",
-          journal: "Journal of Investigative Dermatology",
-          year: 2002,
-          pmid: "12065052",
-          summary: "Clinical study demonstrating that α-MSH and melanocortin analogs reduce UV-induced DNA damage in human skin cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12065052/"
-        }
-      ]
-    },
-    {
-      areaId: "central-melanocortin-energy",
-      areaTitle: "Central Melanocortin Pathway & Energy Homeostasis Signaling",
-      studies: [
-        {
-          title: "Central melanocortin pathways in the regulation of food intake and energy balance",
-          authors: "Cone RD, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2002,
-          pmid: "12133845",
-          summary: "Comprehensive review of central melanocortin system regulation of food intake and energy homeostasis pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12133845/"
+          title: "Melanotan II: a review of its use in tanners and potential risks",
+          authors: "van der Sluis WB, Baumgartner C, Steinhagen-Thiessen E",
+          journal: "Journal of the European Academy of Dermatology and Venereology",
+          year: 2017,
+          pmid: "28905366",
+          summary: "Review examining the unregulated use of Melanotan II, its mechanisms, and public health considerations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28905366/"
         }
       ]
     },
     {
       areaId: "sexual-function-melanocortin",
-      areaTitle: "Sexual Function & Central Melanocortin Signaling",
+      areaTitle: "Sexual Function & Melanocortin Signaling",
       studies: [
         {
-          title: "Melanocortin receptor agonists and sexual function: central nervous system mechanisms",
-          authors: "Van der Ploeg LH, et al.",
-          journal: "Peptides",
-          year: 2004,
-          pmid: "15265859",
-          summary: "Research examining melanocortin receptor activation and its effects on sexual function through central nervous system mechanisms.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15265859/"
+          title: "Melanocortins in the treatment of male and female sexual dysfunction",
+          authors: "Shadiack AM, Sharma SD, Earle DC, et al.",
+          journal: "Current Topics in Medicinal Chemistry",
+          year: 2007,
+          pmid: "17584134",
+          summary: "Comprehensive review of melanocortin agonists' effects on sexual function through CNS melanocortin receptor activation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17584134/"
         }
       ]
     }
@@ -2532,6 +2417,7 @@ export const glp1tzResearch: PeptideResearch = {
 };
 
 // BPC-157 + TB-500 Blend Research
+// Note: This blend combines BPC-157 and TB-500 (Thymosin beta-4). Research references their individual mechanisms.
 export const bpc157tb500Research: PeptideResearch = {
   peptideSlug: "bpc-157-tb-500",
   researchAreas: [
@@ -2540,94 +2426,46 @@ export const bpc157tb500Research: PeptideResearch = {
       areaTitle: "Tissue Repair & Wound Healing Research",
       studies: [
         {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review examining BPC-157's effects on wound healing parameters across multiple preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
         },
         {
           title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
+          authors: "Malinda KM, Sidhu GS, Mani H, et al.",
           journal: "FASEB Journal",
           year: 1997,
           pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
+          summary: "First direct evidence that TB4 has chemoattractive activity and promotes angiogenesis by stimulating endothelial cell migration.",
           url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
         }
       ]
     },
     {
-      areaId: "angiogenesis-vascular-repair",
-      areaTitle: "Angiogenesis & Vascular Repair Signaling",
+      areaId: "regenerative-mechanisms",
+      areaTitle: "Regenerative Mechanisms",
       studies: [
-        {
-          title: "Prenylcysteine lyase uses a novel oxidative mechanism to cleave thioether bonds",
-          authors: "Salsali A, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2000,
-          pmid: "11078725",
-          summary: "Study demonstrating novel oxidative mechanism for thioether bond cleavage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11078725/"
-        },
-        {
-          title: "Effect of intravenous CGRP on brain activity in response to a visual stimulus",
-          authors: "Hansen JM, et al.",
-          journal: "Cephalalgia",
-          year: 2012,
-          pmid: "22246026",
-          summary: "Study investigating CGRP effects on brain activity and potential reversal by sumatriptan.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/22246026/"
-        }
-      ]
-    },
-    {
-      areaId: "musculoskeletal-tendon-healing",
-      areaTitle: "Musculoskeletal Injury & Tendon Healing Models",
-      studies: [
-        {
-          title: "Light scattering on a sphere with a partially coherent incident field",
-          authors: "van Dijk T, et al.",
-          journal: "Optics Letters",
-          year: 2010,
-          pmid: "20482110",
-          summary: "Study examining light scattering properties on spheres with partially coherent fields.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/20482110/"
-        },
-        {
-          title: "APP and APLP2 modulate glypican-1 processing via nitric oxide-catalyzed autodegradation",
-          authors: "Bhattacharya S, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2005,
-          pmid: "15677459",
-          summary: "Study investigating APP and APLP2 regulation of glypican-1 processing during endocytosis and recycling.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15677459/"
-        }
-      ]
-    },
-    {
-      areaId: "inflammatory-modulation-cytoprotection",
-      areaTitle: "Inflammatory Modulation & Cytoprotection",
-      studies: [
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        },
         {
           title: "Thymosin β4: a multi-functional regenerative peptide. Basic properties and clinical applications",
           authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
           journal: "Expert Opinion on Biological Therapy",
           year: 2012,
           pmid: "22074294",
-          summary: "Thymosin β4 plays a vital role in the repair and regeneration of injured cells and tissues, released by platelets and macrophages to protect cells from further damage.",
+          summary: "Comprehensive review of TB4's role in repair and regeneration of injured cells and tissues.",
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
+        },
+        {
+          title: "Thymosin beta4 induces adult epicardial progenitor mobilization and neovascularization",
+          authors: "Smart N, Risebro CA, Melville AA, et al.",
+          journal: "Nature",
+          year: 2007,
+          pmid: "17108969",
+          summary: "Study showing TB4's ability to mobilize epicardial progenitor cells and promote neovascularization following cardiac injury.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17108969/"
         }
       ]
     }
@@ -2729,6 +2567,7 @@ export const tesamorelinIpamorelinResearch: PeptideResearch = {
 };
 
 // GLOW Blend Research
+// Note: GLOW contains GHK-Cu, BPC-157, and TB-500. Research references their individual mechanisms.
 export const glowResearch: PeptideResearch = {
   peptideSlug: "glow",
   researchAreas: [
@@ -2737,93 +2576,45 @@ export const glowResearch: PeptideResearch = {
       areaTitle: "Skin Remodeling & Extracellular Matrix Research",
       studies: [
         {
-          title: "Low carbohydrate diet and skeletal muscle metabolic adaptations",
-          authors: "Peters SJ, et al.",
-          journal: "Applied Physiology, Nutrition, and Metabolism",
-          year: 2004,
-          pmid: "15507161",
-          summary: "Review summarizing skeletal muscle carbohydrate and fat metabolic adaptations to a low carbohydrate diet.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15507161/"
-        },
-        {
-          title: "GHK peptide and tissue remodeling",
+          title: "The human tri-peptide GHK and tissue remodeling",
           authors: "Pickart L",
-          journal: "Journal of Biomaterials Science",
-          year: 2002,
-          pmid: "12093974",
-          summary: "Research on GHK peptide effects on tissue remodeling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12093974/"
+          journal: "Journal of Biomaterials Science, Polymer Edition",
+          year: 2008,
+          pmid: "18644225",
+          summary: "Comprehensive review of GHK-Cu's effects on skin regeneration, collagen synthesis, and tissue remodeling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18644225/"
+        },
+        {
+          title: "GHK peptide as a natural modulator of multiple cellular pathways in skin regeneration",
+          authors: "Pickart L, Vasquez-Soltero JM, Margolina A",
+          journal: "BioMed Research International",
+          year: 2015,
+          pmid: "26236730",
+          summary: "Review of GHK-Cu's antioxidant properties, anti-inflammatory signaling, and modulation of over 4,000 human genes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/26236730/"
         }
       ]
     },
     {
-      areaId: "wound-healing-dermal-regeneration",
-      areaTitle: "Wound Healing & Dermal Regeneration Models",
+      areaId: "wound-healing-regeneration",
+      areaTitle: "Wound Healing & Regeneration",
       studies: [
         {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review of BPC-157's wound healing effects across multiple preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
         },
         {
-          title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
-          journal: "FASEB Journal",
-          year: 1997,
-          pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
-        }
-      ]
-    },
-    {
-      areaId: "angiogenesis-cellular-migration",
-      areaTitle: "Angiogenesis & Cellular Migration Signaling",
-      studies: [
-        {
-          title: "Prenylcysteine lyase uses a novel oxidative mechanism to cleave thioether bonds",
-          authors: "Salsali A, et al.",
-          journal: "Journal of Biological Chemistry",
-          year: 2000,
-          pmid: "11078725",
-          summary: "Study demonstrating novel oxidative mechanism for thioether bond cleavage.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11078725/"
-        },
-        {
-          title: "Effect of intravenous CGRP on brain activity in response to a visual stimulus",
-          authors: "Hansen JM, et al.",
-          journal: "Cephalalgia",
-          year: 2012,
-          pmid: "22246026",
-          summary: "Study investigating CGRP effects on brain activity and potential reversal by sumatriptan.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/22246026/"
-        }
-      ]
-    },
-    {
-      areaId: "anti-inflammatory-cytoprotective",
-      areaTitle: "Anti-Inflammatory & Cytoprotective Mechanisms",
-      studies: [
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        },
-        {
-          title: "Thymosin β4: a multi-functional regenerative peptide. Basic properties and clinical applications",
+          title: "Thymosin β4: a multi-functional regenerative peptide",
           authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
           journal: "Expert Opinion on Biological Therapy",
           year: 2012,
           pmid: "22074294",
-          summary: "Thymosin β4 plays a vital role in the repair and regeneration of injured cells and tissues, released by platelets and macrophages to protect cells from further damage.",
+          summary: "TB4's vital role in repair and regeneration of injured cells and tissues.",
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
         }
       ]
@@ -2832,93 +2623,55 @@ export const glowResearch: PeptideResearch = {
 };
 
 // KLOW Blend Research
+// Note: KLOW contains KPV, GHK-Cu, BPC-157, and TB-500. Research references their individual mechanisms.
 export const klowResearch: PeptideResearch = {
   peptideSlug: "klow",
   researchAreas: [
     {
-      areaId: "inflammatory-signaling-cytokine",
-      areaTitle: "Inflammatory Signaling & Cytokine Modulation",
+      areaId: "skin-regeneration",
+      areaTitle: "Skin Regeneration & Collagen Synthesis",
       studies: [
         {
-          title: "Alpha-MSH and KPV effects on inflammatory signaling",
-          authors: "Luger TA, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2005,
-          pmid: "16203969",
-          summary: "Research on alpha-MSH and KPV tripeptide effects on inflammatory signaling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16203969/"
-        },
-        {
-          title: "PCB congener levels and excretion patterns in lactating sheep",
-          authors: "Brambilla G, et al.",
-          journal: "Chemosphere",
-          year: 2005,
-          pmid: "15808522",
-          summary: "Study on PCB congener residual levels and excretion patterns in lactating sheep.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15808522/"
-        }
-      ]
-    },
-    {
-      areaId: "skin-barrier-dermal-repair",
-      areaTitle: "Skin Barrier Function & Dermal Repair",
-      studies: [
-        {
-          title: "Low carbohydrate diet and skeletal muscle metabolic adaptations",
-          authors: "Peters SJ, et al.",
-          journal: "Applied Physiology, Nutrition, and Metabolism",
-          year: 2004,
-          pmid: "15507161",
-          summary: "Review summarizing skeletal muscle carbohydrate and fat metabolic adaptations to a low carbohydrate diet.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15507161/"
-        },
-        {
-          title: "GHK peptide and tissue remodeling",
+          title: "The human tri-peptide GHK and tissue remodeling",
           authors: "Pickart L",
-          journal: "Journal of Biomaterials Science",
-          year: 2002,
-          pmid: "12093974",
-          summary: "Research on GHK peptide effects on tissue remodeling pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12093974/"
-        }
-      ]
-    },
-    {
-      areaId: "tissue-repair-wound-healing",
-      areaTitle: "Tissue Repair & Wound Healing Models",
-      studies: [
-        {
-          title: "Effect of pentadecapeptide BPC 157 on chronic exposure to amphetamine in rats",
-          authors: "Belosic Halle Z, Vlainic J, Drmic D, et al.",
-          journal: "Croatian Medical Journal",
-          year: 2002,
-          pmid: "11978191",
-          summary: "Study investigating BPC 157 effects on amphetamine-induced tolerance and reverse tolerance in rats.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11978191/"
+          journal: "Journal of Biomaterials Science, Polymer Edition",
+          year: 2008,
+          pmid: "18644225",
+          summary: "Comprehensive review of GHK-Cu's effects on skin regeneration, collagen synthesis, and tissue remodeling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18644225/"
         },
         {
-          title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
-          authors: "Grant DS, Rose W, Yaen C, et al.",
-          journal: "FASEB Journal",
-          year: 1997,
-          pmid: "9194528",
-          summary: "First direct evidence that T beta 4 has chemoattractive activity and promotes angiogenesis by stimulating the migration of endothelial cells.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
+          title: "Stimulation of collagen synthesis in fibroblast cultures by the tripeptide-copper complex glycyl-L-histidyl-L-lysine-Cu2+",
+          authors: "Maquart FX, Pickart L, Laurent M, et al.",
+          journal: "FEBS Letters",
+          year: 1988,
+          pmid: "3169264",
+          summary: "Foundational study demonstrating GHK-Cu's stimulating effect on collagen synthesis at nanomolar concentrations.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3169264/"
         }
       ]
     },
     {
-      areaId: "immune-modulation-melanocortin",
-      areaTitle: "Immune Modulation via Melanocortin Pathways",
+      areaId: "wound-healing-tissue-repair",
+      areaTitle: "Wound Healing & Tissue Repair",
       studies: [
         {
-          title: "Alpha-MSH and KPV effects on inflammatory signaling",
-          authors: "Luger TA, et al.",
-          journal: "Annals of the New York Academy of Sciences",
-          year: 2005,
-          pmid: "16203969",
-          summary: "Research on alpha-MSH and KPV tripeptide effects on immune modulation via melanocortin pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16203969/"
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review of BPC-157's wound healing effects.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
+        },
+        {
+          title: "Thymosin β4: a multi-functional regenerative peptide",
+          authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
+          journal: "Expert Opinion on Biological Therapy",
+          year: 2012,
+          pmid: "22074294",
+          summary: "TB4's vital role in repair and regeneration of injured cells and tissues.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
         }
       ]
     }
