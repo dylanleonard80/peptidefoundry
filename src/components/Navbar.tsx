@@ -293,6 +293,12 @@ const Navbar = ({
         }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-0">
             Home
           </Link>
+          <Link to="/shop" onClick={() => {
+          setIsMenuOpen(false);
+          document.body.style.overflow = '';
+        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
+            Shop All
+          </Link>
           <Link to="/about" onClick={() => {
           setIsMenuOpen(false);
           document.body.style.overflow = '';

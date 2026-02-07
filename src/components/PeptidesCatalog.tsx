@@ -265,7 +265,7 @@ const PeptidesCatalog = ({
       cards: section.cards
     } : null;
   }, [selectedCategory]);
-  return <div className={className}>
+  return <div id="shop" className={className}>
       {/* Header Section */}
       {showHeader && <section className="bg-gradient-to-b from-background to-secondary/20 px-0 mx-0 py-0 my-[44px]">
           <div className="container px-4 sm:px-6 lg:px-8">

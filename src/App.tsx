@@ -95,6 +95,7 @@ const AdminActivity = lazy(() => import("./pages/admin/Activity"));
 
 // Supplies
 const BacteriostaticWater = lazy(() => import("./pages/BacteriostaticWater"));
+const ShopAll = lazy(() => import("./pages/ShopAll"));
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ const App = () => (
                 <Route path="/contact" element={<Contact />} />
 
                 {/* Core pages */}
+                <Route path="/shop" element={<ShopAll />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/order-success" element={<OrderSuccess />} />
                 <Route path="/foundry-club" element={<FoundryClub />} />

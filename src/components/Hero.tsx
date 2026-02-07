@@ -22,7 +22,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden min-h-[80vh]" id="hero">
+    <section className="relative overflow-hidden min-h-[92vh] md:min-h-[80vh]" id="hero">
       {/* Video background */}
       <div className="absolute inset-0">
         <video
@@ -34,9 +34,16 @@ const Hero = () => {
         >
           <source src="/hero-bg.webm" type="video/webm" />
         </video>
-        {/* Dark fade on the left for text readability */}
+        {/* Mobile: bottom-up gradient so video shows at top, text readable at bottom */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none md:hidden"
+          style={{
+            background: 'linear-gradient(to top, hsl(25, 15%, 12%) 0%, hsl(25, 15%, 12%, 0.7) 40%, transparent 70%)',
+          }}
+        />
+        {/* Desktop: dark fade on the left for text readability */}
+        <div
+          className="absolute inset-0 pointer-events-none hidden md:block"
           style={{
             background: 'linear-gradient(to right, hsl(25, 15%, 12%) 0%, hsl(25, 15%, 12%, 0.7) 25%, transparent 55%)',
           }}
@@ -44,21 +51,10 @@ const Hero = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 py-16 md:py-24 lg:py-32">
+      <div className="relative z-10 pt-auto mt-auto pb-10 md:py-24 lg:py-32 flex items-end md:items-start min-h-[92vh] md:min-h-0">
         <div className="container mx-auto px-6 lg:px-8 max-w-6xl">
           <div>
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
-              {/* Eyebrow */}
-              <div
-                className="opacity-0 animate-reveal-up mb-4"
-                style={{ animationDelay: "0.1s" }}
-              >
-                <span className="trust-badge">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  For Research Use Only
-                </span>
-              </div>
-
               {/* Main headline */}
               <h1
                 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-cream opacity-0 animate-reveal-up"
@@ -73,8 +69,7 @@ const Hero = () => {
                 className="mt-4 text-base md:text-lg text-cream/80 max-w-md leading-relaxed opacity-0 animate-reveal-up"
                 style={{ animationDelay: "0.3s" }}
               >
-                Premium quality peptides for in-vitro research.
-                U.S. manufactured, third-party tested, shipped with COA.
+                Quality peptides for research. Third-party tested, comprehensive COAs.
               </p>
 
               {/* Trust indicators */}
@@ -95,7 +90,7 @@ const Hero = () => {
 
               {/* CTA */}
               <div
-                className="mt-6 flex flex-col sm:flex-row gap-4 opacity-0 animate-reveal-up"
+                className="mt-3 flex flex-col sm:flex-row gap-4 opacity-0 animate-reveal-up"
                 style={{ animationDelay: "0.5s" }}
               >
                 <FoundryClubLink
