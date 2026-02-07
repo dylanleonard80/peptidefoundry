@@ -22,7 +22,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden min-h-[92vh] md:min-h-[80vh]" id="hero">
+    <section className="relative overflow-hidden min-h-[92vh] md:min-h-[85vh]" id="hero">
       {/* Video background */}
       <div className="absolute inset-0">
         <video
