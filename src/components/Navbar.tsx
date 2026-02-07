@@ -108,6 +108,10 @@ const Navbar = ({
               Home
             </Link>
 
+            <Link to="/shop" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", location.pathname === "/shop" && !isDarkHero && "text-primary font-semibold", isDarkHero && "text-white hover:text-white/80")}>
+              Shop All
+            </Link>
+
             <Link to="/about" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", location.pathname === "/about" && !isDarkHero && "text-primary font-semibold", isDarkHero && "text-white hover:text-white/80")}>
               About
             </Link>
