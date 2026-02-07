@@ -8,9 +8,10 @@ import { Badge } from '@/components/ui/badge';
 
 interface CartProps {
   isFoundryClubPage?: boolean;
+  isDarkHero?: boolean;
 }
 
-export const Cart = ({ isFoundryClubPage = false }: CartProps) => {
+export const Cart = ({ isFoundryClubPage = false, isDarkHero = false }: CartProps) => {
   const {
     items,
     itemCount,
@@ -24,7 +25,7 @@ export const Cart = ({ isFoundryClubPage = false }: CartProps) => {
   return <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="relative" aria-label={`Shopping cart${itemCount > 0 ? `, ${itemCount} item${itemCount > 1 ? 's' : ''}` : ''}`}>
-          <ShoppingCart className={`h-5 w-5 ${isFoundryClubPage ? 'text-white' : ''}`} />
+          <ShoppingCart className={`h-5 w-5 ${(isFoundryClubPage || isDarkHero) ? 'text-white' : ''}`} />
           {itemCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
               {itemCount}
             </Badge>}

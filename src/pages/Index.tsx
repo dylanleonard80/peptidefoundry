@@ -45,7 +45,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar className="my-0 py-0" />
-      <main className="pt-[70px] sm:pt-[80px]">
+      <main className="pt-[98px]">
         <Hero />
 
         {/* Divider */}

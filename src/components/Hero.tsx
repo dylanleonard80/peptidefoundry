@@ -22,36 +22,32 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative" id="hero">
-      {/* Warm gradient background */}
-      <div className="absolute inset-0 bg-hero-warm" />
-
-      {/* Orange gradient accent - top right */}
-      <div
-        className="absolute -top-[20%] -right-[15%] w-[700px] h-[700px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, hsl(24, 85%, 55%) 0%, hsl(24, 75%, 50%) 40%, transparent 70%)',
-          filter: 'blur(60px)',
-          opacity: 0.35,
-        }}
-      />
-
-      {/* Secondary orange glow - center right behind product */}
-      <div
-        className="absolute top-[20%] right-[5%] w-[500px] h-[500px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, hsl(20, 80%, 50%) 0%, transparent 60%)',
-          filter: 'blur(50px)',
-          opacity: 0.25,
-        }}
-      />
+    <section className="relative overflow-hidden min-h-[80vh]" id="hero">
+      {/* Video background */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero-bg.webm" type="video/webm" />
+        </video>
+        {/* Dark fade on the left for text readability */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to right, hsl(25, 15%, 12%) 0%, hsl(25, 15%, 12%, 0.7) 25%, transparent 55%)',
+          }}
+        />
+      </div>
 
       {/* Main content */}
-      <div className="relative z-10 py-12 md:py-16 lg:py-20">
+      <div className="relative z-10 py-16 md:py-24 lg:py-32">
         <div className="container mx-auto px-6 lg:px-8 max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left side - Text content */}
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div>
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
               {/* Eyebrow */}
               <div
                 className="opacity-0 animate-reveal-up mb-4"
@@ -65,16 +61,16 @@ const Hero = () => {
 
               {/* Main headline */}
               <h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-serif text-charcoal opacity-0 animate-reveal-up"
+                className="text-4xl sm:text-5xl lg:text-6xl font-serif text-cream opacity-0 animate-reveal-up"
                 style={{ animationDelay: "0.2s" }}
               >
-                Research-Grade{" "}
+                Research-Grade<br />
                 <span className="text-editorial-italic text-primary">Peptides</span>
               </h1>
 
               {/* Subheadline */}
               <p
-                className="mt-4 text-base md:text-lg text-charcoal-light max-w-md leading-relaxed opacity-0 animate-reveal-up"
+                className="mt-4 text-base md:text-lg text-cream/80 max-w-md leading-relaxed opacity-0 animate-reveal-up"
                 style={{ animationDelay: "0.3s" }}
               >
                 Premium quality peptides for in-vitro research.
@@ -89,7 +85,7 @@ const Hero = () => {
                 {trustIndicators.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 text-sm text-charcoal-light"
+                    className="flex items-center gap-2 text-sm text-cream/70"
                   >
                     <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
                     <span>{item.text}</span>
@@ -112,30 +108,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Right side - Product image */}
-            <div
-              className="relative flex justify-center items-center opacity-0 animate-reveal-up"
-              style={{ animationDelay: "0.4s" }}
-            >
-              {/* Soft glow behind product */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className="w-64 h-64 rounded-full opacity-15"
-                  style={{
-                    background: 'radial-gradient(circle, hsl(25, 60%, 85%) 0%, transparent 70%)',
-                  }}
-                />
-              </div>
-
-              {/* Product image */}
-              <img
-                src="/lovable-uploads/500d5bab-c326-410a-a7f1-301e4d576dc4.webp"
-                alt="Research-grade peptide vial"
-                className="relative z-10 w-full max-w-[280px] lg:max-w-[340px] h-auto object-contain drop-shadow-lg"
-                width={340}
-                height={340}
-              />
-            </div>
           </div>
         </div>
       </div>

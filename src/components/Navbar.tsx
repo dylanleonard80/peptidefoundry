@@ -65,6 +65,8 @@ const Navbar = ({
     }
   };
   const isFoundryClubPage = location.pathname === '/foundry-club';
+  const isHomePage = location.pathname === '/';
+  const isDarkHero = isFoundryClubPage;
   return <>
       {/* Foundry Club indicator bar */}
       {isFoundryClubPage && <div className="fixed top-0 left-0 right-0 z-[60] bg-charcoal border-b border-primary/20">
@@ -73,20 +75,20 @@ const Navbar = ({
             <span>You're viewing: <span className="text-primary font-medium">The Foundry Club</span></span>
           </div>
         </div>}
-      <header className={cn("fixed left-0 right-0 z-40 py-2 sm:py-3 md:py-4 transition-all duration-500", isFoundryClubPage ? "top-[28px]" : "top-0", isScrolled ? isFoundryClubPage ? "bg-charcoal/95 backdrop-blur-md shadow-lg shadow-black/20" : "bg-[hsl(30,25%,97%)]/90 backdrop-blur-md shadow-sm shadow-charcoal/5" : isFoundryClubPage ? "bg-charcoal/80 backdrop-blur-sm" : "bg-transparent", className)}>
+      <header className={cn("fixed left-0 right-0 z-40 py-2 sm:py-3 md:py-4 transition-all duration-500", isFoundryClubPage ? "top-[28px]" : "top-0", isScrolled || isHomePage ? isFoundryClubPage ? "bg-charcoal/95 backdrop-blur-md shadow-lg shadow-black/20" : "bg-[hsl(30,25%,97%)]/90 backdrop-blur-md shadow-sm shadow-charcoal/5" : "bg-transparent", className)}>
         <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 my-[9px]">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 min-w-0" onClick={scrollToTop} aria-label="Peptide Foundry">
             {/* Short logo for mobile */}
-            <img alt="Peptide Foundry Logo" width={56} height={56} className="h-14 w-auto object-contain md:hidden" src="/short-logo.svg" />
+            <img alt="Peptide Foundry Logo" width={40} height={40} className="h-10 w-auto object-contain md:hidden" src="/short-logo.svg" />
             {/* Full logo for desktop */}
-            <img alt="Peptide Foundry Logo" width={180} height={72} className="hidden md:block h-[clamp(2.25rem,4.5vw,4.5rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
+            <img alt="Peptide Foundry Logo" width={140} height={56} className="hidden md:block h-[clamp(1.75rem,3.5vw,3rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
           </Link>
 
           {/* Search Bar - Desktop & Tablet */}
           <div className="hidden md:block flex-1 max-w-xs lg:max-w-md mx-2 lg:mx-8 relative">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-charcoal-light" />
-              <Input type="text" placeholder="Search peptides..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onFocus={() => setSearchOpen(true)} onBlur={() => setTimeout(() => setSearchOpen(false), 200)} className="w-full pl-10 pr-4 bg-white/60 border-stone-warm focus:bg-white focus:border-primary/30 transition-colors" />
+              <Search className={cn("absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4", isDarkHero ? "text-white/60" : "text-charcoal-light")} />
+              <Input type="text" placeholder="Search peptides..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onFocus={() => setSearchOpen(true)} onBlur={() => setTimeout(() => setSearchOpen(false), 200)} className={cn("w-full pl-10 pr-4 transition-colors", isDarkHero ? "bg-white/15 border-white/30 text-white placeholder:text-white/60 focus:bg-white/25 focus:border-primary/30" : "bg-white/60 border-stone-warm focus:bg-white focus:border-primary/30")} />
             </div>
             {filteredPeptides.length > 0 && searchOpen && <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-stone-warm rounded-xl shadow-lg shadow-charcoal/5 max-h-96 overflow-y-auto z-50">
                 {filteredPeptides.map(peptide => <button key={peptide.slug} onClick={() => {
@@ -102,14 +104,14 @@ const Navbar = ({
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center flex-shrink-0 space-x-2 lg:space-x-4 xl:space-x-8">
-            <Link to="/" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", isFoundryClubPage && "text-white/80 hover:text-white", location.pathname === "/" && "text-primary font-semibold")}>
+            <Link to="/" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", location.pathname === "/" && !isDarkHero && "text-primary font-semibold", isDarkHero && "text-white hover:text-white/80 font-semibold")}>
               Home
             </Link>
-            
-            <Link to="/about" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", isFoundryClubPage && "text-white/80 hover:text-white", location.pathname === "/about" && "text-primary font-semibold")}>
+
+            <Link to="/about" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", location.pathname === "/about" && !isDarkHero && "text-primary font-semibold", isDarkHero && "text-white hover:text-white/80")}>
               About
             </Link>
-            <Link to="/contact" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", isFoundryClubPage && "text-white/80 hover:text-white", location.pathname === "/contact" && "text-primary font-semibold")}>
+            <Link to="/contact" className={cn("nav-link whitespace-nowrap text-sm lg:text-base", location.pathname === "/contact" && !isDarkHero && "text-primary font-semibold", isDarkHero && "text-white hover:text-white/80")}>
               Contact
             </Link>
             
@@ -123,7 +125,7 @@ const Navbar = ({
               </FoundryClubLink>}
 
             {/* Cart */}
-            <Cart isFoundryClubPage={isFoundryClubPage} />
+            <Cart isFoundryClubPage={isFoundryClubPage} isDarkHero={isDarkHero} />
 
             {/* Account Button */}
             {user ? <DropdownMenu>
@@ -176,7 +178,7 @@ const Navbar = ({
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu> : <Link to="/sign-in">
-                <Button variant="outline" size="sm" className={cn("flex items-center gap-2", isFoundryClubPage && "bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white")}>
+                <Button variant="outline" size="sm" className={cn("flex items-center gap-2", isDarkHero && "bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white")}>
                   <User className="h-4 w-4" />
                   <span className="text-sm">Sign In</span>
                 </Button>
@@ -189,7 +191,7 @@ const Navbar = ({
             <Button
               variant="ghost"
               size="icon"
-              className={cn("relative", isFoundryClubPage && "text-white hover:bg-white/10")}
+              className={cn("relative", isDarkHero && "text-white hover:bg-white/10")}
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
             >
@@ -201,7 +203,7 @@ const Navbar = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className={cn("relative", isFoundryClubPage && "text-white hover:bg-white/10")}
+                className={cn("relative", isDarkHero && "text-white hover:bg-white/10")}
                 aria-label={user ? "Dashboard" : "Sign in"}
               >
                 <User className="h-5 w-5" />
@@ -209,10 +211,10 @@ const Navbar = ({
             </Link>
 
             {/* Cart */}
-            <Cart isFoundryClubPage={isFoundryClubPage} />
+            <Cart isFoundryClubPage={isFoundryClubPage} isDarkHero={isDarkHero} />
 
             {/* Menu */}
-            <button className={cn("p-2 focus:outline-none", isFoundryClubPage ? "text-white" : "text-gray-700")} onClick={toggleMenu} aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
+            <button className={cn("p-2 focus:outline-none", isDarkHero ? "text-white" : "text-gray-700")} onClick={toggleMenu} aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
