@@ -10,6 +10,7 @@ import { Cart } from "./Cart";
 import { Input } from "./ui/input";
 import { peptideSections } from "@/data/peptides";
 import FoundryClubLink from "./FoundryClubLink";
+import { StarButton } from "@/components/ui/star-button";
 const Navbar = ({
   className
 }: {

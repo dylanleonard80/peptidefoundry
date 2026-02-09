@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Hexagon, Shield, FlaskConical, BadgeCheck, CreditCard } from "lucide-react";
+import { Hexagon } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -25,14 +25,6 @@ const Footer = () => {
                 className="hover:text-white transition-colors"
               >
                 support@peptidefoundry.com
-              </a>
-            </div>
-            <div className="text-white/60 text-sm mt-1">
-              <a
-                href="tel:+18007378433"
-                className="hover:text-white transition-colors"
-              >
-                1-800-PEPTIDE
               </a>
             </div>
           </div>
@@ -107,26 +99,6 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-
-        {/* Trust Badges */}
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8 py-8 border-t border-white/10">
-          <div className="flex items-center gap-2 text-white/60">
-            <Shield className="h-5 w-5 text-primary" />
-            <span className="text-sm">SSL Secure</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60">
-            <FlaskConical className="h-5 w-5 text-primary" />
-            <span className="text-sm">USA Compounded</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60">
-            <BadgeCheck className="h-5 w-5 text-primary" />
-            <span className="text-sm">3rd Party Tested</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/60">
-            <CreditCard className="h-5 w-5 text-primary" />
-            <span className="text-sm">Secure Payments</span>
           </div>
         </div>
 

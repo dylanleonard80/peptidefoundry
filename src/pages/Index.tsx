@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PeptidesCatalog from "@/components/PeptidesCatalog";
-import HumanoidSection from "@/components/HumanoidSection";
 import Footer from "@/components/Footer";
+import FoundryClubLink from "@/components/FoundryClubLink";
+import { Truck, ShieldCheck, FlaskConical, Hexagon, ArrowRight, Plus } from "lucide-react";
 
 const Index = () => {
   useEffect(() => {
@@ -48,12 +49,109 @@ const Index = () => {
       <main className="pt-[58px] sm:pt-[74px] md:pt-[98px]">
         <Hero />
 
-        {/* Divider */}
-        <div className="divider-organic max-w-4xl mx-auto" />
+          {/* Quality Assurance Section */}
+          <div className="container px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-16 items-center [&>*:nth-child(2)]:md:mt-0 [&>*:nth-child(2)]:-mt-20">
 
-        <PeptidesCatalog showHeader={false} />
+              {/* Left — Copy */}
+              <div className="order-2 md:order-1">
+                <h2 className="text-3xl md:text-4xl font-serif text-charcoal mb-4">
+                  Research-Grade Quality,{" "}
+                  <span className="text-primary">Every Batch</span>
+                </h2>
+                <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                  Every peptide we offer undergoes rigorous, multi-panel testing before it reaches your lab. We partner with accredited, independent laboratories so you never have to question what's in the vial.
+                </p>
+                <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                  Full Certificates of Analysis are published for every product and every lot. We test for what matters: peptide purity via HPLC, endotoxin levels via LAL assay, and heavy metal contamination via ICP-MS. No shortcuts, no exceptions.
+                </p>
+                <div className="inline-flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2.5 rounded-xl sm:rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 sm:py-2">
+                  <div className="flex items-center gap-2">
+                    <Truck className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm font-semibold text-foreground">Free 2-Day Shipping</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground pl-6 sm:pl-0">Same-day dispatch before 3 PM ET</span>
+                </div>
+              </div>
 
-        <HumanoidSection className="py-0" />
+              {/* Right — Vial diagram */}
+              <div className="relative flex items-center justify-center overflow-visible order-1 md:order-2">
+                {/* Vial image */}
+                <div className="relative">
+                  <div className="w-80 h-[28rem] md:w-96 md:h-[32rem] relative">
+                    <img
+                      src="/bpc-157-mockup.webp"
+                      alt="Peptide vial"
+                      className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(255,107,0,0.15)]"
+                    />
+                  </div>
+
+                  {/* Annotation: Purity Tested — top right */}
+                  <div className="absolute top-36 -right-2 md:-right-10 flex items-center gap-0">
+                    <div className="h-px w-6 md:w-16 bg-primary/40" />
+                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
+                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
+                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Purity Tested</span>
+                    </div>
+                  </div>
+
+                  {/* Annotation: Heavy Metal Testing — middle left */}
+                  <div className="absolute top-[38%] md:top-1/2 -translate-y-1/2 -left-7 md:-left-28 flex flex-row-reverse items-center gap-0">
+                    <div className="h-px w-3 md:w-16 bg-primary/40" />
+                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
+                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
+                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Heavy Metal Testing</span>
+                    </div>
+                  </div>
+
+                  {/* Annotation: Endotoxin Testing — bottom right */}
+                  <div className="absolute bottom-28 -right-6 md:-right-20 flex items-center gap-0">
+                    <div className="h-px w-6 md:w-16 bg-primary/40" />
+                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
+                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
+                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Endotoxin Testing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="divider-organic max-w-4xl mx-auto" />
+
+          <PeptidesCatalog showHeader={false} />
+
+          {/* Foundry Club CTA */}
+          <div className="container mx-auto px-6 lg:px-8 max-w-5xl py-16 md:py-24">
+            <div className="relative overflow-hidden rounded-2xl bg-charcoal p-10 md:p-14 text-center">
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] opacity-25"
+                style={{
+                  background: "radial-gradient(circle, hsl(24, 72%, 50%) 0%, transparent 60%)",
+                  filter: "blur(60px)",
+                }}
+              />
+              <div className="relative z-10">
+                <div className="inline-flex p-4 bg-primary/20 rounded-2xl mb-6">
+                  <Hexagon className="w-10 h-10 text-primary" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-serif text-white mb-4">
+                  The Foundry Club
+                </h3>
+                <p className="text-white/70 max-w-lg mx-auto mb-8 leading-relaxed">
+                  Unlock wholesale pricing on all peptides with our exclusive membership.
+                  Priority support, early access to new products, and more.
+                </p>
+                <FoundryClubLink className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-full font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30">
+                  <span>Join The Foundry Club</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </FoundryClubLink>
+              </div>
+            </div>
+          </div>
+
       </main>
       <Footer />
     </div>

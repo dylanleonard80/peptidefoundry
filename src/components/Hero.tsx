@@ -18,7 +18,7 @@ const Hero = () => {
   }, [navigate]);
 
   return (
-    <section className="relative overflow-hidden min-h-[92vh] md:min-h-[85vh]" id="hero">
+    <section className="relative overflow-hidden min-h-[92vh] md:min-h-[90vh]" id="hero">
       {/* Video background */}
       <div className="absolute inset-0">
         <video
@@ -26,7 +26,7 @@ const Hero = () => {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
         >
           <source src="/hero-bg.webm" type="video/webm" />
         </video>
@@ -47,7 +47,7 @@ const Hero = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 flex items-end min-h-[92vh] md:min-h-[85vh] pb-6 md:pb-16">
+      <div className="relative z-10 flex items-end min-h-[92vh] md:min-h-[90vh] pb-6 md:pb-16">
         <div className="container mx-auto px-6 lg:px-8 max-w-6xl">
           <div>
             <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-2xl mx-auto md:mx-0">

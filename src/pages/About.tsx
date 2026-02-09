@@ -2,109 +2,169 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Users, Award, Hexagon, DollarSign, ShieldCheck } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-const values = [{
-  icon: Check,
-  title: "Scientific Excellence",
-  description: "Every peptide undergoes rigorous third-party testing and quality verification"
-}, {
-  icon: Users,
-  title: "Family Commitment",
-  description: "Family business dedicated to supporting the research community"
-}, {
-  icon: Award,
-  title: "Quality Assurance",
-  description: "We work directly with a US-Based manufacturer that follows strict cGMP guidelines"
-}];
+import { Check, Users, Award, Hexagon, DollarSign, ShieldCheck, FlaskConical, ArrowRight, Microscope, FileCheck } from "lucide-react";
+import FoundryClubLink from "@/components/FoundryClubLink";
+
 const About = () => {
-  return <div className="min-h-screen flex flex-col">
+  return (
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 pt-20">
+
+        {/* Hero / Founder Story */}
         <section className="py-16 bg-gradient-to-b from-background to-secondary/20">
-          <div className="container px-4 sm:px-6 lg:px-8 my-[37px]">
+          <div className="container px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h1 className="text-4xl sm:text-5xl font-display font-bold tracking-tight mb-6">About Peptide Foundry</h1>
-                <div className="prose prose-lg mx-auto text-muted-foreground">
-                  <p className="text-lg leading-relaxed mb-6">Peptide Foundry is a family-owned and operated company dedicated to providing high-purity research peptides to laboratories, academic institutions, and independent researchers. Founded on principles of scientific integrity and quality, we take pride in supporting the research community.</p>
-                  
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                {values.map(value => <Card key={value.title} className="text-center">
-                    <CardHeader>
-                      <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                        <value.icon className="w-8 h-8 text-primary" />
-                      </div>
-                      <CardTitle className="text-xl">{value.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{value.description}</p>
-                    </CardContent>
-                  </Card>)}
-              </div>
-
-              {/* Third-Party Testing Section */}
-              <div className="bg-card rounded-2xl p-8 border shadow-sm mb-8 text-center">
-                <h2 className="text-2xl font-display font-bold mb-4">
-                  Independent Third-Party Testing
-                </h2>
-                <p className="text-muted-foreground mb-4">Every peptide we supply is verified through independent laboratory testing. Search our product COAs (Certificates of Analysis) to verify purity and authenticity. Search codes are found on COAs on product pages.</p>
-                <a href="https://freedomdiagnosticstesting.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:underline font-medium">
-                  View Testing Results at Freedom Diagnostics →
-                </a>
-              </div>
-
-              <div className="bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 rounded-2xl p-8 border border-primary/30 shadow-lg transition-all duration-300 hover:shadow-[0_0_50px_rgba(220,119,54,0.6)] hover:border-primary/60">
-                <div className="flex items-center justify-center gap-3 mb-6">
-                  <Hexagon className="w-8 h-8 text-primary fill-primary/20" />
-                  <h2 className="text-3xl font-display font-bold text-white">
-                    The Foundry Club Promise
-                  </h2>
-                  <Hexagon className="w-8 h-8 text-primary fill-primary/20" />
-                </div>
-                
-                <div className="space-y-4 text-zinc-300 mb-8">
-                  <p className="text-base leading-relaxed">
-                    Peptide Foundry was founded by a former NFL player whose post-career interest in regenerative science led him to explore the research potential of peptides. That curiosity sparked a mission: to make high-quality, U.S.-manufactured research peptides accessible to laboratories and researchers everywhere.
+              <div className="text-center mb-16">
+                <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">Our Story</p>
+                <h1 className="text-4xl sm:text-5xl font-display font-bold tracking-tight mb-6">
+                  Built by Curiosity,{" "}
+                  <span className="text-primary">Driven by Quality</span>
+                </h1>
+                <div className="prose prose-lg mx-auto text-muted-foreground max-w-3xl">
+                  <p className="text-lg leading-relaxed mb-4">
+                    Peptide Foundry was started by a former NFL player whose post-career interest in regenerative science led him to explore the research potential of peptides. What began as personal curiosity quickly became a mission: to make high-quality research peptides accessible to laboratories and independent researchers everywhere.
                   </p>
-                  <p className="text-base leading-relaxed">Think of The Foundry Club like your favorite wine club, a community of curious minds who share a passion for discovery. Members connect to discuss their research, exchange insights, and stay at the forefront of peptide science. We're not just a supplier; we're building a network of researchers united by a commitment to quality and innovation.</p>
+                  <p className="text-lg leading-relaxed">
+                    As a family-owned and operated company, we hold ourselves to a higher standard. Every product we carry is selected for its research value, rigorously tested by independent laboratories, and backed by full documentation. We believe researchers deserve materials they can trust — without the markup.
+                  </p>
                 </div>
+              </div>
 
-                <div className="grid md:grid-cols-3 gap-6 border-t border-primary/20 pt-6">
-                  <div className="text-center p-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
-                      <DollarSign className="w-6 h-6 text-primary" />
+              {/* Mission Statement */}
+              <div className="relative rounded-2xl border border-primary/20 bg-primary/5 p-8 md:p-10 text-center mb-16">
+                <p className="text-xl md:text-2xl font-serif text-charcoal leading-relaxed">
+                  "Our mission is simple: provide research-grade peptides with full transparency, rigorous third-party testing, and pricing that doesn't gatekeep scientific discovery."
+                </p>
+              </div>
+
+              {/* Core Values */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <Card className="text-center">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                      <FlaskConical className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="font-semibold mb-2 text-white">Accessible Pricing</h3>
-                    <p className="text-sm text-zinc-400">Top-tier research materials without top-tier prices</p>
-                  </div>
-                  <div className="text-center p-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
-                      <ShieldCheck className="w-6 h-6 text-primary" />
+                    <CardTitle className="text-xl">Scientific Rigor</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Every peptide undergoes multi-panel third-party testing. We publish Certificates of Analysis for every product and every lot — no exceptions.</p>
+                  </CardContent>
+                </Card>
+                <Card className="text-center">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Users className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="font-semibold mb-2 text-white">American Quality</h3>
-                    <p className="text-sm text-zinc-400">Manufactured in the USA under strict cGMP guidelines</p>
-                  </div>
-                  <div className="text-center p-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
-                      <Users className="w-6 h-6 text-primary" />
+                    <CardTitle className="text-xl">Family Operated</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">We're not a faceless distributor. Peptide Foundry is family-owned, and every order is handled with the care and accountability that comes with it.</p>
+                  </CardContent>
+                </Card>
+                <Card className="text-center">
+                  <CardHeader>
+                    <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                      <DollarSign className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="font-semibold mb-2 text-white">Research Community</h3>
-                    <p className="text-sm text-zinc-400">Connect with fellow researchers and share insights</p>
+                    <CardTitle className="text-xl">Accessible Pricing</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Quality research materials shouldn't break the budget. We keep our margins fair so more labs and researchers can access what they need.</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Third-Party Testing — Detailed */}
+              <div className="mb-16">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-display font-bold mb-3">Third-Party Testing</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Every batch is independently tested before it's made available. Here's exactly what we screen for.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="rounded-xl border bg-card p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-display font-bold text-lg">Purity (HPLC)</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      High-performance liquid chromatography confirms peptide identity and purity levels. Each COA reports exact purity percentages so you know precisely what you're working with.
+                    </p>
                   </div>
+                  <div className="rounded-xl border bg-card p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <ShieldCheck className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-display font-bold text-lg">Endotoxins (LAL)</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Limulus Amebocyte Lysate testing screens for bacterial endotoxins that could compromise research results. We test every lot to ensure levels fall well within acceptable limits.
+                    </p>
+                  </div>
+                  <div className="rounded-xl border bg-card p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Microscope className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-display font-bold text-lg">Heavy Metals (ICP-MS)</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Inductively coupled plasma mass spectrometry detects trace heavy metal contamination. This ensures your research materials are free from lead, mercury, arsenic, and cadmium.
+                    </p>
+                  </div>
+                </div>
+                <div className="text-center mt-6">
+                  <a
+                    href="https://freedomdiagnosticstesting.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+                  >
+                    <FileCheck className="w-4 h-4" />
+                    Verify COAs at Freedom Diagnostics →
+                  </a>
+                </div>
+              </div>
+
+              {/* Foundry Club CTA */}
+              <div className="bg-charcoal rounded-2xl p-8 md:p-12 border border-primary/30 shadow-lg mb-16">
+                <div className="text-center">
+                  <div className="inline-flex p-4 bg-primary/20 rounded-2xl mb-6">
+                    <Hexagon className="w-10 h-10 text-primary" strokeWidth={1.5} />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+                    The Foundry Club
+                  </h2>
+                  <p className="text-zinc-300 max-w-2xl mx-auto mb-4 leading-relaxed">
+                    Think of it like a membership for serious researchers. Foundry Club members unlock wholesale pricing on every peptide in our catalog, get priority order handling, and receive early access to new products as they're released.
+                  </p>
+                  <p className="text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+                    More than a discount — it's a community of curious minds who share a passion for discovery. Members connect to discuss their research, exchange insights, and stay at the forefront of peptide science.
+                  </p>
+                  <FoundryClubLink className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-full font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30">
+                    <span>Join The Foundry Club</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </FoundryClubLink>
                 </div>
               </div>
 
               {/* RUO Disclaimer */}
-              
+              <div className="rounded-xl border border-muted bg-muted/30 p-6 text-center">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  <span className="font-semibold">For Research Use Only.</span> All products sold by Peptide Foundry are intended strictly for laboratory research and educational purposes. They are not intended for human or animal consumption, therapeutic use, or any diagnostic procedures. By purchasing from Peptide Foundry, you acknowledge that these products will be used solely in a research setting by qualified professionals.
+                </p>
+              </div>
+
             </div>
           </div>
         </section>
       </main>
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default About;
