@@ -172,6 +172,10 @@ export default {
 				'spin-glow': {
 					'0%': { transform: 'rotate(0deg)' },
 					'100%': { transform: 'rotate(360deg)' }
+				},
+				'star-btn': {
+					'0%': { offsetDistance: '0%' },
+					'100%': { offsetDistance: '100%' }
 				}
 			},
 			animation: {
@@ -184,7 +188,8 @@ export default {
 				'pulse-slow': 'pulse-slow 4s infinite',
 				'float': 'float 8s ease-in-out infinite',
 				'peptide-scroll': 'peptide-scroll 50s linear infinite',
-				'spin-glow': 'spin-glow 4s linear infinite'
+				'spin-glow': 'spin-glow 4s linear infinite',
+				'star-btn': 'star-btn calc(var(--duration)*1s) linear infinite'
 			},
 			backgroundImage: {
 				'hero-gradient': 'linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)',
