@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 const Contact = () => {
   const {
     toast
@@ -72,17 +72,6 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="text-center">
-                  <CardHeader>
-                    <div className="mx-auto mb-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <MessageCircle className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg">Text Us</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm">1-800-PEPTIDE</p>
-                  </CardContent>
-                </Card>
 
               </div>
 
