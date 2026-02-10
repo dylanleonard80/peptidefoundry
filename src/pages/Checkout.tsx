@@ -229,44 +229,24 @@ const Checkout = () => {
                         const details = await actions.order!.capture();
                         console.log('[Checkout] Payment captured:', details);
 
-                        const captureId = details.purchase_units?.[0]?.payments?.captures?.[0]?.id || details.id;
+                        // Save order data for the success page to record in DB
+                        sessionStorage.setItem('pendingOrder', JSON.stringify({
+                          paypalOrderId: details.id,
+                          type: 'order',
+                          items: items.map(i => ({
+                            peptide_name: i.peptide_name,
+                            size: i.size,
+                            price: i.price,
+                            quantity: i.quantity,
+                          })),
+                          shippingAddress,
+                          subtotal,
+                          shipping,
+                          total,
+                        }));
 
-                        // Record order in database via edge function
-                        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-                        const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-                        const session = (await supabase.auth.getSession()).data.session;
-                        const authToken = session?.access_token || supabaseKey;
-
-                        const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${authToken}`,
-                            'apikey': supabaseKey,
-                          },
-                          body: JSON.stringify({
-                            paypalOrderId: details.id,
-                            type: 'order',
-                            items: items.map(i => ({
-                              peptide_name: i.peptide_name,
-                              size: i.size,
-                              price: i.price,
-                              quantity: i.quantity,
-                            })),
-                            shippingAddress,
-                            subtotal,
-                            shipping,
-                            total,
-                          }),
-                        });
-
-                        const captureData = await res.json();
-                        if (!res.ok) {
-                          console.error('[Checkout] Edge function error:', captureData);
-                        }
                         await clearCart();
-                        const orderNum = captureData.orderNumber || details.id;
-                        navigate(`/order-success?order=${orderNum}&provider=paypal`);
+                        navigate(`/order-success?provider=paypal`);
                       } catch (err) {
                         console.error('Payment capture error:', err);
                         toast({

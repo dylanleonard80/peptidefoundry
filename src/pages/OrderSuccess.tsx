@@ -1,27 +1,84 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
 const OrderSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [status, setStatus] = useState<'success' | 'error'>('error');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
   useEffect(() => {
-    const orderNum = searchParams.get('order');
     const provider = searchParams.get('provider');
 
-    // PayPal payments are verified server-side via capture edge function
-    // The order was already created and cart cleared before redirecting here
-    if (provider === 'paypal' && orderNum) {
-      setStatus('success');
-      setOrderNumber(orderNum);
+    if (provider !== 'paypal') {
+      setStatus('error');
+      return;
     }
+
+    // Record the order in the database from the success page
+    const recordOrder = async () => {
+      const pendingOrderJson = sessionStorage.getItem('pendingOrder');
+      if (!pendingOrderJson) {
+        // Already recorded (page refresh) — check URL for order number
+        const urlOrder = searchParams.get('order');
+        if (urlOrder) {
+          setOrderNumber(urlOrder);
+          setStatus('success');
+        } else {
+          setStatus('success');
+        }
+        return;
+      }
+
+      try {
+        const pendingOrder = JSON.parse(pendingOrderJson);
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+        const session = (await supabase.auth.getSession()).data.session;
+        const authToken = session?.access_token || supabaseKey;
+
+        console.log('[OrderSuccess] Recording order...', pendingOrder.paypalOrderId);
+
+        const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
+            'apikey': supabaseKey,
+          },
+          body: pendingOrderJson,
+        });
+
+        const data = await res.json();
+        console.log('[OrderSuccess] Edge function response:', res.status, data);
+
+        // Clear pending order regardless of result (prevent double-recording)
+        sessionStorage.removeItem('pendingOrder');
+
+        if (res.ok && data.orderNumber) {
+          setOrderNumber(data.orderNumber);
+          setStatus('success');
+        } else {
+          console.error('[OrderSuccess] Edge function error:', data);
+          // Payment was captured but recording failed — still show success
+          setOrderNumber(pendingOrder.paypalOrderId);
+          setStatus('success');
+        }
+      } catch (err) {
+        console.error('[OrderSuccess] Error recording order:', err);
+        sessionStorage.removeItem('pendingOrder');
+        // Payment was captured — show success even if recording failed
+        setStatus('success');
+      }
+    };
+
+    recordOrder();
   }, [searchParams]);
 
   return (
@@ -30,6 +87,12 @@ const OrderSuccess = () => {
       <main className="flex-1 container mx-auto px-4 py-8 pt-24 flex items-center justify-center">
         <Card className="max-w-md w-full">
           <CardHeader className="text-center">
+            {status === 'loading' && (
+              <>
+                <Loader2 className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
+                <CardTitle>Processing Order...</CardTitle>
+              </>
+            )}
             {status === 'success' && (
               <>
                 <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
@@ -44,6 +107,11 @@ const OrderSuccess = () => {
             )}
           </CardHeader>
           <CardContent className="text-center space-y-4">
+            {status === 'loading' && (
+              <p className="text-muted-foreground">
+                Please wait while we confirm your payment...
+              </p>
+            )}
             {status === 'success' && (
               <>
                 <p className="text-muted-foreground">
