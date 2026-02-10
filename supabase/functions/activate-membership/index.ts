@@ -8,7 +8,7 @@ const corsHeaders = {
 
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
-  console.log(`[CHECK-MEMBERSHIP] ${step}${detailsStr}`);
+  console.log(`[ACTIVATE-MEMBERSHIP] ${step}${detailsStr}`);
 };
 
 serve(async (req) => {
@@ -26,12 +26,10 @@ serve(async (req) => {
     logStep("Function started");
 
     const authHeader = req.headers.get("Authorization");
-
     if (!authHeader) {
-      logStep("No authorization header; treating as non-member");
       return new Response(
-        JSON.stringify({ isMember: false, subscriptionEnd: null, canceled: false }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+        JSON.stringify({ error: "Authorization required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
       );
     }
 
@@ -39,53 +37,60 @@ serve(async (req) => {
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
 
     if (userError || !userData.user) {
-      logStep("Auth invalid; treating as non-member", { message: userError?.message });
+      logStep("Auth invalid", { message: userError?.message });
       return new Response(
-        JSON.stringify({ isMember: false, subscriptionEnd: null, canceled: false }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+        JSON.stringify({ error: "Invalid authentication" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
       );
     }
 
     const user = userData.user;
     logStep("User authenticated", { userId: user.id });
 
-    // Check local memberships table
-    const { data: membership } = await supabaseClient
+    // Parse request body for payment transaction details
+    const body = await req.json().catch(() => ({}));
+    const { transactionId } = body;
+
+    logStep("Activating membership", { transactionId });
+
+    const now = new Date();
+    const periodEnd = new Date(now);
+    periodEnd.setDate(periodEnd.getDate() + 30);
+
+    // Upsert membership record (user_id has UNIQUE constraint)
+    const { data: membership, error: upsertError } = await supabaseClient
       .from('memberships')
-      .select('*')
-      .eq('user_id', user.id)
-      .in('status', ['active', 'canceled'])
+      .upsert({
+        user_id: user.id,
+        status: 'active',
+        current_period_start: now.toISOString(),
+        current_period_end: periodEnd.toISOString(),
+      }, {
+        onConflict: 'user_id',
+      })
+      .select()
       .single();
 
-    if (membership && new Date(membership.current_period_end) > new Date()) {
-      logStep("Active membership found", {
-        status: membership.status,
-        endDate: membership.current_period_end,
-      });
-      return new Response(JSON.stringify({
-        isMember: true,
-        subscriptionEnd: membership.current_period_end,
-        canceled: membership.status === 'canceled',
-      }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
+    if (upsertError) {
+      logStep("Upsert error", { message: upsertError.message });
+      return new Response(
+        JSON.stringify({ error: "Failed to activate membership" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
     }
 
-    // If membership exists but is expired, mark it inactive
-    if (membership && new Date(membership.current_period_end) <= new Date()) {
-      logStep("Membership expired, marking inactive");
-      await supabaseClient
-        .from('memberships')
-        .update({ status: 'inactive' })
-        .eq('id', membership.id);
-    }
+    logStep("Membership activated", {
+      membershipId: membership.id,
+      periodEnd: periodEnd.toISOString(),
+    });
 
-    logStep("No active membership found");
     return new Response(JSON.stringify({
-      isMember: false,
-      subscriptionEnd: null,
-      canceled: false,
+      success: true,
+      membership: {
+        id: membership.id,
+        status: membership.status,
+        currentPeriodEnd: membership.current_period_end,
+      },
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

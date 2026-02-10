@@ -10,7 +10,7 @@ import {
   Hexagon,
   FileText,
   Settings,
-  Heart,
+
   Menu,
   X,
   LogOut,
@@ -36,7 +36,6 @@ const navItems = [
   { path: "/dashboard/research-briefs", label: "Research Briefs", icon: Newspaper },
   { path: "/dashboard/documents", label: "Documents", icon: FileText },
   { path: "/dashboard/settings", label: "Settings", icon: Settings },
-  { path: "/dashboard/wishlist", label: "Wishlist", icon: Heart },
 ];
 
 const adminNavItems = [

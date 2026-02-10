@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingHexagonBackground from '@/components/FloatingHexagonBackground';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useMembership } from '@/hooks/useMembership';
-import { Hexagon, Loader2, Percent, Truck, Clock, ArrowRight } from 'lucide-react';
+import { Hexagon, Loader2, Percent, Truck, Clock, ArrowRight, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
-import { peptidePrices, memberPrices } from '@/data/priceData';
+import { usePrices } from '@/hooks/usePrices';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { supabase } from '@/integrations/supabase/client';
 
 const FoundryClub = () => {
   const navigate = useNavigate();
@@ -20,11 +22,11 @@ const FoundryClub = () => {
     subscriptionEnd,
     canceled,
     loading: memberLoading,
-    startCheckout,
-    openCustomerPortal,
     checkMembership
   } = useMembership();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const { prices: peptidePrices, memberPrices } = usePrices();
 
   useEffect(() => {
     if (searchParams.get('success') === 'true') {
@@ -39,35 +41,14 @@ const FoundryClub = () => {
     }
   }, [searchParams, checkMembership]);
 
-  const handleJoin = async () => {
+  const handleJoin = () => {
     if (!user) {
       navigate('/sign-in');
       return;
     }
-    setIsProcessing(true);
-    const url = await startCheckout();
-    if (url) {
-      const newWindow = window.open(url, '_blank');
-      if (!newWindow) {
-        window.location.href = url;
-      }
-      setIsProcessing(false);
-    } else {
-      toast.error('Failed to start checkout. Please try again.');
-      setIsProcessing(false);
-    }
+    setShowPayment(true);
   };
 
-  const handleManage = async () => {
-    setIsProcessing(true);
-    const url = await openCustomerPortal();
-    if (url) {
-      window.location.href = url;
-    } else {
-      toast.error('Failed to open billing portal. Please try again.');
-      setIsProcessing(false);
-    }
-  };
 
   const benefits = [
     {
@@ -186,17 +167,8 @@ const FoundryClub = () => {
                     ? `Access until ${new Date(subscriptionEnd!).toLocaleDateString()}`
                     : `Renews ${new Date(subscriptionEnd!).toLocaleDateString()}`}
                 </p>
-                <Button
-                  onClick={handleManage}
-                  disabled={isProcessing}
-                  variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10"
-                >
-                  {isProcessing && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Manage Subscription
-                </Button>
               </motion.div>
-            ) : !loading ? (
+            ) : !loading && !showPayment ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -226,6 +198,121 @@ const FoundryClub = () => {
                 <p className="text-white/40 text-sm">Cancel anytime</p>
               </motion.div>
             ) : null}
+
+            {/* PayPal Payment Widget */}
+            <AnimatePresence>
+              {showPayment && !isMember && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full max-w-md mx-auto mt-6"
+                >
+                  <div className="p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-medium text-white">Complete Payment</h3>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowPayment(false)}
+                        className="text-white/50 hover:text-white hover:bg-white/10"
+                      >
+                        <ArrowLeft className="h-4 w-4 mr-1" />
+                        Back
+                      </Button>
+                    </div>
+                    <div className="text-center mb-4">
+                      <p className="text-white/60 text-sm">Foundry Club Membership</p>
+                      <p className="text-2xl font-serif text-white">$50<span className="text-sm text-white/50">/month</span></p>
+                    </div>
+                    <PayPalScriptProvider options={{
+                      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+                      currency: "USD",
+                      intent: "capture",
+                      "enable-funding": "venmo",
+                      "disable-funding": "paylater",
+                    }}>
+                      <PayPalButtons
+                        style={{
+                          layout: "vertical",
+                          color: "gold",
+                          shape: "rect",
+                          label: "paypal",
+                        }}
+                        createOrder={(_data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [{
+                              amount: {
+                                currency_code: "USD",
+                                value: "50.00",
+                                breakdown: {
+                                  item_total: { currency_code: "USD", value: "50.00" },
+                                },
+                              },
+                              items: [{
+                                name: "Foundry Club Membership - 30 Days",
+                                unit_amount: { currency_code: "USD", value: "50.00" },
+                                quantity: "1",
+                                category: "DIGITAL_GOODS" as const,
+                              }],
+                            }],
+                          });
+                        }}
+                        onApprove={async (_data, actions) => {
+                          try {
+                            const details = await actions.order!.capture();
+                            console.log('[FoundryClub] Payment captured:', details);
+
+                            const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                            const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+                            const session = (await supabase.auth.getSession()).data.session;
+                            const authToken = session?.access_token || supabaseKey;
+
+                            const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${authToken}`,
+                                'apikey': supabaseKey,
+                              },
+                              body: JSON.stringify({
+                                paypalOrderId: details.id,
+                                type: 'membership',
+                              }),
+                            });
+
+                            if (!res.ok) {
+                              console.error('Membership activation failed:', res.status);
+                              toast.error('Payment received but membership activation failed. Please contact support.');
+                              return;
+                            }
+
+                            toast.success('Welcome to The Foundry Club!', {
+                              description: 'Your membership is now active. Enjoy wholesale pricing on all peptides!'
+                            });
+                            setShowPayment(false);
+                            checkMembership();
+                          } catch (err) {
+                            console.error('Error capturing membership payment:', err);
+                            toast.error('Payment received but membership activation failed. Please contact support.');
+                          }
+                        }}
+                        onCancel={() => {
+                          toast.info('Payment cancelled', {
+                            description: 'No charges were made.'
+                          });
+                        }}
+                        onError={(err) => {
+                          console.error('PayPal error:', err);
+                          toast.error('Payment failed. Please try again.');
+                        }}
+                      />
+                    </PayPalScriptProvider>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </section>
@@ -456,7 +543,7 @@ const FoundryClub = () => {
       </section>
 
       {/* Final CTA */}
-      {!loading && !isMember && (
+      {!loading && !isMember && !showPayment && (
         <section className="py-10 relative">
           <div className="container mx-auto px-6 lg:px-8 max-w-2xl text-center">
             <motion.div

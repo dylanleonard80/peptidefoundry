@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -10,13 +10,13 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CreditCard, ShieldCheck, Plus, Minus, ChevronRight } from 'lucide-react';
-import { peptidePrices } from '@/data/priceData';
+import { Loader2, ShieldCheck, Plus, Minus } from 'lucide-react';
+import { usePrices } from '@/hooks/usePrices';
 import peptideVial from '@/assets/peptide-vial-syringe.jpg';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 // Shipping address validation schema
 const shippingSchema = z.object({
@@ -34,8 +34,10 @@ const Checkout = () => {
     shipping,
     total,
     addItem,
-    updateQuantity
+    updateQuantity,
+    clearCart
   } = useCart();
+  const { prices: peptidePrices } = usePrices();
   const {
     user,
     profile
@@ -43,12 +45,7 @@ const Checkout = () => {
   const {
     toast
   } = useToast();
-  const [loading, setLoading] = useState(false);
-  const [orderNotes, setOrderNotes] = useState('');
   const [bacQuantity, setBacQuantity] = useState(1);
-  // Rate limiting: prevent rapid checkout clicks (2 second cooldown)
-  const lastCheckoutClickRef = useRef<number>(0);
-  const CHECKOUT_COOLDOWN_MS = 2000;
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
     street: '',
@@ -56,6 +53,7 @@ const Checkout = () => {
     state: '',
     zip: ''
   });
+
   useEffect(() => {
     // Only redirect if cart is empty
     if (items.length === 0) {
@@ -79,67 +77,7 @@ const Checkout = () => {
       }));
     }
   }, [user, items, profile, navigate]);
-  const handleProceedToPayment = async () => {
-    // Rate limiting: prevent rapid clicks
-    const now = Date.now();
-    if (now - lastCheckoutClickRef.current < CHECKOUT_COOLDOWN_MS) {
-      return;
-    }
-    lastCheckoutClickRef.current = now;
 
-    // Validate shipping address (including email for guests)
-    const validationResult = shippingSchema.safeParse(shippingAddress);
-    if (!validationResult.success) {
-      const firstError = validationResult.error.errors[0];
-      toast({
-        title: 'Invalid shipping address',
-        description: firstError.message,
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    // Validate order notes length
-    if (orderNotes.length > 2000) {
-      toast({
-        title: 'Order notes too long',
-        description: 'Order notes must be less than 2000 characters',
-        variant: 'destructive'
-      });
-      return;
-    }
-    setLoading(true);
-    try {
-      // Call edge function to create Stripe checkout session
-      const {
-        data,
-        error
-      } = await supabase.functions.invoke('create-order-checkout', {
-        body: {
-          items,
-          shippingAddress,
-          orderNotes
-        }
-      });
-      if (error) {
-        throw new Error(error.message);
-      }
-      if (data?.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL received');
-      }
-    } catch (error: unknown) {
-      console.error('Error creating checkout session:', error);
-      toast({
-        title: 'Error processing payment',
-        description: error instanceof Error ? error.message : 'An error occurred',
-        variant: 'destructive'
-      });
-      setLoading(false);
-    }
-  };
   return <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 pt-24 my-[48px]">
@@ -196,17 +134,6 @@ const Checkout = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Order Notes (Optional)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Textarea value={orderNotes} onChange={e => setOrderNotes(e.target.value)} placeholder="Any special instructions..." rows={4} maxLength={2000} />
-                <p className="text-xs text-muted-foreground mt-2">
-                  {orderNotes.length}/2000 characters
-                </p>
-              </CardContent>
-            </Card>
           </div>
 
           <div>
@@ -245,22 +172,121 @@ const Checkout = () => {
                 <div className="bg-muted/50 p-4 rounded-lg space-y-2">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <ShieldCheck className="h-4 w-4 text-green-600" />
-                    <span>Secure payment via Stripe</span>
+                    <span>Secure payment via PayPal</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    You'll be redirected to Stripe's secure checkout to complete your payment.
+                    Pay with PayPal, Venmo, or card.
                   </p>
                 </div>
 
-                <Button className="w-full" size="lg" onClick={handleProceedToPayment} disabled={loading}>
-                  {loading ? <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Preparing Checkout...
-                    </> : <>
-                      <CreditCard className="mr-2 h-4 w-4" />
-                      Proceed to Payment
-                    </>}
-                </Button>
+                <PayPalScriptProvider options={{
+                  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+                  currency: "USD",
+                  intent: "capture",
+                  "enable-funding": "venmo",
+                  "disable-funding": "paylater",
+                }}>
+                  <PayPalButtons
+                    style={{
+                      layout: "vertical",
+                      color: "gold",
+                      shape: "rect",
+                      label: "paypal",
+                    }}
+                    createOrder={(_data, actions) => {
+                      // Validate shipping first
+                      const validationResult = shippingSchema.safeParse(shippingAddress);
+                      if (!validationResult.success) {
+                        toast({
+                          title: 'Invalid shipping address',
+                          description: validationResult.error.errors[0].message,
+                          variant: 'destructive'
+                        });
+                        return Promise.reject(new Error('Invalid shipping address'));
+                      }
+
+                      return actions.order.create({
+                        purchase_units: [{
+                          amount: {
+                            currency_code: "USD",
+                            value: total.toFixed(2),
+                            breakdown: {
+                              item_total: { currency_code: "USD", value: subtotal.toFixed(2) },
+                              shipping: { currency_code: "USD", value: shipping.toFixed(2) },
+                            },
+                          },
+                          items: items.map(i => ({
+                            name: `${i.peptide_name} (${i.size})`,
+                            unit_amount: { currency_code: "USD", value: i.price.toFixed(2) },
+                            quantity: String(i.quantity),
+                            category: "PHYSICAL_GOODS" as const,
+                          })),
+                        }],
+                      });
+                    }}
+                    onApprove={async (_data, actions) => {
+                      try {
+                        const details = await actions.order!.capture();
+                        console.log('[Checkout] Payment captured:', details);
+
+                        const captureId = details.purchase_units?.[0]?.payments?.captures?.[0]?.id || details.id;
+
+                        // Record order in database via edge function
+                        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                        const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+                        const session = (await supabase.auth.getSession()).data.session;
+                        const authToken = session?.access_token || supabaseKey;
+
+                        const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`,
+                            'apikey': supabaseKey,
+                          },
+                          body: JSON.stringify({
+                            paypalOrderId: details.id,
+                            type: 'order',
+                            items: items.map(i => ({
+                              peptide_name: i.peptide_name,
+                              size: i.size,
+                              price: i.price,
+                              quantity: i.quantity,
+                            })),
+                            shippingAddress,
+                            subtotal,
+                            shipping,
+                            total,
+                          }),
+                        });
+
+                        const captureData = await res.json();
+                        if (!res.ok) {
+                          console.error('[Checkout] Edge function error:', captureData);
+                        }
+                        await clearCart();
+                        const orderNum = captureData.orderNumber || details.id;
+                        navigate(`/order-success?order=${orderNum}&provider=paypal`);
+                      } catch (err) {
+                        console.error('Payment capture error:', err);
+                        toast({
+                          title: 'Payment failed',
+                          description: 'There was an issue processing your payment. Please try again.',
+                          variant: 'destructive',
+                        });
+                      }
+                    }}
+                    onCancel={() => {
+                      toast({
+                        title: 'Payment cancelled',
+                        description: 'You can try again when ready.',
+                      });
+                    }}
+                    onError={(err) => {
+                      console.error('PayPal error:', err);
+                    }}
+                  />
+                </PayPalScriptProvider>
               </CardContent>
             </Card>
 
@@ -268,10 +294,10 @@ const Checkout = () => {
             {!items.some(item => item.peptide_name.toLowerCase().includes('bacteriostatic')) && <Card className="mt-4 w-full h-auto overflow-hidden transition-all duration-500 group flex flex-col relative border-0 bg-transparent">
                 {/* Frosted Glass Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-lg border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group-hover:shadow-[0_16px_48px_rgba(255,107,0,0.15)] group-hover:border-primary/30 transition-all duration-500" />
-                
+
                 {/* Subtle Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 {/* Glowing Orb Effect */}
                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-all duration-700 group-hover:scale-150" />
                 <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-700 group-hover:scale-125" />
@@ -289,7 +315,7 @@ const Checkout = () => {
                   <div className="relative min-h-32 h-44 overflow-hidden flex items-center justify-center">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent" />
                     <img alt="Bacteriostatic Water" className="w-36 h-36 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10" src="/lovable-uploads/7ab040b5-aa74-42dc-b185-992059b06595.webp" />
-                    
+
                     {/* Badge */}
                     <div className="absolute top-2 right-2">
                       <Badge className="text-xs shadow-lg backdrop-blur-md bg-white/20 border-white/30 text-foreground">
@@ -304,13 +330,13 @@ const Checkout = () => {
                       <h3 className="font-display font-bold text-base mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
                         Bacteriostatic Water
                       </h3>
-                      
+
                       {/* Price Badge */}
                       <Badge variant="outline" className="text-xs px-2 py-0.5 backdrop-blur-md bg-white/10 border-primary/30 text-primary font-medium group-hover:bg-primary/10 transition-all duration-300">
                         30ml - ${peptidePrices['bacteriostatic-water']['30ml']}
                       </Badge>
                     </div>
-                    
+
                     {/* Quantity Selector and Add Button */}
                     <div className="flex items-center gap-2 mt-3">
                       <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-md border border-white/20">

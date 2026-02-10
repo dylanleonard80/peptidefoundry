@@ -8,7 +8,7 @@ import { getAllUniquePeptides, PeptideCard } from "@/data/peptides";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { useMembership } from "@/hooks/useMembership";
-import { getMemberPriceBySlug, peptidePrices } from "@/data/priceData";
+import { usePrices } from "@/hooks/usePrices";
 import { getProductImageBySlug } from "@/data/peptidePageData";
 import peptideVial from "@/assets/peptide-vial-syringe.jpg";
 import { useState } from "react";
@@ -32,6 +32,7 @@ export const PopularStacks = ({ currentSlug, peptideName }: PopularStacksProps) 
   const { addItem } = useCart();
   const { toast } = useToast();
   const { isMember, getMemberPrice } = useMembership();
+  const { prices: peptidePrices, getMemberPriceBySlug } = usePrices();
   const [addingAll, setAddingAll] = useState(false);
 
   if (recommendations.length === 0) return null;

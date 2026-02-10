@@ -16,7 +16,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { format } from "date-fns";
-import { useToast } from "@/hooks/use-toast";
 import FoundryClubLink from "@/components/FoundryClubLink";
 
 const benefits = [
@@ -26,13 +25,10 @@ const benefits = [
 ];
 
 const DashboardMembership = () => {
-  const { isMember, subscriptionEnd, canceled, loading, openCustomerPortal } = useMembership();
+  const { isMember, subscriptionEnd, canceled, loading } = useMembership();
   const { user } = useAuth();
-  const { toast } = useToast();
   const [orderCount, setOrderCount] = useState(0);
   const [memberSince, setMemberSince] = useState<string | null>(null);
-  const [portalLoading, setPortalLoading] = useState(false);
-
   useEffect(() => {
     const fetchMemberData = async () => {
       if (!user) return;
@@ -62,21 +58,6 @@ const DashboardMembership = () => {
 
     fetchMemberData();
   }, [user]);
-
-  const handleManageBilling = async () => {
-    setPortalLoading(true);
-    const url = await openCustomerPortal();
-    if (url) {
-      window.open(url, "_blank");
-    } else {
-      toast({
-        title: "Error",
-        description: "Unable to open billing portal. Please try again.",
-        variant: "destructive",
-      });
-    }
-    setPortalLoading(false);
-  };
 
   if (loading) {
     return (
@@ -151,13 +132,6 @@ const DashboardMembership = () => {
                   </div>
                 </div>
 
-                <Button
-                  onClick={handleManageBilling}
-                  disabled={portalLoading}
-                  variant="outline"
-                >
-                  {portalLoading ? "Loading..." : "Manage Billing"}
-                </Button>
               </CardContent>
             </Card>
 

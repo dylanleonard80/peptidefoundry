@@ -43,7 +43,6 @@ const DashboardResearchBriefs = lazy(() => import("./pages/dashboard/ResearchBri
 const DashboardResearchAudit = lazy(() => import("./pages/dashboard/ResearchAudit"));
 const DashboardDocuments = lazy(() => import("./pages/dashboard/Documents"));
 const DashboardSettings = lazy(() => import("./pages/dashboard/Settings"));
-const DashboardWishlist = lazy(() => import("./pages/dashboard/Wishlist"));
 
 // Category pages
 const BuildMuscle = lazy(() => import("./pages/BuildMuscle"));
@@ -92,6 +91,7 @@ const AdminSales = lazy(() => import("./pages/admin/SalesOverview"));
 const AdminOrders = lazy(() => import("./pages/admin/OrderManagement"));
 const AdminInventory = lazy(() => import("./pages/admin/Inventory"));
 const AdminActivity = lazy(() => import("./pages/admin/Activity"));
+const AdminMemberships = lazy(() => import("./pages/admin/Memberships"));
 
 // Supplies
 const BacteriostaticWater = lazy(() => import("./pages/BacteriostaticWater"));
@@ -139,7 +139,6 @@ const App = () => (
                 <Route path="/dashboard/research-audit" element={<DashboardResearchAudit />} />
                 <Route path="/dashboard/documents" element={<DashboardDocuments />} />
                 <Route path="/dashboard/settings" element={<DashboardSettings />} />
-                <Route path="/dashboard/wishlist" element={<DashboardWishlist />} />
 
                 {/* Category pages */}
                 <Route path="/build-muscle" element={<BuildMuscle />} />
@@ -182,6 +181,7 @@ const App = () => (
                 <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/admin/inventory" element={<AdminInventory />} />
                 <Route path="/admin/activity" element={<AdminActivity />} />
+                <Route path="/admin/memberships" element={<AdminMemberships />} />
 
                 {/* Supplies */}
                 <Route path="/bacteriostatic-water" element={<BacteriostaticWater />} />

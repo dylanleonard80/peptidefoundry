@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
-import { getMemberPriceBySlug } from '@/data/priceData';
+import { usePrices } from '@/hooks/usePrices';
 
 interface MembershipState {
   isMember: boolean;
@@ -96,13 +96,14 @@ const getInitialCachedState = (): MembershipState => {
 
 export const useMembership = () => {
   const { user, session, loading: authLoading } = useAuth();
-  
+  const { getMemberPriceBySlug } = usePrices();
+
   const [state, setState] = useState<MembershipState>(getInitialCachedState);
 
   const checkMembership = useCallback(async () => {
     // Don't check if auth is still loading or no session
     if (authLoading) return;
-    
+
     if (!session || !user) {
       clearCachedMembership();
       setState(prev => ({ ...prev, isMember: false, loading: false, error: null }));
@@ -115,18 +116,25 @@ export const useMembership = () => {
       if (!cached) {
         setState(prev => ({ ...prev, loading: true, error: null }));
       }
-      
-      const { data, error } = await supabase.functions.invoke('check-membership');
-      
+
+      // Query memberships table directly (RLS allows user to see own row)
+      const { data: membership, error } = await supabase
+        .from('memberships')
+        .select('status, current_period_end')
+        .eq('user_id', user.id)
+        .in('status', ['active', 'canceled'])
+        .maybeSingle();
+
       if (error) throw error;
-      
-      const isMember = data.isMember || false;
-      const subscriptionEnd = data.subscriptionEnd || null;
-      const canceled = data.canceled || false;
-      
+
+      const isActive = membership && new Date(membership.current_period_end) > new Date();
+      const isMember = !!isActive;
+      const subscriptionEnd = membership?.current_period_end || null;
+      const canceled = membership?.status === 'canceled';
+
       // Cache the result
       setCachedMembership(user.id, isMember, subscriptionEnd, canceled);
-      
+
       setState({
         isMember,
         subscriptionEnd,
@@ -219,38 +227,10 @@ export const useMembership = () => {
     return Math.round(basePrice * 0.23);
   };
 
-  const startCheckout = async (): Promise<string | null> => {
-    try {
-      const { data, error } = await supabase.functions.invoke('create-membership-checkout');
-      
-      if (error) throw error;
-      
-      return data.url;
-    } catch (err) {
-      console.error('Error starting checkout:', err);
-      return null;
-    }
-  };
-
-  const openCustomerPortal = async (): Promise<string | null> => {
-    try {
-      const { data, error } = await supabase.functions.invoke('customer-portal');
-      
-      if (error) throw error;
-      
-      return data.url;
-    } catch (err) {
-      console.error('Error opening customer portal:', err);
-      return null;
-    }
-  };
-
   return {
     ...state,
     checkMembership,
     getMemberPrice,
     getDiscount,
-    startCheckout,
-    openCustomerPortal,
   };
 };

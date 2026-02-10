@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -72,15 +72,28 @@ const DashboardSettings = () => {
   const [saving, setSaving] = useState(false);
   
   // Profile form state
-  const [firstName, setFirstName] = useState(profile?.first_name || "");
-  const [lastName, setLastName] = useState(profile?.last_name || "");
-  const [phone, setPhone] = useState(profile?.phone || "");
-  
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+
   // Address form state
-  const [address, setAddress] = useState(profile?.street_address || "");
-  const [city, setCity] = useState(profile?.city || "");
-  const [state, setState] = useState(profile?.state || "");
-  const [zipCode, setZipCode] = useState(profile?.zip_code || "");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
+  // Sync form state when profile loads
+  useEffect(() => {
+    if (profile) {
+      setFirstName(profile.first_name || "");
+      setLastName(profile.last_name || "");
+      setPhone(profile.phone || "");
+      setAddress(profile.street_address || "");
+      setCity(profile.city || "");
+      setState(profile.state || "");
+      setZipCode(profile.zip_code || "");
+    }
+  }, [profile]);
 
   // Notification preferences
   const [orderUpdates, setOrderUpdates] = useState(true);

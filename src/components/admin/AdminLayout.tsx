@@ -9,6 +9,7 @@ import {
   BarChart3,
   ShoppingCart,
   ClipboardList,
+  Hexagon,
   ArrowLeft,
   Menu,
   LogOut,
@@ -27,6 +28,7 @@ const navItems = [
   { path: "/admin/sales", label: "Sales Overview", icon: BarChart3 },
   { path: "/admin/orders", label: "Orders", icon: ShoppingCart },
   { path: "/admin/inventory", label: "Inventory", icon: Package },
+  { path: "/admin/memberships", label: "Memberships", icon: Hexagon },
   { path: "/admin/activity", label: "Activity Log", icon: ClipboardList },
 ];
 

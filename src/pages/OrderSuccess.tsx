@@ -1,58 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { useCart } from '@/contexts/CartContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Loader2, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 const OrderSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { clearCart } = useCart();
-  const [status, setStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
+  const [status, setStatus] = useState<'success' | 'error'>('error');
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      const sessionId = searchParams.get('session_id');
-      const orderNum = searchParams.get('order');
+    const orderNum = searchParams.get('order');
+    const provider = searchParams.get('provider');
 
-      if (!sessionId) {
-        setStatus('error');
-        setErrorMessage('No payment session found');
-        return;
-      }
-
-      try {
-        const { data, error } = await supabase.functions.invoke('verify-order-payment', {
-          body: { sessionId },
-        });
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        if (data?.success) {
-          setStatus('success');
-          setOrderNumber(data.orderNumber || orderNum);
-          // Clear local cart as well
-          await clearCart();
-        } else {
-          throw new Error(data?.error || 'Payment verification failed');
-        }
-      } catch (err) {
-        console.error('Payment verification error:', err);
-        setStatus('error');
-        setErrorMessage(err instanceof Error ? err.message : 'Failed to verify payment');
-      }
-    };
-
-    verifyPayment();
-  }, [searchParams, clearCart]);
+    // PayPal payments are verified server-side via capture edge function
+    // The order was already created and cart cleared before redirecting here
+    if (provider === 'paypal' && orderNum) {
+      setStatus('success');
+      setOrderNumber(orderNum);
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -60,12 +30,6 @@ const OrderSuccess = () => {
       <main className="flex-1 container mx-auto px-4 py-8 pt-24 flex items-center justify-center">
         <Card className="max-w-md w-full">
           <CardHeader className="text-center">
-            {status === 'verifying' && (
-              <>
-                <Loader2 className="h-16 w-16 animate-spin text-primary mx-auto mb-4" />
-                <CardTitle>Verifying Payment...</CardTitle>
-              </>
-            )}
             {status === 'success' && (
               <>
                 <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
@@ -80,11 +44,6 @@ const OrderSuccess = () => {
             )}
           </CardHeader>
           <CardContent className="text-center space-y-4">
-            {status === 'verifying' && (
-              <p className="text-muted-foreground">
-                Please wait while we confirm your payment...
-              </p>
-            )}
             {status === 'success' && (
               <>
                 <p className="text-muted-foreground">
@@ -107,7 +66,7 @@ const OrderSuccess = () => {
             {status === 'error' && (
               <>
                 <p className="text-muted-foreground">
-                  {errorMessage || 'There was an issue processing your payment.'}
+                  There was an issue processing your payment.
                 </p>
                 <div className="space-y-2">
                   <Button onClick={() => navigate('/checkout')} className="w-full">

@@ -73,7 +73,7 @@ const PrivacyPolicy = () => {
 
               <h3 className="text-xl font-medium mb-3 mt-6">4.1 Service Providers</h3>
               <p className="text-muted-foreground leading-relaxed">
-                We engage third-party vendors to perform services on our behalf, including payment processing (Stripe), shipping and logistics, email communications, data analytics, and customer support. These providers have access to personal information only as necessary to perform their functions and are contractually obligated to maintain confidentiality.
+                We engage third-party vendors to perform services on our behalf, including payment processing (PayPal), shipping and logistics, email communications, data analytics, and customer support. These providers have access to personal information only as necessary to perform their functions and are contractually obligated to maintain confidentiality.
               </p>
 
               <h3 className="text-xl font-medium mb-3 mt-6">4.2 Legal Compliance</h3>

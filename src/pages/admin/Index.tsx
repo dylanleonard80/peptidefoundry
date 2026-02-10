@@ -243,6 +243,9 @@ const AdminIndex = () => {
           <Link to="/admin/inventory">Manage Inventory</Link>
         </Button>
         <Button variant="outline" asChild>
+          <Link to="/admin/memberships">Memberships</Link>
+        </Button>
+        <Button variant="outline" asChild>
           <Link to="/admin/sales">View Sales</Link>
         </Button>
       </div>

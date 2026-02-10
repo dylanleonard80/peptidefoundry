@@ -19,9 +19,9 @@ import FoundryClubLink from "@/components/FoundryClubLink";
 import peptideVial from "@/assets/peptide-vial-syringe.jpg";
 import type { PeptideBenefit, PeptideAccordion } from "@/data/peptidePageData";
 import { getSmallIcon, getLargeIcon } from "@/lib/iconUtils";
-import { ExpressCheckoutButton } from "@/components/ExpressCheckoutButton";
+
 import { ReactNode } from "react";
-import { getMemberPriceBySlug, getSavingsBySlug } from "@/data/priceData";
+import { usePrices } from "@/hooks/usePrices";
 import { PopularStacks } from "@/components/PopularStacks";
 import { ResearchStudiesSheet } from "@/components/ResearchStudiesSheet";
 import { getResearchByArea, ResearchStudy } from "@/data/researchStudies";
@@ -96,7 +96,10 @@ export const PeptidePageTemplate = ({
     loading: memberLoading
   } = useMembership();
   const { productInStock, variantStock } = useProductStock(slug);
-  const [selectedSize, setSelectedSize] = useState(Object.keys(prices)[0] || "10mg");
+  const { getPrices: getDbPrices, getMemberPriceBySlug, getSavingsBySlug } = usePrices();
+  // Prefer DB prices, fall back to prop
+  const activePrices = getDbPrices(slug) ?? prices;
+  const [selectedSize, setSelectedSize] = useState(Object.keys(activePrices)[0] || "10mg");
   const [quantity, setQuantity] = useState(1);
   const selectedSizeKey = selectedSize.trim();
   const isSizeOutOfStock = !productInStock || variantStock[selectedSizeKey] === false;
@@ -117,7 +120,7 @@ export const PeptidePageTemplate = ({
     title: string;
     studies: ResearchStudy[];
   } | null>(null);
-  const basePrice = prices[selectedSize as keyof typeof prices];
+  const basePrice = activePrices[selectedSize as keyof typeof activePrices];
   const displayPrice = getMemberPrice(basePrice, slug, selectedSize);
   const totalPrice = displayPrice * quantity;
   const savings = isMember ? (basePrice - displayPrice) * quantity : 0;
@@ -312,7 +315,7 @@ export const PeptidePageTemplate = ({
                   <div>
                     <Label className="text-base font-semibold mb-3 block">Select Size</Label>
                     <div className="grid gap-3 grid-cols-1">
-                      {Object.keys(prices).map(size => <Button key={size} variant={selectedSize === size ? "default" : "outline"} onClick={() => setSelectedSize(size)} className="w-full">
+                      {Object.keys(activePrices).map(size => <Button key={size} variant={selectedSize === size ? "default" : "outline"} onClick={() => setSelectedSize(size)} className="w-full">
                           {size}
                         </Button>)}
                     </div>
@@ -403,7 +406,7 @@ export const PeptidePageTemplate = ({
           <div className="flex items-center gap-3">
             {/* Size Pills */}
             <div className="flex gap-1.5">
-              {Object.keys(prices).map(size => <button key={size} onClick={() => setSelectedSize(size)} className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${selectedSize === size ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}>
+              {Object.keys(activePrices).map(size => <button key={size} onClick={() => setSelectedSize(size)} className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${selectedSize === size ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}>
                   {size}
                 </button>)}
             </div>
