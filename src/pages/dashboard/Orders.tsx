@@ -299,9 +299,10 @@ const DashboardOrders = () => {
                   <div>
                     <h4 className="font-semibold mb-2">Shipping Address</h4>
                     <p className="text-sm text-muted-foreground">
-                      {(selectedOrder.shipping_address as any).firstName} {(selectedOrder.shipping_address as any).lastName}<br />
-                      {(selectedOrder.shipping_address as any).address}<br />
-                      {(selectedOrder.shipping_address as any).city}, {(selectedOrder.shipping_address as any).state} {(selectedOrder.shipping_address as any).zipCode}
+                      {(selectedOrder.shipping_address as any).firstName} {(selectedOrder.shipping_address as any).lastName}
+                      {((selectedOrder.shipping_address as any).firstName || (selectedOrder.shipping_address as any).lastName) && <br />}
+                      {(selectedOrder.shipping_address as any).address || (selectedOrder.shipping_address as any).street}<br />
+                      {(selectedOrder.shipping_address as any).city}, {(selectedOrder.shipping_address as any).state} {(selectedOrder.shipping_address as any).zipCode || (selectedOrder.shipping_address as any).zip}
                     </p>
                   </div>
                 )}

@@ -679,12 +679,12 @@ const AdminOrderManagement = () => {
                     <p className="text-sm text-muted-foreground">
                       {(selectedOrder.shipping_address as any).firstName}{" "}
                       {(selectedOrder.shipping_address as any).lastName}
-                      <br />
-                      {(selectedOrder.shipping_address as any).address}
+                      {((selectedOrder.shipping_address as any).firstName || (selectedOrder.shipping_address as any).lastName) && <br />}
+                      {(selectedOrder.shipping_address as any).address || (selectedOrder.shipping_address as any).street}
                       <br />
                       {(selectedOrder.shipping_address as any).city},{" "}
                       {(selectedOrder.shipping_address as any).state}{" "}
-                      {(selectedOrder.shipping_address as any).zipCode}
+                      {(selectedOrder.shipping_address as any).zipCode || (selectedOrder.shipping_address as any).zip}
                     </p>
                   </div>
                 )}

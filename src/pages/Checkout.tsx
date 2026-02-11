@@ -46,6 +46,7 @@ const Checkout = () => {
     toast
   } = useToast();
   const [bacQuantity, setBacQuantity] = useState(1);
+  const [orderCompleting, setOrderCompleting] = useState(false);
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
     street: '',
@@ -55,6 +56,9 @@ const Checkout = () => {
   });
 
   useEffect(() => {
+    // Don't redirect to catalog if we just completed an order and cleared the cart
+    if (orderCompleting) return;
+
     // Only redirect if cart is empty
     if (items.length === 0) {
       navigate('/all-peptides');
@@ -76,7 +80,7 @@ const Checkout = () => {
         email: user.email || ''
       }));
     }
-  }, [user, items, profile, navigate]);
+  }, [user, items, profile, navigate, orderCompleting]);
 
   return <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -230,6 +234,7 @@ const Checkout = () => {
                         console.log('[Checkout] Payment captured:', details);
 
                         // Save order data for the success page to record in DB
+                        // Transform address to the format dashboards expect
                         sessionStorage.setItem('pendingOrder', JSON.stringify({
                           paypalOrderId: details.id,
                           type: 'order',
@@ -239,12 +244,22 @@ const Checkout = () => {
                             price: i.price,
                             quantity: i.quantity,
                           })),
-                          shippingAddress,
+                          shippingAddress: {
+                            firstName: profile?.first_name || '',
+                            lastName: profile?.last_name || '',
+                            email: shippingAddress.email,
+                            address: shippingAddress.street,
+                            city: shippingAddress.city,
+                            state: shippingAddress.state,
+                            zipCode: shippingAddress.zip,
+                          },
                           subtotal,
                           shipping,
                           total,
                         }));
 
+                        // Prevent the empty-cart useEffect from redirecting to /all-peptides
+                        setOrderCompleting(true);
                         await clearCart();
                         navigate(`/order-success?provider=paypal`);
                       } catch (err) {
