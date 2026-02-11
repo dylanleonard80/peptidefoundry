@@ -56,6 +56,8 @@ export interface AdminOrder {
   status: OrderStatus | null;
   tracking_number: string | null;
   carrier: string | null;
+  shipping_label_url: string | null;
+  shippo_transaction_id: string | null;
   internal_notes: string | null;
   guest_email: string | null;
   shipping_address: Json;

@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Truck, Package, Eye } from "lucide-react";
+import { Search, Truck, Package, Eye, Printer, ExternalLink, Loader2, Hand } from "lucide-react";
 import { format, differenceInHours } from "date-fns";
 
 const ORDER_STATUSES: OrderStatus[] = ["pending", "processing", "shipped", "delivered", "cancelled"];
@@ -62,6 +62,21 @@ const AdminOrderManagement = () => {
   // Inline tracking/notes state
   const [trackingInputs, setTrackingInputs] = useState<Record<string, string>>({});
   const [notesInputs, setNotesInputs] = useState<Record<string, string>>({});
+
+  // Shipping label state
+  interface ShippingRate {
+    object_id: string;
+    provider: string;
+    servicelevel_name: string;
+    amount: string;
+    currency: string;
+    estimated_days: number | null;
+    duration_terms: string;
+  }
+  const [shippingOrder, setShippingOrder] = useState<AdminOrder | null>(null);
+  const [rates, setRates] = useState<ShippingRate[]>([]);
+  const [loadingRates, setLoadingRates] = useState(false);
+  const [purchasingLabel, setPurchasingLabel] = useState(false);
 
   const fetchOrders = useCallback(async () => {
     // Fetch orders (no join — no direct FK to profiles)
@@ -230,6 +245,130 @@ const AdminOrderManagement = () => {
     );
     toast({ title: "Notes saved" });
   };
+
+  const extractFnError = async (error: any, data: any): Promise<string> => {
+    if (data?.error) return data.error;
+    if (error?.context) {
+      try {
+        const body = await error.context.json();
+        if (body?.error) return body.error;
+      } catch {}
+    }
+    return error?.message || "Unknown error";
+  };
+
+  const openShippingDialog = async (order: AdminOrder) => {
+    setShippingOrder(order);
+    setRates([]);
+    setLoadingRates(true);
+
+    const { data, error } = await supabase.functions.invoke("get-shipping-rates", {
+      body: { orderId: order.id },
+    });
+
+    setLoadingRates(false);
+
+    if (error || data?.error) {
+      const msg = await extractFnError(error, data);
+      toast({
+        title: "Error fetching rates",
+        description: msg,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setRates(data.rates || []);
+  };
+
+  const handlePurchaseLabel = async (rate: ShippingRate) => {
+    if (!shippingOrder) return;
+    setPurchasingLabel(true);
+
+    const { data, error } = await supabase.functions.invoke("purchase-shipping-label", {
+      body: {
+        orderId: shippingOrder.id,
+        rateId: rate.object_id,
+        carrier: rate.provider,
+        serviceName: rate.servicelevel_name,
+      },
+    });
+
+    setPurchasingLabel(false);
+
+    if (error || data?.error) {
+      const msg = await extractFnError(error, data);
+      toast({
+        title: "Error purchasing label",
+        description: msg,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Update order in local state
+    const updatedFields: Partial<AdminOrder> = {
+      tracking_number: data.tracking_number,
+      carrier: data.carrier,
+      shipping_label_url: data.shipping_label_url,
+      shippo_transaction_id: data.shippo_transaction_id,
+      status: "shipped" as OrderStatus,
+      shipped_at: new Date().toISOString(),
+    };
+
+    setOrders((prev) =>
+      prev.map((o) => (o.id === shippingOrder.id ? { ...o, ...updatedFields } : o))
+    );
+    setTrackingInputs((prev) => ({ ...prev, [shippingOrder.id]: data.tracking_number || "" }));
+
+    if (selectedOrder?.id === shippingOrder.id) {
+      setSelectedOrder((prev) => prev ? { ...prev, ...updatedFields } : null);
+    }
+
+    setShippingOrder(null);
+    toast({ title: `Label purchased — ${data.carrier} ${data.tracking_number}` });
+
+    // Open label PDF in new tab
+    if (data.shipping_label_url) {
+      window.open(data.shipping_label_url, "_blank");
+    }
+  };
+
+  const handleHandDeliver = async (order: AdminOrder) => {
+    const now = new Date().toISOString();
+    const updateData = {
+      status: "delivered",
+      carrier: "Hand Delivered",
+      delivered_at: now,
+    };
+
+    const { error } = await supabase
+      .from("orders")
+      .update(updateData as any)
+      .eq("id", order.id);
+
+    if (error) {
+      toast({ title: "Error updating order", description: error.message, variant: "destructive" });
+      return;
+    }
+
+    const updatedFields: Partial<AdminOrder> = {
+      status: "delivered" as OrderStatus,
+      carrier: "Hand Delivered",
+      delivered_at: now,
+    };
+
+    setOrders((prev) =>
+      prev.map((o) => (o.id === order.id ? { ...o, ...updatedFields } : o))
+    );
+    if (selectedOrder?.id === order.id) {
+      setSelectedOrder((prev) => prev ? { ...prev, ...updatedFields } : null);
+    }
+    toast({ title: `Order ${order.order_number} marked as hand delivered` });
+  };
+
+  const canShip = (order: AdminOrder) =>
+    !order.shipping_label_url && (order.status === "pending" || order.status === "processing");
 
   const getCustomerName = (order: AdminOrder) => {
     if (order.profiles) {
@@ -513,14 +652,49 @@ const AdminOrderManagement = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => setSelectedOrder(order)}
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      {canShip(order) && (
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-primary hover:text-primary"
+                            onClick={() => openShippingDialog(order)}
+                            title="Create shipping label"
+                          >
+                            <Truck className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-orange-500 hover:text-orange-600"
+                            onClick={() => handleHandDeliver(order)}
+                            title="Mark as hand delivered"
+                          >
+                            <Hand className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
+                      {order.shipping_label_url && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-green-600 hover:text-green-700"
+                          onClick={() => window.open(order.shipping_label_url!, "_blank")}
+                          title="View/print label"
+                        >
+                          <Printer className="h-4 w-4" />
+                        </Button>
+                      )}
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => setSelectedOrder(order)}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -539,9 +713,13 @@ const AdminOrderManagement = () => {
 
       {/* Order Detail Dialog */}
       <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl p-0">
           {selectedOrder && (
-            <>
+            <div
+              className="max-h-[85vh] overflow-y-auto p-6"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-3">
                   Order {selectedOrder.order_number}
@@ -552,7 +730,7 @@ const AdminOrderManagement = () => {
                 </DialogTitle>
               </DialogHeader>
 
-              <div className="space-y-6">
+              <div className="space-y-6 mt-4">
                 {/* Meta */}
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -607,6 +785,52 @@ const AdminOrderManagement = () => {
                       Save
                     </Button>
                   </div>
+                </div>
+
+                {/* Shipping Label */}
+                <div>
+                  <Label>Shipping Label</Label>
+                  {selectedOrder.shipping_label_url ? (
+                    <div className="mt-2 space-y-2">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Badge className="bg-green-100 text-green-800">Label Created</Badge>
+                        <span className="text-muted-foreground">{selectedOrder.carrier}</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(selectedOrder.shipping_label_url!, "_blank")}
+                      >
+                        <Printer className="h-4 w-4 mr-2" />
+                        View / Print Label
+                        <ExternalLink className="h-3 w-3 ml-2" />
+                      </Button>
+                    </div>
+                  ) : selectedOrder.carrier === "Hand Delivered" ? (
+                    <div className="mt-2">
+                      <Badge className="bg-orange-100 text-orange-800">Hand Delivered</Badge>
+                    </div>
+                  ) : canShip(selectedOrder) ? (
+                    <div className="mt-2 flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => openShippingDialog(selectedOrder)}
+                      >
+                        <Truck className="h-4 w-4 mr-2" />
+                        Create Shipping Label
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleHandDeliver(selectedOrder)}
+                      >
+                        <Hand className="h-4 w-4 mr-2" />
+                        Hand Deliver
+                      </Button>
+                    </div>
+                  ) : (
+                    <p className="mt-1 text-sm text-muted-foreground">No label created</p>
+                  )}
                 </div>
 
                 {/* Internal Notes */}
@@ -689,8 +913,74 @@ const AdminOrderManagement = () => {
                   </div>
                 )}
               </div>
-            </>
+            </div>
           )}
+        </DialogContent>
+      </Dialog>
+      {/* Shipping Rate Selection Dialog */}
+      <Dialog open={!!shippingOrder} onOpenChange={() => setShippingOrder(null)}>
+        <DialogContent className="max-w-lg p-0">
+          <div
+            className="max-h-[80vh] overflow-y-auto p-6"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+          >
+            <DialogHeader>
+              <DialogTitle>
+                Ship Order {shippingOrder?.order_number}
+              </DialogTitle>
+            </DialogHeader>
+
+            {loadingRates ? (
+              <div className="flex flex-col items-center justify-center py-12 gap-3">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <p className="text-sm text-muted-foreground">Fetching carrier rates...</p>
+              </div>
+            ) : rates.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <Package className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                <p>No rates available. Check the shipping address and Shippo configuration.</p>
+              </div>
+            ) : (
+              <div className="space-y-3 mt-4">
+                <p className="text-sm text-muted-foreground">
+                  {rates.length} rate{rates.length !== 1 ? "s" : ""} found — sorted by price
+                </p>
+                {rates.map((rate) => (
+                  <Card key={rate.object_id} className="overflow-hidden">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm">{rate.provider}</p>
+                          <p className="text-sm text-muted-foreground">{rate.servicelevel_name}</p>
+                          {rate.estimated_days && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Est. {rate.estimated_days} day{rate.estimated_days !== 1 ? "s" : ""}
+                              {rate.duration_terms ? ` — ${rate.duration_terms}` : ""}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-3 shrink-0">
+                          <span className="font-mono font-semibold text-lg">${rate.amount}</span>
+                          <Button
+                            size="sm"
+                            disabled={purchasingLabel}
+                            onClick={() => handlePurchaseLabel(rate)}
+                          >
+                            {purchasingLabel ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              "Buy Label"
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </AdminLayout>

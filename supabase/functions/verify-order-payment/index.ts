@@ -156,46 +156,6 @@ serve(async (req) => {
       }
     }
 
-    // Trigger shipping label creation in background
-    const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    
-    if (supabaseUrl && serviceRoleKey) {
-      logStep("Triggering shipping label creation");
-      
-      // Fire and forget - don't wait for label creation
-      // Use service role key for authorized function-to-function call
-      fetch(`${supabaseUrl}/functions/v1/create-shipping-label`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${serviceRoleKey}`
-        },
-        body: JSON.stringify({
-          orderId: order.id,
-          orderNumber,
-          shippingAddress: {
-            name: `${shippingAddress.firstName || ''} ${shippingAddress.lastName || ''}`.trim(),
-            street: shippingAddress.address || shippingAddress.street,
-            city: shippingAddress.city,
-            state: shippingAddress.state,
-            zip: shippingAddress.zipCode || shippingAddress.zip,
-            email: shippingAddress.email || guestEmail,
-            phone: shippingAddress.phone
-          },
-          items
-        })
-      }).then(res => {
-        if (res.ok) {
-          logStep("Shipping label creation triggered successfully");
-        } else {
-          logStep("Warning: Shipping label creation failed", { status: res.status });
-        }
-      }).catch(err => {
-        logStep("Warning: Failed to trigger shipping label creation", { error: err.message });
-      });
-    }
-
     return new Response(JSON.stringify({ 
       success: true, 
       orderNumber,
