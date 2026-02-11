@@ -21,7 +21,6 @@ const OrderSuccess = () => {
       return;
     }
 
-    // Record the order in the database from the success page
     const recordOrder = async () => {
       const pendingOrderJson = sessionStorage.getItem('pendingOrder');
       if (!pendingOrderJson) {
@@ -29,57 +28,112 @@ const OrderSuccess = () => {
         const urlOrder = searchParams.get('order');
         if (urlOrder) {
           setOrderNumber(urlOrder);
-          setStatus('success');
-        } else {
-          setStatus('success');
         }
+        setStatus('success');
         return;
       }
 
-      try {
-        const pendingOrder = JSON.parse(pendingOrderJson);
-        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-        const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-        const session = (await supabase.auth.getSession()).data.session;
-        const authToken = session?.access_token || supabaseKey;
+      const pendingOrder = JSON.parse(pendingOrderJson);
+      console.log('[OrderSuccess] Recording order...', pendingOrder.paypalOrderId);
 
-        console.log('[OrderSuccess] Recording order...', pendingOrder.paypalOrderId);
+      // Generate order number client-side
+      const generatedOrderNumber = `ORD-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
-        const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`,
-            'apikey': supabaseKey,
-          },
-          body: pendingOrderJson,
-        });
-
-        const data = await res.json();
-        console.log('[OrderSuccess] Edge function response:', res.status, data);
-
-        // Clear pending order regardless of result (prevent double-recording)
+      // Get authenticated user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        console.error('[OrderSuccess] No authenticated user — cannot record order');
         sessionStorage.removeItem('pendingOrder');
+        setOrderNumber(pendingOrder.paypalOrderId);
+        setStatus('success');
+        return;
+      }
 
-        if (res.ok && data.orderNumber) {
-          setOrderNumber(data.orderNumber);
-          setStatus('success');
-        } else {
-          console.error('[OrderSuccess] Edge function error:', data);
-          // Payment was captured but recording failed — still show success
-          setOrderNumber(pendingOrder.paypalOrderId);
-          setStatus('success');
-        }
-      } catch (err) {
-        console.error('[OrderSuccess] Error recording order:', err);
+      // Primary path: insert directly into Supabase
+      const orderRow = {
+        order_number: generatedOrderNumber,
+        user_id: user.id,
+        items: pendingOrder.items,
+        subtotal: pendingOrder.subtotal,
+        shipping: pendingOrder.shipping,
+        total: pendingOrder.total,
+        shipping_address: pendingOrder.shippingAddress,
+        status: 'processing' as const,
+        stripe_payment_id: pendingOrder.paypalOrderId,
+      };
+
+      const { error: insertError } = await supabase.from('orders').insert(orderRow);
+
+      if (!insertError) {
+        console.log('[OrderSuccess] Order recorded directly:', generatedOrderNumber);
         sessionStorage.removeItem('pendingOrder');
-        // Payment was captured — show success even if recording failed
+        setOrderNumber(generatedOrderNumber);
+        // Update URL so page refreshes still show the order number
+        window.history.replaceState({}, '', `/order-success?provider=paypal&order=${generatedOrderNumber}`);
+        setStatus('success');
+
+        // Fire-and-forget: call edge function for PayPal verification / shipping label
+        fireEdgeFunction(pendingOrder).catch((err) =>
+          console.warn('[OrderSuccess] Edge function (non-critical) failed:', err)
+        );
+      } else {
+        console.error('[OrderSuccess] Direct insert failed:', insertError);
+        // Fallback: try via edge function
+        const fallbackOrder = await tryEdgeFunctionFallback(pendingOrder);
+        sessionStorage.removeItem('pendingOrder');
+        setOrderNumber(fallbackOrder || pendingOrder.paypalOrderId);
         setStatus('success');
       }
     };
 
     recordOrder();
   }, [searchParams]);
+
+  // Fire-and-forget call to edge function for PayPal verification + shipping label
+  const fireEdgeFunction = async (pendingOrder: Record<string, unknown>) => {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    const session = (await supabase.auth.getSession()).data.session;
+    const authToken = session?.access_token || supabaseKey;
+
+    const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`,
+        'apikey': supabaseKey,
+      },
+      body: JSON.stringify(pendingOrder),
+    });
+    const data = await res.json();
+    console.log('[OrderSuccess] Edge function (fire-and-forget):', res.status, data);
+  };
+
+  // Fallback: try recording via edge function if direct insert failed
+  const tryEdgeFunctionFallback = async (pendingOrder: Record<string, unknown>): Promise<string | null> => {
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      const session = (await supabase.auth.getSession()).data.session;
+      const authToken = session?.access_token || supabaseKey;
+
+      const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
+          'apikey': supabaseKey,
+        },
+        body: JSON.stringify(pendingOrder),
+      });
+      const data = await res.json();
+      console.log('[OrderSuccess] Edge function fallback:', res.status, data);
+      if (res.ok && data.orderNumber) return data.orderNumber;
+    } catch (err) {
+      console.error('[OrderSuccess] Edge function fallback failed:', err);
+    }
+    return null;
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
