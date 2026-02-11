@@ -6,7 +6,7 @@ const CategoryGrid = () => {
     {
       title: "Repair & Regeneration",
       subtitle: "Tissue research peptides",
-      image: "/category-healing-recovery.jpg",
+      image: "/category-tissue-repair.webp",
       link: "/recovery",
     },
     {
