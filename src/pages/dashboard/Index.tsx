@@ -212,7 +212,7 @@ const DashboardIndex = () => {
               ) : (
                 <div className="text-center py-6 text-muted-foreground">
                   <p>No orders yet</p>
-                  <Link to="/all-peptides">
+                  <Link to="/shop">
                     <Button variant="link" className="mt-2">
                       Browse Catalog
                     </Button>

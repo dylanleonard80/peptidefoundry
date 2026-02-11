@@ -50,7 +50,7 @@ const CategoryGrid = () => {
             </p>
           </div>
           <Link
-            to="/all-peptides"
+            to="/shop"
             className="hidden sm:flex items-center gap-2 text-sm font-medium text-primary link-refined"
           >
             View all peptides
@@ -106,7 +106,7 @@ const CategoryGrid = () => {
         {/* Mobile view all link */}
         <div className="mt-6 sm:hidden">
           <Link
-            to="/all-peptides"
+            to="/shop"
             className="flex items-center justify-center gap-2 w-full py-3 text-sm font-medium text-primary border border-primary/20 rounded-full hover:bg-primary/5 transition-colors"
           >
             View all peptides

@@ -43,7 +43,7 @@ export const Cart = ({ isFoundryClubPage = false, isDarkHero = false }: CartProp
           {items.length === 0 ? <div className="flex-1 flex flex-col items-center justify-center gap-4">
               <ShoppingCart className="h-16 w-16 text-muted-foreground" />
               <p className="text-muted-foreground">Your cart is empty</p>
-              <Button onClick={() => navigate('/all-peptides')}>
+              <Button onClick={() => navigate('/shop')}>
                 Browse Peptides
               </Button>
             </div> : <>

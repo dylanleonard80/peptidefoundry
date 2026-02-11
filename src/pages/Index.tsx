@@ -5,6 +5,8 @@ import PeptidesCatalog from "@/components/PeptidesCatalog";
 import Footer from "@/components/Footer";
 import FoundryClubLink from "@/components/FoundryClubLink";
 import { Truck, ShieldCheck, FlaskConical, Hexagon, ArrowRight, Plus } from "lucide-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 const Index = () => {
   useEffect(() => {
@@ -65,12 +67,12 @@ const Index = () => {
                 <p className="text-base text-muted-foreground leading-relaxed mb-6">
                   Full Certificates of Analysis are published for every product and every lot. We test for what matters: peptide purity via HPLC, endotoxin levels via LAL assay, and heavy metal contamination via ICP-MS. No shortcuts, no exceptions.
                 </p>
-                <div className="inline-flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2.5 rounded-xl sm:rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 sm:py-2">
+                <div className="flex flex-col sm:inline-flex sm:flex-row items-center sm:items-center gap-1 sm:gap-2.5 rounded-xl sm:rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 sm:py-2">
                   <div className="flex items-center gap-2">
                     <Truck className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-sm font-semibold text-foreground">Free 2-Day Shipping</span>
                   </div>
-                  <span className="text-xs text-muted-foreground pl-6 sm:pl-0">Same-day dispatch before 3 PM ET</span>
+                  <span className="text-xs text-muted-foreground sm:pl-0">Same-day dispatch before 3 PM ET</span>
                 </div>
               </div>
 
@@ -87,31 +89,55 @@ const Index = () => {
                   </div>
 
                   {/* Annotation: Purity Tested — top right */}
-                  <div className="absolute top-36 -right-2 md:-right-10 flex items-center gap-0">
-                    <div className="h-px w-6 md:w-16 bg-primary/40" />
-                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
-                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
-                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Purity Tested</span>
+                  <Popover>
+                    <div className="absolute top-36 -right-2 md:-right-10 flex items-center gap-0">
+                      <div className="h-px w-6 md:w-16 bg-primary/40" />
+                      <PopoverTrigger asChild>
+                        <GradientButton className="min-w-0 rounded-full px-2 py-1 md:px-3 md:py-1.5 gap-1 md:gap-2 text-[10px] md:text-xs font-semibold shadow-sm">
+                          <Plus className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                          <span className="whitespace-nowrap">Purity Tested</span>
+                        </GradientButton>
+                      </PopoverTrigger>
                     </div>
-                  </div>
+                    <PopoverContent side="bottom" className="w-72">
+                      <h4 className="font-semibold text-sm mb-1">HPLC Purity Testing</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">Every batch is tested via High-Performance Liquid Chromatography (HPLC) to verify peptide identity and purity. We require &ge;98% purity before any product is released.</p>
+                    </PopoverContent>
+                  </Popover>
 
-                  {/* Annotation: Heavy Metal Testing — middle left */}
-                  <div className="absolute top-[38%] md:top-1/2 -translate-y-1/2 -left-7 md:-left-28 flex flex-row-reverse items-center gap-0">
-                    <div className="h-px w-3 md:w-16 bg-primary/40" />
-                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
-                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
-                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Heavy Metal Testing</span>
+                  {/* Annotation: Heavy Metal Tested — middle left */}
+                  <Popover>
+                    <div className="absolute top-[38%] md:top-1/2 -translate-y-1/2 -left-7 md:-left-28 flex flex-row-reverse items-center gap-0">
+                      <div className="h-px w-3 md:w-16 bg-primary/40" />
+                      <PopoverTrigger asChild>
+                        <GradientButton className="min-w-0 rounded-full px-2 py-1 md:px-3 md:py-1.5 gap-1 md:gap-2 text-[10px] md:text-xs font-semibold shadow-sm">
+                          <Plus className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                          <span className="whitespace-nowrap">Heavy Metal Tested</span>
+                        </GradientButton>
+                      </PopoverTrigger>
                     </div>
-                  </div>
+                    <PopoverContent side="bottom" className="w-72">
+                      <h4 className="font-semibold text-sm mb-1">ICP-MS Heavy Metal Testing</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">Each lot is screened for heavy metal contamination using Inductively Coupled Plasma Mass Spectrometry (ICP-MS), testing for lead, mercury, arsenic, and cadmium to ensure levels are well below USP limits.</p>
+                    </PopoverContent>
+                  </Popover>
 
-                  {/* Annotation: Endotoxin Testing — bottom right */}
-                  <div className="absolute bottom-28 -right-6 md:-right-20 flex items-center gap-0">
-                    <div className="h-px w-6 md:w-16 bg-primary/40" />
-                    <div className="flex items-center gap-1 md:gap-2 rounded-full border border-primary/30 bg-background/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 shadow-sm">
-                      <Plus className="h-3 w-3 md:h-3.5 md:w-3.5 text-primary" />
-                      <span className="text-[10px] md:text-xs font-semibold text-foreground whitespace-nowrap">Endotoxin Testing</span>
+                  {/* Annotation: Endotoxin Tested — bottom right */}
+                  <Popover>
+                    <div className="absolute bottom-28 -right-6 md:-right-20 flex items-center gap-0">
+                      <div className="h-px w-6 md:w-16 bg-primary/40" />
+                      <PopoverTrigger asChild>
+                        <GradientButton className="min-w-0 rounded-full px-2 py-1 md:px-3 md:py-1.5 gap-1 md:gap-2 text-[10px] md:text-xs font-semibold shadow-sm">
+                          <Plus className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                          <span className="whitespace-nowrap">Endotoxin Tested</span>
+                        </GradientButton>
+                      </PopoverTrigger>
                     </div>
-                  </div>
+                    <PopoverContent side="bottom" className="w-72">
+                      <h4 className="font-semibold text-sm mb-1">LAL Endotoxin Testing</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">Bacterial endotoxin levels are measured using the Limulus Amebocyte Lysate (LAL) assay. Every batch must pass below the threshold to ensure the product is safe for research use.</p>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
 

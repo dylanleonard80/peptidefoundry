@@ -13,14 +13,14 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, ShieldCheck, Plus, Minus } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus } from 'lucide-react';
 import { usePrices } from '@/hooks/usePrices';
 import peptideVial from '@/assets/peptide-vial-syringe.jpg';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 // Shipping address validation schema
 const shippingSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
   street: z.string().min(5, "Street address must be at least 5 characters").max(200, "Street address must be less than 200 characters").regex(/^[a-zA-Z0-9\s,.-]+$/, "Street address contains invalid characters"),
   city: z.string().min(2, "City must be at least 2 characters").max(100, "City must be less than 100 characters").regex(/^[a-zA-Z\s-]+$/, "City contains invalid characters"),
   state: z.string().length(2, "State must be 2 letters").regex(/^[A-Z]{2}$/, "State must be uppercase 2-letter code"),
@@ -40,13 +40,22 @@ const Checkout = () => {
   const { prices: peptidePrices } = usePrices();
   const {
     user,
-    profile
+    profile,
+    signIn,
+    signUp
   } = useAuth();
   const {
     toast
   } = useToast();
   const [bacQuantity, setBacQuantity] = useState(1);
   const [orderCompleting, setOrderCompleting] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isSignInMode, setIsSignInMode] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+  const [street2, setStreet2] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
     street: '',
@@ -61,7 +70,7 @@ const Checkout = () => {
 
     // Only redirect if cart is empty
     if (items.length === 0) {
-      navigate('/all-peptides');
+      navigate('/shop');
       return;
     }
 
@@ -82,6 +91,54 @@ const Checkout = () => {
     }
   }, [user, items, profile, navigate, orderCompleting]);
 
+  const handleCreateAccount = async () => {
+    if (!firstName.trim() || !lastName.trim()) {
+      toast({ title: 'Name required', description: 'Please enter your first and last name.', variant: 'destructive' });
+      return;
+    }
+    if (!shippingAddress.email || !z.string().email().safeParse(shippingAddress.email).success) {
+      toast({ title: 'Valid email required', description: 'Please enter a valid email address.', variant: 'destructive' });
+      return;
+    }
+    if (password.length < 6) {
+      toast({ title: 'Password too short', description: 'Password must be at least 6 characters.', variant: 'destructive' });
+      return;
+    }
+
+    setAuthLoading(true);
+    const { error } = await signUp(shippingAddress.email, password, firstName.trim(), lastName.trim());
+    if (error) {
+      setAuthLoading(false);
+      return;
+    }
+
+    // Wait for auth state to settle and profile to be created by DB trigger
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Update profile with address fields
+    const { data: { user: newUser } } = await supabase.auth.getUser();
+    if (newUser && (shippingAddress.street || shippingAddress.city || shippingAddress.state || shippingAddress.zip)) {
+      await supabase.from('profiles').update({
+        street_address: [shippingAddress.street, street2].filter(Boolean).join(', ') || null,
+        city: shippingAddress.city || null,
+        state: shippingAddress.state || null,
+        zip_code: shippingAddress.zip || null,
+      }).eq('id', newUser.id);
+    }
+    setAuthLoading(false);
+  };
+
+  const handleSignIn = async () => {
+    if (!shippingAddress.email || !password) {
+      toast({ title: 'Credentials required', description: 'Please enter your email and password.', variant: 'destructive' });
+      return;
+    }
+    setAuthLoading(true);
+    const { error } = await signIn(shippingAddress.email, password);
+    setAuthLoading(false);
+    if (error) return;
+  };
+
   return <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 pt-24 my-[48px]">
@@ -91,50 +148,118 @@ const Checkout = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Shipping Address</CardTitle>
+                <CardTitle>{user ? 'Shipping Address' : 'Account & Shipping'}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Email field for guests */}
-                <div>
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" value={shippingAddress.email} onChange={e => setShippingAddress({
-                  ...shippingAddress,
-                  email: e.target.value
-                })} placeholder="Email address" disabled={!!user} />
-                  {!user && <p className="text-xs text-muted-foreground mt-1">
-                      We'll send order confirmation to this email
-                    </p>}
-                </div>
-                <div>
-                  <Label htmlFor="street">Street Address</Label>
-                  <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({
-                  ...shippingAddress,
-                  street: e.target.value
-                })} placeholder="Street address" />
-                </div>
-                <div>
-                  <Label htmlFor="city">City</Label>
-                  <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({
-                  ...shippingAddress,
-                  city: e.target.value
-                })} placeholder="City" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="state">State</Label>
-                    <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({
-                    ...shippingAddress,
-                    state: e.target.value.toUpperCase()
-                  })} placeholder="State" maxLength={2} />
-                  </div>
-                  <div>
-                    <Label htmlFor="zip">ZIP Code</Label>
-                    <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({
-                    ...shippingAddress,
-                    zip: e.target.value
-                  })} placeholder="ZIP code" />
-                  </div>
-                </div>
+                {!user ? (
+                  // Guest: account creation / sign-in form
+                  <>
+                    {!isSignInMode ? (
+                      // Sign-up mode
+                      <>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="firstName">First Name</Label>
+                            <Input id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First name" />
+                          </div>
+                          <div>
+                            <Label htmlFor="lastName">Last Name</Label>
+                            <Input id="lastName" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last name" />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="email">Email Address</Label>
+                          <Input id="email" type="email" value={shippingAddress.email} onChange={e => setShippingAddress({ ...shippingAddress, email: e.target.value })} placeholder="Email address" />
+                        </div>
+                        <div>
+                          <Label htmlFor="password">Password</Label>
+                          <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Create a password (min 6 characters)" />
+                        </div>
+                        <Separator />
+                        <div>
+                          <Label htmlFor="street">Street Address</Label>
+                          <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
+                        </div>
+                        <div>
+                          <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
+                          <Input id="street2" value={street2} onChange={e => setStreet2(e.target.value)} placeholder="Apt 4B, Suite 200, etc." />
+                        </div>
+                        <div>
+                          <Label htmlFor="city">City</Label>
+                          <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({ ...shippingAddress, city: e.target.value })} placeholder="City" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="state">State</Label>
+                            <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({ ...shippingAddress, state: e.target.value.toUpperCase() })} placeholder="State" maxLength={2} />
+                          </div>
+                          <div>
+                            <Label htmlFor="zip">ZIP Code</Label>
+                            <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({ ...shippingAddress, zip: e.target.value })} placeholder="ZIP code" />
+                          </div>
+                        </div>
+                        <Button className="w-full" onClick={handleCreateAccount} disabled={authLoading}>
+                          {authLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <UserPlus className="h-4 w-4 mr-2" />}
+                          Create Account & Continue to Payment
+                        </Button>
+                        <p className="text-sm text-center text-muted-foreground">
+                          Already have an account?{' '}
+                          <button type="button" onClick={() => setIsSignInMode(true)} className="text-primary underline hover:text-primary/80">
+                            Sign in
+                          </button>
+                        </p>
+                      </>
+                    ) : (
+                      // Sign-in mode
+                      <>
+                        <div>
+                          <Label htmlFor="email">Email Address</Label>
+                          <Input id="email" type="email" value={shippingAddress.email} onChange={e => setShippingAddress({ ...shippingAddress, email: e.target.value })} placeholder="Email address" />
+                        </div>
+                        <div>
+                          <Label htmlFor="password">Password</Label>
+                          <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" onKeyDown={e => { if (e.key === 'Enter') handleSignIn(); }} />
+                        </div>
+                        <Button className="w-full" onClick={handleSignIn} disabled={authLoading}>
+                          {authLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <LogIn className="h-4 w-4 mr-2" />}
+                          Sign In
+                        </Button>
+                        <p className="text-sm text-center text-muted-foreground">
+                          Need an account?{' '}
+                          <button type="button" onClick={() => setIsSignInMode(false)} className="text-primary underline hover:text-primary/80">
+                            Create one
+                          </button>
+                        </p>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  // Logged in: editable shipping address
+                  <>
+                    <div>
+                      <Label htmlFor="street">Street Address</Label>
+                      <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
+                    </div>
+                    <div>
+                      <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
+                      <Input id="street2" value={street2} onChange={e => setStreet2(e.target.value)} placeholder="Apt 4B, Suite 200, etc." />
+                    </div>
+                    <div>
+                      <Label htmlFor="city">City</Label>
+                      <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({ ...shippingAddress, city: e.target.value })} placeholder="City" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="state">State</Label>
+                        <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({ ...shippingAddress, state: e.target.value.toUpperCase() })} placeholder="State" maxLength={2} />
+                      </div>
+                      <div>
+                        <Label htmlFor="zip">ZIP Code</Label>
+                        <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({ ...shippingAddress, zip: e.target.value })} placeholder="ZIP code" />
+                      </div>
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
 
@@ -183,105 +308,139 @@ const Checkout = () => {
                   </p>
                 </div>
 
-                <PayPalScriptProvider options={{
-                  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
-                  currency: "USD",
-                  intent: "capture",
-                  "enable-funding": "venmo",
-                  "disable-funding": "paylater",
-                }}>
-                  <PayPalButtons
-                    style={{
-                      layout: "vertical",
-                      color: "gold",
-                      shape: "rect",
-                      label: "paypal",
-                    }}
-                    createOrder={(_data, actions) => {
-                      // Validate shipping first
-                      const validationResult = shippingSchema.safeParse(shippingAddress);
-                      if (!validationResult.success) {
-                        toast({
-                          title: 'Invalid shipping address',
-                          description: validationResult.error.errors[0].message,
-                          variant: 'destructive'
-                        });
-                        return Promise.reject(new Error('Invalid shipping address'));
-                      }
+                {user ? (
+                  <>
+                    <div className="flex items-start gap-2">
+                      <Checkbox
+                        id="terms"
+                        checked={agreedToTerms}
+                        onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                      />
+                      <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight cursor-pointer">
+                        I agree to the{' '}
+                        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80">
+                          Terms of Service
+                        </a>{' '}
+                        and{' '}
+                        <a href="/refund-policy" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80">
+                          Refund Policy
+                        </a>
+                      </label>
+                    </div>
 
-                      return actions.order.create({
-                        purchase_units: [{
-                          amount: {
-                            currency_code: "USD",
-                            value: total.toFixed(2),
-                            breakdown: {
-                              item_total: { currency_code: "USD", value: subtotal.toFixed(2) },
-                              shipping: { currency_code: "USD", value: shipping.toFixed(2) },
-                            },
-                          },
-                          items: items.map(i => ({
-                            name: `${i.peptide_name} (${i.size})`,
-                            unit_amount: { currency_code: "USD", value: i.price.toFixed(2) },
-                            quantity: String(i.quantity),
-                            category: "PHYSICAL_GOODS" as const,
-                          })),
-                        }],
-                      });
-                    }}
-                    onApprove={async (_data, actions) => {
-                      try {
-                        const details = await actions.order!.capture();
-                        console.log('[Checkout] Payment captured:', details);
+                    <PayPalScriptProvider options={{
+                      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+                      currency: "USD",
+                      intent: "capture",
+                      "enable-funding": "venmo",
+                      "disable-funding": "paylater",
+                    }}>
+                      <PayPalButtons
+                        disabled={!agreedToTerms}
+                        style={{
+                          layout: "vertical",
+                          color: "gold",
+                          shape: "rect",
+                          label: "paypal",
+                        }}
+                        createOrder={(_data, actions) => {
+                          if (!agreedToTerms) {
+                            toast({
+                              title: 'Terms required',
+                              description: 'Please agree to the Terms of Service and Refund Policy.',
+                              variant: 'destructive'
+                            });
+                            return Promise.reject(new Error('Terms not accepted'));
+                          }
 
-                        // Save order data for the success page to record in DB
-                        // Transform address to the format dashboards expect
-                        sessionStorage.setItem('pendingOrder', JSON.stringify({
-                          paypalOrderId: details.id,
-                          type: 'order',
-                          items: items.map(i => ({
-                            peptide_name: i.peptide_name,
-                            size: i.size,
-                            price: i.price,
-                            quantity: i.quantity,
-                          })),
-                          shippingAddress: {
-                            firstName: profile?.first_name || '',
-                            lastName: profile?.last_name || '',
-                            email: shippingAddress.email,
-                            address: shippingAddress.street,
-                            city: shippingAddress.city,
-                            state: shippingAddress.state,
-                            zipCode: shippingAddress.zip,
-                          },
-                          subtotal,
-                          shipping,
-                          total,
-                        }));
+                          const validationResult = shippingSchema.safeParse(shippingAddress);
+                          if (!validationResult.success) {
+                            toast({
+                              title: 'Invalid shipping address',
+                              description: validationResult.error.errors[0].message,
+                              variant: 'destructive'
+                            });
+                            return Promise.reject(new Error('Invalid shipping address'));
+                          }
 
-                        // Prevent the empty-cart useEffect from redirecting to /all-peptides
-                        setOrderCompleting(true);
-                        await clearCart();
-                        navigate(`/order-success?provider=paypal`);
-                      } catch (err) {
-                        console.error('Payment capture error:', err);
-                        toast({
-                          title: 'Payment failed',
-                          description: 'There was an issue processing your payment. Please try again.',
-                          variant: 'destructive',
-                        });
-                      }
-                    }}
-                    onCancel={() => {
-                      toast({
-                        title: 'Payment cancelled',
-                        description: 'You can try again when ready.',
-                      });
-                    }}
-                    onError={(err) => {
-                      console.error('PayPal error:', err);
-                    }}
-                  />
-                </PayPalScriptProvider>
+                          return actions.order.create({
+                            purchase_units: [{
+                              amount: {
+                                currency_code: "USD",
+                                value: total.toFixed(2),
+                                breakdown: {
+                                  item_total: { currency_code: "USD", value: subtotal.toFixed(2) },
+                                  shipping: { currency_code: "USD", value: shipping.toFixed(2) },
+                                },
+                              },
+                              items: items.map(i => ({
+                                name: `${i.peptide_name} (${i.size})`,
+                                unit_amount: { currency_code: "USD", value: i.price.toFixed(2) },
+                                quantity: String(i.quantity),
+                                category: "PHYSICAL_GOODS" as const,
+                              })),
+                            }],
+                          });
+                        }}
+                        onApprove={async (_data, actions) => {
+                          try {
+                            const details = await actions.order!.capture();
+                            console.log('[Checkout] Payment captured:', details);
+
+                            sessionStorage.setItem('pendingOrder', JSON.stringify({
+                              paypalOrderId: details.id,
+                              type: 'order',
+                              items: items.map(i => ({
+                                peptide_name: i.peptide_name,
+                                size: i.size,
+                                price: i.price,
+                                quantity: i.quantity,
+                              })),
+                              shippingAddress: {
+                                firstName: profile?.first_name || '',
+                                lastName: profile?.last_name || '',
+                                email: shippingAddress.email,
+                                address: [shippingAddress.street, street2].filter(Boolean).join(', '),
+                                city: shippingAddress.city,
+                                state: shippingAddress.state,
+                                zipCode: shippingAddress.zip,
+                              },
+                              subtotal,
+                              shipping,
+                              total,
+                            }));
+
+                            setOrderCompleting(true);
+                            await clearCart();
+                            navigate(`/order-success?provider=paypal`);
+                          } catch (err) {
+                            console.error('Payment capture error:', err);
+                            toast({
+                              title: 'Payment failed',
+                              description: 'There was an issue processing your payment. Please try again.',
+                              variant: 'destructive',
+                            });
+                          }
+                        }}
+                        onCancel={() => {
+                          toast({
+                            title: 'Payment cancelled',
+                            description: 'You can try again when ready.',
+                          });
+                        }}
+                        onError={(err) => {
+                          console.error('PayPal error:', err);
+                        }}
+                      />
+                    </PayPalScriptProvider>
+                  </>
+                ) : (
+                  <div className="bg-muted/30 border border-dashed rounded-lg p-4 text-center">
+                    <p className="text-sm text-muted-foreground">
+                      Create an account or sign in to complete your purchase.
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

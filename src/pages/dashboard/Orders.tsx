@@ -134,7 +134,7 @@ const DashboardOrders = () => {
               When you place an order, it will appear here.
             </p>
             <Button asChild>
-              <a href="/all-peptides">Browse Peptides</a>
+              <a href="/shop">Browse Peptides</a>
             </Button>
           </CardContent>
         </Card>
