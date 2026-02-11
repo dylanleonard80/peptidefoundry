@@ -59,7 +59,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-2xl mx-auto">
+              <div className="mb-12 max-w-2xl mx-auto">
                 <Card className="text-center">
                   <CardHeader>
                     <div className="mx-auto mb-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">

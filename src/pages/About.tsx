@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Users, Award, Hexagon, DollarSign, ShieldCheck, FlaskConical, ArrowRight, Microscope, FileCheck } from "lucide-react";
+import { Check, Users, Award, Hexagon, DollarSign, ShieldCheck, FlaskConical, ArrowRight, Microscope } from "lucide-react";
 import FoundryClubLink from "@/components/FoundryClubLink";
 
 const About = () => {
@@ -115,17 +115,6 @@ const About = () => {
                       Inductively coupled plasma mass spectrometry detects trace heavy metal contamination. This ensures your research materials are free from lead, mercury, arsenic, and cadmium.
                     </p>
                   </div>
-                </div>
-                <div className="text-center mt-6">
-                  <a
-                    href="https://freedomdiagnosticstesting.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-                  >
-                    <FileCheck className="w-4 h-4" />
-                    Verify COAs at Freedom Diagnostics →
-                  </a>
                 </div>
               </div>
 
