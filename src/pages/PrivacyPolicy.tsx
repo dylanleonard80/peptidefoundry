@@ -1,7 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const PrivacyPolicy = () => {
+  useDocumentMeta("Privacy Policy | Peptide Foundry");
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

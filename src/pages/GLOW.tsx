@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const GLOW = () => (
+const GLOW = () => {
+  useDocumentMeta("GLOW Blend | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="glow"
     peptideName="GLOW"
@@ -38,6 +41,7 @@ const GLOW = () => (
       { value: "ghkcu", iconName: "Sparkles", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "GHK-Cu Gene Modulation", content: "GHK-Cu modulates expression of 4,000+ genes, upregulating collagen, elastin, and glycosaminoglycan synthesis while downregulating inflammatory and senescence-associated genes. This resets skin to more youthful patterns." }
     ]}
   />
-);
+  );
+};
 
 export default GLOW;

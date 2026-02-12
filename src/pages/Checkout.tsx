@@ -18,6 +18,7 @@ import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus } from 'lucide-react
 import { usePrices } from '@/hooks/usePrices';
 import peptideVial from '@/assets/peptide-vial-syringe.jpg';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
 // Shipping address validation schema
 const shippingSchema = z.object({
@@ -27,6 +28,8 @@ const shippingSchema = z.object({
   zip: z.string().regex(/^\d{5}(-\d{4})?$/, "ZIP code must be in format 12345 or 12345-6789")
 });
 const Checkout = () => {
+  useDocumentMeta("Checkout | Peptide Foundry");
+
   const navigate = useNavigate();
   const {
     items,

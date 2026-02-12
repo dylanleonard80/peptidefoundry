@@ -1,6 +1,9 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const AOD9604 = () => (
+const AOD9604 = () => {
+  useDocumentMeta("AOD-9604 | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="aod-9604"
     peptideName="AOD-9604"
@@ -44,6 +47,7 @@ const AOD9604 = () => (
       "Free fatty acids → mitochondrial transport via CPT1 → beta-oxidation → acetyl-CoA production"
     ]}
   />
-);
+  );
+};
 
 export default AOD9604;

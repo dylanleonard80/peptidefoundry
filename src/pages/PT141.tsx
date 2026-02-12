@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const PT141 = () => (
+const PT141 = () => {
+  useDocumentMeta("PT-141 | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="pt-141"
     peptideName="PT-141"
@@ -37,6 +41,7 @@ const PT141 = () => (
       { value: "response", iconName: "Zap", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Central vs Peripheral Action", content: "Unlike PDE5 inhibitors that act on blood vessels, PT-141's central mechanism means it can enhance desire and arousal independent of vascular function. Effects begin within 30-45 minutes and peak at 2-3 hours." }
     ]}
   />
-);
+  );
+};
 
 export default PT141;

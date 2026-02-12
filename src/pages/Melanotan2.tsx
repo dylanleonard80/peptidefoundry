@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Melanotan2 = () => (
+const Melanotan2 = () => {
+  useDocumentMeta("Melanotan II | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="melanotan-2"
     peptideName="Melanotan 2"
@@ -36,6 +39,7 @@ const Melanotan2 = () => (
       { value: "signaling", iconName: "Signal", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Melanocortin Signaling", content: "All melanocortin receptors are G-protein coupled receptors that increase intracellular cAMP upon activation. This triggers downstream signaling cascades specific to each tissue type expressing the receptors." }
     ]}
   />
-);
+  );
+};
 
 export default Melanotan2;

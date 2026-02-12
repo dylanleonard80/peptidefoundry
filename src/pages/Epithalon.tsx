@@ -1,11 +1,14 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Epithalon = () => (
+const Epithalon = () => {
+  useDocumentMeta("Epithalon | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="epithalon"
     peptideName="Epithalon"
-    productImage="/products/epithalon.png"
+    productImage="/products/epithalon.webp"
     coaSlot={<img src="/coa/epithalon.png" alt="Epithalon COA" className="w-full h-auto" />}
     subtitle="A peptide studied in laboratory settings for telomerase activation and cellular senescence"
     description="Epithalon is a synthetic tetrapeptide (Ala-Glu-Asp-Gly) derived from epithalamin, a pineal gland extract. It is a powerful telomerase activator that lengthens telomeres, regulates circadian rhythms, and exhibits profound anti-aging, neuroprotective, and longevity-promoting effects."
@@ -40,6 +43,7 @@ const Epithalon = () => (
       { value: "gene-expression", iconName: "Dna", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Gene Expression Modulation", content: "Epithalon influences the expression of numerous genes involved in aging, including those regulating cell cycle, apoptosis, and tumor suppression. It normalizes oncogene expression and enhances tumor suppressor gene activity." }
     ]}
   />
-);
+  );
+};
 
 export default Epithalon;

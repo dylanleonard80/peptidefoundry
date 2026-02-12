@@ -4,8 +4,11 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Users, Award, Hexagon, DollarSign, ShieldCheck, FlaskConical, ArrowRight, Microscope } from "lucide-react";
 import FoundryClubLink from "@/components/FoundryClubLink";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const About = () => {
+  useDocumentMeta("About Us | Peptide Foundry");
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Ipamorelin = () => (
+const Ipamorelin = () => {
+  useDocumentMeta("Ipamorelin | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="ipamorelin"
     peptideName="Ipamorelin"
@@ -37,6 +40,7 @@ const Ipamorelin = () => (
       { value: "safety", iconName: "Shield", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Favorable Safety Profile", content: "Unlike GHRP-2 and GHRP-6, ipamorelin does not significantly stimulate appetite or cause cortisol spikes. This clean pharmacological profile makes it well-suited for long-term research applications." }
     ]}
   />
-);
+  );
+};
 
 export default Ipamorelin;

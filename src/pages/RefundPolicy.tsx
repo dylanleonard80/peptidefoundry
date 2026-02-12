@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Info } from "lucide-react";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const RefundPolicy = () => {
+  useDocumentMeta("Refund Policy | Peptide Foundry");
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

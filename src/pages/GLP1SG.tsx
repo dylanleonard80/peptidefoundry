@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLP1SG = () => {
+  useDocumentMeta("Semaglutide | Peptide Foundry");
+
   return (
     <PeptidePageTemplate
       slug="glp-1sg"

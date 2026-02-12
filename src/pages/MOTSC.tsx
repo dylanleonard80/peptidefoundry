@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { MOTSCData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const MOTSC = () => (
+const MOTSC = () => {
+  useDocumentMeta("MOTS-C | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="mots-c"
     peptideName={MOTSCData.peptideName}
@@ -20,6 +24,7 @@ const MOTSC = () => (
     technicalPathways={MOTSCData.technicalPathways}
     coaSlot={<img src="/coa/mots-c.png" alt="MOTS-C COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default MOTSC;

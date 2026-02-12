@@ -4,8 +4,11 @@ import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
+import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
 const OrderSuccess = () => {
+  useDocumentMeta("Order Confirmed | Peptide Foundry");
+
   const navigate = useNavigate();
   const location = useLocation();
   const orderData = location.state as {

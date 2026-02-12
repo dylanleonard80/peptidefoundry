@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { TesamorelinData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Tesamorelin = () => (
+const Tesamorelin = () => {
+  useDocumentMeta("Tesamorelin | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="tesamorelin"
     peptideName={TesamorelinData.peptideName}
@@ -20,6 +23,7 @@ const Tesamorelin = () => (
     technicalPathways={TesamorelinData.technicalPathways}
     coaSlot={<img src="/coa/tesamorelin.png" alt="Tesamorelin COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default Tesamorelin;

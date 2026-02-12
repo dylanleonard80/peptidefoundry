@@ -1,7 +1,9 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { klowData } from "@/data/blendPageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const KLOW = () => {
+  useDocumentMeta("KLOW Blend | Peptide Foundry");
   return (
     <PeptidePageTemplate 
       {...klowData} 

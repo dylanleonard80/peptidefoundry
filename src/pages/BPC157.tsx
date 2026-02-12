@@ -1,6 +1,9 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const BPC157 = () => (
+const BPC157 = () => {
+  useDocumentMeta("BPC-157 | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="bpc-157"
     peptideName="BPC-157"
@@ -125,6 +128,7 @@ const BPC157 = () => (
       },
     ]}
   />
-);
+  );
+};
 
 export default BPC157;

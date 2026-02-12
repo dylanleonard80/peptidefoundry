@@ -6,10 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { useMembership } from "@/hooks/useMembership";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 import { toast } from "sonner";
 import { Droplets, Thermometer, Clock, ShieldCheck, FlaskConical, AlertTriangle, CheckCircle2, Info, Plus, Minus } from "lucide-react";
 import peptideVial from "@/assets/peptide-vial.png";
 const BacteriostaticWater = () => {
+  useDocumentMeta("Bacteriostatic Water | Peptide Foundry");
+
   const {
     addItem,
     items,

@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { SermorelinData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Sermorelin = () => (
+const Sermorelin = () => {
+  useDocumentMeta("Sermorelin | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="sermorelin"
     peptideName={SermorelinData.peptideName}
@@ -20,6 +23,7 @@ const Sermorelin = () => (
     technicalPathways={SermorelinData.technicalPathways}
     coaSlot={<img src="/coa/sermorelin.png" alt="Sermorelin COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default Sermorelin;

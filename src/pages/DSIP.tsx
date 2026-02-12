@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const DSIP = () => (
+const DSIP = () => {
+  useDocumentMeta("DSIP | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="dsip"
     peptideName="DSIP"
@@ -40,6 +44,7 @@ const DSIP = () => (
       { value: "neuroprotection", iconName: "Shield", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Neuroprotective Mechanisms", content: "DSIP activates cellular antioxidant defenses, including superoxide dismutase (SOD) and glutathione peroxidase, protecting neurons from oxidative damage. It also modulates glutamate neurotransmission to prevent excitotoxicity during metabolic stress." }
     ]}
   />
-);
+  );
+};
 
 export default DSIP;

@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Truck, Clock, ThermometerSnowflake, Package, ShieldCheck } from "lucide-react";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const ShippingPolicy = () => {
+  useDocumentMeta("Shipping Policy | Peptide Foundry");
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

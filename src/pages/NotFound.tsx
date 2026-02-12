@@ -1,7 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const NotFound = () => {
+  useDocumentMeta("Page Not Found | Peptide Foundry");
+
   const location = useLocation();
 
   useEffect(() => {

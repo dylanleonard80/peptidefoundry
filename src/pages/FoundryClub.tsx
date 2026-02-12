@@ -12,8 +12,11 @@ import { toast } from 'sonner';
 import { usePrices } from '@/hooks/usePrices';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { supabase } from '@/integrations/supabase/client';
+import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
 const FoundryClub = () => {
+  useDocumentMeta("Foundry Club Membership | Peptide Foundry");
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user, loading: authLoading } = useAuth();

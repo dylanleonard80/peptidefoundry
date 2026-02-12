@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AlertTriangle } from "lucide-react";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TermsOfService = () => {
+  useDocumentMeta("Terms of Service | Peptide Foundry");
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

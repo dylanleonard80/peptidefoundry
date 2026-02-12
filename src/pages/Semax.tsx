@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { SemaxData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Semax = () => (
+const Semax = () => {
+  useDocumentMeta("Semax | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="semax"
     peptideName={SemaxData.peptideName}
@@ -20,6 +24,7 @@ const Semax = () => (
     technicalPathways={SemaxData.technicalPathways}
     coaSlot={<img src="/coa/semax.png" alt="Semax COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default Semax;

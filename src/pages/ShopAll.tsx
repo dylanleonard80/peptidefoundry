@@ -11,8 +11,11 @@ import { peptideSections, PeptideCard } from "@/data/peptides";
 import { useMembership } from "@/hooks/useMembership";
 import { useAllProductStock } from "@/hooks/useProductStock";
 import peptideVial from "@/assets/peptide-vial-syringe.jpg";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const ShopAll = () => {
+  useDocumentMeta("Shop All Peptides | Peptide Foundry");
+
   const { isMember, getMemberPrice } = useMembership();
   const { stockMap } = useAllProductStock();
 

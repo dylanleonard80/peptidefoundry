@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { NADBufferedData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const NADBuffered = () => (
+const NADBuffered = () => {
+  useDocumentMeta("NAD+ Buffered | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="nad-buffered"
     peptideName={NADBufferedData.peptideName}
@@ -20,6 +24,7 @@ const NADBuffered = () => (
     technicalPathways={NADBufferedData.technicalPathways}
     coaSlot={<img src="/coa/nad-buffered.png" alt="NAD+ Buffered COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default NADBuffered;

@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const TB500 = () => (
+const TB500 = () => {
+  useDocumentMeta("TB-500 | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="tb-500"
     peptideName="TB-500"
@@ -87,6 +90,7 @@ const TB500 = () => (
       },
     ]}
   />
-);
+  );
+};
 
 export default TB500;

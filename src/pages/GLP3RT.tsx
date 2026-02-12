@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { RetatrutideData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const GLP3RT = () => (
+const GLP3RT = () => {
+  useDocumentMeta("Retatrutide | Peptide Foundry");
+  return (
   <PeptidePageTemplate
     slug="retatrutide"
     peptideName={RetatrutideData.peptideName}
@@ -23,6 +26,7 @@ const GLP3RT = () => (
     howItWorksAccordions={RetatrutideData.howItWorksAccordions}
     technicalPathways={RetatrutideData.technicalPathways}
   />
-);
+  );
+};
 
 export default GLP3RT;

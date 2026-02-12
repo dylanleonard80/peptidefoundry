@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { SelankData } from "@/data/peptidePageData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Selank = () => (
+const Selank = () => {
+  useDocumentMeta("Selank | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="selank"
     peptideName={SelankData.peptideName}
@@ -20,6 +24,7 @@ const Selank = () => (
     technicalPathways={SelankData.technicalPathways}
     coaSlot={<img src="/coa/selank.png" alt="Selank COA" className="w-full h-auto" />}
   />
-);
+  );
+};
 
 export default Selank;

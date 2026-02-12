@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const Glutathione = () => (
+const Glutathione = () => {
+  useDocumentMeta("Glutathione | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="glutathione"
     peptideName="Glutathione"
@@ -37,6 +41,7 @@ const Glutathione = () => (
       { value: "signaling", iconName: "Activity", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Redox Signaling", content: "The GSH/GSSG ratio serves as a cellular redox sensor that influences protein function through reversible S-glutathionylation. This post-translational modification regulates enzymes, transcription factors, and signaling proteins." }
     ]}
   />
-);
+  );
+};
 
 export default Glutathione;

@@ -8,7 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail } from "lucide-react";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
+
 const Contact = () => {
+  useDocumentMeta("Contact Us | Peptide Foundry");
+
   const {
     toast
   } = useToast();

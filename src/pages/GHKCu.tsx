@@ -1,7 +1,11 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
-const GHKCu = () => (
+const GHKCu = () => {
+  useDocumentMeta("GHK-Cu | Peptide Foundry");
+
+  return (
   <PeptidePageTemplate
     slug="ghk-cu"
     peptideName="GHK-Cu"
@@ -39,6 +43,7 @@ const GHKCu = () => (
       { value: "gene-expression", iconName: "Dna", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Gene Expression Remodeling", content: "Genomic studies show GHK-Cu modulates 4,000+ genes, upregulating those involved in tissue repair, collagen synthesis, and antioxidant defense while downregulating genes associated with inflammation, fibrosis, and cellular senescence." }
     ]}
   />
-);
+  );
+};
 
 export default GHKCu;

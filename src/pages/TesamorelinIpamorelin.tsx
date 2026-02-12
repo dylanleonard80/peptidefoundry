@@ -1,7 +1,10 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
 import { getPrices } from "@/data/priceData";
+import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TesamorelinIpamorelin = () => {
+  useDocumentMeta("Tesamorelin / Ipamorelin | Peptide Foundry");
+
   return (
     <PeptidePageTemplate
       slug="tesamorelin-ipamorelin"
