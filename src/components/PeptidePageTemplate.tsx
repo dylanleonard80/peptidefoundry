@@ -377,7 +377,8 @@ export const PeptidePageTemplate = ({
                   await addItem({
                     peptide_name: peptideName,
                     size: selectedSize,
-                    price: displayPrice
+                    price: displayPrice,
+                    slug
                   });
                   toast({
                     title: "Added to cart",
@@ -460,7 +461,8 @@ export const PeptidePageTemplate = ({
             await addItem({
               peptide_name: peptideName,
               size: selectedSize,
-              price: displayPrice
+              price: displayPrice,
+              slug
             });
             toast({
               title: "Added to cart",

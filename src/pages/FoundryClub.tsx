@@ -259,32 +259,23 @@ const FoundryClub = () => {
                             }],
                           });
                         }}
-                        onApprove={async (_data, actions) => {
+                        onApprove={async (data, _actions) => {
                           try {
-                            const details = await actions.order!.capture();
-                            console.log('[FoundryClub] Payment captured:', details);
-
-                            const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-                            const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-                            const session = (await supabase.auth.getSession()).data.session;
-                            const authToken = session?.access_token || supabaseKey;
-
-                            const res = await fetch(`${supabaseUrl}/functions/v1/capture-paypal-order`, {
-                              method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${authToken}`,
-                                'apikey': supabaseKey,
+                            const { data: result, error } = await supabase.functions.invoke("capture-paypal-order", {
+                              body: {
+                                paypalOrderId: data.orderID,
+                                type: "membership",
                               },
-                              body: JSON.stringify({
-                                paypalOrderId: details.id,
-                                type: 'membership',
-                              }),
                             });
 
-                            if (!res.ok) {
-                              console.error('Membership activation failed:', res.status);
-                              toast.error('Payment received but membership activation failed. Please contact support.');
+                            if (error) {
+                              console.error('Membership activation failed:', error);
+                              let message = 'Payment failed. Please contact support.';
+                              try {
+                                const body = JSON.parse(error.message);
+                                message = body.error || message;
+                              } catch {}
+                              toast.error(message);
                               return;
                             }
 
@@ -295,7 +286,7 @@ const FoundryClub = () => {
                             checkMembership();
                           } catch (err) {
                             console.error('Error capturing membership payment:', err);
-                            toast.error('Payment received but membership activation failed. Please contact support.');
+                            toast.error('Payment failed. Please contact support.');
                           }
                         }}
                         onCancel={() => {

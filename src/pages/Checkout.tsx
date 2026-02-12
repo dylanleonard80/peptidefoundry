@@ -382,37 +382,53 @@ const Checkout = () => {
                             }],
                           });
                         }}
-                        onApprove={async (_data, actions) => {
+                        onApprove={async (data, _actions) => {
                           try {
-                            const details = await actions.order!.capture();
-                            console.log('[Checkout] Payment captured:', details);
-
-                            sessionStorage.setItem('pendingOrder', JSON.stringify({
-                              paypalOrderId: details.id,
-                              type: 'order',
-                              items: items.map(i => ({
-                                peptide_name: i.peptide_name,
-                                size: i.size,
-                                price: i.price,
-                                quantity: i.quantity,
-                              })),
-                              shippingAddress: {
-                                firstName: profile?.first_name || '',
-                                lastName: profile?.last_name || '',
-                                email: shippingAddress.email,
-                                address: [shippingAddress.street, street2].filter(Boolean).join(', '),
-                                city: shippingAddress.city,
-                                state: shippingAddress.state,
-                                zipCode: shippingAddress.zip,
+                            const { data: result, error } = await supabase.functions.invoke("capture-paypal-order", {
+                              body: {
+                                paypalOrderId: data.orderID,
+                                type: "order",
+                                items: items.map(item => ({
+                                  slug: item.slug || '',
+                                  size: item.size,
+                                  quantity: item.quantity,
+                                  name: item.peptide_name,
+                                })),
+                                shippingAddress: {
+                                  street: [shippingAddress.street, street2].filter(Boolean).join(', '),
+                                  city: shippingAddress.city,
+                                  state: shippingAddress.state,
+                                  zipCode: shippingAddress.zip,
+                                },
+                                shippingCost: shipping,
                               },
-                              subtotal,
-                              shipping,
-                              total,
-                            }));
+                            });
+
+                            if (error) {
+                              console.error('[Checkout] Server capture error:', error);
+                              let message = 'There was an issue processing your payment. Please try again.';
+                              try {
+                                const body = JSON.parse(error.message);
+                                message = body.error || message;
+                              } catch {}
+                              toast({
+                                title: 'Payment failed',
+                                description: message,
+                                variant: 'destructive',
+                              });
+                              return;
+                            }
 
                             setOrderCompleting(true);
                             await clearCart();
-                            navigate(`/order-success?provider=paypal`);
+                            navigate("/order-success", {
+                              state: {
+                                orderNumber: result.orderNumber,
+                                orderId: result.orderId,
+                                items: items,
+                                total: total,
+                              },
+                            });
                           } catch (err) {
                             console.error('Payment capture error:', err);
                             toast({
@@ -510,7 +526,8 @@ const Checkout = () => {
                       await addItem({
                         peptide_name: 'Bacteriostatic Water',
                         size: '30ml',
-                        price: peptidePrices['bacteriostatic-water']['30ml']
+                        price: peptidePrices['bacteriostatic-water']['30ml'],
+                        slug: 'bacteriostatic-water'
                       });
                       if (bacQuantity > 1) {
                         await updateQuantity('Bacteriostatic Water', '30ml', bacQuantity);

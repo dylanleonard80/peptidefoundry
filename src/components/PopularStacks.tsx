@@ -67,6 +67,7 @@ export const PopularStacks = ({ currentSlug, peptideName }: PopularStacksProps) 
       peptide_name: item.peptideData.name,
       size: item.defaultSize,
       price: item.displayPrice,
+      slug: item.slug,
     });
 
     toast({
@@ -84,6 +85,7 @@ export const PopularStacks = ({ currentSlug, peptideName }: PopularStacksProps) 
             peptide_name: item.peptideData.name,
             size: item.defaultSize,
             price: item.displayPrice,
+            slug: item.slug,
           });
         }
       }

@@ -102,6 +102,7 @@ const DashboardOrders = () => {
         peptide_name: peptideName,
         price: item.price,
         size: item.size,
+        slug: item.slug,
       });
     });
     toast({

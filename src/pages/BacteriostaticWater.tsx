@@ -30,7 +30,8 @@ const BacteriostaticWater = () => {
       await addItem({
         peptide_name: "Bacteriostatic Water",
         size: "30ml",
-        price: currentPrice
+        price: currentPrice,
+        slug: "bacteriostatic-water"
       });
       if (quantity > 1) {
         await updateQuantity("Bacteriostatic Water", "30ml", quantity);
