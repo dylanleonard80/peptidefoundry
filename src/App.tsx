@@ -9,6 +9,7 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { Analytics } from "@vercel/analytics/react";
 
 const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
   useSmoothScroll();
@@ -106,6 +107,7 @@ const App = () => (
         <SmoothScrollProvider>
           <Toaster />
           <Sonner />
+          <Analytics />
           <BrowserRouter>
             <ScrollToTop />
             <ErrorBoundary>
