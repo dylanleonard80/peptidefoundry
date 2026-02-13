@@ -51,7 +51,7 @@ export const faqItems: FAQItem[] = [
   {
     id: "order-4",
     question: "Can I modify or cancel my order after placing it?",
-    answer: "Orders can be modified or cancelled within 2 hours of placement by contacting our support team at support@peptidefoundry.com or 1-800-PEPTIDE. Once an order has been shipped, it cannot be cancelled, but you may initiate a return after receiving it.",
+    answer: "Orders can be modified or cancelled within 2 hours of placement by contacting our support team at support@peptidefoundry.com. Once an order has been shipped, it cannot be cancelled, but you may initiate a return after receiving it.",
     category: "ordering",
   },
   {

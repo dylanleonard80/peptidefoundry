@@ -273,7 +273,6 @@ const ShippingPolicy = () => {
               <div className="mt-4 p-4 bg-muted/50 rounded-lg">
                 <p className="text-foreground font-medium">Peptide Foundry LLC - Shipping Support</p>
                 <p className="text-muted-foreground">Email: support@peptidefoundry.com</p>
-                <p className="text-muted-foreground">Phone: 1-800-PEPTIDE</p>
                 <p className="text-muted-foreground text-sm mt-2">Support Hours: Monday - Friday, 9:00 AM - 5:00 PM EST</p>
               </div>
             </section>

@@ -161,7 +161,6 @@ const PrivacyPolicy = () => {
               <div className="mt-4 p-4 bg-muted/50 rounded-lg">
                 <p className="text-foreground font-medium">Peptide Foundry LLC</p>
                 <p className="text-muted-foreground">Email: legal@peptidefoundry.com</p>
-                <p className="text-muted-foreground">Phone: 1-800-PEPTIDE</p>
               </div>
             </section>
           </div>
