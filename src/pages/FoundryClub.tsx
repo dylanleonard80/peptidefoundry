@@ -233,7 +233,7 @@ const FoundryClub = () => {
                       clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD",
                       intent: "capture",
-                      "enable-funding": "venmo",
+                      "enable-funding": "venmo,applepay",
                       "disable-funding": "paylater",
                     }}>
                       <PayPalButtons

@@ -307,7 +307,7 @@ const Checkout = () => {
                     <span>Secure payment via PayPal</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Pay with PayPal, Venmo, or card.
+                    Pay with PayPal, Venmo, Apple Pay, or card.
                   </p>
                 </div>
 
@@ -335,7 +335,7 @@ const Checkout = () => {
                       clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD",
                       intent: "capture",
-                      "enable-funding": "venmo",
+                      "enable-funding": "venmo,applepay",
                       "disable-funding": "paylater",
                     }}>
                       <PayPalButtons
