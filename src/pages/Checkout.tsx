@@ -368,6 +368,7 @@ const Checkout = () => {
 
                           return actions.order.create({
                             purchase_units: [{
+                              description: `Order - ${items.length} item${items.length > 1 ? 's' : ''}`,
                               amount: {
                                 currency_code: "USD",
                                 value: total.toFixed(2),
@@ -376,10 +377,10 @@ const Checkout = () => {
                                   shipping: { currency_code: "USD", value: shipping.toFixed(2) },
                                 },
                               },
-                              items: items.map(i => ({
-                                name: `${i.peptide_name} (${i.size})`,
-                                unit_amount: { currency_code: "USD", value: i.price.toFixed(2) },
-                                quantity: String(i.quantity),
+                              items: items.map((_i, idx) => ({
+                                name: `Item ${idx + 1}`,
+                                unit_amount: { currency_code: "USD", value: _i.price.toFixed(2) },
+                                quantity: String(_i.quantity),
                                 category: "PHYSICAL_GOODS" as const,
                               })),
                             }],
