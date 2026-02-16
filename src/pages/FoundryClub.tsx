@@ -264,7 +264,13 @@ const FoundryClub = () => {
                         }}
                         onApprove={async (data, _actions) => {
                           try {
+                            const { data: { session } } = await supabase.auth.getSession();
+                            if (!session) {
+                              toast.error('Session expired. Please sign in and try again.');
+                              return;
+                            }
                             const { data: result, error } = await supabase.functions.invoke("capture-paypal-order", {
+                              headers: { Authorization: `Bearer ${session.access_token}` },
                               body: {
                                 paypalOrderId: data.orderID,
                                 type: "membership",

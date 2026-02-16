@@ -370,7 +370,13 @@ const Checkout = () => {
                         }}
                         onApprove={async (data, _actions) => {
                           try {
+                            const { data: { session } } = await supabase.auth.getSession();
+                            if (!session) {
+                              toast({ title: 'Session expired', description: 'Please sign in and try again.', variant: 'destructive' });
+                              return;
+                            }
                             const { data: result, error } = await supabase.functions.invoke("capture-paypal-order", {
+                              headers: { Authorization: `Bearer ${session.access_token}` },
                               body: {
                                 paypalOrderId: data.orderID,
                                 type: "order",
