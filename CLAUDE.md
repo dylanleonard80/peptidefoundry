@@ -9,7 +9,7 @@ E-commerce platform for research peptides with a premium membership tier (Foundr
 - **State:** React Context (CartContext) + React Query
 - **Routing:** React Router DOM 6
 - **Backend:** Supabase (PostgreSQL + Auth + Edge Functions)
-- **Payments:** Stripe
+- **Payments:** PayPal
 - **Animations:** Framer Motion, Lenis (smooth scroll)
 
 ## Project Structure
@@ -105,7 +105,7 @@ className="md:hidden"
 ### Membership
 - `useMembership()` returns `{ isMember, isLoading, ... }`
 - 24-hour localStorage cache to reduce API calls
-- Stripe subscription managed via Edge Functions
+- Membership checked via direct Supabase `memberships` table query
 
 ### Cart
 - Anonymous: localStorage only
@@ -138,11 +138,11 @@ className="md:hidden"
 
 ## Edge Functions
 Located in `supabase/functions/`:
-- `check-membership` - Verify membership status
-- `create-membership-checkout` - Stripe checkout for membership
-- `create-order-checkout` - Stripe checkout for orders
-- `verify-order-payment` - Confirm payment success
-- `customer-portal` - Stripe customer portal
+- `create-paypal-order` - Create PayPal order for checkout
+- `capture-paypal-order` - Capture PayPal payment and create DB order
+- `get-shipping-rates` - Fetch shipping rates from Shippo
+- `purchase-shipping-label` - Purchase shipping label via Shippo
+- `shippo-webhook` - Handle Shippo tracking webhooks
 
 ## Common Issues & Solutions
 

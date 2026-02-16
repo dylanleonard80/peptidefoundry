@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Hexagon, ArrowRight } from "lucide-react";
 import { StarButton } from "@/components/ui/star-button";

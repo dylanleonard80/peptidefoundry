@@ -37,6 +37,5 @@ export const getIcon = (iconName: string, options: IconOptions = {}): React.Reac
   return <IconComponent className={`${sizeClasses[size]} ${className}`} />;
 };
 
-// Pre-built icon maps for backward compatibility during transition
 export const getSmallIcon = (iconName: string): React.ReactNode => getIcon(iconName, { size: 'sm' });
 export const getLargeIcon = (iconName: string): React.ReactNode => getIcon(iconName, { size: 'lg' });

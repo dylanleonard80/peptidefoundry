@@ -107,15 +107,6 @@ export interface PubMedStudyMetadata {
   abstract?: string;
 }
 
-export interface StudyVerificationResult {
-  pmid: string;
-  storedTitle: string;
-  pubmedTitle: string;
-  similarity: number;
-  isMatch: boolean;
-  metadata?: PubMedStudyMetadata;
-}
-
 export interface ResolverCandidate {
   pmid: string;
   title: string;

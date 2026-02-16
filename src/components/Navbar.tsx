@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X, User, LogOut, Search, Hexagon, LayoutDashboard, Package, FileText, Settings, Heart, Calculator } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,7 +16,6 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus } from 'lucide-react';
 import { usePrices } from '@/hooks/usePrices';
-import peptideVial from '@/assets/peptide-vial-syringe.jpg';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
@@ -142,6 +141,33 @@ const Checkout = () => {
     if (error) return;
   };
 
+  const shippingFields = (
+    <>
+      <div>
+        <Label htmlFor="street">Street Address</Label>
+        <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
+      </div>
+      <div>
+        <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
+        <Input id="street2" value={street2} onChange={e => setStreet2(e.target.value)} placeholder="Apt 4B, Suite 200, etc." />
+      </div>
+      <div>
+        <Label htmlFor="city">City</Label>
+        <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({ ...shippingAddress, city: e.target.value })} placeholder="City" />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <Label htmlFor="state">State</Label>
+          <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({ ...shippingAddress, state: e.target.value.toUpperCase() })} placeholder="State" maxLength={2} />
+        </div>
+        <div>
+          <Label htmlFor="zip">ZIP Code</Label>
+          <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({ ...shippingAddress, zip: e.target.value })} placeholder="ZIP code" />
+        </div>
+      </div>
+    </>
+  );
+
   return <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 pt-24 my-[48px]">
@@ -179,28 +205,7 @@ const Checkout = () => {
                           <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Create a password (min 6 characters)" />
                         </div>
                         <Separator />
-                        <div>
-                          <Label htmlFor="street">Street Address</Label>
-                          <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
-                        </div>
-                        <div>
-                          <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
-                          <Input id="street2" value={street2} onChange={e => setStreet2(e.target.value)} placeholder="Apt 4B, Suite 200, etc." />
-                        </div>
-                        <div>
-                          <Label htmlFor="city">City</Label>
-                          <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({ ...shippingAddress, city: e.target.value })} placeholder="City" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="state">State</Label>
-                            <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({ ...shippingAddress, state: e.target.value.toUpperCase() })} placeholder="State" maxLength={2} />
-                          </div>
-                          <div>
-                            <Label htmlFor="zip">ZIP Code</Label>
-                            <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({ ...shippingAddress, zip: e.target.value })} placeholder="ZIP code" />
-                          </div>
-                        </div>
+                        {shippingFields}
                         <Button className="w-full" onClick={handleCreateAccount} disabled={authLoading}>
                           {authLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <UserPlus className="h-4 w-4 mr-2" />}
                           Create Account & Continue to Payment
@@ -238,30 +243,7 @@ const Checkout = () => {
                   </>
                 ) : (
                   // Logged in: editable shipping address
-                  <>
-                    <div>
-                      <Label htmlFor="street">Street Address</Label>
-                      <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
-                    </div>
-                    <div>
-                      <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
-                      <Input id="street2" value={street2} onChange={e => setStreet2(e.target.value)} placeholder="Apt 4B, Suite 200, etc." />
-                    </div>
-                    <div>
-                      <Label htmlFor="city">City</Label>
-                      <Input id="city" value={shippingAddress.city} onChange={e => setShippingAddress({ ...shippingAddress, city: e.target.value })} placeholder="City" />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="state">State</Label>
-                        <Input id="state" value={shippingAddress.state} onChange={e => setShippingAddress({ ...shippingAddress, state: e.target.value.toUpperCase() })} placeholder="State" maxLength={2} />
-                      </div>
-                      <div>
-                        <Label htmlFor="zip">ZIP Code</Label>
-                        <Input id="zip" value={shippingAddress.zip} onChange={e => setShippingAddress({ ...shippingAddress, zip: e.target.value })} placeholder="ZIP code" />
-                      </div>
-                    </div>
-                  </>
+                  shippingFields
                 )}
               </CardContent>
             </Card>
