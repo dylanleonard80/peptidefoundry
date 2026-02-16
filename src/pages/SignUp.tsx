@@ -5,7 +5,6 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 
@@ -18,7 +17,7 @@ const signUpSchema = z.object({
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, signUp, loading: authLoading } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,7 +29,6 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Redirect authenticated users to home
   useEffect(() => {
     if (!authLoading && user) {
       navigate('/');
@@ -53,40 +51,15 @@ const SignUp = () => {
         return;
       }
 
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-          data: {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-          },
-        },
-      });
+      const { error } = await signUp(
+        formData.email,
+        formData.password,
+        formData.firstName,
+        formData.lastName,
+      );
+      if (error) return;
 
-      if (authError) {
-        toast({
-          title: 'Sign up failed',
-          description: authError.message,
-          variant: 'destructive',
-        });
-        return;
-      }
-
-      // Check if email confirmation is required
-      if (authData.user && !authData.session) {
-        toast({
-          title: 'Check your email',
-          description: 'We sent you a confirmation link to complete your registration.',
-        });
-      } else {
-        toast({
-          title: 'Account created!',
-          description: 'Welcome to Peptide Foundry.',
-        });
-        navigate('/');
-      }
+      navigate('/');
     } catch (error) {
       console.error('Auth error:', error);
       toast({

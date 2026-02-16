@@ -7,21 +7,8 @@ const MOTSC = () => {
 
   return (
   <PeptidePageTemplate
-    slug="mots-c"
-    peptideName={MOTSCData.peptideName}
+    {...MOTSCData}
     productImage="/products/mots-c.webp"
-    subtitle={MOTSCData.subtitle}
-    description={MOTSCData.description}
-    casNumber={MOTSCData.casNumber}
-    molecularFormula={MOTSCData.molecularFormula}
-    molarMass={MOTSCData.molarMass}
-    prices={MOTSCData.prices}
-    benefits={MOTSCData.benefits}
-    references={MOTSCData.references}
-    aboutParagraphs={MOTSCData.aboutParagraphs}
-    howItWorksIntro={MOTSCData.howItWorksIntro}
-    howItWorksAccordions={MOTSCData.howItWorksAccordions}
-    technicalPathways={MOTSCData.technicalPathways}
     coaSlot={<img src="/coa/mots-c.png" alt="MOTS-C COA" className="w-full h-auto" />}
   />
   );

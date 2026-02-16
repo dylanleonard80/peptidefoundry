@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Menu, X, User, LogOut, Search, Hexagon, LayoutDashboard, Package, FileText, Settings, Heart, Calculator } from "lucide-react";
+import { Menu, X, User, LogOut, Search, Hexagon, LayoutDashboard, Package, FileText, Settings, Calculator } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useMembership } from "@/hooks/useMembership";
@@ -51,19 +51,23 @@ const Navbar = ({
     });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = '';
   };
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+
+  const toggleMenu = () => {
     if (isMenuOpen) {
-      setIsMenuOpen(false);
-      document.body.style.overflow = '';
+      closeMenu();
+    } else {
+      setIsMenuOpen(true);
+      document.body.style.overflow = 'hidden';
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isMenuOpen) closeMenu();
   };
   const isFoundryClubPage = location.pathname === '/foundry-club';
   const isHomePage = location.pathname === '/';
@@ -282,8 +286,7 @@ const Navbar = ({
               {filteredPeptides.map(peptide => <button key={peptide.slug} onClick={() => {
             navigate(`/${peptide.slug}`);
             setSearchQuery("");
-            setIsMenuOpen(false);
-            document.body.style.overflow = '';
+            closeMenu();
           }} className="w-full text-left px-4 py-3 hover:bg-muted/50 border-b last:border-b-0 transition-colors">
                   <div className="font-medium">{peptide.name}</div>
                   <div className="text-sm text-muted-foreground">{peptide.benefit}</div>
@@ -292,61 +295,36 @@ const Navbar = ({
         </div>
 
         <nav className="flex flex-col space-y-8 items-center mt-8 py-0 my-[6px]">
-          <Link to="/" onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-0">
+          <Link to="/" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-0">
             Home
           </Link>
-          <Link to="/shop" onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
+          <Link to="/shop" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
             Shop All
           </Link>
-          <Link to="/about" onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
+          <Link to="/about" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
             About
           </Link>
-          <Link to="/contact" onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
+          <Link to="/contact" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 my-[6px]">
             Contact
           </Link>
-          <FoundryClubLink onClick={() => {
-          setIsMenuOpen(false);
-          document.body.style.overflow = '';
-        }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg bg-charcoal border border-primary/40 my-[6px] flex items-center justify-center gap-2 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
+          <FoundryClubLink onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg bg-charcoal border border-primary/40 my-[6px] flex items-center justify-center gap-2 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
             <Hexagon className="h-5 w-5 drop-shadow-[0_0_6px_hsl(var(--primary)/0.6)]" />
             Foundry Club
           </FoundryClubLink>
 
           {/* Mobile Account */}
           {user ? <>
-              <Link to="/dashboard" onClick={() => {
-            setIsMenuOpen(false);
-            document.body.style.overflow = '';
-          }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 flex items-center justify-center gap-2">
+              <Link to="/dashboard" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 flex items-center justify-center gap-2">
                 <LayoutDashboard className="h-5 w-5" />
                 My Dashboard
                 {isMember && <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-xs">
                     <Hexagon className="h-3 w-3" />
                   </span>}
               </Link>
-              <button onClick={() => {
-            signOut();
-            setIsMenuOpen(false);
-            document.body.style.overflow = '';
-          }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 text-destructive">
+              <button onClick={() => { signOut(); closeMenu(); }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 text-destructive">
                 Sign Out
               </button>
-            </> : <Link to="/sign-in" onClick={() => {
-            setIsMenuOpen(false);
-            document.body.style.overflow = '';
-          }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 flex items-center justify-center gap-2">
+            </> : <Link to="/sign-in" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 flex items-center justify-center gap-2">
                 <User className="h-5 w-5" />
                 Sign In
               </Link>}

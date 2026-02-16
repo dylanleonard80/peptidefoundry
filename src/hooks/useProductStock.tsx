@@ -32,12 +32,11 @@ export const useProductStock = (slug: string): StockStatus => {
 
       const product = data as any;
       setProductInStock(product.in_stock);
-
-      const vStock: Record<string, boolean> = {};
-      (product.product_variants || []).forEach((v: any) => {
-        vStock[v.size_label] = v.in_stock;
-      });
-      setVariantStock(vStock);
+      setVariantStock(
+        Object.fromEntries(
+          (product.product_variants || []).map((v: any) => [v.size_label, v.in_stock])
+        )
+      );
       setLoading(false);
     };
 
@@ -66,11 +65,9 @@ export const useAllProductStock = () => {
         return;
       }
 
-      const map: Record<string, boolean> = {};
-      (data as any[]).forEach((p) => {
-        map[p.slug] = p.in_stock;
-      });
-      setStockMap(map);
+      setStockMap(
+        Object.fromEntries((data as any[]).map((p) => [p.slug, p.in_stock]))
+      );
       setLoading(false);
     };
 

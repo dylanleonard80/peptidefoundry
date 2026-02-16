@@ -6,21 +6,7 @@ const Sermorelin = () => {
   useDocumentMeta("Sermorelin | Peptide Foundry");
   return (
   <PeptidePageTemplate
-    slug="sermorelin"
-    peptideName={SermorelinData.peptideName}
-    productImage={SermorelinData.productImage}
-    subtitle={SermorelinData.subtitle}
-    description={SermorelinData.description}
-    casNumber={SermorelinData.casNumber}
-    molecularFormula={SermorelinData.molecularFormula}
-    molarMass={SermorelinData.molarMass}
-    prices={SermorelinData.prices}
-    benefits={SermorelinData.benefits}
-    references={SermorelinData.references}
-    aboutParagraphs={SermorelinData.aboutParagraphs}
-    howItWorksIntro={SermorelinData.howItWorksIntro}
-    howItWorksAccordions={SermorelinData.howItWorksAccordions}
-    technicalPathways={SermorelinData.technicalPathways}
+    {...SermorelinData}
     coaSlot={<img src="/coa/sermorelin.png" alt="Sermorelin COA" className="w-full h-auto" />}
   />
   );

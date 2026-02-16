@@ -127,8 +127,7 @@ export const useMembership = () => {
 
       if (error) throw error;
 
-      const isActive = membership && new Date(membership.current_period_end) > new Date();
-      const isMember = !!isActive;
+      const isMember = !!membership && new Date(membership.current_period_end) > new Date();
       const subscriptionEnd = membership?.current_period_end || null;
       const canceled = membership?.status === 'canceled';
 
@@ -217,20 +216,9 @@ export const useMembership = () => {
     return Math.round(basePrice * 0.77);
   };
 
-  const getDiscount = (basePrice: number, slug?: string, size?: string): number => {
-    if (slug && size) {
-      const specificPrice = getMemberPriceBySlug(slug, size);
-      if (specificPrice !== undefined) {
-        return basePrice - specificPrice;
-      }
-    }
-    return Math.round(basePrice * 0.23);
-  };
-
   return {
     ...state,
     checkMembership,
     getMemberPrice,
-    getDiscount,
   };
 };

@@ -5,7 +5,6 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 
@@ -16,14 +15,13 @@ const signInSchema = z.object({
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, signIn, loading: authLoading } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Redirect authenticated users to home
   useEffect(() => {
     if (!authLoading && user) {
       navigate('/');
@@ -46,15 +44,8 @@ const SignIn = () => {
         return;
       }
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (error) {
-        toast({ title: 'Sign in failed', description: error.message, variant: 'destructive' });
-        return;
-      }
+      const { error } = await signIn(formData.email, formData.password);
+      if (error) return;
 
       toast({ title: 'Welcome back!', description: 'You have been signed in.' });
       navigate('/');

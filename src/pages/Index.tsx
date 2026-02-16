@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import PeptidesCatalog from "@/components/PeptidesCatalog";
 import Footer from "@/components/Footer";
 import FoundryClubLink from "@/components/FoundryClubLink";
-import { Truck, ShieldCheck, FlaskConical, Hexagon, ArrowRight, Plus } from "lucide-react";
+import { Truck, Hexagon, ArrowRight, Plus } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";

@@ -8,8 +8,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ShoppingCart, Plus, Minus, ChevronDown, AlertCircle, Activity, Hexagon, FileCheck, ExternalLink, BookOpen } from "lucide-react";
-import { useState } from "react";
+import { ShoppingCart, Plus, Minus, ChevronDown, AlertCircle, Hexagon, FileCheck, ExternalLink, BookOpen } from "lucide-react";
+import { useState, type ReactNode } from "react";
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from "@/hooks/use-toast";
 import { useMembership } from "@/hooks/useMembership";
@@ -18,8 +18,6 @@ import { Link } from "react-router-dom";
 import FoundryClubLink from "@/components/FoundryClubLink";
 import type { PeptideBenefit, PeptideAccordion } from "@/data/peptidePageData";
 import { getSmallIcon, getLargeIcon } from "@/lib/iconUtils";
-
-import { ReactNode } from "react";
 import { usePrices } from "@/hooks/usePrices";
 import { PopularStacks } from "@/components/PopularStacks";
 import { ResearchStudiesSheet } from "@/components/ResearchStudiesSheet";
@@ -127,6 +125,21 @@ export const PeptidePageTemplate = ({
   // Get actual member price and savings for upsell box (doesn't depend on isMember state)
   const upsellMemberPrice = getMemberPriceBySlug(slug, selectedSize) ?? Math.round(basePrice * 0.77);
   const upsellSavings = getSavingsBySlug(slug, selectedSize);
+
+  const handleAddToCart = async () => {
+    await addItem({
+      peptide_name: peptideName,
+      size: selectedSize,
+      price: displayPrice,
+      slug
+    });
+    toast({
+      title: "Added to cart",
+      description: `${peptideName} (${selectedSize}) has been added to your cart.`
+    });
+  };
+
+  const tabTriggerClass = "py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all";
 
   // Default benefits if none provided
   const displayBenefits = benefits.length > 0 ? benefits : [{
@@ -372,18 +385,7 @@ export const PeptidePageTemplate = ({
                       </div>
                     </FoundryClubLink>}
 
-                  <Button size="lg" className="w-full group" disabled={isSizeOutOfStock} onClick={async () => {
-                  await addItem({
-                    peptide_name: peptideName,
-                    size: selectedSize,
-                    price: displayPrice,
-                    slug
-                  });
-                  toast({
-                    title: "Added to cart",
-                    description: `${peptideName} (${selectedSize}) has been added to your cart.`
-                  });
-                }}>
+                  <Button size="lg" className="w-full group" disabled={isSizeOutOfStock} onClick={handleAddToCart}>
                     <ShoppingCart className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                     {isSizeOutOfStock ? "Out of Stock" : "Add to Cart"}
                   </Button>
@@ -456,18 +458,7 @@ export const PeptidePageTemplate = ({
             </div>
             
             {/* Add to Cart Button */}
-            <Button size="default" className="shrink-0" disabled={isSizeOutOfStock} onClick={async () => {
-            await addItem({
-              peptide_name: peptideName,
-              size: selectedSize,
-              price: displayPrice,
-              slug
-            });
-            toast({
-              title: "Added to cart",
-              description: `${peptideName} (${selectedSize}) has been added to your cart.`
-            });
-          }}>
+            <Button size="default" className="shrink-0" disabled={isSizeOutOfStock} onClick={handleAddToCart}>
               <ShoppingCart className="mr-2 h-4 w-4" />
               {isSizeOutOfStock ? "Out of Stock" : "Add to Cart"}
             </Button>
@@ -483,25 +474,25 @@ export const PeptidePageTemplate = ({
             <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 sm:grid-cols-4 mb-12 h-auto gap-2 bg-muted/50 p-2 rounded-xl">
               <TabsTrigger
                 value="about"
-                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+                className={tabTriggerClass}
               >
                 About
               </TabsTrigger>
               <TabsTrigger
                 value="how-it-works"
-                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+                className={tabTriggerClass}
               >
                 Preclinical Findings
               </TabsTrigger>
               <TabsTrigger
                 value="benefits"
-                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+                className={tabTriggerClass}
               >
                 Research Areas
               </TabsTrigger>
               <TabsTrigger
                 value="storage"
-                className="py-3 px-4 text-sm font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-md data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground data-[state=inactive]:hover:bg-background/50 transition-all"
+                className={tabTriggerClass}
               >
                 Storage
               </TabsTrigger>

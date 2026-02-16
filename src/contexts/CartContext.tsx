@@ -238,8 +238,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 0; // Free shipping on all orders
-  const total = subtotal + shipping;
+  const shipping = 0;
+  const total = subtotal;
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
