@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus } from 'lucide-react';
 import { usePrices } from '@/hooks/usePrices';
+import { useMembership } from '@/hooks/useMembership';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
@@ -37,9 +38,11 @@ const Checkout = () => {
     total,
     addItem,
     updateQuantity,
-    clearCart
+    clearCart,
+    syncPrices
   } = useCart();
-  const { prices: peptidePrices } = usePrices();
+  const { prices: peptidePrices, memberPrices, isLoading: pricesLoading } = usePrices();
+  const { isMember } = useMembership();
   const {
     user,
     profile,
@@ -92,6 +95,19 @@ const Checkout = () => {
       }));
     }
   }, [user, items, profile, navigate, orderCompleting]);
+
+  // Sync cart prices with DB on checkout load
+  useEffect(() => {
+    if (pricesLoading || items.length === 0) return;
+    syncPrices(peptidePrices, memberPrices, isMember).then((changed) => {
+      if (changed) {
+        toast({
+          title: 'Prices updated',
+          description: 'Some prices have been updated since you added items to your cart.',
+        });
+      }
+    });
+  }, [pricesLoading]);
 
   const handleCreateAccount = async () => {
     if (!firstName.trim() || !lastName.trim()) {

@@ -11,6 +11,8 @@ export interface CartItem {
   slug?: string;
 }
 
+type PriceMap = Record<string, Record<string, number>>;
+
 interface CartContextType {
   items: CartItem[];
   itemCount: number;
@@ -22,6 +24,7 @@ interface CartContextType {
   updateQuantity: (peptideName: string, size: string, quantity: number) => Promise<void>;
   removeItem: (peptideName: string, size: string) => Promise<void>;
   clearCart: () => Promise<void>;
+  syncPrices: (prices: PriceMap, memberPrices: PriceMap, isMember: boolean) => Promise<boolean>;
 }
 
 const CART_STORAGE_KEY = 'peptide-cart';
@@ -237,6 +240,38 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user]);
 
+  const syncPrices = useCallback(async (
+    prices: PriceMap,
+    memberPrices: PriceMap,
+    isMember: boolean
+  ): Promise<boolean> => {
+    const currentItems = itemsRef.current;
+    if (currentItems.length === 0) return false;
+
+    let changed = false;
+    const nextItems = currentItems.map((item) => {
+      if (!item.slug) return item;
+
+      const currentPrice = isMember
+        ? (memberPrices[item.slug]?.[item.size] ?? prices[item.slug]?.[item.size])
+        : prices[item.slug]?.[item.size];
+
+      if (currentPrice != null && currentPrice !== item.price) {
+        changed = true;
+        return { ...item, price: currentPrice };
+      }
+      return item;
+    });
+
+    if (changed) {
+      itemsRef.current = nextItems;
+      setItems(nextItems);
+      await syncCart(nextItems);
+    }
+
+    return changed;
+  }, [user]);
+
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 0;
   const total = subtotal;
@@ -255,6 +290,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         updateQuantity,
         removeItem,
         clearCart,
+        syncPrices,
       }}
     >
       {children}
