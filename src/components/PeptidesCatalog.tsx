@@ -258,15 +258,19 @@ const PeptidesCatalog = ({
       </div>
       {peptideSections.map((section, index) => <section key={index} id={`category-section-${index}`} className="border-b py-[13px] scroll-mt-24">
             <div className="container px-4 sm:px-6 lg:px-8">
-              <div className="relative">
+              <div className="relative group/scroll">
+                {/* Scroll hint fade + arrow — mobile only */}
+                <div className="sm:hidden pointer-events-none absolute right-0 top-0 bottom-4 w-12 z-10 bg-gradient-to-l from-background via-background/60 to-transparent flex items-center justify-end pr-1 group-[:has(.scrolled-end)]/scroll:opacity-0 transition-opacity duration-300">
+                  <ChevronRight className="w-5 h-5 text-muted-foreground animate-pulse" />
+                </div>
                 <div className="overflow-x-auto py-1 pb-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
                   <div className="flex gap-4 w-max">
                     {/* Title Card - Glassmorphism Style */}
                     {section.link ? <Link to={section.link} className="block group">
-                        <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(255,107,0,0.4)] hover:border-primary/60">
-                          {/* Glowing orb effects */}
-                          <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
-                          <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
+                        <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 !bg-[#6B3A1F] bg-gradient-to-br from-primary/70 via-primary/50 to-primary/30 backdrop-blur-xl shadow-lg sm:shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(255,107,0,0.4)] hover:border-primary/60">
+                          {/* Glowing orb effects - hidden on mobile to prevent bleed past rounded corners */}
+                          <div className="hidden sm:block absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
+                          <div className="hidden sm:block absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
                           <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
                           
                           {/* Background image if available */}
@@ -293,10 +297,10 @@ const PeptidesCatalog = ({
                             </div>
                           </CardContent>
                         </Card>
-                      </Link> : <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 bg-gradient-to-br from-primary/60 via-primary/40 to-primary/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative">
-                        {/* Glowing orb effects */}
-                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl" />
-                        <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl" />
+                      </Link> : <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/40 !bg-[#6B3A1F] bg-gradient-to-br from-primary/70 via-primary/50 to-primary/30 backdrop-blur-xl shadow-lg sm:shadow-[0_8px_32px_rgba(255,107,0,0.25)] relative">
+                        {/* Glowing orb effects - hidden on mobile to prevent bleed past rounded corners */}
+                        <div className="hidden sm:block absolute -top-10 -right-10 w-32 h-32 bg-primary/70 rounded-full blur-2xl" />
+                        <div className="hidden sm:block absolute -bottom-10 -left-10 w-28 h-28 bg-primary/60 rounded-full blur-2xl" />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
 
                         {/* Glass-morphism content */}
