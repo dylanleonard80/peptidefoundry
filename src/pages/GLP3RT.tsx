@@ -8,8 +8,8 @@ const GLP3RT = () => {
   <PeptidePageTemplate
     {...RetatrutideData}
     productImages={{
-      "12mg": "/products/glp-3rt-12mg.webp",
-      "24mg": "/products/glp-3rt-24mg.webp"
+      "10mg": "/products/glp-3rt-10mg.webp",
+      "20mg": "/products/glp-3rt-20mg.webp"
     }}
   />
   );

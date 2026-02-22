@@ -73,7 +73,7 @@ INSERT INTO public.products (id, name, slug, type, status, subtitle, description
 ('a0000000-0000-0000-0000-000000000007', 'GLP-3RT', 'retatrutide', 'peptide', 'active',
  'A peptide studied in laboratory settings for triple incretin receptor agonism and metabolic regulation',
  'GLP-3RT (LY3437943) is a novel triple agonist peptide that activates GLP-1, GIP, and glucagon receptors simultaneously.',
- NULL, '2381089-83-2', 'C₂₂₅H₃₄₈N₆₀O₆₈S', '5104.6 g/mol', '/products/glp-3rt-12mg.webp', true, 70,
+ NULL, '2381089-83-2', 'C₂₂₅H₃₄₈N₆₀O₆₈S', '5104.6 g/mol', '/products/glp-3rt-10mg.webp', true, 70,
  '{}'::jsonb),
 
 -- 8. MOTS-C
@@ -248,8 +248,8 @@ INSERT INTO public.product_variants (product_id, size_label, price, member_price
 ('a0000000-0000-0000-0000-000000000004', '10mg',     88.00,  65.00, 'TESA-10MG',         true, 1),  -- tesamorelin
 ('a0000000-0000-0000-0000-000000000005', '5mg',      53.00,  38.00, 'SERM-5MG',          true, 1),  -- sermorelin
 ('a0000000-0000-0000-0000-000000000006', '10mg',    139.00,  99.00, 'CAGRI-10MG',        true, 1),  -- cagrilintide
-('a0000000-0000-0000-0000-000000000007', '12mg',    134.00,  97.00, 'GLP3RT-12MG',       true, 1),  -- retatrutide 12mg
-('a0000000-0000-0000-0000-000000000007', '24mg',    340.00,  NULL,  'GLP3RT-24MG',       true, 2),  -- retatrutide 24mg (no member price)
+('a0000000-0000-0000-0000-000000000007', '10mg',    134.00,  97.00, 'GLP3RT-10MG',       true, 1),  -- retatrutide 10mg
+('a0000000-0000-0000-0000-000000000007', '20mg',    340.00,  NULL,  'GLP3RT-20MG',       true, 2),  -- retatrutide 20mg (no member price)
 ('a0000000-0000-0000-0000-000000000008', '10mg',     62.00,  44.00, 'MOTSC-10MG',        true, 1),  -- mots-c
 ('a0000000-0000-0000-0000-000000000009', '10mg',     70.00,  49.00, 'SELANK-10MG',       true, 1),  -- selank
 ('a0000000-0000-0000-0000-000000000010', '10mg',     70.00,  49.00, 'SEMAX-10MG',        true, 1),  -- semax
@@ -258,7 +258,7 @@ INSERT INTO public.product_variants (product_id, size_label, price, member_price
 ('a0000000-0000-0000-0000-000000000013', '10mg',     83.00,  60.00, 'TB500-10MG',        true, 1),  -- tb-500
 ('a0000000-0000-0000-0000-000000000014', '10mg',     62.00,  44.00, 'MT2-10MG',          true, 1),  -- melanotan-2
 ('a0000000-0000-0000-0000-000000000015', '5mg',      54.00,  39.00, 'DSIP-5MG',          true, 1),  -- dsip
-('a0000000-0000-0000-0000-000000000016', '100mg',    74.00,  53.00, 'GHKCU-100MG',       true, 1),  -- ghk-cu
+('a0000000-0000-0000-0000-000000000016', '50mg',     74.00,  53.00, 'GHKCU-50MG',        true, 1),  -- ghk-cu
 ('a0000000-0000-0000-0000-000000000017', '10mg',     65.00,  46.00, 'PT141-10MG',        true, 1),  -- pt-141
 ('a0000000-0000-0000-0000-000000000018', '10mg',     56.00,  40.00, 'EPITH-10MG',        true, 1),  -- epithalon
 ('a0000000-0000-0000-0000-000000000019', '1500mg',   92.00,  65.00, 'GLUT-1500MG',       true, 1),  -- glutathione

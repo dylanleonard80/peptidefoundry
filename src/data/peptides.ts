@@ -113,7 +113,7 @@ export const peptideSections: PeptideSection[] = [
         ["Research"],
         "ghk-cu",
         ["Tissue Studies", "Copper Peptide"],
-        ["100mg"]
+        ["50mg"]
       ),
       createCard(
         "GLP-3RT",
@@ -121,7 +121,7 @@ export const peptideSections: PeptideSection[] = [
         ["Research"],
         "retatrutide",
         ["Metabolic Research", "GLP Studies"],
-        ["12mg", "24mg"]
+        ["10mg", "20mg"]
       ),
       createCard(
         "NAD+ (Buffered)",
@@ -267,7 +267,7 @@ export const peptideSections: PeptideSection[] = [
         ["Research"],
         "retatrutide",
         ["GLP Research", "Metabolic Studies"],
-        ["12mg", "24mg"]
+        ["10mg", "20mg"]
       ),
       createCard(
         "GLP-1SG",
@@ -322,7 +322,7 @@ export const peptideSections: PeptideSection[] = [
         ["Research"],
         "ghk-cu",
         ["Tissue Studies", "Copper Peptide"],
-        ["100mg"]
+        ["50mg"]
       ),
       createCard(
         "Selank",
