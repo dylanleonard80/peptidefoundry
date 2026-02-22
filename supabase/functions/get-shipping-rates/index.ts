@@ -122,6 +122,15 @@ serve(async (req) => {
 
     const shipment = await shippoRes.json();
 
+    // Log carrier messages (explains why carriers fail to return rates)
+    if (shipment.messages?.length) {
+      logStep("Shippo messages", shipment.messages);
+    }
+
+    // Log all raw rate providers for debugging
+    const allProviders = (shipment.rates || []).map((r: any) => r.provider);
+    logStep("Raw rate providers", { providers: [...new Set(allProviders)], total: allProviders.length });
+
     // Filter to valid rates and sort by price
     const rates = (shipment.rates || [])
       .filter((r: any) => r.amount && r.provider && r.servicelevel?.name)
@@ -136,7 +145,7 @@ serve(async (req) => {
       }))
       .sort((a: any, b: any) => parseFloat(a.amount) - parseFloat(b.amount));
 
-    logStep("Rates fetched", { count: rates.length });
+    logStep("Rates fetched", { count: rates.length, providers: [...new Set(rates.map((r: any) => r.provider))] });
 
     return new Response(JSON.stringify({ rates }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

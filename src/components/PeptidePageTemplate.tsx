@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ShoppingCart, Plus, Minus, ChevronDown, AlertCircle, Hexagon, FileCheck, ExternalLink, BookOpen } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from "@/hooks/use-toast";
 import { useMembership } from "@/hooks/useMembership";
@@ -96,8 +96,17 @@ export const PeptidePageTemplate = ({
   const { getPrices: getDbPrices, getMemberPriceBySlug, getSavingsBySlug } = usePrices();
   // Prefer DB prices, fall back to prop
   const activePrices = getDbPrices(slug) ?? prices;
-  const [selectedSize, setSelectedSize] = useState(Object.keys(activePrices)[0] || "10mg");
+  const [selectedSize, setSelectedSize] = useState(Object.keys(activePrices)[0] || "");
   const [quantity, setQuantity] = useState(1);
+
+  // Keep selectedSize in sync when activePrices keys change (e.g. DB fetch resolves)
+  useEffect(() => {
+    const keys = Object.keys(activePrices);
+    if (keys.length > 0 && !keys.includes(selectedSize)) {
+      setSelectedSize(keys[0]);
+    }
+  }, [activePrices, selectedSize]);
+
   const selectedSizeKey = selectedSize.trim();
   const isSizeOutOfStock = !productInStock || variantStock[selectedSizeKey] === false;
   const selectedSizeNoSpaces = selectedSizeKey.replace(/\s+/g, "");
@@ -117,10 +126,10 @@ export const PeptidePageTemplate = ({
     title: string;
     studies: ResearchStudy[];
   } | null>(null);
-  const basePrice = activePrices[selectedSize as keyof typeof activePrices];
-  const displayPrice = getMemberPrice(basePrice, slug, selectedSize);
+  const basePrice = activePrices[selectedSize as keyof typeof activePrices] ?? 0;
+  const displayPrice = basePrice ? getMemberPrice(basePrice, slug, selectedSize) : 0;
   const totalPrice = displayPrice * quantity;
-  const savings = isMember ? (basePrice - displayPrice) * quantity : 0;
+  const savings = isMember && basePrice ? (basePrice - displayPrice) * quantity : 0;
 
   // Get actual member price and savings for upsell box (doesn't depend on isMember state)
   const upsellMemberPrice = getMemberPriceBySlug(slug, selectedSize) ?? Math.round(basePrice * 0.77);
