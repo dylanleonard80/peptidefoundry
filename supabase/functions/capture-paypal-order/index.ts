@@ -68,6 +68,7 @@ serve(async (req) => {
       items,
       shippingAddress,
       shippingCost,
+      taxAmount: taxFromBody,
     } = body;
 
     if (!paypalOrderId) throw new Error("Missing paypalOrderId");
@@ -188,11 +189,13 @@ serve(async (req) => {
       }
 
       const shippingAmount = Number(shippingCost) || 0;
-      const expectedTotal = expectedSubtotal + shippingAmount;
+      const taxAmount = Math.round((Number(taxFromBody) || 0) * 100) / 100;
+      const expectedTotal = expectedSubtotal + shippingAmount + taxAmount;
 
       logStep("Price verification", {
         expectedSubtotal,
         shippingAmount,
+        taxAmount,
         expectedTotal,
         paypalAmount,
       });
@@ -268,6 +271,7 @@ serve(async (req) => {
             items: orderItems,
             subtotal: Math.round(expectedSubtotal * 100) / 100,
             shipping: Math.round(shippingAmount * 100) / 100,
+            tax: taxAmount,
             total: Math.round(expectedTotal * 100) / 100,
             shipping_address: shippingAddress || {},
             status: 'processing',

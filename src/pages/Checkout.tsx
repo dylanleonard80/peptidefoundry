@@ -52,6 +52,8 @@ const Checkout = () => {
   const {
     toast
   } = useToast();
+  const [taxAmount, setTaxAmount] = useState(0);
+  const [taxLoading, setTaxLoading] = useState(false);
   const [bacQuantity, setBacQuantity] = useState(1);
   const [orderCompleting, setOrderCompleting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -108,6 +110,44 @@ const Checkout = () => {
       }
     });
   }, [pricesLoading]);
+
+  // Calculate sales tax when shipping address changes (authenticated users only)
+  useEffect(() => {
+    if (!user) return;
+    const { state, zip, city, street } = shippingAddress;
+    if (!state || !zip) return;
+    if (!/^[A-Z]{2}$/.test(state)) return;
+    if (!/^\d{5}(-\d{4})?$/.test(zip)) return;
+
+    setTaxLoading(true);
+    const timeout = setTimeout(async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('calculate-tax', {
+          body: {
+            toState: state,
+            toZip: zip,
+            toCity: city,
+            toStreet: street,
+            shipping: shipping,
+            lineItems: items.map(item => ({
+              quantity: item.quantity,
+              unit_price: item.price,
+            })),
+          },
+        });
+        if (!error && data) {
+          setTaxAmount(Number(data.taxAmount) || 0);
+        }
+      } catch (err) {
+        console.error('[Checkout] Tax calculation failed:', err);
+        setTaxAmount(0);
+      } finally {
+        setTaxLoading(false);
+      }
+    }, 600);
+
+    return () => clearTimeout(timeout);
+  }, [shippingAddress.state, shippingAddress.zip, user]);
 
   const handleCreateAccount = async () => {
     if (!firstName.trim() || !lastName.trim()) {
@@ -292,10 +332,22 @@ const Checkout = () => {
                     <span>Shipping</span>
                     <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
                   </div>
+                  {taxLoading && (
+                    <div className="flex justify-between text-sm text-muted-foreground">
+                      <span>Est. Tax</span>
+                      <span>Calculating…</span>
+                    </div>
+                  )}
+                  {!taxLoading && taxAmount > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span>Est. Tax</span>
+                      <span>${taxAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>${(total + taxAmount).toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -364,15 +416,17 @@ const Checkout = () => {
                             return Promise.reject(new Error('Invalid shipping address'));
                           }
 
+                          const grandTotal = total + taxAmount;
                           return actions.order.create({
                             purchase_units: [{
                               description: `Order - ${items.length} item${items.length > 1 ? 's' : ''}`,
                               amount: {
                                 currency_code: "USD",
-                                value: total.toFixed(2),
+                                value: grandTotal.toFixed(2),
                                 breakdown: {
                                   item_total: { currency_code: "USD", value: subtotal.toFixed(2) },
                                   shipping: { currency_code: "USD", value: shipping.toFixed(2) },
+                                  ...(taxAmount > 0 ? { tax_total: { currency_code: "USD", value: taxAmount.toFixed(2) } } : {}),
                                 },
                               },
                               items: items.map((_i, idx) => ({
@@ -409,6 +463,7 @@ const Checkout = () => {
                                   zipCode: shippingAddress.zip,
                                 },
                                 shippingCost: shipping,
+                              taxAmount: taxAmount,
                               },
                             });
 

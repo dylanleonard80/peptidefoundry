@@ -81,7 +81,7 @@ const CategoryGrid = () => {
               />
 
               {/* Gradient Overlay - softer, more organic */}
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent transition-all duration-500 group-hover:from-charcoal/70" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent transition-all duration-500 group-hover:from-charcoal/50" />
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
