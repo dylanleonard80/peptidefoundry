@@ -63,7 +63,7 @@ const Epithalon = lazy(() => import("./pages/Epithalon"));
 const BPC157TB500 = lazy(() => import("./pages/BPC157TB500"));
 
 const GLOW = lazy(() => import("./pages/GLOW"));
-const KLOW = lazy(() => import("./pages/KLOW"));
+// const KLOW = lazy(() => import("./pages/KLOW")); // hidden product
 const Ipamorelin = lazy(() => import("./pages/Ipamorelin"));
 const IGF1LR3 = lazy(() => import("./pages/IGF1LR3"));
 
@@ -71,7 +71,7 @@ const Tesamorelin = lazy(() => import("./pages/Tesamorelin"));
 
 const Sermorelin = lazy(() => import("./pages/Sermorelin"));
 const AOD9604 = lazy(() => import("./pages/AOD9604"));
-const Cagrilintide = lazy(() => import("./pages/Cagrilintide"));
+// const Cagrilintide = lazy(() => import("./pages/Cagrilintide")); // hidden product
 const GLP3RT = lazy(() => import("./pages/GLP3RT"));
 const MOTSC = lazy(() => import("./pages/MOTSC"));
 
@@ -84,7 +84,7 @@ const Glutathione = lazy(() => import("./pages/Glutathione"));
 const PT141 = lazy(() => import("./pages/PT141"));
 const GLP1SG = lazy(() => import("./pages/GLP1SG"));
 const GLP1TZ = lazy(() => import("./pages/GLP1TZ"));
-const TesamorelinIpamorelin = lazy(() => import("./pages/TesamorelinIpamorelin"));
+// const TesamorelinIpamorelin = lazy(() => import("./pages/TesamorelinIpamorelin")); // hidden product
 
 // Admin pages
 const AdminIndex = lazy(() => import("./pages/admin/Index"));
@@ -157,13 +157,13 @@ const App = () => (
                 <Route path="/epithalon" element={<Epithalon />} />
                 <Route path="/bpc-157-tb-500" element={<BPC157TB500 />} />
                 <Route path="/glow" element={<GLOW />} />
-                <Route path="/klow" element={<KLOW />} />
+                {/* <Route path="/klow" element={<KLOW />} /> */}
                 <Route path="/ipamorelin" element={<Ipamorelin />} />
                 <Route path="/igf-1-lr3" element={<IGF1LR3 />} />
                 <Route path="/tesamorelin" element={<Tesamorelin />} />
                 <Route path="/sermorelin" element={<Sermorelin />} />
                 <Route path="/aod-9604" element={<AOD9604 />} />
-                <Route path="/cagrilintide" element={<Cagrilintide />} />
+                {/* <Route path="/cagrilintide" element={<Cagrilintide />} /> */}
                 <Route path="/retatrutide" element={<GLP3RT />} />
                 <Route path="/mots-c" element={<MOTSC />} />
                 <Route path="/dsip" element={<DSIP />} />
@@ -175,7 +175,7 @@ const App = () => (
                 <Route path="/pt-141" element={<PT141 />} />
                 <Route path="/glp-1sg" element={<GLP1SG />} />
                 <Route path="/glp-1tz" element={<GLP1TZ />} />
-                <Route path="/tesamorelin-ipamorelin" element={<TesamorelinIpamorelin />} />
+                {/* <Route path="/tesamorelin-ipamorelin" element={<TesamorelinIpamorelin />} /> */}
 
                 {/* Admin pages */}
                 <Route path="/admin" element={<AdminIndex />} />

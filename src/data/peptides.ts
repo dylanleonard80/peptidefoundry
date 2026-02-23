@@ -99,15 +99,6 @@ export const peptideSections: PeptideSection[] = [
         "GHK-Cu + BPC-157 + TB-500"
       ),
       createCard(
-        "KLOW",
-        "Research blend for GI and immune pathway studies",
-        ["Research", "Blend"],
-        "klow",
-        ["GI Research", "Immune Studies"],
-        ["50mg/10mg/10mg/10mg"],
-        "GHK-Cu + BPC-157 + TB-500 + KPV"
-      ),
-      createCard(
         "GHK-CU",
         "Copper peptide studied for tissue remodeling",
         ["Research"],
@@ -174,15 +165,6 @@ export const peptideSections: PeptideSection[] = [
         ["50mg/10mg/10mg"],
         "GHK-Cu + BPC-157 + TB-500"
       ),
-      createCard(
-        "KLOW",
-        "Research blend for GI and immune pathway studies",
-        ["Research", "Blend"],
-        "klow",
-        ["GI Research", "Immune Studies"],
-        ["50mg/10mg/10mg/10mg"],
-        "GHK-Cu + BPC-157 + TB-500 + KPV"
-      ),
     ],
   },
   {
@@ -230,14 +212,6 @@ export const peptideSections: PeptideSection[] = [
         ["GHRH Research", "GH Studies"],
         ["5mg"]
       ),
-      createCard(
-        "Tesamorelin / Ipamorelin",
-        "Dual peptide blend for GH pathway research",
-        ["Research", "Blend"],
-        "tesamorelin-ipamorelin",
-        ["GH Research", "Metabolic Studies"],
-        ["12mg/2mg"]
-      ),
     ],
   },
   {
@@ -252,14 +226,6 @@ export const peptideSections: PeptideSection[] = [
         "aod-9604",
         ["Lipolysis Research", "HGH Fragment"],
         ["5mg"]
-      ),
-      createCard(
-        "Cagrilintide",
-        "Amylin analog for appetite pathway research",
-        ["Research"],
-        "cagrilintide",
-        ["Amylin Research", "Satiety Studies"],
-        ["10mg"]
       ),
       createCard(
         "GLP-3RT",
