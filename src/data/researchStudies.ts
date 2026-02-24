@@ -886,25 +886,25 @@ export const epithalonResearch: PeptideResearch = {
     },
     {
       areaId: "neuroendocrine",
-      areaTitle: "Neuroendocrine Regulation",
+      areaTitle: "Neuroprotection & Cognitive Health",
       studies: [
         {
-          title: "Synthetic tetrapeptide epitalon restores disturbed neuroendocrine regulation in senescent monkeys",
-          authors: "Khavinson V, Goncharova N, Lapin B",
-          journal: "Neuroendocrinology Letters",
-          year: 2001,
-          pmid: "11524632",
-          summary: "Study showing Epitalon significantly stimulates melatonin synthesis in senescent monkeys, normalizing circadian rhythm of cortisol secretion.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11524632/"
+          title: "Overview of Epitalon-Highly Bioactive Pineal Tetrapeptide with Promising Properties",
+          authors: "Araj SK, Brzezik J, Mądra-Gackowska K, Szeleszczuk Ł",
+          journal: "International Journal of Molecular Sciences",
+          year: 2025,
+          pmid: "40141333",
+          summary: "This comprehensive 2025 review synthesized over 25 years of preclinical and computational research on epitalon, documenting its geroprotective, neuroendocrine-modulatory, antioxidant, and neuroprotective properties, as well as its influence on melatonin synthesis, interleukin-2 mRNA expression, and telomerase activation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/40141333/"
         },
         {
-          title: "Anti-aging peptide bioregulators induce reactivation of chromatin",
-          authors: "Lezhava T, Monaselidze J, Kadotani T, et al.",
-          journal: "Georgian Medical News",
-          year: 2006,
-          pmid: "16705247",
-          summary: "Study showing Epitalon activates synthetic processes through deheterochromatinization in lymphocytes of elderly individuals.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/16705247/"
+          title: "Protective effect of melatonin and epithalon on hypothalamic regulation of reproduction in female rats in its premature aging model and on estrous cycles in senescent animals in various lighting regimes",
+          authors: "Korenevsky AV, Milyutina YP, Bukalyov AV, Baranova YP, Vinogradova IA, Arutjunyan AV",
+          journal: "Advances in Gerontology",
+          year: 2013,
+          pmid: "28976150",
+          summary: "This preclinical study in female rats demonstrated that epithalon corrected hypothalamic-pituitary-gonadal axis impairments induced by environmental light pollution and toxic exposure, indicating a neuroendocrine-protective effect on hypothalamic regulatory function during aging.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28976150/"
         }
       ]
     },
@@ -950,6 +950,30 @@ export const epithalonResearch: PeptideResearch = {
           pmid: "16634527",
           summary: "Preclinical study showing long-term Epitalon treatment decreased malignant tumors and prevented metastases in mice.",
           url: "https://pubmed.ncbi.nlm.nih.gov/16634527/"
+        }
+      ]
+    },
+    {
+      areaId: "powerful-antioxidant-action",
+      areaTitle: "Powerful Antioxidant Action",
+      studies: [
+        {
+          title: "Antioxidant properties of geroprotective peptides of the pineal gland",
+          authors: "Kozina LS, Arutjunyan AV, Khavinson VKh",
+          journal: "Archives of Gerontology and Geriatrics",
+          year: 2007,
+          pmid: "17317455",
+          summary: "Epithalamin and its active tetrapeptide epitalon demonstrated antioxidant activity in aged rats that in some assays exceeded melatonin's effects, operating through both direct radical scavenging and stimulation of antioxidant enzyme expression including superoxide dismutase and ceruloplasmin in serum, liver, and brain tissue.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17317455/"
+        },
+        {
+          title: "Epitalon protects against post-ovulatory aging-related damage of mouse oocytes in vitro",
+          authors: "Yue X, Liu SL, Guo JN, Meng TG, Zhang XR, Li HX, Song CY, Wang ZB, Schatten H, Sun QY, Guo XP",
+          journal: "Aging (Albany NY)",
+          year: 2022,
+          pmid: "35413689",
+          summary: "Epitalon added to oocyte culture medium reduced intracellular reactive oxygen species, improved mitochondrial function and DNA copy numbers, and decreased apoptosis in aging mouse oocytes, demonstrating the peptide's antioxidant capacity at the level of mitochondrial activity and ROS modulation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/35413689/"
         }
       ]
     }
@@ -1086,6 +1110,78 @@ export const selankResearch: PeptideResearch = {
           url: "https://pubmed.ncbi.nlm.nih.gov/18841804/"
         }
       ]
+    },
+    {
+      areaId: "immunomodulation",
+      areaTitle: "Immunomodulation",
+      studies: [
+        {
+          title: "Immunomodulatory effects of selank in patients with anxiety-asthenic disorders",
+          authors: "Uchakina ON, Uchakin PN, Miasoedov NF, Andreeva LA, Shcherbenko VE, Mezentseva MV, Gabaeva MV, Sokolov OIu, Zozulia AA, Ershov FI",
+          journal: "Zh Nevrol Psikhiatr Im S S Korsakova",
+          year: 2008,
+          pmid: "18577961",
+          summary: "In research subjects with anxiety-asthenic disorders, Selank demonstrated cytokine-regulating effects and shifts in Th1/Th2 balance, supporting its characterization as a novel immunomodulator derived from its tuftsin-based structure.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18577961/"
+        },
+        {
+          title: "The Influence of Selank on the Level of Cytokines Under the Conditions of 'Social' Stress",
+          authors: "Yasenyavskaya AL, Samotrueva MA, Tsibizova AA, Bashkina OA, Myasoedov NF, Andreeva LA",
+          journal: "Current Reviews in Clinical and Experimental Pharmacology",
+          year: 2021,
+          pmid: "32621722",
+          summary: "Under social stress in an animal model, Selank significantly reduced pro-inflammatory cytokine concentrations including IL-1β, IL-6, TNF-α, and TGF-β1, demonstrating a stress-attenuating immunomodulatory profile.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/32621722/"
+        }
+      ]
+    },
+    {
+      areaId: "gaba-modulation",
+      areaTitle: "GABA Modulation",
+      studies: [
+        {
+          title: "Selank Administration Affects the Expression of Some Genes Involved in GABAergic Neurotransmission",
+          authors: "Volkova A, Shadrina M, Kolomin T, Andreeva L, Limborska S, Myasoedov N, Slominsky P",
+          journal: "Frontiers in Pharmacology",
+          year: 2016,
+          pmid: "26924987",
+          summary: "Selank administration in rat frontal cortex produced significant changes in mRNA expression of genes governing GABAergic neurotransmission, suggesting the peptide's anxiolytic mechanism may involve allosteric modulation of GABA-A receptors.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/26924987/"
+        },
+        {
+          title: "GABA, Selank, and Olanzapine Affect the Expression of Genes Involved in GABAergic Neurotransmission in IMR-32 Cells",
+          authors: "Filatova E, Kasian A, Kolomin T, Rybalkina E, Alieva A, Andreeva L, Limborska S, Myasoedov N, Pavlova G, Slominsky P, Shadrina M",
+          journal: "Frontiers in Pharmacology",
+          year: 2017,
+          pmid: "28293190",
+          summary: "In IMR-32 neuroblastoma cell cultures, Selank modulated expression of genes encoding GABA-A receptor subunits and related proteins, supporting the hypothesis that Selank allosterically interacts with GABA-A receptors.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28293190/"
+        }
+      ]
+    },
+    {
+      areaId: "neuroprotection-selank",
+      areaTitle: "Neuroprotection",
+      studies: [
+        {
+          title: "Effect of Selank on Functional State of Rat Hepatocytes under Conditions of Restraint Stress",
+          authors: "Fomenko EV, Bobyntsev II, Krivosheeva LN, et al.",
+          journal: "Bulletin of Experimental Biology and Medicine",
+          year: 2017,
+          pmid: "28853100",
+          summary: "Selank exerted antistress and antioxidant neuroprotective effects on hepatocytes during acute and chronic restraint stress, reducing oxidative damage markers in preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/28853100/"
+        },
+        {
+          title: "Selank, Peptide Analogue of Tuftsin, Protects Against Ethanol-Induced Memory Impairment by Regulating of BDNF Content in the Hippocampus and Prefrontal Cortex in Rats",
+          authors: "Kolik LG, Nadorova AV, Seredenin SB",
+          journal: "Bulletin of Experimental Biology and Medicine",
+          year: 2019,
+          pmid: "31625062",
+          summary: "Selank prevented ethanol-induced neurological damage and memory deficits by normalizing BDNF levels in hippocampus and prefrontal cortex, demonstrating a neurotrophic-mediated neuroprotective effect in a preclinical model.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31625062/"
+        }
+      ]
     }
   ]
 };
@@ -1096,7 +1192,7 @@ export const semaxResearch: PeptideResearch = {
   researchAreas: [
     {
       areaId: "neuroprotection",
-      areaTitle: "Neuroprotection & Stroke Research",
+      areaTitle: "Neuroprotection",
       studies: [
         {
           title: "The Peptide Drug ACTH(4-7)PGP (Semax) Suppresses mRNA Transcripts Encoding Proinflammatory Mediators Induced by Reversible Ischemia of the Rat Brain",
@@ -1120,7 +1216,7 @@ export const semaxResearch: PeptideResearch = {
     },
     {
       areaId: "bdnf",
-      areaTitle: "BDNF & Neurotrophic Signaling",
+      areaTitle: "BDNF Upregulation",
       studies: [
         {
           title: "Semax, an analog of ACTH(4-10) with cognitive effects, regulates BDNF and trkB expression in the rat hippocampus",
@@ -1147,6 +1243,78 @@ export const semaxResearch: PeptideResearch = {
           url: "https://pubmed.ncbi.nlm.nih.gov/21618062/"
         }
       ]
+    },
+    {
+      areaId: "cognitive-research",
+      areaTitle: "Cognitive Research",
+      studies: [
+        {
+          title: "Semax, an analog of ACTH(4-10) with cognitive effects, regulates BDNF and trkB expression in the rat hippocampus",
+          authors: "Dolotov OV, Karpenko EA, Inozemtseva LS, et al.",
+          journal: "Brain Research",
+          year: 2006,
+          pmid: "16996037",
+          summary: "A single administration of Semax in rats produced a threefold increase in hippocampal BDNF mRNA and enhanced trkB activation alongside improved conditioned avoidance learning, identifying the BDNF/trkB pathway as a mechanistic basis for the peptide's cognitive-enhancing properties.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/16996037/"
+        },
+        {
+          title: "A nootropic adrenocorticotropin analog 4-10-semax (15 years experience in its design and study)",
+          authors: "Ashmarin IP, Nezavibatko VN, Myasoedov NF, Kamensky AA, Grivennikov IA, et al.",
+          journal: "Zh Vyssh Nerv Deiat Im I P Pavlova",
+          year: 1997,
+          pmid: "9173745",
+          summary: "This 15-year developmental review documents that intranasal Semax improved operative memory, attention, and hypoxia resistance in both animal models and human subjects across CNS disorder applications.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/9173745/"
+        }
+      ]
+    },
+    {
+      areaId: "stroke-recovery-research",
+      areaTitle: "Stroke Recovery Research",
+      studies: [
+        {
+          title: "The efficacy of semax in the treatment of patients at different stages of ischemic stroke",
+          authors: "Gusev EI, Martynov MYu, Kostenko EV, Petrova LV, Bobyreva SN",
+          journal: "Zh Nevrol Psikhiatr Im S S Korsakova",
+          year: 2018,
+          pmid: "29798983",
+          summary: "In a clinical trial of 110 post-stroke patients, Semax elevated plasma BDNF levels and accelerated improvements in motor performance and functional independence scores, supporting its investigational role in promoting neurological recovery following ischemic stroke.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/29798983/"
+        },
+        {
+          title: "Brain Protein Expression Profile Confirms the Protective Effect of the ACTH(4-7)PGP Peptide (Semax) in a Rat Model of Cerebral Ischemia-Reperfusion",
+          authors: "Sudarkina OYu, Filippenkov IB, Stavchansky VV, Denisova AE, Yuzhakov VV, et al.",
+          journal: "International Journal of Molecular Sciences",
+          year: 2021,
+          pmid: "34201112",
+          summary: "Proteomic analysis in a rat cerebral ischemia-reperfusion model showed Semax upregulated active CREB while downregulating MMP-9, c-Fos, and active JNK at 24 hours post-injury, providing mechanistic evidence for neuroprotection by attenuating inflammatory and apoptotic signaling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34201112/"
+        }
+      ]
+    },
+    {
+      areaId: "neurotransmitter-modulation",
+      areaTitle: "Neurotransmitter Modulation",
+      studies: [
+        {
+          title: "Semax, an ACTH(4-10) analogue with nootropic properties, activates dopaminergic and serotoninergic brain systems in rodents",
+          authors: "Eremin KO, Kudrin VS, Saransaari P, Oja SS, Grivennikov IA, Myasoedov NF, Rayevsky KS",
+          journal: "Neurochemical Research",
+          year: 2005,
+          pmid: "16362768",
+          summary: "Microdialysis experiments in rodents demonstrated that Semax significantly increased striatal serotonin metabolite levels and potentiated dopamine release, revealing a modulatory role on both serotonergic and dopaminergic systems in the brain.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/16362768/"
+        },
+        {
+          title: "Neuroprotective effects of semax in MPTP-induced disturbances of brain dopamine system",
+          authors: "Levitskaya NG, Sebentsova EA, Andreeva LA, Alfeeva LYu, Kamensky AA, Myasoedov NF",
+          journal: "Ross Fiziol Zh Im I M Sechenova",
+          year: 2002,
+          pmid: "12587264",
+          summary: "Daily intranasal Semax in rats attenuated motor deficits and anxiety induced by MPTP-mediated dopaminergic neurotoxicity, indicating the peptide's capacity to modulate dopamine system function in a preclinical model.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/12587264/"
+        }
+      ]
     }
   ]
 };
@@ -1156,47 +1324,128 @@ export const dsipResearch: PeptideResearch = {
   peptideSlug: "dsip",
   researchAreas: [
     {
+      areaId: "sleep-quality-enhancement",
+      areaTitle: "Sleep Quality Enhancement",
+      studies: [
+        {
+          title: "The effects of delta-sleep-inducing peptide (DSIP) on wakefulness and sleep patterns in the cat",
+          authors: "Susić V, Masirević G, Totić S",
+          journal: "Brain Research",
+          year: 1987,
+          pmid: "3620931",
+          summary: "Intracerebroventricular DSIP injection in cats produced a significant decrease in sleep latency and a greater than 50% increase in total slow wave sleep within the first hour post-injection, with effects persisting for seven hours and derived from prolonged deep sleep episodes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3620931/"
+        }
+      ]
+    },
+    {
+      areaId: "stress-reduction",
+      areaTitle: "Stress Reduction",
+      studies: [
+        {
+          title: "Expression of the c-fos gene during emotional stress in rats: the clocking effect of delta sleep-inducing peptide",
+          authors: "Sudakov KV, Umryukhin PE, Koplik EV, Anokhin KV",
+          journal: "Neuroscience and Behavioral Physiology",
+          year: 2001,
+          pmid: "11766904",
+          summary: "In rats exposed to emotional stress, intraperitoneal DSIP weakened stress-induced c-fos gene expression in limbic-reticular brain structures, with the strongest suppression observed in stress-susceptible animals in the paraventricular hypothalamus and septal regions.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/11766904/"
+        },
+        {
+          title: "Structural-functional organization of neurons in the cerebral cortex of rats with different levels of resistance to emotional stress in conditions of exposure to delta sleep-inducing peptide",
+          authors: "Bogolepov NN, Popova EN, Koplik EV, Krivitskaya GN, Sudakov KV",
+          journal: "Neuroscience and Behavioral Physiology",
+          year: 2004,
+          pmid: "15368909",
+          summary: "Analysis of cortical neuron morphology in stress-susceptible rats found that DSIP pre-treatment prevented the appearance of ischemic and severely damaged cells following emotional stress exposure, suggesting the peptide exerts both antistress and antihypoxic effects at the cellular level.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/15368909/"
+        }
+      ]
+    },
+    {
       areaId: "neuroprotection",
-      areaTitle: "Neuroprotection & Cardioprotection",
+      areaTitle: "Neuroprotection",
       studies: [
         {
           title: "DSIP-Like KND Peptide Reduces Brain Infarction in C57Bl/6 and Reduces Myocardial Infarction in SD Rats When Administered during Reperfusion",
-          authors: "Tukhovskaya EA, Ismailova AM, Negmatova GN, et al.",
+          authors: "Tukhovskaya EA, Shaykhutdinova ER, Ismailova AM, Slashcheva GA, Prudchenko IA, Mikhaleva II, Khokhlova ON, Murashev AN, Ivanov VT",
           journal: "Biomedicines",
           year: 2021,
           pmid: "33918965",
-          summary: "Study demonstrating DSIP-like peptide reduces brain and myocardial infarction when administered during reperfusion, indicating neuroprotective and cardioprotective effects.",
+          summary: "In animal models of ischemia-reperfusion injury, a structural DSIP analogue administered during reperfusion reduced brain infarction volume from 12.2% to 7.4% and myocardial infarction area from 42.1% to 19.1%, demonstrating pronounced neuroprotective and cardioprotective effects.",
           url: "https://pubmed.ncbi.nlm.nih.gov/33918965/"
-        }
-      ]
-    },
-    {
-      areaId: "sleep-regulation",
-      areaTitle: "Sleep Regulation Research",
-      studies: [
+        },
         {
-          title: "Delta-sleep-inducing peptide (DSIP): an update",
-          authors: "Graf MV, Kastin AJ",
+          title: "Delta sleep inducing peptide (DSIP): effect on respiration activity in rat brain mitochondria and stress protective potency under experimental hypoxia",
+          authors: "Khvatova EM, Samartzev VN, Zagoskin PP, Prudchenko IA, Mikhaleva II",
           journal: "Peptides",
-          year: 1986,
-          pmid: "3534547",
-          summary: "Comprehensive review of DSIP's mechanisms in sleep regulation and its multiple physiological functions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/3534547/"
+          year: 2003,
+          pmid: "12668217",
+          summary: "DSIP significantly enhanced oxidative phosphorylation efficiency in rat brain mitochondria and completely prevented hypoxia-induced reductions in mitochondrial respiratory activity in pretreated animals, suggesting the peptide's neuroprotective properties may operate through mitochondrial energy metabolism pathways.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/12668217/"
         }
       ]
     },
     {
-      areaId: "stress-response",
-      areaTitle: "Stress Response Modulation",
+      areaId: "pain-modulation",
+      areaTitle: "Pain Modulation",
       studies: [
         {
-          title: "Delta sleep-inducing peptide (DSIP): stress, sleep and the hypothalamus",
-          authors: "Graf MV, Kastin AJ",
-          journal: "Neuroscience & Biobehavioral Reviews",
+          title: "Therapeutic effects of delta-sleep-inducing peptide (DSIP) in patients with chronic, pronounced pain episodes. A clinical pilot study",
+          authors: "Larbig W, Gerber WD, Kluck M, Schoenenberger GA",
+          journal: "European Neurology",
           year: 1984,
-          pmid: "6396244",
-          summary: "Review of DSIP's effects on stress responses and its interactions with the hypothalamic-pituitary-adrenal axis.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6396244/"
+          pmid: "6548970",
+          summary: "This pilot study examined DSIP administration in subjects with migraine, vasomotor headaches, chronic tinnitus, and psychogenic pain, finding that the peptide significantly lowered pain levels in 6 of 7 participants alongside reductions in concurrent depressive states.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/6548970/"
+        },
+        {
+          title: "Potent antinociceptive effect of centrally administered delta-sleep-inducing peptide (DSIP)",
+          authors: "Nakamura A, Nakashima M, Sugao T, Kanemoto H, Fukumura Y, Shiomi H",
+          journal: "European Journal of Pharmacology",
+          year: 1988,
+          pmid: "2853064",
+          summary: "Preclinical study in mice and rats demonstrated that central administration of DSIP produced significant dose-dependent antinociceptive effects, with the response blocked by naloxone, indicating involvement of supraspinal opioid receptor mechanisms.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/2853064/"
+        }
+      ]
+    },
+    {
+      areaId: "cardiovascular-protection",
+      areaTitle: "Cardiovascular Protection",
+      studies: [
+        {
+          title: "The role of delta sleep-inducing peptide in the electric stability of the heart",
+          authors: "Zviaginsteva MA",
+          journal: "Kardiologiia",
+          year: 1988,
+          pmid: "3379896",
+          summary: "Experimental study in rabbits found that DSIP elevated ventricular fibrillation thresholds and increased cardiac electrical stability, while peptide deficiency induced by antiserum lowered arrhythmia thresholds, suggesting endogenous DSIP plays a cardiac-protective role under stress conditions.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/3379896/"
+        },
+        {
+          title: "Delta sleep-inducing peptide as a modulator of mediators acting on the heart",
+          authors: "Ul'ianinskiĭ LS, Zviaginstseva MA, Kosharskaia IL",
+          journal: "Bulletin of Experimental Biology and Medicine",
+          year: 1990,
+          pmid: "2378944",
+          summary: "Using isolated rabbit hearts, researchers demonstrated that DSIP enhances the negative chronotropic effect of acetylcholine while attenuating noradrenaline's positive chronotropic effect, indicating the peptide modulates autonomic neurotransmitter actions on cardiac rate regulation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/2378944/"
+        }
+      ]
+    },
+    {
+      areaId: "metabolic-regulation",
+      areaTitle: "Metabolic Regulation",
+      studies: [
+        {
+          title: "Metabolic effects of delta-sleep inducing peptide during physiological aging of the organism",
+          authors: "Bondarenko TI, Maĭboroda EA, Mikhaleva II, Prudchenko IA",
+          journal: "Eksperimental'naya i Klinicheskaya Farmakologiya",
+          year: 2013,
+          pmid: "24432565",
+          summary: "Subcutaneous DSIP administration to rats across multiple age groups normalized age-related carbohydrate metabolism changes and produced hypoglycemic effects, while also decreasing total cholesterol and the atherogenicity index and increasing HDL cholesterol levels.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/24432565/"
         }
       ]
     }
@@ -1248,7 +1497,7 @@ export const melanotan2Research: PeptideResearch = {
     },
     {
       areaId: "sexual-function-melanocortin",
-      areaTitle: "Sexual Function & Melanocortin Signaling",
+      areaTitle: "Sexual Function & Central Melanocortin Signaling",
       studies: [
         {
           title: "Melanocortins in the treatment of male and female sexual dysfunction",
@@ -1258,6 +1507,54 @@ export const melanotan2Research: PeptideResearch = {
           pmid: "17584134",
           summary: "Comprehensive review of melanocortin agonists' effects on sexual function through CNS melanocortin receptor activation.",
           url: "https://pubmed.ncbi.nlm.nih.gov/17584134/"
+        }
+      ]
+    },
+    {
+      areaId: "uv-photoprotection",
+      areaTitle: "UV-Induced DNA Damage & Photoprotective Signaling",
+      studies: [
+        {
+          title: "alpha-MSH tripeptide analogs activate the melanocortin 1 receptor and reduce UV-induced DNA damage in human melanocytes",
+          authors: "Abdel-Malek ZA, Ruwe A, Kavanagh-Starner R, et al.",
+          journal: "Pigment Cell Melanoma Research",
+          year: 2009,
+          pmid: "19558415",
+          summary: "Preclinical study demonstrating that synthetic tripeptide analogs of alpha-MSH activate MC1R signaling, stimulate eumelanin synthesis, reduce hydrogen peroxide generation, and enhance UV-induced DNA photoproduct repair in human melanocyte cultures — effects absent in cells lacking functional MC1R.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/19558415/"
+        },
+        {
+          title: "Melanoma prevention strategy based on using tetrapeptide alpha-MSH analogs that protect human melanocytes from UV-induced DNA damage and cytotoxicity",
+          authors: "Abdel-Malek ZA, Kadekaro AL, Kavanagh RJ, et al.",
+          journal: "FASEB Journal",
+          year: 2006,
+          pmid: "16723376",
+          summary: "Investigated MC1R-agonist tetrapeptide analogs of alpha-MSH in human melanocyte cultures, observing stimulation of melanogenesis, reduced UV-induced apoptosis, and enhanced DNA damage repair — with the most potent analog showing prolonged and reversible effects relevant to photoprotective signaling research.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/16723376/"
+        }
+      ]
+    },
+    {
+      areaId: "energy-homeostasis",
+      areaTitle: "Central Melanocortin Pathway & Energy Homeostasis Signaling",
+      studies: [
+        {
+          title: "Targeted disruption of the melanocortin-4 receptor results in obesity in mice",
+          authors: "Huszar D, Lynch CA, Fairchild-Huntress V, et al.",
+          journal: "Cell",
+          year: 1997,
+          pmid: "9019399",
+          summary: "Landmark preclinical study demonstrating that genetic inactivation of MC4R in mice produces a maturity-onset obesity syndrome characterized by hyperphagia, hyperinsulinemia, and hyperglycemia — establishing MC4R as a critical node in the central melanocortin pathway regulating energy balance.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/9019399/"
+        },
+        {
+          title: "Melanocortin-4 receptor is required for acute homeostatic responses to increased dietary fat",
+          authors: "Butler AA, Marks DL, Fan W, et al.",
+          journal: "Nature Neuroscience",
+          year: 2001,
+          pmid: "11369941",
+          summary: "Comparative preclinical study showing MC4R-deficient mice exhibit hyperphagia and accelerated weight gain on high-fat diets and fail to mount compensatory increases in diet-induced thermogenesis and locomotor activity — indicating MC4R-regulated neurons coordinate energy expenditure independently of leptin signaling.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/11369941/"
         }
       ]
     }
@@ -2468,6 +2765,78 @@ export const bpc157tb500Research: PeptideResearch = {
           url: "https://pubmed.ncbi.nlm.nih.gov/17108969/"
         }
       ]
+    },
+    {
+      areaId: "angiogenesis-vascular-repair",
+      areaTitle: "Angiogenesis & Vascular Repair Signaling",
+      studies: [
+        {
+          title: "Modulatory effect of gastric pentadecapeptide BPC 157 on angiogenesis in muscle and tendon healing",
+          authors: "Brcic L, Brcic I, Staresinic M, Novinscak T, Sikiric P, Seiwerth S",
+          journal: "Journal of Physiology and Pharmacology",
+          year: 2009,
+          pmid: "20388964",
+          summary: "In preclinical models of crushed and transected muscle and tendon, BPC-157 modulated new blood vessel formation by up-regulating VEGF expression, resulting in improved vascular architecture and enhanced tissue healing outcomes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20388964/"
+        },
+        {
+          title: "Thymosin beta4 enhances endothelial cell differentiation and angiogenesis",
+          authors: "Grant DS, Rose W, Yaen C, Goldstein A, Martinez J, Kleinman H",
+          journal: "Angiogenesis",
+          year: 1999,
+          pmid: "14517430",
+          summary: "TB-500's parent peptide thymosin beta-4 promoted endothelial cell attachment, proliferation, tube formation, and vascular sprouting through both autocrine and paracrine mechanisms, establishing its role as a potent pro-angiogenic signaling molecule.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/14517430/"
+        }
+      ]
+    },
+    {
+      areaId: "musculoskeletal-tendon-healing",
+      areaTitle: "Musculoskeletal Injury & Tendon Healing Models",
+      studies: [
+        {
+          title: "The promoting effect of pentadecapeptide BPC 157 on tendon healing involves tendon outgrowth, cell survival, and cell migration",
+          authors: "Chang CH, Tsai WC, Lin MS, Hsu YH, Pang JH",
+          journal: "Journal of Applied Physiology",
+          year: 2011,
+          pmid: "21030672",
+          summary: "BPC-157 significantly accelerated tendon fibroblast outgrowth, enhanced cell survival under oxidative stress, and promoted dose-dependent cell migration in preclinical models through activation of the FAK-paxillin signaling pathway.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/21030672/"
+        },
+        {
+          title: "Effective therapy of transected quadriceps muscle in rat: Gastric pentadecapeptide BPC 157",
+          authors: "Staresinic M, Petrovic I, Novinscak T, Jukic I, Pevec D, et al.",
+          journal: "Journal of Orthopaedic Research",
+          year: 2006,
+          pmid: "16609979",
+          summary: "In a rat model of complete quadriceps transection, BPC-157 promoted functional recovery, restored biomechanical strength, and stimulated muscle fiber reconnection with significant regeneration markers over a 72-day observation period.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/16609979/"
+        }
+      ]
+    },
+    {
+      areaId: "inflammatory-modulation-cytoprotection",
+      areaTitle: "Inflammatory Modulation & Cytoprotection",
+      studies: [
+        {
+          title: "Pentadecapeptide BPC 157 positively affects both non-steroidal anti-inflammatory agent-induced gastrointestinal lesions and adjuvant arthritis in rats",
+          authors: "Sikiric P, Seiwerth S, Grabarevic Z, Rucman R, Petek M, et al.",
+          journal: "Journal of Physiology - Paris",
+          year: 1997,
+          pmid: "9403784",
+          summary: "BPC-157 demonstrated dual anti-inflammatory and mucosal-protective effects by reducing NSAID-induced gastric lesions across multiple agents while simultaneously attenuating the development and severity of adjuvant-induced arthritis in preclinical rat models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/9403784/"
+        },
+        {
+          title: "Stable gastric pentadecapeptide BPC 157 in the treatment of colitis and ischemia and reperfusion in rats: New insights",
+          authors: "Duzel A, Vlainic J, Antunovic M, Malekinusic D, Vrdoljak B, et al.",
+          journal: "World Journal of Gastroenterology",
+          year: 2017,
+          pmid: "29358856",
+          summary: "In rat models of ischemic colitis and ischemia-reperfusion injury, BPC-157 restored mucosal architecture, normalized oxidative stress markers, and promoted collateral vessel recruitment, demonstrating cytoprotective and anti-inflammatory activity through nitric oxide system modulation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/29358856/"
+        }
+      ]
     }
   ]
 };
@@ -2597,7 +2966,7 @@ export const glowResearch: PeptideResearch = {
     },
     {
       areaId: "wound-healing-regeneration",
-      areaTitle: "Wound Healing & Regeneration",
+      areaTitle: "Wound Healing & Dermal Regeneration Models",
       studies: [
         {
           title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
@@ -2618,6 +2987,54 @@ export const glowResearch: PeptideResearch = {
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
         }
       ]
+    },
+    {
+      areaId: "angiogenesis-migration",
+      areaTitle: "Angiogenesis & Cellular Migration Signaling",
+      studies: [
+        {
+          title: "Therapeutic potential of pro-angiogenic BPC157 is associated with VEGFR2 activation and up-regulation",
+          authors: "Hsieh MJ, Liu HT, Wang CN, et al.",
+          journal: "Journal of Molecular Medicine",
+          year: 2017,
+          pmid: "27847966",
+          summary: "Preclinical study using chicken embryo, rat hindlimb ischemia, and human vascular endothelial cell models showing BPC-157 promotes VEGFR2 internalization and activates VEGFR2-Akt-eNOS signaling, increasing vessel density and accelerating blood flow recovery in vivo.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/27847966/"
+        },
+        {
+          title: "Modulatory effect of gastric pentadecapeptide BPC 157 on angiogenesis in muscle and tendon healing",
+          authors: "Brcic L, Brcic I, Staresinic M, et al.",
+          journal: "Journal of Physiology and Pharmacology",
+          year: 2009,
+          pmid: "20388964",
+          summary: "Immunohistochemical study in rat models of crushed and severed muscle and tendon demonstrating that BPC-157 upregulates VEGF expression in injured tissue, modulating angiogenesis and supporting vascular network formation during healing.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20388964/"
+        }
+      ]
+    },
+    {
+      areaId: "anti-inflammatory-cytoprotective",
+      areaTitle: "Anti-Inflammatory & Cytoprotective Mechanisms",
+      studies: [
+        {
+          title: "The tri-peptide GHK-Cu complex ameliorates lipopolysaccharide-induced acute lung injury in mice",
+          authors: "Park JR, Lee H, Kim SI, Yang SR",
+          journal: "Oncotarget",
+          year: 2016,
+          pmid: "27517151",
+          summary: "Preclinical study in LPS-challenged macrophage cultures and mouse acute lung injury models showing GHK-Cu reduces reactive oxygen species, increases superoxide dismutase activity, and suppresses TNF-α and IL-6 production via inhibition of NF-κB p65 and p38 MAPK signaling pathways.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/27517151/"
+        },
+        {
+          title: "Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data",
+          authors: "Pickart L, Margolina A",
+          journal: "International Journal of Molecular Sciences",
+          year: 2018,
+          pmid: "29986520",
+          summary: "Review examining GHK-Cu's gene-regulatory basis for cytoprotective and anti-inflammatory activity, including suppression of NF-κB signaling, antioxidant enzyme induction, and activation of tissue remodeling pathways across skin, lung, liver, and gastrointestinal models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/29986520/"
+        }
+      ]
     }
   ]
 };
@@ -2629,7 +3046,7 @@ export const klowResearch: PeptideResearch = {
   researchAreas: [
     {
       areaId: "skin-regeneration",
-      areaTitle: "Skin Regeneration & Collagen Synthesis",
+      areaTitle: "Skin Barrier Function & Dermal Repair",
       studies: [
         {
           title: "The human tri-peptide GHK and tissue remodeling",
@@ -2653,7 +3070,7 @@ export const klowResearch: PeptideResearch = {
     },
     {
       areaId: "wound-healing-tissue-repair",
-      areaTitle: "Wound Healing & Tissue Repair",
+      areaTitle: "Tissue Repair & Wound Healing Models",
       studies: [
         {
           title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
@@ -2672,6 +3089,54 @@ export const klowResearch: PeptideResearch = {
           pmid: "22074294",
           summary: "TB4's vital role in repair and regeneration of injured cells and tissues.",
           url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
+        }
+      ]
+    },
+    {
+      areaId: "inflammatory-signaling-cytokine-modulation",
+      areaTitle: "Inflammatory Signaling & Cytokine Modulation",
+      studies: [
+        {
+          title: "Alpha-melanocyte-stimulating hormone and related tripeptides: biochemistry, antiinflammatory and protective effects in vitro and in vivo, and future perspectives for the treatment of immune-mediated inflammatory diseases",
+          authors: "Brzoska T, Luger TA, Maaser C, Abels C, Böhm M",
+          journal: "Endocrine Reviews",
+          year: 2008,
+          pmid: "18612139",
+          summary: "Comprehensive review demonstrating that KPV (the C-terminal tripeptide of alpha-MSH) suppresses NF-κB activation and reduces pro-inflammatory cytokine production across multiple in vitro and in vivo disease models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18612139/"
+        },
+        {
+          title: "PepT1-mediated tripeptide KPV uptake reduces intestinal inflammation",
+          authors: "Dalmasso G, Charrier-Hisamuddin L, Nguyen HT, Yan Y, Sitaraman S, Merlin D",
+          journal: "Gastroenterology",
+          year: 2008,
+          pmid: "18061177",
+          summary: "Nanomolar concentrations of the tripeptide KPV inhibited NF-κB and MAP kinase signaling and reduced pro-inflammatory cytokine secretion in intestinal models, with oral KPV also attenuating chemically-induced colitis in murine preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/18061177/"
+        }
+      ]
+    },
+    {
+      areaId: "immune-modulation-melanocortin-pathways",
+      areaTitle: "Immune Modulation via Melanocortin Pathways",
+      studies: [
+        {
+          title: "New insights into the functions of alpha-MSH and related peptides in the immune system",
+          authors: "Luger TA, Scholzen TE, Brzoska T, Böhm M",
+          journal: "Annals of the New York Academy of Sciences",
+          year: 2003,
+          pmid: "12851308",
+          summary: "Alpha-MSH and its derived fragments including KPV signal through melanocortin receptors on immune and antigen-presenting cells to downregulate pro-inflammatory cytokines, upregulate IL-10, and modulate innate and adaptive immune responses in preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/12851308/"
+        },
+        {
+          title: "Melanocortin Regulation of Inflammation",
+          authors: "Wang W, Guo DY, Lin YJ, Tao YX",
+          journal: "Frontiers in Endocrinology",
+          year: 2019,
+          pmid: "31649620",
+          summary: "Review summarizing preclinical evidence that melanocortin receptor activation (MC1R, MC3R, MC4R) by alpha-MSH and related peptides produces glucocorticoid-independent anti-inflammatory and immunomodulatory effects across brain, peripheral immune cells, and multiple tissue types.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/31649620/"
         }
       ]
     }

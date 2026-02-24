@@ -83,8 +83,8 @@ export const aod9604ResearchVerified: PeptideResearch = {
         createVerifiedStudy(
           "8358331",
           "Antilipogenic action of synthetic C-terminal sequence 177-191 of human growth hormone",
-          "Ng FM, Sun J, Sharma L, et al.",
-          "Molecular and Cellular Endocrinology",
+          "Wu Z, Ng FM",
+          "Biochem Mol Biol Int",
           1993,
           "Foundational study identifying the antilipogenic activity within the C-terminal region of growth hormone."
         ),
@@ -101,6 +101,86 @@ export const aod9604ResearchVerified: PeptideResearch = {
           "Bioanalysis",
           2014,
           "Analytical study characterizing AOD-9604's metabolic profile and detection methods."
+        ),
+      ]
+    },
+    {
+      areaId: "lipogenesis-inhibition",
+      areaTitle: "Lipogenesis Inhibition",
+      studies: [
+        createVerifiedStudy(
+          "8358331",
+          "Antilipogenic action of synthetic C-terminal sequence 177-191 of human growth hormone",
+          "Wu Z, Ng FM",
+          "Biochem Mol Biol Int",
+          1993,
+          "Foundational preclinical study demonstrating that the synthetic hGH C-terminal fragment (177-191, the sequence corresponding to AOD-9604) exhibits antilipogenic activity identical to that of the intact growth hormone molecule, identifying the lipogenesis-inhibiting functional domain within hGH."
+        ),
+        createVerifiedStudy(
+          "7987248",
+          "Reduction of cumulative body weight gain and adipose tissue mass in obese mice: response to chronic treatment with synthetic hGH 177-191 peptide",
+          "Natera SH, Jiang WJ, Ng FM",
+          "Biochem Mol Biol Int",
+          1994,
+          "Chronic administration of hGH 177-191 in obese mice significantly reduced body weight gain, adipose tissue mass, and lipogenesis in fat tissue, confirming this C-terminal fragment as the functional antilipogenic domain of growth hormone."
+        ),
+      ]
+    },
+    {
+      areaId: "no-insulin-disruption",
+      areaTitle: "No Insulin Disruption",
+      studies: [
+        createVerifiedStudy(
+          "11146367",
+          "Metabolic studies of a synthetic lipolytic domain (AOD9604) of human growth hormone",
+          "Ng FM, Sun J, Sharma L, Libinaka R, Jiang WJ, Gianello R",
+          "Hormone Research",
+          2000,
+          "Preclinical metabolic study in obese rats showing that oral AOD-9604 reduced body weight gain by over 50% while demonstrating no adverse effect on insulin sensitivity as measured by glucose clamp testing, in contrast to full-length growth hormone."
+        ),
+        createVerifiedStudy(
+          "11673763",
+          "Increase of fat oxidation and weight loss in obese mice caused by chronic treatment with human growth hormone or a modified C-terminal fragment",
+          "Heffernan MA, Thorburn AW, Fam B, Summers R, Conway-Campbell B, Waters MJ, Ng FM",
+          "International Journal of Obesity and Related Metabolic Disorders",
+          2001,
+          "Study in obese mice showing AOD-9604 produced weight loss and increased fat oxidation without the blood glucose elevation associated with intact human growth hormone, suggesting it acts through novel pathways distinct from traditional hGH metabolic signaling."
+        ),
+      ]
+    },
+    {
+      areaId: "energy-enhancement",
+      areaTitle: "Energy Enhancement",
+      studies: [
+        createVerifiedStudy(
+          "11713213",
+          "The effects of human GH and its lipolytic fragment (AOD9604) on lipid metabolism following chronic treatment in obese mice and beta(3)-AR knock-out mice",
+          "Heffernan M, Summers RJ, Thorburn A, Ogru E, Gianello R, Jiang WJ, Ng FM",
+          "Endocrinology",
+          2001,
+          "Chronic treatment with AOD-9604 in obese mice upregulated beta(3)-adrenergic receptor expression in adipose tissue, with studies in beta(3)-AR knock-out mice confirming this adrenergic pathway mediates the peptide's sustained energy expenditure and fat oxidation effects."
+        ),
+        createVerifiedStudy(
+          "10950816",
+          "Effects of oral administration of a synthetic fragment of human growth hormone on lipid metabolism",
+          "Heffernan MA, Jiang WJ, Thorburn AW, Ng FM",
+          "American Journal of Physiology - Endocrinology and Metabolism",
+          2000,
+          "Oral administration of a synthetic hGH C-terminal fragment in obese mice influenced lipid metabolism including enhanced fat oxidation pathways, supporting research into the peptide's role in modulating substrate utilization and energy balance."
+        ),
+      ]
+    },
+    {
+      areaId: "cardiovascular-support",
+      areaTitle: "Cardiovascular Support",
+      studies: [
+        createVerifiedStudy(
+          "16931496",
+          "Potential role of new therapies in modifying cardiovascular risk in overweight patients with metabolic risk factors",
+          "Jensen MD",
+          "Obesity (Silver Spring)",
+          2006,
+          "Review of investigational obesity therapies including AOD-9604 in the context of cardiovascular risk modification, noting that compounds improving adipose tissue function and fatty acid metabolism were under clinical investigation as strategies to reduce cardiometabolic risk in overweight individuals."
         ),
       ]
     }
@@ -206,6 +286,80 @@ export const cagrilintideResearchVerified: PeptideResearch = {
           "Diabetologia",
           1997,
           "Human study demonstrating amylin's direct effects on gastric motility independent of insulin."
+        ),
+      ]
+    },
+    {
+      areaId: "glucagon-suppression",
+      areaTitle: "Glucagon Suppression",
+      studies: [
+        createVerifiedStudy(
+          "11171599",
+          "Selective amylin inhibition of the glucagon response to arginine is extrinsic to the pancreas",
+          "Silvestre RA, Rodriguez-Gallardo J, Jodka C, Parkes DG, Pittner RA, Young AA, Marco J",
+          "American Journal of Physiology - Endocrinology and Metabolism",
+          2001,
+          "Preclinical study demonstrating that amylin selectively inhibits arginine-stimulated glucagon secretion through a mechanism extrinsic to the pancreatic islet, with findings suggesting central nervous system involvement in this glucagonostatic action."
+        ),
+        createVerifiedStudy(
+          "16492545",
+          "Inhibition of glucagon secretion",
+          "Young A",
+          "Advances in Pharmacology",
+          2005,
+          "Comprehensive review of amylin's glucagonostatic mechanism, demonstrating approximately 70% inhibition of amino acid-stimulated glucagon secretion in preclinical and clinical contexts, relevant to understanding how amylin-based analogs like cagrilintide may modulate postprandial glucose homeostasis."
+        ),
+      ]
+    },
+    {
+      areaId: "extended-duration",
+      areaTitle: "Extended Duration",
+      studies: [
+        createVerifiedStudy(
+          "34288673",
+          "Development of Cagrilintide, a Long-Acting Amylin Analogue",
+          "Kruse T, Hansen JL, Dahl K, Schäffer L, Sensfuss U, Poulsen C, Schlein M, Kruse Hansen AM, Jeppesen CB, Dornonville de la Cour C, Clausen TR, Johansson E, Fulle S, Skyggebjerg RB, Raun K",
+          "Journal of Medicinal Chemistry",
+          2021,
+          "Medicinal chemistry paper describing the structure-activity relationship work that produced cagrilintide as a stable, lipidated long-acting amylin analogue, addressing the short half-life of pramlintide by engineering a molecule suitable for once-weekly subcutaneous dosing."
+        ),
+        createVerifiedStudy(
+          "33894838",
+          "Safety, tolerability, pharmacokinetics, and pharmacodynamics of concomitant administration of multiple doses of cagrilintide with semaglutide 2·4 mg for weight management: a randomised, controlled, phase 1b trial",
+          "Enebo LB, Berthelsen KK, Kankam M, Lund MT, Rubino DM, Satylganova A, Lau DCW",
+          "Lancet",
+          2021,
+          "Phase 1b pharmacokinetic trial characterizing cagrilintide's extended half-life of 159–195 hours across doses of 0.16–4.5 mg, with a median time to peak concentration of 24–72 hours, establishing the pharmacokinetic basis for once-weekly dosing in clinical development."
+        ),
+      ]
+    },
+    {
+      areaId: "central-signaling",
+      areaTitle: "Central Signaling",
+      studies: [
+        createVerifiedStudy(
+          "12133570",
+          "Amylin and glucose co-activate area postrema neurons of the rat",
+          "Riediger T, Schmid HA, Lutz TA, Simon E",
+          "Neuroscience Letters",
+          2002,
+          "Electrophysiology study showing amylin and glucose co-activate the same neurons in the area postrema — a hindbrain circumventricular organ lacking the blood-brain barrier — establishing this nucleus as a key integration center for amylin-mediated appetite signaling."
+        ),
+        createVerifiedStudy(
+          "20554938",
+          "Noradrenergic neurons of the area postrema mediate amylin's hypophagic action",
+          "Potes CS, Turek VF, Cole RL, Vu C, Roland BL, Roth JD, Riediger T, Lutz TA",
+          "American Journal of Physiology - Regulatory, Integrative and Comparative Physiology",
+          2010,
+          "Preclinical mechanistic study demonstrating that noradrenergic neurons in the area postrema mediate amylin's appetite-suppressing effects; selective lesioning of these neurons significantly attenuated the hypophagic response to amylin, identifying the downstream neural circuitry through which cagrilintide's amylin-receptor agonism reduces food intake."
+        ),
+        createVerifiedStudy(
+          "15059694",
+          "Infusion of the amylin antagonist AC 187 into the area postrema increases food intake in rats",
+          "Mollet A, Gilg S, Riediger T, Lutz TA",
+          "Physiology & Behavior",
+          2004,
+          "Pharmacological study demonstrating that blocking amylin receptors specifically within the area postrema increases meal size and food intake in rats, providing direct evidence that endogenous amylin tonically suppresses feeding via hindbrain area postrema signaling."
         ),
       ]
     },
@@ -317,6 +471,28 @@ export const retatrutideResearchVerified: PeptideResearch = {
           "Diabetes",
           2010,
           "Study demonstrating glucagon receptor activation increases energy expenditure, supporting retatrutide's thermogenic mechanism."
+        ),
+      ]
+    },
+    {
+      areaId: "appetite-regulation",
+      areaTitle: "Appetite Regulation",
+      studies: [
+        createVerifiedStudy(
+          "8538742",
+          "A role for glucagon-like peptide-1 in the central regulation of feeding",
+          "Turton MD, O'Shea D, Gunn I, Beak SA, Edwards CM, Meeran K, Choi SJ, Taylor GM, Heath MM, Lambert PD, Wilding JP, Smith DM, Ghatei MA, Herbert J, Bloom SR",
+          "Nature",
+          1996,
+          "Landmark preclinical study establishing GLP-1 as a physiological mediator of satiety through central nervous system mechanisms — intracerebroventricular GLP-1 powerfully inhibited feeding in fasted rats while GLP-1 receptor blockade doubled food consumption in satiated animals, providing the foundational mechanistic basis for GLP-1 receptor agonism in appetite suppression."
+        ),
+        createVerifiedStudy(
+          "40916752",
+          "Appetite, eating attitudes, and eating behaviours during treatment with retatrutide in adults with type 2 diabetes: Results of a phase 2 study",
+          "Kanu C, Boye KS, Poon JL, Goetz I, Williamson S, Lou J, Hartman ML, Martin CK, Coskun T",
+          "Diabetes, Obesity and Metabolism",
+          2025,
+          "Phase 2 clinical trial analysis showing retatrutide doses ≥4 mg produced significantly greater reductions in overall appetite, hunger, and prospective food consumption compared to placebo over 24–36 weeks, with reductions in perceived hunger correlating directly with body weight loss."
         ),
       ]
     },
@@ -666,6 +842,28 @@ export const motscResearchVerified: PeptideResearch = {
           "International Journal of Molecular Sciences",
           2019,
           "Study demonstrating MOTS-c enhances brown fat activity and metabolic thermogenesis in mice."
+        ),
+      ]
+    },
+    {
+      areaId: "cellular-stress-response",
+      areaTitle: "Cellular Stress Response",
+      studies: [
+        createVerifiedStudy(
+          "31378979",
+          "MOTS-c: A Mitochondrial-Encoded Regulator of the Nucleus",
+          "Benayoun BA, Lee C",
+          "Bioessays",
+          2019,
+          "Review establishing MOTS-c as the first known mitochondrial-derived factor that actively translocates to the nucleus in response to cellular stressors including glucose restriction and oxidative stress, where it directly regulates adaptive nuclear gene expression — positioning MOTS-c as a mitochondria-to-nucleus retrograde messenger that coordinates the cellular stress response."
+        ),
+        createVerifiedStudy(
+          "34859377",
+          "The Mitochondrial-Derived Peptide MOTS-c Attenuates Oxidative Stress Injury and the Inflammatory Response of H9c2 Cells Through the Nrf2/ARE and NF-κB Pathways",
+          "Shen C, Wang J, Feng M, Peng J, Du X, Chu H, Chen X",
+          "Cardiovascular Engineering and Technology",
+          2022,
+          "In vitro study demonstrating that MOTS-c pretreatment significantly protected cardiac myocytes from hydrogen peroxide-induced oxidative stress by activating the Nrf2/ARE antioxidant defense pathway and suppressing NF-κB-mediated inflammation, reducing pro-inflammatory cytokines in a dose-dependent manner."
         ),
       ]
     },
