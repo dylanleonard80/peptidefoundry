@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { useMembership } from "@/hooks/useMembership";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Droplets, Thermometer, Clock, ShieldCheck, FlaskConical, AlertTriangle, CheckCircle2, Info, Plus, Minus } from "lucide-react";
 import peptideVial from "@/assets/peptide-vial.png";
@@ -22,9 +23,26 @@ const BacteriostaticWater = () => {
     isMember
   } = useMembership();
   const [quantity, setQuantity] = useState(1);
-  const regularPrice = 15;
-  const memberPrice = 12;
-  const currentPrice = isMember ? memberPrice : regularPrice;
+  const [regularPrice, setRegularPrice] = useState(15);
+  const [memberPrice, setMemberPrice] = useState<number | null>(0);
+
+  useEffect(() => {
+    supabase
+      .from("products" as any)
+      .select("product_variants(*)")
+      .eq("slug", "bacteriostatic-water")
+      .single()
+      .then(({ data }) => {
+        const variant = (data as any)?.product_variants?.[0];
+        if (variant) {
+          setRegularPrice(variant.price);
+          setMemberPrice(variant.member_price ?? null);
+        }
+      });
+  }, []);
+
+  const currentPrice = isMember && memberPrice !== null ? memberPrice : regularPrice;
+  const isFreeForMembers = memberPrice === 0;
   const handleAddToCart = async () => {
     const existingItem = items.find(i => i.peptide_name === "Bacteriostatic Water" && i.size === "30ml");
     if (existingItem) {
@@ -74,13 +92,22 @@ const BacteriostaticWater = () => {
               </div>
               
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold">${currentPrice}</span>
-                {isMember && <span className="text-lg text-muted-foreground line-through">
-                    ${regularPrice}
-                  </span>}
+                {isMember && isFreeForMembers ? (
+                  <>
+                    <span className="text-4xl font-bold text-green-600">FREE</span>
+                    <span className="text-lg text-muted-foreground line-through">${regularPrice}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-4xl font-bold">${currentPrice}</span>
+                    {isMember && memberPrice !== null && (
+                      <span className="text-lg text-muted-foreground line-through">${regularPrice}</span>
+                    )}
+                  </>
+                )}
                 <span className="text-muted-foreground">/ 30ml vial</span>
               </div>
-              
+
               {isMember && <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
                   Foundry Club Member Price
                 </Badge>}

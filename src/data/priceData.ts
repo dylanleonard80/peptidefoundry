@@ -76,7 +76,7 @@ export const memberPrices: Record<string, Record<string, number>> = {
   "glp-1tz": { "10mg": 70 },
   
   // Supplies
-  "bacteriostatic-water": { "30ml": 12 },
+  "bacteriostatic-water": { "30ml": 0 },
 };
 
 /**
