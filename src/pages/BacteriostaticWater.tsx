@@ -43,8 +43,18 @@ const BacteriostaticWater = () => {
 
   const currentPrice = isMember && memberPrice !== null ? memberPrice : regularPrice;
   const isFreeForMembers = memberPrice === 0;
+
+  const existingItem = items.find(i => i.peptide_name === "Bacteriostatic Water" && i.size === "30ml");
+  const alreadyInCart = !!existingItem;
+  const maxQty = isMember ? 1 : 99;
+
   const handleAddToCart = async () => {
-    const existingItem = items.find(i => i.peptide_name === "Bacteriostatic Water" && i.size === "30ml");
+    if (isMember && alreadyInCart) {
+      toast.error("Limit reached", {
+        description: "Foundry Club members are limited to 1 Bacteriostatic Water per order."
+      });
+      return;
+    }
     if (existingItem) {
       await updateQuantity("Bacteriostatic Water", "30ml", existingItem.quantity + quantity);
     } else {
@@ -147,19 +157,32 @@ const BacteriostaticWater = () => {
                 </table>
               </div>
               
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 border border-border rounded-lg">
-                  <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="w-8 text-center font-medium">{quantity}</span>
-                  <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setQuantity(quantity + 1)}>
-                    <Plus className="h-4 w-4" />
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 border border-border rounded-lg">
+                    <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="w-8 text-center font-medium">{quantity}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-10 w-10"
+                      disabled={quantity >= maxQty}
+                      onClick={() => setQuantity(Math.min(maxQty, quantity + 1))}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <Button size="lg" className="px-12" onClick={handleAddToCart} disabled={isMember && alreadyInCart}>
+                    {isMember && alreadyInCart ? "In Cart" : "Add to Cart"}
                   </Button>
                 </div>
-                <Button size="lg" className="px-12" onClick={handleAddToCart}>
-                  Add to Cart
-                </Button>
+                {isMember && (
+                  <p className="text-xs text-muted-foreground">
+                    Foundry Club members may include 1 Bacteriostatic Water per order.
+                  </p>
+                )}
               </div>
               
               <p className="text-xs text-muted-foreground/70">
