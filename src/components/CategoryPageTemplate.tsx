@@ -1,8 +1,10 @@
+import { useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { GlassPeptideCard } from "@/components/GlassPeptideCard";
 import type { PeptideCard } from "@/data/peptides";
 import { useMembership } from "@/hooks/useMembership";
+import { usePrices } from "@/hooks/usePrices";
 
 interface CategoryPageTemplateProps {
   title: string;
@@ -13,6 +15,17 @@ interface CategoryPageTemplateProps {
 const CategoryPageTemplate = ({ title, subtitle, getPeptides }: CategoryPageTemplateProps) => {
   const peptides = getPeptides();
   const { isMember, getMemberPrice } = useMembership();
+  const { getPrices: getDbPrices, getStartingPrice: getDbStartingPrice } = usePrices();
+
+  const enhanceCard = useCallback((card: PeptideCard): PeptideCard => {
+    const dbPrices = getDbPrices(card.slug);
+    if (!dbPrices) return card;
+    return {
+      ...card,
+      prices: Object.keys(dbPrices).length > 1 ? dbPrices : card.prices,
+      startingPrice: getDbStartingPrice(card.slug),
+    };
+  }, [getDbPrices, getDbStartingPrice]);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -34,7 +47,7 @@ const CategoryPageTemplate = ({ title, subtitle, getPeptides }: CategoryPageTemp
           {peptides.map((peptide, index) => (
             <GlassPeptideCard
               key={index}
-              card={peptide}
+              card={enhanceCard(peptide)}
               isMember={isMember}
               getMemberPrice={getMemberPrice}
               fullWidth

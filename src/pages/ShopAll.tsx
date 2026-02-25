@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { GlassPeptideCard } from "@/components/GlassPeptideCard";
 import { peptideSections, PeptideCard } from "@/data/peptides";
 import { useMembership } from "@/hooks/useMembership";
+import { usePrices } from "@/hooks/usePrices";
 import { useAllProductStock } from "@/hooks/useProductStock";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
@@ -11,7 +12,18 @@ const ShopAll = () => {
   useDocumentMeta("Shop All Peptides | Peptide Foundry");
 
   const { isMember, getMemberPrice } = useMembership();
+  const { getPrices: getDbPrices, getStartingPrice: getDbStartingPrice } = usePrices();
   const { stockMap } = useAllProductStock();
+
+  const enhanceCard = useCallback((card: PeptideCard): PeptideCard => {
+    const dbPrices = getDbPrices(card.slug);
+    if (!dbPrices) return card;
+    return {
+      ...card,
+      prices: Object.keys(dbPrices).length > 1 ? dbPrices : card.prices,
+      startingPrice: getDbStartingPrice(card.slug),
+    };
+  }, [getDbPrices, getDbStartingPrice]);
 
   const allPeptides = useMemo(() => {
     const all = peptideSections.flatMap(section => section.cards);
@@ -34,7 +46,7 @@ const ShopAll = () => {
             {allPeptides.map(card => (
               <GlassPeptideCard
                 key={card.slug}
-                card={card}
+                card={enhanceCard(card)}
                 isMember={isMember}
                 getMemberPrice={getMemberPrice}
                 fullWidth

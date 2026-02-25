@@ -41,7 +41,7 @@ const Checkout = () => {
     clearCart,
     syncPrices
   } = useCart();
-  const { prices: peptidePrices, memberPrices, isLoading: pricesLoading } = usePrices();
+  const { prices: peptidePrices, memberPrices, isLoading: pricesLoading, isDbLoaded } = usePrices();
   const { isMember } = useMembership();
   const {
     user,
@@ -62,6 +62,7 @@ const Checkout = () => {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
+  const [pricesSynced, setPricesSynced] = useState(false);
   const [street2, setStreet2] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
@@ -98,9 +99,9 @@ const Checkout = () => {
     }
   }, [user, items, profile, navigate, orderCompleting]);
 
-  // Sync cart prices with DB on checkout load
+  // Sync cart prices with DB on checkout load — only after DB prices are confirmed
   useEffect(() => {
-    if (pricesLoading || items.length === 0) return;
+    if (!isDbLoaded || items.length === 0) return;
     syncPrices(peptidePrices, memberPrices, isMember).then((changed) => {
       if (changed) {
         toast({
@@ -108,8 +109,9 @@ const Checkout = () => {
           description: 'Some prices have been updated since you added items to your cart.',
         });
       }
+      setPricesSynced(true);
     });
-  }, [pricesLoading]);
+  }, [isDbLoaded]);
 
   // Calculate sales tax when shipping address changes (authenticated users only)
   useEffect(() => {
@@ -381,6 +383,12 @@ const Checkout = () => {
                       </label>
                     </div>
 
+                    {!pricesSynced ? (
+                      <div className="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Verifying prices…</span>
+                      </div>
+                    ) : (
                     <PayPalScriptProvider options={{
                       clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD",
@@ -512,6 +520,7 @@ const Checkout = () => {
                         }}
                       />
                     </PayPalScriptProvider>
+                    )}
                   </>
                 ) : (
                   <div className="bg-muted/30 border border-dashed rounded-lg p-4 text-center">

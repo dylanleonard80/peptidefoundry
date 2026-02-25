@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import hormonalSexualBg from "/category-hormonal-sexual.jpg";
 import cognitionMoodBg from "/category-cognition-mood.webp";
 import { GlassPeptideCard } from "@/components/GlassPeptideCard";
 import { useMembership } from "@/hooks/useMembership";
+import { usePrices } from "@/hooks/usePrices";
 import { useAllProductStock } from "@/hooks/useProductStock";
 import { peptideSections, PeptideCard } from "@/data/peptides";
 
@@ -122,7 +123,19 @@ const PeptidesCatalog = ({
     isMember,
     getMemberPrice
   } = useMembership();
+  const { getPrices: getDbPrices, getStartingPrice: getDbStartingPrice } = usePrices();
   const { stockMap } = useAllProductStock();
+
+  // Override static card prices with live DB prices
+  const enhanceCard = useCallback((card: PeptideCard): PeptideCard => {
+    const dbPrices = getDbPrices(card.slug);
+    if (!dbPrices) return card;
+    return {
+      ...card,
+      prices: Object.keys(dbPrices).length > 1 ? dbPrices : card.prices,
+      startingPrice: getDbStartingPrice(card.slug),
+    };
+  }, [getDbPrices, getDbStartingPrice]);
 
   // Get all unique peptides sorted alphabetically
   const alphabeticalPeptides = useMemo(() => {
@@ -244,7 +257,7 @@ const PeptidesCatalog = ({
 
             {/* Peptides Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-              {selectedCategoryData.cards.map(card => <GlassPeptideCard key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} fullWidth outOfStock={stockMap[card.slug] === false} />)}
+              {selectedCategoryData.cards.map(card => <GlassPeptideCard key={card.slug} card={enhanceCard(card)} isMember={isMember} getMemberPrice={getMemberPrice} fullWidth outOfStock={stockMap[card.slug] === false} />)}
             </div>
           </div>
         </section> : viewMode === 'category' ?
@@ -323,7 +336,7 @@ const PeptidesCatalog = ({
                       </Card>}
 
                     {/* Peptide Cards */}
-                    {section.cards.map(card => <PeptideCardComponent key={card.slug} card={card} isMember={isMember} getMemberPrice={getMemberPrice} outOfStock={stockMap[card.slug] === false} />)}
+                    {section.cards.map(card => <PeptideCardComponent key={card.slug} card={enhanceCard(card)} isMember={isMember} getMemberPrice={getMemberPrice} outOfStock={stockMap[card.slug] === false} />)}
                   </div>
                 </div>
               </div>
@@ -354,7 +367,8 @@ const PeptidesCatalog = ({
                     {letter}
                   </h2>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {groupedByLetter[letter].map(card => {
+                    {groupedByLetter[letter].map(staticCard => {
+                const card = enhanceCard(staticCard);
                 const isBlend = card.tags.includes("Blend");
                 return <Link key={card.slug} to={`/${card.slug}`} className="block">
                           <Card className="h-full overflow-hidden transition-all duration-500 group cursor-pointer relative border-0 bg-transparent">

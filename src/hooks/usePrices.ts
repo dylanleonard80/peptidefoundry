@@ -86,11 +86,15 @@ export function usePrices() {
     return 0;
   };
 
+  // True when we have confirmed prices from the database (not static fallback)
+  const isDbLoaded = !!data && !isLoading && !isError;
+
   return {
     prices,
     memberPrices,
     isLoading,
     isError,
+    isDbLoaded,
     getPrices,
     getStartingPrice,
     getMemberPriceBySlug,
