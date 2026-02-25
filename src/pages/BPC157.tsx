@@ -27,7 +27,7 @@ const BPC157 = () => {
     molecularFormula="C₆₂H₉₈N₁₆O₂₂"
     molarMass="1419.55 g/mol"
     prices={{
-      "10mg": 104,
+      "10mg": 55,
     }}
     benefits={[
       {

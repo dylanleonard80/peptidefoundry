@@ -11,7 +11,7 @@ export const cjc1295IpamorelinData = {
     { name: "CJC-1295", casNumber: "863288-34-0", molecularFormula: "C₁₆₅H₂₇₁N₄₇O₄₆", molarMass: "3647.28 g/mol" },
     { name: "Ipamorelin", casNumber: "170851-70-4", molecularFormula: "C₃₈H₄₉N₉O₅", molarMass: "711.85 g/mol" }
   ],
-  prices: { "5mg/5mg": 70 },
+  prices: { "5mg/5mg": 90 },
   benefits: [
     { iconName: "TrendingUp", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Sustained GH & IGF-1 Signaling (Human)", description: "Clinical studies demonstrate CJC-1295 produces sustained, dose-dependent increases in GH and IGF-1 levels in healthy adults.", link: "(Clinical Trial)" },
     { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Preserved GH Pulsatility Under Long-Acting GHRH Stimulation (Human)", description: "Research shows CJC-1295 increases trough and mean GH secretion while preserving natural pulsatile GH release patterns.", link: "(Clinical Trial)" },
@@ -57,7 +57,7 @@ export const bpc157tb500Data = {
     { name: "BPC-157", casNumber: "137525-51-0", molecularFormula: "C₆₂H₉₈N₁₆O₂₂", molarMass: "1419.53 g/mol" },
     { name: "TB-500", casNumber: "77591-33-4", molecularFormula: "C₂₁₂H₃₅₀N₅₆O₇₈S", molarMass: "4963.44 g/mol" }
   ],
-  prices: { "10mg/10mg": 108 },
+  prices: { "10mg/10mg": 150 },
   benefits: [
     { iconName: "Zap", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Tissue Repair & Wound Healing Research", description: "Preclinical studies investigating combined BPC-157 and TB-500 effects on tissue repair, wound healing, and cellular migration mechanisms", link: "(Preclinical Study)" },
     { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Angiogenesis & Vascular Repair Signaling", description: "Research examining peptide effects on new blood vessel formation and vascular repair pathways in preclinical models", link: "(Preclinical Study)" },
@@ -204,7 +204,7 @@ export const klowData = {
     { name: "KPV", casNumber: "67727-97-3", molecularFormula: "C₁₆H₃₀N₆O₄", molarMass: "357.40 g/mol" },
     { name: "GHK-Cu", casNumber: "49557-75-7", molecularFormula: "C₁₄H₂₂CuN₆O₄", molarMass: "403.92 g/mol" }
   ],
-  prices: { "50mg/10mg/10mg/10mg": 133 },
+  prices: { "50mg/10mg/10mg/10mg": 144 },
   benefits: [
     { iconName: "Shield", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Inflammatory Signaling & Cytokine Modulation", description: "Research on KPV and BPC-157 effects on inflammatory signaling pathways and cytokine modulation", link: "(Preclinical Study)" },
     { iconName: "Sparkles", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Skin Barrier Function & Dermal Repair", description: "Studies investigating GHK-Cu effects on skin barrier integrity and dermal repair mechanisms", link: "(Preclinical Study)" },

@@ -48,7 +48,7 @@ export const AOD9604Data: PeptidePageData = {
   casNumber: "221231-10-3",
   molecularFormula: "C₇₈H₁₂₃N₂₃O₂₃S₂",
   molarMass: "1815.08 g/mol",
-  prices: { "5mg": 69 },
+  prices: { "5mg": 82 },
   benefits: [
     { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Enhanced Fat Loss", description: "Stimulates lipolysis (fat breakdown) specifically in adipose tissue without affecting lean muscle mass or blood glucose levels.", link: "https://doi.org/10.1210/jcem.86.7.7645" },
     { iconName: "TrendingDown", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Metabolic Optimization", description: "Increases metabolic rate and energy expenditure, promoting efficient fat oxidation and improved body composition.", link: "https://doi.org/10.1016/j.metabol.2008.11.017" },
@@ -91,7 +91,7 @@ export const BPC157Data: PeptidePageData = {
   casNumber: "137525-51-0",
   molecularFormula: "C₆₂H₉₈N₁₆O₂₂",
   molarMass: "1419.55 g/mol",
-  prices: { "10mg": 104 },
+  prices: { "10mg": 55 },
   showInfoCard: true,
   infoCardText: "All products are shipped in lyophilized or powder form and must be reconstituted to a liquid for research and testing. We are unable to provide any dosing instructions, however all products should be considered pharmaceutical grade.",
   benefits: [
@@ -132,7 +132,7 @@ export const IGF1LR3Data: PeptidePageData = {
   casNumber: "946870-92-4",
   molecularFormula: "C₄₀₀H₆₂₅N₁₁₁O₁₁₅S₉",
   molarMass: "9111.3 g/mol",
-  prices: { "1mg": 90 },
+  prices: { "1mg": 185 },
   showInfoCard: true,
   infoCardText: "All products are shipped in lyophilized or powder form and must be reconstituted to a liquid for research and testing. We are unable to provide any dosing instructions, however all products should be considered pharmaceutical grade.",
   benefits: [
@@ -176,7 +176,7 @@ export const TesamorelinData: PeptidePageData = {
   casNumber: "218949-48-5",
   molecularFormula: "C₂₂₁H₃₆₆N₇₂O₆₇S₁",
   molarMass: "5135.9 g/mol",
-  prices: { "10mg": 105 },
+  prices: { "10mg": 164 },
   benefits: [
     { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Visceral Adipose Tissue (VAT) Research — Human", description: "Investigated in clinical trials for effects on visceral fat reduction in HIV-associated lipodystrophy", link: "https://pubmed.ncbi.nlm.nih.gov/18057338/" },
     { iconName: "Heart", iconBgClass: "bg-red-100 dark:bg-red-900/30", title: "Cardiometabolic Risk Markers & Lipids — Human", description: "Examined in human studies for effects on triglycerides, cholesterol ratios, and metabolic markers", link: "https://pubmed.ncbi.nlm.nih.gov/20554713/" },
@@ -219,7 +219,7 @@ export const SermorelinData: PeptidePageData = {
   casNumber: "86168-78-7",
   molecularFormula: "C₁₄₉H₂₄₆N₄₄O₄₂S",
   molarMass: "3357.9 g/mol",
-  prices: { "5mg": 37 },
+  prices: { "5mg": 61 },
   benefits: [
     { iconName: "TrendingUp", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Endogenous Growth Hormone Secretion — Human", description: "Investigated in clinical studies for effects on stimulating natural GH release from the pituitary gland", link: "https://pubmed.ncbi.nlm.nih.gov/2984445/" },
     { iconName: "Clock", iconBgClass: "bg-indigo-100 dark:bg-indigo-900/30", title: "Age-Related Somatotropic Axis Decline — Human", description: "Examined in human studies for observations on restoring GH axis function during aging", link: "https://pubmed.ncbi.nlm.nih.gov/1900401/" },
@@ -262,7 +262,7 @@ export const CagrilintideData: PeptidePageData = {
   casNumber: "2170752-57-1",
   molecularFormula: "C₂₀₆H₃₀₆N₅₆O₆₄S₂",
   molarMass: "4693.0 g/mol",
-  prices: { "10mg": 212 },
+  prices: { "10mg": 139 },
   benefits: [
     { iconName: "TrendingDown", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Appetite Regulation", description: "Investigated in preclinical models for its effects on satiety signaling and food intake reduction", link: "(Preclinical Study)" },
     { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Weight Management Research", description: "Examined in laboratory studies for observations related to body weight and adipose tissue changes", link: "(Preclinical Study)" },
@@ -307,7 +307,7 @@ export const RetatrutideData: PeptidePageData = {
   casNumber: "2381089-83-2",
   molecularFormula: "C₂₂₅H₃₄₈N₆₀O₆₈S",
   molarMass: "5104.6 g/mol",
-  prices: { "10mg": 170, "20mg": 340 },
+  prices: { "10mg": 105, "20mg": 150 },
   benefits: [
     { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Triple Receptor Agonism", description: "Investigated for simultaneous activation of GLP-1, GIP, and glucagon receptors in preclinical models", link: "(Preclinical Study)" },
     { iconName: "TrendingDown", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Weight Research", description: "Examined in laboratory studies for observations related to significant body weight changes", link: "(Preclinical Study)" },
@@ -351,7 +351,7 @@ export const MOTSCData: PeptidePageData = {
   casNumber: "1627580-64-6",
   molecularFormula: "C₁₀₁H₁₅₂N₂₈O₂₃S₂",
   molarMass: "2174.6 g/mol",
-  prices: { "10mg": 65 },
+  prices: { "10mg": 56 },
   benefits: [
     { iconName: "Battery", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Mitochondrial Signaling", description: "Investigated in preclinical models as a mitochondrial-derived peptide affecting cellular energy metabolism", link: "(Preclinical Study)" },
     { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Metabolic Regulation", description: "Examined in laboratory studies for observations related to glucose uptake and insulin sensitivity", link: "(Preclinical Study)" },
@@ -395,7 +395,7 @@ export const SelankData: PeptidePageData = {
   casNumber: "129954-34-3",
   molecularFormula: "C₃₃H₅₇N₁₁O₉",
   molarMass: "751.9 g/mol",
-  prices: { "10mg": 75 },
+  prices: { "10mg": 48 },
   benefits: [
     { iconName: "Brain", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Anxiolytic Research", description: "Investigated in preclinical models for effects on anxiety-related behaviors and stress responses", link: "(Preclinical Study)" },
     { iconName: "Lightbulb", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Cognitive Enhancement", description: "Examined in laboratory studies for observations related to memory formation and learning processes", link: "(Preclinical Study)" },
@@ -439,7 +439,7 @@ export const SemaxData: PeptidePageData = {
   casNumber: "80714-61-0",
   molecularFormula: "C₃₉H₆₃N₁₁O₁₀",
   molarMass: "846.0 g/mol",
-  prices: { "10mg": 65 },
+  prices: { "10mg": 50 },
   benefits: [
     { iconName: "Brain", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Cognitive Research", description: "Investigated in preclinical models for effects on attention, memory formation, and learning capacity", link: "(Preclinical Study)" },
     { iconName: "Shield", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Neuroprotection", description: "Examined in laboratory studies for observations related to neuronal survival under stress conditions", link: "(Preclinical Study)" },
@@ -484,7 +484,7 @@ export const NADBufferedData: PeptidePageData = {
   casNumber: "53-84-9",
   molecularFormula: "C₂₁H₂₇N₇O₁₄P₂",
   molarMass: "663.4 g/mol",
-  prices: { "500mg": 112 },
+  prices: { "500mg": 70 },
   benefits: [
     { iconName: "Battery", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Cellular Energy", description: "Investigated in preclinical models as an essential cofactor for mitochondrial ATP production and electron transport", link: "(Preclinical Study)" },
     { iconName: "Clock", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Longevity Research", description: "Examined in laboratory studies for observations related to sirtuin activation and aging mechanisms", link: "(Preclinical Study)" },
@@ -528,7 +528,7 @@ export const TB500Data: PeptidePageData = {
   casNumber: "77591-33-4",
   molecularFormula: "C₂₁₂H₃₅₀N₅₆O₇₈S",
   molarMass: "4963.5 g/mol",
-  prices: { "10mg": 83 },
+  prices: { "10mg": 65 },
   benefits: [
     {
       iconName: "Activity",
@@ -607,7 +607,7 @@ export const IpamorelinData: PeptidePageData = {
   casNumber: "170851-70-4",
   molecularFormula: "C₃₈H₄₉N₉O₅",
   molarMass: "711.9 g/mol",
-  prices: { "10mg": 47 },
+  prices: { "10mg": 140 },
   benefits: [
     { iconName: "Target", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Selective GH Secretagogue Characterization", description: "Landmark study characterizing ipamorelin as the first GHRP-receptor agonist with selectivity for GH release similar to GHRH, without affecting ACTH or cortisol", link: "(Clinical Study)" },
     { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Human PK/PD (Dose Response & Modeling)", description: "Phase I clinical study establishing ipamorelin pharmacokinetics and pharmacodynamics with dose-proportional GH release patterns in healthy volunteers", link: "(Clinical Trial)" },

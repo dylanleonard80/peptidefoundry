@@ -14,7 +14,7 @@ const AOD9604 = () => {
     casNumber="221231-10-3"
     molecularFormula="C₇₈H₁₂₃N₂₃O₂₃S₂"
     molarMass="1815.08 g/mol"
-    prices={{ "5mg": 69 }}
+    prices={{ "5mg": 82 }}
     benefits={[
       { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Enhanced Fat Loss", description: "Stimulates lipolysis (fat breakdown) specifically in adipose tissue without affecting lean muscle mass or blood glucose levels.", link: "https://doi.org/10.1210/jcem.86.7.7645" },
       { iconName: "TrendingDown", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Metabolic Optimization", description: "Increases metabolic rate and energy expenditure, promoting efficient fat oxidation and improved body composition.", link: "https://doi.org/10.1016/j.metabol.2008.11.017" },

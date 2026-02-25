@@ -23,7 +23,7 @@ const BacteriostaticWater = () => {
     isMember
   } = useMembership();
   const [quantity, setQuantity] = useState(1);
-  const [regularPrice, setRegularPrice] = useState(15);
+  const [regularPrice, setRegularPrice] = useState(25);
   const [memberPrice, setMemberPrice] = useState<number | null>(0);
 
   useEffect(() => {
