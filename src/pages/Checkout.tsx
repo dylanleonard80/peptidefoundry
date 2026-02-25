@@ -448,8 +448,9 @@ const Checkout = () => {
                         }}
                         onApprove={async (data, _actions) => {
                           try {
-                            const { data: { session } } = await supabase.auth.getSession();
-                            if (!session) {
+                            // Force a fresh token to avoid stale JWT issues
+                            const { data: { session }, error: refreshError } = await supabase.auth.refreshSession();
+                            if (refreshError || !session) {
                               toast({ title: 'Session expired', description: 'Please sign in and try again.', variant: 'destructive' });
                               return;
                             }

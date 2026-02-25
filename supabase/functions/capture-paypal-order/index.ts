@@ -52,6 +52,7 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Service-role client for DB operations (bypasses RLS)
   const supabaseClient = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
@@ -79,23 +80,34 @@ serve(async (req) => {
     // Authenticate the user (required for all requests)
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
+      logStep("No Authorization header present");
       return new Response(
         JSON.stringify({ error: "Authentication required" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
       );
     }
 
-    const token = authHeader.replace("Bearer ", "").trim();
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    // Use anon-key client with the user's JWT (recommended Supabase pattern)
+    const userClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: { headers: { Authorization: authHeader } },
+        auth: { persistSession: false },
+      }
+    );
 
-    if (userError || !userData.user) {
+    const { data: { user: authUser }, error: userError } = await userClient.auth.getUser();
+
+    if (userError || !authUser) {
+      logStep("Auth verification failed", { error: userError?.message });
       return new Response(
         JSON.stringify({ error: "Invalid authentication" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
       );
     }
 
-    const userId = userData.user.id;
+    const userId = authUser.id;
     logStep("User authenticated", { userId });
 
     // Fetch PayPal order details (should be APPROVED, not yet captured)
