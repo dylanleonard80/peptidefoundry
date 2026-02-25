@@ -173,8 +173,8 @@ const App = () => (
                 <Route path="/nad-buffered" element={<NADBuffered />} />
                 <Route path="/glutathione" element={<Glutathione />} />
                 <Route path="/pt-141" element={<PT141 />} />
-                <Route path="/glp-1sg" element={<GLP1SG />} />
-                <Route path="/glp-1tz" element={<GLP1TZ />} />
+                {/* <Route path="/glp-1sg" element={<GLP1SG />} /> */}
+                {/* <Route path="/glp-1tz" element={<GLP1TZ />} /> */}
                 {/* <Route path="/tesamorelin-ipamorelin" element={<TesamorelinIpamorelin />} /> */}
 
                 {/* Admin pages */}

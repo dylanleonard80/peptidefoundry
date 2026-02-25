@@ -75,15 +75,11 @@ const FoundryClub = () => {
     { name: 'AOD-9604', size: '5mg', slug: 'aod-9604' },
     { name: 'BPC-157', size: '10mg', slug: 'bpc-157' },
     { name: 'BPC-157 + TB-500', size: '10mg/10mg', slug: 'bpc-157-tb-500' },
-    { name: 'Cagrilintide', size: '10mg', slug: 'cagrilintide' },
     { name: 'CJC-1295 + Ipamorelin', size: '5mg/5mg', slug: 'cjc-1295-ipamorelin' },
     { name: 'DSIP', size: '5mg', slug: 'dsip' },
     { name: 'Epithalon', size: '10mg', slug: 'epithalon' },
     { name: 'GHK-Cu', size: '50mg', slug: 'ghk-cu' },
     { name: 'GLOW', size: '50mg/10mg/10mg', slug: 'glow' },
-    { name: 'KLOW', size: '50mg/10mg/10mg/10mg', slug: 'klow' },
-    { name: 'GLP-1SG', size: '10mg', slug: 'glp-1sg' },
-    { name: 'GLP-1 2TZ', size: '10mg', slug: 'glp-1tz' },
     { name: 'GLP-3RT', size: '10mg', slug: 'retatrutide' },
     { name: 'Glutathione', size: '1500mg', slug: 'glutathione' },
     { name: 'IGF-1 LR3', size: '1mg', slug: 'igf-1-lr3' },
@@ -97,7 +93,6 @@ const FoundryClub = () => {
     { name: 'Sermorelin', size: '5mg', slug: 'sermorelin' },
     { name: 'TB-500', size: '10mg', slug: 'tb-500' },
     { name: 'Tesamorelin', size: '10mg', slug: 'tesamorelin' },
-    { name: 'Tesamorelin / Ipamorelin', size: '12mg/2mg', slug: 'tesamorelin-ipamorelin' },
   ].map(item => {
     const regular = peptidePrices[item.slug]?.[item.size] ?? 0;
     const member = memberPrices[item.slug]?.[item.size] ?? Math.round(regular * 0.77);

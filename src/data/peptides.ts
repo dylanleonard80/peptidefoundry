@@ -236,22 +236,6 @@ export const peptideSections: PeptideSection[] = [
         ["10mg", "20mg"]
       ),
       createCard(
-        "GLP-1SG",
-        "GLP-1 agonist for incretin pathway research",
-        ["Research"],
-        "glp-1sg",
-        ["GLP-1 Research", "Incretin Studies"],
-        ["10mg"]
-      ),
-      createCard(
-        "GLP-1 2TZ",
-        "Dual GIP/GLP-1 agonist for receptor research",
-        ["Research"],
-        "glp-1tz",
-        ["Dual Agonist", "Incretin Research"],
-        ["10mg", "15mg", "20mg"]
-      ),
-      createCard(
         "MOTS-C",
         "Mitochondrial peptide for metabolic research",
         ["Research"],
