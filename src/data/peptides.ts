@@ -1,4 +1,4 @@
-import { getStartingPrice, getPrices } from "./priceData";
+import { getStartingPrice } from "./priceData";
 import { getProductImageBySlug } from "./peptidePageData";
 
 export interface PeptideCard {
@@ -32,7 +32,6 @@ function createCard(
   sizes: string[],
   composition?: string
 ): PeptideCard {
-  const prices = getPrices(slug);
   const productImage = getProductImageBySlug(slug);
   return {
     name,
@@ -43,7 +42,6 @@ function createCard(
     useCases,
     sizes,
     startingPrice: getStartingPrice(slug),
-    ...(prices && Object.keys(prices).length > 1 ? { prices } : {}),
     ...(productImage ? { image: productImage } : {}),
     cardStyle: 'glass',
   };

@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Melanotan2 = () => {
@@ -14,7 +13,6 @@ const Melanotan2 = () => {
     casNumber="121062-08-6"
     molecularFormula="C₅₀H₆₉N₁₅O₉"
     molarMass="1024.2 g/mol"
-    prices={getPrices("melanotan-2")!}
     benefits={[
       { iconName: "Sun", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Melanocortin Receptor Activation & Pigmentation Research", description: "Human clinical studies investigating MT-II effects on melanocortin receptor stimulation and induced pigmentation", link: "(Clinical Trial)" },
       { iconName: "Shield", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "UV-Induced DNA Damage & Photoprotective Signaling", description: "Research examining alpha-melanocyte-stimulating hormone and melanocortin analogs reducing ultraviolet radiation-induced DNA damage", link: "(Clinical Study)" },

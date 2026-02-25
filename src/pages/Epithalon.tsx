@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Epithalon = () => {
@@ -15,7 +14,6 @@ const Epithalon = () => {
     casNumber="307297-39-8"
     molecularFormula="C₁₄H₂₂N₄O₉"
     molarMass="390.35 g/mol"
-    prices={getPrices("epithalon")!}
     benefits={[
       { iconName: "Clock", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Telomerase Activation & Longevity", description: "Activates telomerase enzyme, lengthening telomeres and potentially extending cellular lifespan. Studies show increased telomere length in human cells.", link: "https://pubmed.ncbi.nlm.nih.gov/12374349/" },
       { iconName: "Brain", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Neuroprotection & Cognitive Health", description: "Protects neurons from oxidative stress, improves synaptic plasticity, and supports cognitive function in aging brains.", link: "https://pubmed.ncbi.nlm.nih.gov/40141333/" },

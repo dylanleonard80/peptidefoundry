@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLOW = () => {
@@ -16,7 +15,6 @@ const GLOW = () => {
       { name: "TB-500", casNumber: "77591-33-4", molecularFormula: "C₂₁₂H₃₅₀N₅₆O₇₈S", molarMass: "4963.44 g/mol" },
       { name: "GHK-Cu", casNumber: "49557-75-7", molecularFormula: "C₁₄H₂₂CuN₆O₄", molarMass: "403.92 g/mol" }
     ]}
-    prices={getPrices("glow")!}
     benefits={[
       { iconName: "Sparkles", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Skin Remodeling & Extracellular Matrix Research", description: "Research investigating GHK-Cu, BPC-157, and TB-500 effects on skin remodeling and extracellular matrix components", link: "(Preclinical Study)" },
       { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Wound Healing & Dermal Regeneration Models", description: "Preclinical studies examining peptide blend effects on wound healing and dermal tissue regeneration", link: "(Preclinical Study)" },

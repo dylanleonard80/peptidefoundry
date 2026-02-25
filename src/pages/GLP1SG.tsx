@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLP1SG = () => {
@@ -16,7 +15,6 @@ const GLP1SG = () => {
       casNumber="910463-68-2"
       molecularFormula="C₁₈₇H₂₉₁N₄₅O₅₉"
       molarMass="4113.58 g/mol"
-      prices={getPrices("glp-1sg")!}
       benefits={[
         { iconName: "TrendingDown", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Appetite Regulation", description: "Investigated in preclinical models for its effects on central appetite signaling and satiety pathways", link: "(Preclinical Study)" },
         { iconName: "Activity", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Glucose Homeostasis", description: "Studied in laboratory settings for observations related to insulin secretion and blood glucose regulation", link: "(Preclinical Study)" },

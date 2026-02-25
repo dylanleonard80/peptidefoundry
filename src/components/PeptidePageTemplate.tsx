@@ -67,9 +67,7 @@ export const PeptidePageTemplate = ({
   molecularFormula,
   molarMass = "0000.00 g/mol",
   components,
-  prices = {
-    "10mg": 89
-  },
+  prices = {},
   benefits = [],
   references = [],
   aboutParagraphs = [],

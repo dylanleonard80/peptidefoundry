@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const PT141 = () => {
@@ -16,7 +15,6 @@ const PT141 = () => {
     casNumber="189691-06-3"
     molecularFormula="C₅₀H₆₈N₁₄O₁₀"
     molarMass="1025.2 g/mol"
-    prices={getPrices("pt-141")!}
     benefits={[
       { iconName: "Heart", iconBgClass: "bg-red-100 dark:bg-red-900/30", title: "Sexual Function Enhancement", description: "Activates melanocortin receptors in the hypothalamus to naturally enhance sexual desire and arousal through central nervous system pathways.", link: "https://doi.org/10.2174/156802607780906681" },
       { iconName: "Brain", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "CNS-Mediated Arousal", description: "Works via central nervous system mechanisms rather than vascular pathways, providing unique approach to sexual health independent of blood flow.", link: "https://doi.org/10.1016/j.eururo.2009.02.028" },

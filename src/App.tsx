@@ -10,6 +10,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
   useSmoothScroll();
@@ -108,6 +109,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <Analytics />
+          <SpeedInsights />
           <BrowserRouter>
             <ScrollToTop />
             <ErrorBoundary>

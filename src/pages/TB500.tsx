@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TB500 = () => {
@@ -15,7 +14,6 @@ const TB500 = () => {
     casNumber="77591-33-4"
     molecularFormula="C₂₁₂H₃₅₀N₅₆O₇₈S"
     molarMass="4963.5 g/mol"
-    prices={getPrices("tb-500")!}
     benefits={[
       {
         iconName: "Activity",

@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TesamorelinIpamorelin = () => {
@@ -34,7 +33,6 @@ const TesamorelinIpamorelin = () => {
         { value: "ghsr-pathway", iconName: "Target", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "GHSR Agonism (Ipamorelin)", content: "Ipamorelin selectively activates the growth hormone secretagogue receptor (GHSR/ghrelin receptor), amplifying GH release through a pathway that complements GHRH signaling without significant effects on other pituitary hormones." },
         { value: "synergistic-research", iconName: "Combine", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Complementary Pathway Research", content: "By combining GHRH and ghrelin receptor activation, researchers can investigate the potential additive or synergistic effects on growth hormone pulse amplitude and frequency in preclinical models." }
       ]}
-      prices={getPrices("tesamorelin-ipamorelin")!}
       references={[]}
     />
   );

@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Ipamorelin = () => {
@@ -15,7 +14,6 @@ const Ipamorelin = () => {
     casNumber="170851-70-4"
     molecularFormula="C₃₈H₄₉N₉O₅"
     molarMass="711.9 g/mol"
-    prices={getPrices("ipamorelin")!}
     benefits={[
       { iconName: "Target", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Selective GH Secretagogue Characterization", description: "Landmark study characterizing ipamorelin as the first GHRP-receptor agonist with selectivity for GH release similar to GHRH, without affecting ACTH or cortisol", link: "(Clinical Study)" },
       { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Human PK/PD (Dose Response & Modeling)", description: "Phase I clinical study establishing ipamorelin pharmacokinetics and pharmacodynamics with dose-proportional GH release patterns in healthy volunteers", link: "(Clinical Trial)" },

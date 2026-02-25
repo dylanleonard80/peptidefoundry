@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Glutathione = () => {
@@ -16,7 +15,6 @@ const Glutathione = () => {
     casNumber="70-18-8"
     molecularFormula="C₁₀H₁₇N₃O₆S"
     molarMass="307.32 g/mol"
-    prices={getPrices("glutathione")!}
     benefits={[
       { iconName: "Shield", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Antioxidant Activity", description: "Functions as the primary intracellular antioxidant, neutralizing reactive oxygen species and protecting cellular components from oxidative damage.", link: "https://doi.org/10.1016/j.freeradbiomed.2014.12.024" },
       { iconName: "Recycle", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Detoxification Pathways", description: "Conjugates with xenobiotics and toxins via glutathione S-transferases, facilitating their elimination from cells and tissues.", link: "https://doi.org/10.1016/j.pharmthera.2012.09.004" },

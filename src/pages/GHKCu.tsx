@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GHKCu = () => {
@@ -15,7 +14,6 @@ const GHKCu = () => {
     casNumber="49557-75-7"
     molecularFormula="C₁₄H₂₂CuN₆O₄"
     molarMass="404.93 g/mol"
-    prices={getPrices("ghk-cu")!}
     benefits={[
       { iconName: "Sparkles", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Skin Regeneration & Anti-Aging", description: "Stimulates collagen synthesis, increases skin thickness by 18-20%, reduces wrinkle depth, and accelerates wound healing by 30-50%.", link: "https://pubmed.ncbi.nlm.nih.gov/22214254/" },
       { iconName: "Shield", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Antioxidant & Anti-Inflammatory", description: "Scavenges free radicals, reduces oxidative DNA damage, suppresses inflammatory cytokines (TNF-α, IL-6), and protects against UV-induced damage.", link: "https://pubmed.ncbi.nlm.nih.gov/25813519/" },

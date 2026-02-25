@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLP1TZ = () => {
@@ -21,7 +20,6 @@ const GLP1TZ = () => {
       casNumber="2023788-19-2"
       molecularFormula="C₂₂₅H₃₄₈N₄₈O₆₈"
       molarMass="4813.45 g/mol"
-      prices={getPrices("glp-1tz")!}
       benefits={[
         { iconName: "TrendingDown", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Dual Receptor Agonism", description: "Investigated in preclinical models for its simultaneous activation of GIP and GLP-1 receptors", link: "(Preclinical Study)" },
         { iconName: "Activity", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Glucose Regulation", description: "Studied in laboratory settings for observations related to glucose-dependent insulin secretion pathways", link: "(Preclinical Study)" },

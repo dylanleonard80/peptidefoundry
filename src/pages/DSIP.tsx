@@ -1,5 +1,4 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
-import { getPrices } from "@/data/priceData";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const DSIP = () => {
@@ -16,7 +15,6 @@ const DSIP = () => {
     casNumber="62568-57-4"
     molecularFormula="C₃₅H₄₈N₁₀O₁₅S"
     molarMass="848.87 g/mol"
-    prices={getPrices("dsip")!}
     benefits={[
       { iconName: "Moon", iconBgClass: "bg-indigo-100 dark:bg-indigo-900/30", title: "Sleep Quality Enhancement", description: "Improves sleep architecture, increases slow-wave sleep, and reduces sleep latency without addiction or tolerance development.", link: "https://pubmed.ncbi.nlm.nih.gov/6189138/" },
       { iconName: "Brain", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Stress Reduction", description: "Reduces stress-induced cortisol elevation, normalizes stress response, and protects against chronic stress damage.", link: "https://pubmed.ncbi.nlm.nih.gov/7006724/" },

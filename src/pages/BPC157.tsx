@@ -26,9 +26,6 @@ const BPC157 = () => {
     casNumber="137525-51-0"
     molecularFormula="C₆₂H₉₈N₁₆O₂₂"
     molarMass="1419.55 g/mol"
-    prices={{
-      "10mg": 55,
-    }}
     benefits={[
       {
         iconName: "Zap",
