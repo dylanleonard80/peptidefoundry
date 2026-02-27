@@ -238,24 +238,29 @@ const FoundryClub = () => {
                           shape: "rect",
                           label: "paypal",
                         }}
-                        createOrder={(_data, actions) => {
-                          return actions.order.create({
-                            purchase_units: [{
-                              amount: {
-                                currency_code: "USD",
-                                value: "50.00",
-                                breakdown: {
-                                  item_total: { currency_code: "USD", value: "50.00" },
-                                },
-                              },
-                              items: [{
-                                name: "Foundry Club Membership - 30 Days",
-                                unit_amount: { currency_code: "USD", value: "50.00" },
-                                quantity: "1",
-                                category: "DIGITAL_GOODS" as const,
-                              }],
-                            }],
+                        createOrder={async () => {
+                          const { data: { session } } = await supabase.auth.getSession();
+                          if (!session) {
+                            toast.error('Session expired. Please sign in and try again.');
+                            throw new Error('Session expired');
+                          }
+
+                          const { data: result, error } = await supabase.functions.invoke("create-paypal-order", {
+                            headers: { Authorization: `Bearer ${session.access_token}` },
+                            body: { type: "membership" },
                           });
+
+                          if (error) {
+                            let message = 'Could not create order. Please try again.';
+                            try {
+                              const body = JSON.parse(error.message);
+                              message = body.error || message;
+                            } catch {}
+                            toast.error(message);
+                            throw new Error(message);
+                          }
+
+                          return result.paypalOrderId;
                         }}
                         onApprove={async (data, _actions) => {
                           try {

@@ -404,14 +404,14 @@ const Checkout = () => {
                           shape: "rect",
                           label: "paypal",
                         }}
-                        createOrder={(_data, actions) => {
+                        createOrder={async () => {
                           if (!agreedToTerms) {
                             toast({
                               title: 'Terms required',
                               description: 'Please agree to the Terms of Service and Refund Policy.',
                               variant: 'destructive'
                             });
-                            return Promise.reject(new Error('Terms not accepted'));
+                            throw new Error('Terms not accepted');
                           }
 
                           const validationResult = shippingSchema.safeParse(shippingAddress);
@@ -421,30 +421,50 @@ const Checkout = () => {
                               description: validationResult.error.errors[0].message,
                               variant: 'destructive'
                             });
-                            return Promise.reject(new Error('Invalid shipping address'));
+                            throw new Error('Invalid shipping address');
                           }
 
-                          const grandTotal = total + taxAmount;
-                          return actions.order.create({
-                            purchase_units: [{
-                              description: `Order - ${items.length} item${items.length > 1 ? 's' : ''}`,
-                              amount: {
-                                currency_code: "USD",
-                                value: grandTotal.toFixed(2),
-                                breakdown: {
-                                  item_total: { currency_code: "USD", value: subtotal.toFixed(2) },
-                                  shipping: { currency_code: "USD", value: shipping.toFixed(2) },
-                                  ...(taxAmount > 0 ? { tax_total: { currency_code: "USD", value: taxAmount.toFixed(2) } } : {}),
-                                },
-                              },
-                              items: items.map((_i, idx) => ({
-                                name: `Item ${idx + 1}`,
-                                unit_amount: { currency_code: "USD", value: _i.price.toFixed(2) },
-                                quantity: String(_i.quantity),
-                                category: "PHYSICAL_GOODS" as const,
+                          // Server creates the PayPal order with DB-sourced prices
+                          const { data: { session } } = await supabase.auth.getSession();
+                          if (!session) {
+                            toast({ title: 'Session expired', description: 'Please sign in and try again.', variant: 'destructive' });
+                            throw new Error('Session expired');
+                          }
+
+                          const { data: result, error } = await supabase.functions.invoke("create-paypal-order", {
+                            headers: { Authorization: `Bearer ${session.access_token}` },
+                            body: {
+                              type: "order",
+                              items: items.map(item => ({
+                                slug: item.slug || '',
+                                size: item.size,
+                                quantity: item.quantity,
                               })),
-                            }],
+                              shippingAddress: {
+                                street: [shippingAddress.street, street2].filter(Boolean).join(', '),
+                                city: shippingAddress.city,
+                                state: shippingAddress.state,
+                                zip: shippingAddress.zip,
+                              },
+                            },
                           });
+
+                          if (error) {
+                            let message = 'Could not create order. Please try again.';
+                            try {
+                              const body = JSON.parse(error.message);
+                              message = body.error || message;
+                            } catch {}
+                            toast({ title: 'Order failed', description: message, variant: 'destructive' });
+                            throw new Error(message);
+                          }
+
+                          // Update displayed tax with server-calculated value
+                          if (result.taxAmount != null) {
+                            setTaxAmount(result.taxAmount);
+                          }
+
+                          return result.paypalOrderId;
                         }}
                         onApprove={async (data, _actions) => {
                           try {
@@ -469,10 +489,8 @@ const Checkout = () => {
                                   street: [shippingAddress.street, street2].filter(Boolean).join(', '),
                                   city: shippingAddress.city,
                                   state: shippingAddress.state,
-                                  zipCode: shippingAddress.zip,
+                                  zip: shippingAddress.zip,
                                 },
-                                shippingCost: shipping,
-                              taxAmount: taxAmount,
                               },
                             });
 

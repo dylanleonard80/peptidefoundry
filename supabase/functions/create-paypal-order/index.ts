@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { calculateTax } from "../_shared/taxjar.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -47,6 +48,26 @@ function generateOrderNumber(): string {
   return result;
 }
 
+async function checkActiveMembership(
+  supabaseClient: any,
+  userId: string,
+): Promise<boolean> {
+  const { data, error } = await supabaseClient
+    .from('memberships')
+    .select('id')
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .gt('current_period_end', new Date().toISOString())
+    .maybeSingle();
+
+  if (error) {
+    logStep("Membership check error", { message: error.message });
+    return false;
+  }
+
+  return !!data;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -56,57 +77,129 @@ serve(async (req) => {
     logStep("Function started");
 
     const body = await req.json();
-    const { type, items, shippingAddress, orderNotes, subtotal, shipping, total } = body;
+    const { type, items, shippingAddress } = body;
 
     if (!type || (type !== "order" && type !== "membership")) {
       throw new Error("Invalid type: must be 'order' or 'membership'");
     }
 
-    // Optional auth — required for membership, optional for orders
-    let userId: string | null = null;
-    let userEmail: string | null = null;
+    // Authenticate the user (required for both order and membership)
     const authHeader = req.headers.get("Authorization");
-
-    if (authHeader) {
-      const supabaseClient = createClient(
-        Deno.env.get("SUPABASE_URL") ?? "",
-        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
-        { auth: { persistSession: false } }
-      );
-      const token = authHeader.replace("Bearer ", "").trim();
-      const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
-      if (!userError && userData.user) {
-        userId = userData.user.id;
-        userEmail = userData.user.email || null;
-        logStep("User authenticated", { userId });
-      }
-    }
-
-    if (type === "membership" && !userId) {
+    if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: "Authentication required for membership purchase" }),
+        JSON.stringify({ error: "Authentication required" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
       );
     }
+
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      { auth: { persistSession: false } }
+    );
+
+    const token = authHeader.replace("Bearer ", "").trim();
+    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    if (userError || !userData.user) {
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
+    }
+
+    const userId = userData.user.id;
+    logStep("User authenticated", { userId });
 
     const accessToken = await getPayPalAccessToken();
     const apiUrl = Deno.env.get("PAYPAL_API_URL") || "https://api-m.sandbox.paypal.com";
 
     let paypalBody: Record<string, any>;
     let orderNumber: string | null = null;
+    let serverSubtotal = 0;
+    let serverTax = 0;
+    const serverShipping = 0; // Free shipping
 
     if (type === "order") {
-      orderNumber = generateOrderNumber();
+      // --- ORDER FLOW: Server-side price authority ---
 
-      const paypalItems = (items || []).map((item: any) => ({
-        name: `${item.peptide_name} (${item.size})`,
-        unit_amount: {
-          currency_code: "USD",
-          value: item.price.toFixed(2),
-        },
-        quantity: String(item.quantity),
-        category: "PHYSICAL_GOODS",
-      }));
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        throw new Error("Missing or empty items array");
+      }
+
+      // Check membership for pricing tier
+      const isMember = await checkActiveMembership(supabaseClient, userId);
+      logStep("Membership check", { isMember });
+
+      // Look up each item's price from the database
+      const paypalItems: Array<{ name: string; unit_amount: { currency_code: string; value: string }; quantity: string; category: string }> = [];
+      const taxLineItems: Array<{ quantity: number; unit_price: number }> = [];
+
+      for (const item of items) {
+        if (!item.slug || !item.size || !item.quantity || item.quantity < 1) {
+          throw new Error(`Invalid item: missing slug, size, or quantity`);
+        }
+
+        const { data: variant, error: variantError } = await supabaseClient
+          .from('product_variants')
+          .select('price, member_price, products!inner(slug, name)')
+          .eq('products.slug', item.slug)
+          .eq('size_label', item.size)
+          .single();
+
+        if (variantError || !variant) {
+          logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
+          throw new Error(`Product not found: ${item.slug} (${item.size})`);
+        }
+
+        const unitPrice = (isMember && variant.member_price != null)
+          ? Number(variant.member_price)
+          : Number(variant.price);
+        const lineTotal = unitPrice * item.quantity;
+        serverSubtotal += lineTotal;
+
+        paypalItems.push({
+          name: `${(variant.products as any).name} (${item.size})`,
+          unit_amount: {
+            currency_code: "USD",
+            value: unitPrice.toFixed(2),
+          },
+          quantity: String(item.quantity),
+          category: "PHYSICAL_GOODS",
+        });
+
+        taxLineItems.push({
+          quantity: item.quantity,
+          unit_price: unitPrice,
+        });
+
+        logStep("Item verified", {
+          slug: item.slug,
+          size: item.size,
+          quantity: item.quantity,
+          unitPrice,
+          lineTotal,
+        });
+      }
+
+      // Calculate tax server-side via TaxJar
+      if (shippingAddress?.state && shippingAddress?.zip) {
+        serverTax = await calculateTax({
+          toAddress: {
+            street: shippingAddress.street || "",
+            city: shippingAddress.city || "",
+            state: shippingAddress.state,
+            zip: shippingAddress.zip || shippingAddress.zipCode || "",
+          },
+          shipping: serverShipping,
+          lineItems: taxLineItems,
+        });
+      }
+      logStep("Tax calculated", { serverTax });
+
+      serverSubtotal = Math.round(serverSubtotal * 100) / 100;
+      const serverTotal = Math.round((serverSubtotal + serverShipping + serverTax) * 100) / 100;
+
+      orderNumber = generateOrderNumber();
 
       paypalBody = {
         intent: "CAPTURE",
@@ -115,25 +208,31 @@ serve(async (req) => {
           description: `Peptide Foundry Order ${orderNumber}`,
           amount: {
             currency_code: "USD",
-            value: Number(total).toFixed(2),
+            value: serverTotal.toFixed(2),
             breakdown: {
               item_total: {
                 currency_code: "USD",
-                value: Number(subtotal).toFixed(2),
+                value: serverSubtotal.toFixed(2),
               },
               shipping: {
                 currency_code: "USD",
-                value: Number(shipping).toFixed(2),
+                value: serverShipping.toFixed(2),
               },
+              ...(serverTax > 0 ? {
+                tax_total: {
+                  currency_code: "USD",
+                  value: serverTax.toFixed(2),
+                },
+              } : {}),
             },
           },
           items: paypalItems,
         }],
       };
 
-      logStep("Creating PayPal order", { orderNumber, total });
+      logStep("Creating PayPal order", { orderNumber, serverSubtotal, serverTax, serverTotal });
     } else {
-      // Membership
+      // --- MEMBERSHIP FLOW: Hardcoded $50 ---
       paypalBody = {
         intent: "CAPTURE",
         purchase_units: [{
@@ -184,6 +283,9 @@ serve(async (req) => {
     return new Response(JSON.stringify({
       paypalOrderId: paypalOrder.id,
       orderNumber,
+      subtotal: serverSubtotal,
+      taxAmount: serverTax,
+      shipping: serverShipping,
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

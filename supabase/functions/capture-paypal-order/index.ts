@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { calculateTax } from "../_shared/taxjar.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -68,8 +69,6 @@ serve(async (req) => {
       type,
       items,
       shippingAddress,
-      shippingCost,
-      taxAmount: taxFromBody,
     } = body;
 
     if (!paypalOrderId) throw new Error("Missing paypalOrderId");
@@ -200,9 +199,26 @@ serve(async (req) => {
         });
       }
 
-      const shippingAmount = Number(shippingCost) || 0;
-      const taxAmount = Math.round((Number(taxFromBody) || 0) * 100) / 100;
-      const expectedTotal = expectedSubtotal + shippingAmount + taxAmount;
+      // Server-determined shipping and tax — never trust client values
+      const shippingAmount = 0; // Free shipping
+      const taxLineItems = verifiedItems.map((v) => ({
+        quantity: v.quantity,
+        unit_price: v.price,
+      }));
+      let taxAmount = 0;
+      if (shippingAddress?.state && (shippingAddress?.zip || shippingAddress?.zipCode)) {
+        taxAmount = await calculateTax({
+          toAddress: {
+            street: shippingAddress.street || "",
+            city: shippingAddress.city || "",
+            state: shippingAddress.state,
+            zip: shippingAddress.zip || shippingAddress.zipCode || "",
+          },
+          shipping: shippingAmount,
+          lineItems: taxLineItems,
+        });
+      }
+      const expectedTotal = Math.round((expectedSubtotal + shippingAmount + taxAmount) * 100) / 100;
 
       logStep("Price verification", {
         expectedSubtotal,
