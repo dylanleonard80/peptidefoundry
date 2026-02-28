@@ -10,8 +10,8 @@ const PT141 = () => {
     peptideName="PT-141"
     productImage="/products/pt-141.webp"
     coaSlot={<img src="/coa/pt-141.png" alt="PT-141 COA" className="w-full h-auto" />}
-    subtitle="A peptide studied in laboratory settings for melanocortin receptor activation and sexual function"
-    description="PT-141 (Bremelanotide) is a synthetic melanocortin receptor agonist that works through central nervous system pathways. It has been studied extensively for its effects on sexual function and arousal through melanocortin-4 receptor activation in the hypothalamus."
+    subtitle="A peptide studied in laboratory settings for melanocortin-4 receptor activation and downstream signaling"
+    description="PT-141 (Bremelanotide) is a synthetic melanocortin receptor agonist studied for melanocortin-4 receptor activation and downstream signaling in neuronal cell models."
     casNumber="189691-06-3"
     molecularFormula="C₅₀H₆₈N₁₄O₁₀"
     molarMass="1025.2 g/mol"
@@ -28,7 +28,7 @@ const PT141 = () => {
       "Pfaus JG, et al. Selective facilitation of sexual solicitation in the female rat by a melanocortin receptor agonist. Proceedings of the National Academy of Sciences. 2004."
     ]}
     aboutParagraphs={[
-      "PT-141, also called Bremelanotide, has an interesting origin story. It actually came from Melanotan 2 research at the University of Arizona. Scientists there were developing a tanning peptide when they noticed unexpected side effects during their studies—subjects were reporting increased arousal. This led them down a completely different research path.",
+      "PT-141, also called Bremelanotide, originated from Melanotan 2 research at the University of Arizona. Scientists there were studying melanocortin receptor analogs when they observed unexpected melanocortin-4 receptor-mediated signaling activity distinct from the melanogenesis pathways they were originally investigating.",
       "The researchers modified Melanotan 2 to remove its tanning effects while keeping the properties that seemed to affect arousal. The result was PT-141. What made it unique was its mechanism—unlike other compounds in this area that work on blood flow, PT-141 appeared to act directly on the brain's arousal centers.",
       "Clinical trials eventually led to regulatory approval for a related condition in 2019, under the brand name Vyleesi. But in research settings, PT-141 continues to be studied for its effects on melanocortin-4 receptors in the central nervous system. This product is intended for research use only."
     ]}

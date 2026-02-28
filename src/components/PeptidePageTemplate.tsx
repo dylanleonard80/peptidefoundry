@@ -322,7 +322,7 @@ export const PeptidePageTemplate = ({
               <div className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg border border-border">
                 <AlertCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  All products are shipped in lyophilized or powder form and must be reconstituted to a liquid for research and testing. We are unable to provide any dosing instructions, however all products should be considered pharmaceutical grade.
+                  All products are shipped in lyophilized form and must be reconstituted for in-vitro research applications. Refer to the Certificate of Analysis for purity and identity specifications.
                 </p>
               </div>
             </div>
@@ -658,7 +658,7 @@ export const PeptidePageTemplate = ({
           <p className="text-muted-foreground mb-2">
             {peptideName} is available for laboratory research purposes only.
           </p>
-          <p className="text-sm text-muted-foreground">© Path Peptides 2025 | Product Catalog | Research Use Only</p>
+          <p className="text-sm text-muted-foreground">© 2026 Peptide Foundry LLC | Product Catalog | Research Use Only</p>
         </div>
       </section>
 

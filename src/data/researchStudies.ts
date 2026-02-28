@@ -657,7 +657,7 @@ export const tesamorelinResearch: PeptideResearch = {
   ]
 };
 
-// Retatrutide Research Studies
+// GLP-3RT Research Studies (preclinical only)
 export const retatrutideResearch: PeptideResearch = {
   peptideSlug: "retatrutide",
   researchAreas: [
@@ -666,56 +666,20 @@ export const retatrutideResearch: PeptideResearch = {
       areaTitle: "Triple Receptor Agonism",
       studies: [
         {
-          title: "LY3437943, a novel triple glucagon, GIP, and GLP-1 receptor agonist for glycemic control and weight loss: From discovery to clinical proof of concept",
-          authors: "Coskun T, Urva S, Roell WC, et al.",
-          journal: "Cell Metabolism",
-          year: 2022,
-          summary: "Foundational study characterizing retatrutide's triple receptor agonism mechanism and metabolic effects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/35985340/"
-        },
-        {
-          title: "LY3437943, a novel triple GIP, GLP-1, and glucagon receptor agonist in people with type 2 diabetes: a phase 1b, multicentre, double-blind, placebo-controlled, randomised, multiple-ascending dose trial",
-          authors: "Rosenstock J, Frias JP, Jastreboff AM, et al.",
-          journal: "Lancet",
-          year: 2022,
-          summary: "Phase 1b trial establishing safety and efficacy of retatrutide in type 2 diabetes patients.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/36354040/"
-        }
-      ]
-    },
-    {
-      areaId: "weight-research",
-      areaTitle: "Weight Research",
-      studies: [
-        {
-          title: "Triple-Hormone-Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
-          authors: "Jastreboff AM, Kaplan LM, Frías JP, et al.",
-          journal: "New England Journal of Medicine",
-          year: 2023,
-          summary: "Phase 2 clinical trial demonstrating significant weight reduction effects of retatrutide in obesity.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/37366315/"
-        },
-        {
-          title: "Triple hormone receptor agonist retatrutide for metabolic dysfunction-associated steatotic liver disease: a randomized phase 2a trial",
-          authors: "Sanyal AJ, Kaplan LM, Frias JP, et al.",
+          title: "A rationally designed monomeric peptide triagonist corrects obesity and diabetes in rodents",
+          authors: "Finan B, Yang B, Ottaway N, et al.",
           journal: "Nature Medicine",
-          year: 2024,
-          summary: "Phase 2a trial showing retatrutide's effects on liver fat reduction in MASLD patients.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/38858523/"
-        }
-      ]
-    },
-    {
-      areaId: "glucose-homeostasis",
-      areaTitle: "Glucose Homeostasis",
-      studies: [
+          year: 2015,
+          summary: "Preclinical study demonstrating that a single molecule triple agonist targeting GLP-1, GIP, and glucagon receptors corrects metabolic dysfunction in rodent models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/25485909/"
+        },
         {
-          title: "Retatrutide, a GIP, GLP-1 and glucagon receptor agonist, for people with type 2 diabetes: a randomised, double-blind, placebo and active-controlled, parallel-group, phase 2 trial",
-          authors: "Rosenstock J, Frias JP, Jastreboff AM, et al.",
-          journal: "Lancet",
-          year: 2023,
-          summary: "Clinical study examining retatrutide's effects on glycemic control in diabetic patients.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/37385280/"
+          title: "A new glucagon and GLP-1 co-agonist eliminates obesity in rodents",
+          authors: "Day JW, Ottaway N, Patterson JT, et al.",
+          journal: "Nature Chemical Biology",
+          year: 2009,
+          summary: "Foundational preclinical work on dual GLP-1/glucagon agonism showing synergistic metabolic effects in rodent obesity models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/19915537/"
         }
       ]
     },
@@ -728,8 +692,22 @@ export const retatrutideResearch: PeptideResearch = {
           authors: "Habegger KM, Heppner KM, Geary N, et al.",
           journal: "Diabetes",
           year: 2010,
-          summary: "Study on glucagon receptor activation and its effects on metabolic rate and thermogenesis.",
+          summary: "Preclinical study on glucagon receptor activation and its effects on metabolic rate and thermogenesis in animal models.",
           url: "https://pubmed.ncbi.nlm.nih.gov/20522594/"
+        }
+      ]
+    },
+    {
+      areaId: "glucose-homeostasis",
+      areaTitle: "Glucose Homeostasis",
+      studies: [
+        {
+          title: "GIP and GLP-1 as mediators of the incretin effect",
+          authors: "Baggio LL, Drucker DJ",
+          journal: "Best Practice & Research Clinical Endocrinology & Metabolism",
+          year: 2007,
+          summary: "Review of GIP and GLP-1 receptor signaling mechanisms relevant to glucose homeostasis and incretin-based metabolic research.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17382693/"
         }
       ]
     },
@@ -738,12 +716,12 @@ export const retatrutideResearch: PeptideResearch = {
       areaTitle: "Hepatic Research",
       studies: [
         {
-          title: "A rationally designed monomeric peptide triagonist corrects obesity and diabetes in rodents",
-          authors: "Day JW, Ottaway N, Patterson JT, et al.",
-          journal: "Nature Chemical Biology",
-          year: 2009,
-          summary: "Preclinical study of dual/triple agonist effects on hepatic fat content and metabolic health.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/19915537/"
+          title: "Glucagon's metabolic action in health and disease",
+          authors: "Habegger KM, Heppner KM, Geary N, et al.",
+          journal: "Journal of Clinical Investigation",
+          year: 2010,
+          summary: "Review of glucagon receptor signaling in hepatic fat oxidation and thermogenic pathways relevant to triple-agonist research.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20852211/"
         }
       ]
     },
@@ -756,7 +734,7 @@ export const retatrutideResearch: PeptideResearch = {
           authors: "Turton MD, O'Shea D, Gunn I, et al.",
           journal: "Nature",
           year: 1996,
-          summary: "Foundational study on GLP-1's central nervous system effects on appetite control.",
+          summary: "Foundational preclinical study establishing GLP-1 as a physiological mediator of satiety through central nervous system mechanisms.",
           url: "https://pubmed.ncbi.nlm.nih.gov/8538753/"
         }
       ]

@@ -125,7 +125,7 @@ export const peptideSections: PeptideSection[] = [
   {
     title: "Tissue Repair Research",
     subtitle: "Peptides studied for tissue regeneration and inflammatory pathway modulation.",
-    link: "/recovery",
+    link: "/shop",
     cards: [
       {
         ...createCard(
@@ -168,7 +168,7 @@ export const peptideSections: PeptideSection[] = [
   {
     title: "Muscle & Performance Research",
     subtitle: "Peptides studied for growth factor signaling and myogenic pathways.",
-    link: "/build-muscle",
+    link: "/shop",
     cards: [
       createCard(
         "CJC-1295 + Ipamorelin",
@@ -215,7 +215,7 @@ export const peptideSections: PeptideSection[] = [
   {
     title: "Metabolic Research",
     subtitle: "Peptides investigated for metabolic signaling and energy homeostasis.",
-    link: "/lose-fat",
+    link: "/shop",
     cards: [
       createCard(
         "AOD-9604",
@@ -246,7 +246,7 @@ export const peptideSections: PeptideSection[] = [
   {
     title: "Cellular Health Research",
     subtitle: "Peptides studied for cellular senescence and neuroprotective mechanisms.",
-    link: "/anti-aging",
+    link: "/shop",
     cards: [
       createCard(
         "DSIP",
@@ -309,7 +309,7 @@ export const peptideSections: PeptideSection[] = [
   {
     title: "Cognition & Mood Research",
     subtitle: "Peptides investigated for cognitive function and mood regulation pathways.",
-    link: "/libido",
+    link: "/shop",
     cards: [
       createCard(
         "PT-141",

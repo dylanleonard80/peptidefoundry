@@ -9,7 +9,7 @@ const Melanotan2 = () => {
     peptideName="Melanotan 2"
     productImage="/products/melanotan-2.webp"
     subtitle="A peptide studied in laboratory settings for melanogenesis and melanocortin signaling"
-    description="Melanotan 2 (MT-2) is a synthetic analog of alpha-melanocyte-stimulating hormone (α-MSH) that activates melanocortin receptors. It has been extensively studied in laboratory settings for its effects on melanin production, UV protection, and melanocortin system activation."
+    description="Melanotan 2 (MT-2) is a synthetic analog of alpha-melanocyte-stimulating hormone (α-MSH) developed to study melanocortin receptor binding and melanogenesis signaling in cell culture models."
     casNumber="121062-08-6"
     molecularFormula="C₅₀H₆₉N₁₅O₉"
     molarMass="1024.2 g/mol"
@@ -26,7 +26,7 @@ const Melanotan2 = () => {
       "Getting SJ, et al. Activation of melanocortin type 3 receptor as a molecular mechanism for adrenocorticotropic hormone efficacy in gouty arthritis. Arthritis & Rheumatism. 2002."
     ]}
     aboutParagraphs={[
-      "Melanotan 2 grew out of sun protection research at the University of Arizona in the 1980s. Scientists there were trying to develop a compound that could give people a natural tan without sun exposure—potentially reducing skin cancer risk. They created a synthetic version of alpha-MSH, a natural hormone that triggers melanin production in the skin.",
+      "Melanotan 2 originated from melanocortin research at the University of Arizona in the 1980s. Scientists there were investigating synthetic analogs of alpha-MSH to study melanocortin receptor binding affinity and melanogenesis signaling pathways in cell culture models.",
       "The original compound, Melanotan 1, showed promise but didn't last long in the body. So the researchers modified it, creating Melanotan 2—a more stable, cyclic version that could produce longer-lasting effects. During testing, they noticed the compound had effects beyond just tanning, which led to spin-off research in other directions.",
       "Over the years, Melanotan 2 became one of the most studied peptides for melanocortin receptor research. Labs use it to explore how the melanocortin system works throughout the body—not just in skin, but in the brain and other tissues where these receptors are found. This product is intended for research use only."
     ]}

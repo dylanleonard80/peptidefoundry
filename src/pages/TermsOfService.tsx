@@ -12,7 +12,7 @@ const TermsOfService = () => {
       <main className="pt-32 pb-16">
         <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-display font-bold mb-4">Terms of Service</h1>
-          <p className="text-muted-foreground mb-8">Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <p className="text-muted-foreground mb-8">Effective Date: January 1, 2026 | Last Revised: February 27, 2026. Prior versions available upon request.</p>
 
           {/* Critical RUO Warning Box */}
           <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-6 mb-8">

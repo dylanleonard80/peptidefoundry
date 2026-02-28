@@ -22,7 +22,7 @@ const BPC157 = () => {
       />
     }
     subtitle="A peptide studied in laboratory settings for tissue regeneration and healing mechanisms"
-    description="BPC-157 is a short chain of amino acids, a peptide naturally found in gastric juice. It's often called a 'body protection compound' due to its wide-ranging potential benefits, particularly in tissue repair and inflammation modulation."
+    description="BPC-157 is a short chain of amino acids, a peptide originally isolated from gastric juice. It has been studied in preclinical models for effects on tissue regeneration pathways and inflammatory signaling cascades."
     casNumber="137525-51-0"
     molecularFormula="C₆₂H₉₈N₁₆O₂₂"
     molarMass="1419.55 g/mol"

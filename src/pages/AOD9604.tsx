@@ -10,7 +10,7 @@ const AOD9604 = () => {
     productImage="/products/aod-9604.webp"
     coaSlot={<img src="/coa/aod-9604.png" alt="AOD-9604 COA" className="w-full h-auto" />}
     subtitle="A peptide studied in laboratory settings for fat metabolism, lipolysis, and body composition"
-    description="AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains the fat-burning properties of HGH while eliminating its effects on insulin sensitivity and blood glucose."
+    description="AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains lipolytic signaling activity in adipocyte models while lacking the glycemic effects associated with full-length HGH."
     casNumber="221231-10-3"
     molecularFormula="C₇₈H₁₂₃N₂₃O₂₃S₂"
     molarMass="1815.08 g/mol"
@@ -29,11 +29,11 @@ const AOD9604 = () => {
       "Stier H, et al. Growth hormone and AOD9604 effects on lipolysis in human adipose tissue. Journal of Clinical Endocrinology & Metabolism. 2003."
     ]}
     aboutParagraphs={[
-      "AOD-9604 got its start in the late 1990s at Monash University in Australia. Researchers there had a simple question: could they get the fat-burning benefits of growth hormone without the side effects? They knew that growth hormone could help with weight loss, but it also caused problems with blood sugar and other issues they wanted to avoid.",
-      "The team discovered something interesting. They found that just a small piece of the growth hormone molecule—specifically amino acids 176 to 191—seemed to do exactly what they wanted. This tiny fragment could target fat cells without messing with insulin or causing unwanted growth effects. They called it AOD-9604, short for Anti-Obesity Drug.",
+      "AOD-9604 got its start in the late 1990s at Monash University in Australia. Researchers there were investigating whether a fragment of the growth hormone molecule could retain lipolytic signaling activity in adipocyte models without the glycemic and proliferative effects of the full-length protein.",
+      "The team identified that amino acids 176 to 191 of the growth hormone sequence exhibited lipolytic signaling in adipose tissue models without activating insulin or IGF-1-related growth pathways. They designated this fragment AOD-9604.",
       "Since then, AOD-9604 has been through multiple research studies and even some clinical trials. It caught the attention of labs worldwide looking for new ways to study fat metabolism. Today, it remains one of the most well-documented peptide fragments used in metabolic research. This product is intended for research use only."
     ]}
-    howItWorksIntro="AOD-9604 provides targeted fat loss by activating the same fat-burning pathways as growth hormone, but without affecting blood sugar, insulin sensitivity, or causing tissue growth. This makes it an exceptionally safe option for body composition optimization."
+    howItWorksIntro="Preclinical studies have examined AOD-9604's mechanism of action involving the same lipolytic signaling pathways as growth hormone, but without observed effects on glucose metabolism, insulin sensitivity, or tissue growth in laboratory models."
     howItWorksAccordions={[
       { value: "receptor", iconName: "Target", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Beta-3 Adrenergic Receptor Activation", content: "AOD-9604 selectively binds to and activates beta-3 adrenergic receptors located predominantly in adipose tissue. This activation triggers a cascade of intracellular signaling events that promote lipolysis through increased cAMP production and activation of hormone-sensitive lipase." },
       { value: "lipolysis", iconName: "Flame", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Enhanced Lipolytic Activity", content: "The peptide significantly increases the rate of lipolysis by upregulating hormone-sensitive lipase and adipose triglyceride lipase activity. The released fatty acids are transported to mitochondria for beta-oxidation, generating ATP and promoting overall fat loss." },

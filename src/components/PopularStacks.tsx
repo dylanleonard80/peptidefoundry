@@ -91,7 +91,7 @@ export const PopularStacks = ({ currentSlug, peptideName }: PopularStacksProps) 
       }
 
       toast({
-        title: "Stack added to cart",
+        title: "Items added to cart",
         description: `${stackItems.length} items have been added to your cart.`,
       });
     } finally {
@@ -108,10 +108,10 @@ export const PopularStacks = ({ currentSlug, peptideName }: PopularStacksProps) 
         {/* Section Header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">
-            Popular Stacks
+            Related Research Compounds
           </h2>
           <p className="text-muted-foreground">
-            Commonly bought with {peptideName}
+            Frequently purchased with {peptideName}
           </p>
         </div>
 

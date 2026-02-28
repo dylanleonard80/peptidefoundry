@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
       <main className="pt-32 pb-16">
         <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-display font-bold mb-4">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Effective Date: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <p className="text-muted-foreground mb-8">Effective Date: January 1, 2026 | Last Revised: February 27, 2026. Prior versions available upon request.</p>
 
           <div className="prose prose-stone max-w-none space-y-8">
             <section>
@@ -133,28 +133,35 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">9. Children's Privacy</h2>
+              <h2 className="text-2xl font-semibold mb-4">9. Additional State Privacy Rights</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Residents of states with comprehensive privacy legislation — including Virginia (VCDPA), Colorado (CPA), Connecticut (CTDPA), Utah (UCPA), Texas (TDPSA), Oregon (OCPA), Montana (MCDPA), and other states that have enacted consumer data privacy laws — may have additional rights regarding their personal information. These rights may include the right to access, correct, or delete personal data; the right to opt out of targeted advertising or the sale of personal information; and the right to appeal a denial of a privacy request. We do not sell personal information or use it for targeted advertising. To exercise any applicable state privacy rights, please contact us using the information below.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">10. Children's Privacy</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Our Site is not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child under 18, we will take steps to delete such information promptly.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">10. Third-Party Links</h2>
+              <h2 className="text-2xl font-semibold mb-4">11. Third-Party Links</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Our Site may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party sites you visit.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">11. Changes to This Privacy Policy</h2>
+              <h2 className="text-2xl font-semibold mb-4">12. Changes to This Privacy Policy</h2>
               <p className="text-muted-foreground leading-relaxed">
                 We reserve the right to modify this Privacy Policy at any time. Changes will be effective immediately upon posting to the Site. The "Effective Date" at the top of this policy indicates when it was last revised. Your continued use of the Site after any changes constitutes your acceptance of the revised Privacy Policy.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">12. Contact Us</h2>
+              <h2 className="text-2xl font-semibold mb-4">13. Contact Us</h2>
               <p className="text-muted-foreground leading-relaxed">
                 If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
               </p>

@@ -9,7 +9,7 @@ const GLOW = () => {
     peptideName="GLOW"
     productImage="/products/glow.webp"
     subtitle="A peptide blend studied in laboratory settings for tissue repair and collagen synthesis"
-    description="GLOW is a synergistic triple-peptide blend combining BPC-157's tissue repair, TB-500's cellular migration, and GHK-Cu's collagen synthesis for comprehensive anti-aging, wound healing, and skin rejuvenation. This formula addresses multiple pathways simultaneously for optimal regenerative effects."
+    description="GLOW is a multi-peptide research blend for studying tissue remodeling, cellular migration, and collagen synthesis pathways in vitro. It combines BPC-157, TB-500, and GHK-Cu to enable investigation of complementary extracellular matrix signaling mechanisms."
     components={[
       { name: "BPC-157", casNumber: "137525-51-0", molecularFormula: "C₆₂H₉₈N₁₆O₂₂", molarMass: "1419.53 g/mol" },
       { name: "TB-500", casNumber: "77591-33-4", molecularFormula: "C₂₁₂H₃₅₀N₅₆O₇₈S", molarMass: "4963.44 g/mol" },
@@ -24,8 +24,8 @@ const GLOW = () => {
     references={[
       "Pickart L, Margolina A. Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data. Int J Mol Sci. 2018;19(7):1987.",
       "Pickart L. The human tri-peptide GHK and tissue remodeling. J Biomater Sci Polym Ed. 2008;19(8):969-988.",
-      "Dorr RT, Lines R, Levine N, et al. Evaluation of melanotan-II, a superpotent cyclic melanotropic peptide in a pilot phase-I clinical study. Life Sci. 1996;58(20):1777-1784.",
-      "Abdel-Malek Z, Scott MC, Suzuki I, et al. The melanocortin-1 receptor is a key regulator of human cutaneous pigmentation. Pigment Cell Res. 2000;13 Suppl 8:156-162."
+      "Sosne G, Qiu P, Goldstein AL, Wheater M. Biological activities of thymosin beta-4 defined by active sites in short peptide sequences. FASEB J. 2010;24(7):2144-2151.",
+      "Sikiric P, et al. Stable gastric pentadecapeptide BPC 157: novel therapy in gastrointestinal tract. Current Pharmaceutical Design. 2011;17(16):1612-1632."
     ]}
     aboutParagraphs={[
       "GLOW is a blend that brings together three peptides that were each discovered through completely different research paths. BPC-157 came from Croatian gastric juice studies in the 1990s. TB-500 traces back to 1960s thymus gland research by Dr. Allan Goldstein. And GHK-Cu was found by Dr. Loren Pickart in 1973 while studying human blood plasma.",

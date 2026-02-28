@@ -46,14 +46,6 @@ const DashboardResearchAudit = lazy(() => import("./pages/dashboard/ResearchAudi
 const DashboardDocuments = lazy(() => import("./pages/dashboard/Documents"));
 const DashboardSettings = lazy(() => import("./pages/dashboard/Settings"));
 
-// Category pages
-const BuildMuscle = lazy(() => import("./pages/BuildMuscle"));
-const LoseFat = lazy(() => import("./pages/LoseFat"));
-const Recovery = lazy(() => import("./pages/Recovery"));
-const Libido = lazy(() => import("./pages/Libido"));
-
-const AntiAging = lazy(() => import("./pages/AntiAging"));
-
 // Individual peptide pages
 const BPC157 = lazy(() => import("./pages/BPC157"));
 const TB500 = lazy(() => import("./pages/TB500"));
@@ -143,13 +135,6 @@ const App = () => (
                 <Route path="/dashboard/research-audit" element={<DashboardResearchAudit />} />
                 <Route path="/dashboard/documents" element={<DashboardDocuments />} />
                 <Route path="/dashboard/settings" element={<DashboardSettings />} />
-
-                {/* Category pages */}
-                <Route path="/build-muscle" element={<BuildMuscle />} />
-                <Route path="/lose-fat" element={<LoseFat />} />
-                <Route path="/recovery" element={<Recovery />} />
-                <Route path="/libido" element={<Libido />} />
-                <Route path="/anti-aging" element={<AntiAging />} />
 
                 {/* Peptide pages */}
                 <Route path="/bpc-157" element={<BPC157 />} />

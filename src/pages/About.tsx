@@ -25,7 +25,7 @@ const About = () => {
                 </h1>
                 <div className="prose prose-lg mx-auto text-muted-foreground max-w-3xl">
                   <p className="text-lg leading-relaxed mb-4">
-                    Peptide Foundry was started by a former NFL player whose post-career interest in regenerative science led him to explore the research potential of peptides. What began as personal curiosity quickly became a mission: to make high-quality research peptides accessible to laboratories and independent researchers everywhere.
+                    Peptide Foundry was founded by a team passionate about advancing peptide science. What began as a fascination with biochemistry and molecular signaling became a mission: to provide researchers with the highest-quality peptide materials at accessible prices.
                   </p>
                   <p className="text-lg leading-relaxed">
                     As a family-owned and operated company, we hold ourselves to a higher standard. Every product we carry is selected for its research value, rigorously tested by independent laboratories, and backed by full documentation. We believe researchers deserve materials they can trust — without the markup.

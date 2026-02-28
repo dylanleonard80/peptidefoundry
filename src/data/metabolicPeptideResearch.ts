@@ -367,7 +367,7 @@ export const cagrilintideResearchVerified: PeptideResearch = {
 };
 
 // ============================================================================
-// Retatrutide Research Studies (Human clinical trials available)
+// GLP-3RT Research Studies (preclinical and mechanistic only)
 // ============================================================================
 export const retatrutideResearchVerified: PeptideResearch = {
   peptideSlug: "retatrutide",
@@ -377,86 +377,20 @@ export const retatrutideResearchVerified: PeptideResearch = {
       areaTitle: "Triple Receptor Agonism",
       studies: [
         createVerifiedStudy(
-          "35985340",
-          "LY3437943, a novel triple glucagon, GIP, and GLP-1 receptor agonist for glycemic control and weight loss: From discovery to clinical proof of concept",
-          "Coskun T, Urva S, Roell WC, et al.",
-          "Cell Metabolism",
-          2022,
-          "Foundational study characterizing retatrutide's triple receptor agonism mechanism and metabolic effects."
-        ),
-        createVerifiedStudy(
-          "36354040",
-          "LY3437943, a novel triple GIP, GLP-1, and glucagon receptor agonist in people with type 2 diabetes: a phase 1b, multicentre, double-blind, placebo-controlled, randomised, multiple-ascending dose trial",
-          "Rosenstock J, Frias JP, Jastreboff AM, et al.",
-          "Lancet",
-          2022,
-          "Phase 1b trial establishing safety and dose-response of retatrutide in type 2 diabetes patients."
-        ),
-        createVerifiedStudy(
-          "39724554",
-          "The First Triple Agonist for Antiobesity: Retatrutide",
-          "Samms RJ, Coghlan MP, Sloop KW",
-          "Trends in Pharmacological Sciences",
-          2024,
-          "Comprehensive review of retatrutide as the first triple GLP-1/GIP/glucagon receptor agonist for obesity."
-        ),
-      ]
-    },
-    {
-      areaId: "weight-research",
-      areaTitle: "Weight Research",
-      studies: [
-        createVerifiedStudy(
-          "37366315",
-          "Triple-Hormone-Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
-          "Jastreboff AM, Kaplan LM, Frías JP, et al.",
-          "New England Journal of Medicine",
-          2023,
-          "Landmark phase 2 trial demonstrating up to 24% weight loss with retatrutide over 48 weeks."
-        ),
-        createVerifiedStudy(
-          "40728138",
-          "Efficacy and safety of retatrutide for the treatment of obesity: a systematic review of clinical trials",
-          "Wang J, Liu Y, Zhang H, et al.",
-          "Obesity Reviews",
-          2024,
-          "Systematic review of all retatrutide clinical trials for obesity treatment."
-        ),
-        createVerifiedStudy(
-          "40609566",
-          "Effects of retatrutide on body composition in people with type 2 diabetes: a substudy of a phase 2, double-blind, parallel-group, placebo-controlled, randomised trial",
-          "Del Prato S, Rosenstock J, Aronne LJ, et al.",
-          "Lancet Diabetes & Endocrinology",
-          2024,
-          "Body composition analysis showing retatrutide preferentially reduces fat mass while preserving lean mass."
-        ),
-      ]
-    },
-    {
-      areaId: "glucose-homeostasis",
-      areaTitle: "Glucose Homeostasis",
-      studies: [
-        createVerifiedStudy(
-          "37385280",
-          "Retatrutide, a GIP, GLP-1 and glucagon receptor agonist, for people with type 2 diabetes: a randomised, double-blind, placebo and active-controlled, parallel-group, phase 2 trial",
-          "Rosenstock J, Frias JP, Jastreboff AM, et al.",
-          "Lancet",
-          2023,
-          "Phase 2 trial demonstrating retatrutide's superior glycemic control compared to dulaglutide in type 2 diabetes."
-        ),
-      ]
-    },
-    {
-      areaId: "hepatic-research",
-      areaTitle: "Hepatic Research",
-      studies: [
-        createVerifiedStudy(
-          "38858523",
-          "Triple hormone receptor agonist retatrutide for metabolic dysfunction-associated steatotic liver disease: a randomized phase 2a trial",
-          "Sanyal AJ, Kaplan LM, Frias JP, et al.",
+          "25485909",
+          "A rationally designed monomeric peptide triagonist corrects obesity and diabetes in rodents",
+          "Finan B, Yang B, Ottaway N, et al.",
           "Nature Medicine",
-          2024,
-          "Phase 2a trial showing retatrutide reduces liver fat by up to 86% in MASLD patients."
+          2015,
+          "Preclinical study demonstrating that a single molecule triple agonist targeting GLP-1, GIP, and glucagon receptors corrects metabolic dysfunction in rodent models."
+        ),
+        createVerifiedStudy(
+          "19915537",
+          "A new glucagon and GLP-1 co-agonist eliminates obesity in rodents",
+          "Day JW, Ottaway N, Patterson JT, et al.",
+          "Nature Chemical Biology",
+          2009,
+          "Foundational preclinical work on dual GLP-1/glucagon agonism showing synergistic metabolic effects in rodent obesity models."
         ),
       ]
     },
@@ -470,7 +404,35 @@ export const retatrutideResearchVerified: PeptideResearch = {
           "Habegger KM, Heppner KM, Geary N, et al.",
           "Diabetes",
           2010,
-          "Study demonstrating glucagon receptor activation increases energy expenditure, supporting retatrutide's thermogenic mechanism."
+          "Preclinical study demonstrating glucagon receptor activation increases energy expenditure and thermogenesis in animal models."
+        ),
+      ]
+    },
+    {
+      areaId: "glucose-homeostasis",
+      areaTitle: "Glucose Homeostasis",
+      studies: [
+        createVerifiedStudy(
+          "17382693",
+          "GIP and GLP-1 as mediators of the incretin effect",
+          "Baggio LL, Drucker DJ",
+          "Best Practice & Research Clinical Endocrinology & Metabolism",
+          2007,
+          "Review of GIP and GLP-1 receptor signaling mechanisms relevant to glucose homeostasis and incretin-based metabolic research."
+        ),
+      ]
+    },
+    {
+      areaId: "hepatic-research",
+      areaTitle: "Hepatic Research",
+      studies: [
+        createVerifiedStudy(
+          "20852211",
+          "Glucagon's metabolic action in health and disease",
+          "Habegger KM, Heppner KM, Geary N, et al.",
+          "Journal of Clinical Investigation",
+          2010,
+          "Review of glucagon receptor signaling in hepatic fat oxidation and thermogenic pathways relevant to triple-agonist research."
         ),
       ]
     },
@@ -484,15 +446,7 @@ export const retatrutideResearchVerified: PeptideResearch = {
           "Turton MD, O'Shea D, Gunn I, Beak SA, Edwards CM, Meeran K, Choi SJ, Taylor GM, Heath MM, Lambert PD, Wilding JP, Smith DM, Ghatei MA, Herbert J, Bloom SR",
           "Nature",
           1996,
-          "Landmark preclinical study establishing GLP-1 as a physiological mediator of satiety through central nervous system mechanisms — intracerebroventricular GLP-1 powerfully inhibited feeding in fasted rats while GLP-1 receptor blockade doubled food consumption in satiated animals, providing the foundational mechanistic basis for GLP-1 receptor agonism in appetite suppression."
-        ),
-        createVerifiedStudy(
-          "40916752",
-          "Appetite, eating attitudes, and eating behaviours during treatment with retatrutide in adults with type 2 diabetes: Results of a phase 2 study",
-          "Kanu C, Boye KS, Poon JL, Goetz I, Williamson S, Lou J, Hartman ML, Martin CK, Coskun T",
-          "Diabetes, Obesity and Metabolism",
-          2025,
-          "Phase 2 clinical trial analysis showing retatrutide doses ≥4 mg produced significantly greater reductions in overall appetite, hunger, and prospective food consumption compared to placebo over 24–36 weeks, with reductions in perceived hunger correlating directly with body weight loss."
+          "Landmark preclinical study establishing GLP-1 as a physiological mediator of satiety through central nervous system mechanisms in rodent models."
         ),
       ]
     },

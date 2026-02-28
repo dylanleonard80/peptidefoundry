@@ -423,17 +423,17 @@ const FoundryClub = () => {
                 </h3>
                 <p className="text-white/60 mb-4">
                   Connect with fellow researchers in our private Discord server. Share insights,
-                  discuss protocols, and stay updated on the latest peptide research.
+                  discuss published literature, and stay updated on the latest peptide research.
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-2">
                   <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                    Research Protocols
+                    Literature Discussion
                   </span>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                    Stack Discussions
+                    Research Methodology
                   </span>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                    Product Q&A
+                    Technical Support
                   </span>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
                     Direct Team Access

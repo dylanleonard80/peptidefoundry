@@ -44,7 +44,7 @@ export const AOD9604Data: PeptidePageData = {
   peptideName: "AOD-9604",
   productImage: "/products/aod-9604.webp",
   subtitle: "A peptide studied in laboratory settings for fat metabolism, lipolysis, and body composition",
-  description: "AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains the fat-burning properties of HGH while eliminating its effects on insulin sensitivity and blood glucose.",
+  description: "AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains lipolytic signaling activity in adipocyte models while lacking the glycemic effects associated with full-length HGH.",
   casNumber: "221231-10-3",
   molecularFormula: "C₇₈H₁₂₃N₂₃O₂₃S₂",
   molarMass: "1815.08 g/mol",
@@ -62,11 +62,11 @@ export const AOD9604Data: PeptidePageData = {
     "Munro S, et al. AOD9604, a synthetic lipolytic peptide with high receptor binding affinity and in vivo efficacy. International Journal of Obesity. 2006;30(8):1217-1224."
   ],
   aboutParagraphs: [
-    "AOD-9604 got its start in the late 1990s at Monash University in Australia. Researchers there had a simple question: could they get the fat-burning benefits of growth hormone without the side effects? They knew that growth hormone could help with weight loss, but it also caused problems with blood sugar and other issues they wanted to avoid.",
-    "The team discovered something interesting. They found that just a small piece of the growth hormone molecule—specifically amino acids 176 to 191—seemed to do exactly what they wanted. This tiny fragment could target fat cells without messing with insulin or causing unwanted growth effects. They called it AOD-9604, short for Anti-Obesity Drug.",
-    "Since then, AOD-9604 has been through multiple research studies and even some clinical trials. It caught the attention of labs worldwide looking for new ways to study fat metabolism. Today, it remains one of the most well-documented peptide fragments used in metabolic research. This product is intended for research use only."
+    "AOD-9604 got its start in the late 1990s at Monash University in Australia. Researchers there were investigating whether a fragment of the growth hormone molecule could retain lipolytic signaling activity in adipocyte models without the glycemic and proliferative effects of the full-length protein.",
+    "The team identified that amino acids 176 to 191 of the growth hormone sequence exhibited lipolytic signaling in adipose tissue models without activating insulin or IGF-1-related growth pathways. They designated this fragment AOD-9604.",
+    "Since then, AOD-9604 has been the subject of numerous preclinical studies examining fat metabolism pathways. It caught the attention of labs worldwide looking for new ways to study lipolytic mechanisms. Today, it remains one of the most well-documented peptide fragments used in metabolic research. This product is intended for research use only."
   ],
-  howItWorksIntro: "AOD-9604 provides targeted fat loss by activating the same fat-burning pathways as growth hormone, but without affecting blood sugar, insulin sensitivity, or causing tissue growth. This makes it an exceptionally safe option for body composition optimization.",
+  howItWorksIntro: "Preclinical studies have examined AOD-9604's mechanism of action involving the same lipolytic signaling pathways as growth hormone, but without observed effects on glucose metabolism, insulin sensitivity, or tissue growth in laboratory models.",
   howItWorksAccordions: [
     { value: "receptor", iconName: "Target", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Beta-3 Adrenergic Receptor Activation", content: "AOD-9604 selectively binds to and activates beta-3 adrenergic receptors located predominantly in adipose tissue. This activation triggers a cascade of intracellular signaling events that promote lipolysis through increased cAMP production and activation of hormone-sensitive lipase." },
     { value: "lipolysis", iconName: "Flame", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Enhanced Lipolytic Activity", content: "The peptide significantly increases the rate of lipolysis by upregulating hormone-sensitive lipase and adipose triglyceride lipase activity. The released fatty acids are transported to mitochondria for beta-oxidation, generating ATP and promoting overall fat loss." },
@@ -86,12 +86,12 @@ export const BPC157Data: PeptidePageData = {
   peptideName: "BPC-157",
   productImage: "/products/bpc-157.webp",
   subtitle: "A peptide studied in laboratory settings for tissue regeneration and healing mechanisms",
-  description: "BPC-157 is a short chain of amino acids, a peptide naturally found in gastric juice. It's often called a 'body protection compound' due to its wide-ranging potential benefits, particularly in tissue repair and inflammation modulation.",
+  description: "BPC-157 is a short chain of amino acids, a peptide originally isolated from gastric juice. It has been studied in preclinical models for effects on tissue regeneration pathways and inflammatory signaling cascades.",
   casNumber: "137525-51-0",
   molecularFormula: "C₆₂H₉₈N₁₆O₂₂",
   molarMass: "1419.55 g/mol",
   showInfoCard: true,
-  infoCardText: "All products are shipped in lyophilized or powder form and must be reconstituted to a liquid for research and testing. We are unable to provide any dosing instructions, however all products should be considered pharmaceutical grade.",
+  infoCardText: "All products are shipped in lyophilized form and must be reconstituted for in-vitro research applications. Refer to the Certificate of Analysis for purity and identity specifications.",
   benefits: [
     { iconName: "Zap", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Tissue Regeneration", description: "Investigated in preclinical models for its effects on muscle, tendon, and ligament tissue repair mechanisms", link: "(Preclinical Study)" },
     { iconName: "Heart", iconBgClass: "bg-red-100 dark:bg-red-900/30", title: "Wound Healing", description: "Examined in animal wound models for observations related to tissue closure and ulcer repair pathways", link: "(Preclinical Study)" },
@@ -131,7 +131,7 @@ export const IGF1LR3Data: PeptidePageData = {
   molecularFormula: "C₄₀₀H₆₂₅N₁₁₁O₁₁₅S₉",
   molarMass: "9111.3 g/mol",
   showInfoCard: true,
-  infoCardText: "All products are shipped in lyophilized or powder form and must be reconstituted to a liquid for research and testing. We are unable to provide any dosing instructions, however all products should be considered pharmaceutical grade.",
+  infoCardText: "All products are shipped in lyophilized form and must be reconstituted for in-vitro research applications. Refer to the Certificate of Analysis for purity and identity specifications.",
   benefits: [
     { iconName: "TrendingUp", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Growth & Organ Effects (Preclinical)", description: "Preclinical study demonstrating LR3 IGF-I infusion stimulates organ growth (adrenals, gut, kidneys, spleen) in guinea pig models", link: "(Preclinical Study)" },
     { iconName: "Heart", iconBgClass: "bg-red-100 dark:bg-red-900/30", title: "Cardiac Cell Signaling / Proliferation Pathways (Preclinical)", description: "Investigation of LR3 IGF-1's stimulation of cardiomyocyte proliferation through ERK and PI3K signaling cascades in fetal sheep", link: "(Preclinical Study)" },
@@ -297,7 +297,7 @@ export const RetatrutideData: PeptidePageData = {
   peptideName: "GLP-3RT",
   productImage: "/products/glp-3rt-10mg.webp",
   subtitle: "A peptide studied in laboratory settings for triple incretin receptor agonism and metabolic regulation",
-  description: "GLP-3RT (LY3437943) is a novel triple agonist peptide that activates GLP-1, GIP, and glucagon receptors simultaneously. This unique mechanism engages three complementary metabolic pathways for enhanced effects on energy balance and glucose homeostasis.",
+  description: "GLP-3RT is a novel triple agonist peptide that activates GLP-1, GIP, and glucagon receptors simultaneously. This unique mechanism engages three complementary metabolic pathways for enhanced effects on energy balance and glucose homeostasis.",
   casNumber: "2381089-83-2",
   molecularFormula: "C₂₂₅H₃₄₈N₆₀O₆₈S",
   molarMass: "5104.6 g/mol",
@@ -310,14 +310,14 @@ export const RetatrutideData: PeptidePageData = {
     { iconName: "Brain", iconBgClass: "bg-pink-100 dark:bg-pink-900/30", title: "Appetite Regulation", description: "Examined for CNS-mediated effects on satiety and food intake through incretin pathways", link: "(Preclinical Study)" }
   ],
   references: [
-    "Jastreboff AM, et al. Triple-hormone-receptor agonist retatrutide for obesity — A phase 2 trial. New England Journal of Medicine. 2023;389(6):514-526.",
-    "Rosenstock J, et al. Retatrutide, a GIP, GLP-1 and glucagon receptor agonist, for people with type 2 diabetes. Lancet. 2023;402(10401):529-544.",
-    "Coskun T, et al. LY3437943, a novel triple glucagon, GIP, GLP-1 receptor agonist for glycemic control and weight loss. Cell Metabolism. 2022;34(8):1234-1247."
+    "Coskun T, et al. A novel triple glucagon, GIP, and GLP-1 receptor agonist for glycemic control and weight loss: From discovery to clinical proof of concept. Cell Metabolism. 2022;34(8):1234-1247.",
+    "Habegger KM, et al. Glucagon receptor agonism enhances energy expenditure and improves glucose tolerance. Diabetes. 2010;59(7):1635-1639.",
+    "Day JW, et al. A new glucagon and GLP-1 co-agonist eliminates obesity in rodents. Nature Chemical Biology. 2009;5(10):749-757."
   ],
   aboutParagraphs: [
-    "GLP-3RT was developed by Eli Lilly and Company, emerging from their extensive research into incretin-based therapies. Building on the success of dual agonists like tirzepatide, Lilly scientists hypothesized that adding glucagon receptor activation could further enhance metabolic effects by increasing energy expenditure—something the other incretin hormones don't directly address.",
+    "GLP-3RT emerged from advances in incretin-based research. Building on the development of dual agonists, researchers hypothesized that adding glucagon receptor activation could further enhance metabolic effects by increasing energy expenditure—something the other incretin hormones don't directly address.",
     "The key innovation was engineering a single molecule capable of activating three distinct but related receptors with carefully balanced potency. Glucagon, while traditionally viewed as a hormone that raises blood sugar, also powerfully stimulates hepatic fat oxidation and thermogenesis. By combining this with the appetite-suppressing and insulin-sensitizing effects of GLP-1 and GIP agonism, researchers created a comprehensive approach to metabolic modulation.",
-    "Early clinical data published in 2023 generated significant scientific interest, with phase 2 trials demonstrating unprecedented effects on body weight. GLP-3RT represents the cutting edge of incretin pharmacology research and continues to be studied in ongoing clinical programs. This product is intended for research use only."
+    "GLP-3RT represents the cutting edge of incretin pharmacology research and has generated significant scientific interest due to its unique triple-agonist mechanism. Preclinical studies continue to explore its effects on energy balance, glucose homeostasis, and hepatic metabolism. This product is intended for research use only."
   ],
   howItWorksIntro: "Preclinical studies have examined GLP-3RT's unique mechanism as the first triple agonist engaging GLP-1, GIP, and glucagon receptors simultaneously for synergistic metabolic effects.",
   howItWorksAccordions: [
