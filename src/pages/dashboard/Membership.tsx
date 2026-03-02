@@ -14,8 +14,10 @@ import {
   Sparkles,
   Crown,
   ArrowRight,
+  Loader2,
 } from "lucide-react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 import FoundryClubLink from "@/components/FoundryClubLink";
 
 const benefits = [
@@ -25,10 +27,52 @@ const benefits = [
 ];
 
 const DashboardMembership = () => {
-  const { isMember, subscriptionEnd, canceled, loading } = useMembership();
+  const { isMember, subscriptionEnd, canceled, loading, checkMembership } = useMembership();
   const { user } = useAuth();
   const [orderCount, setOrderCount] = useState(0);
   const [memberSince, setMemberSince] = useState<string | null>(null);
+  const [isCanceling, setIsCanceling] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+
+  const handleCancelMembership = async () => {
+    setIsCanceling(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Session expired. Please sign in and try again.");
+        return;
+      }
+
+      const { data: result, error } = await supabase.functions.invoke("cancel-subscription", {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+
+      if (error) {
+        let message = "Failed to cancel membership. Please contact support.";
+        try {
+          const body = JSON.parse(error.message);
+          message = body.error || message;
+        } catch {}
+        toast.error(message);
+        return;
+      }
+
+      toast.success("Membership canceled", {
+        description: result.accessUntil
+          ? `You'll retain access until ${format(new Date(result.accessUntil), "MMMM d, yyyy")}.`
+          : "Your access will continue until the end of your billing period.",
+      });
+
+      setShowCancelConfirm(false);
+      localStorage.removeItem("membership_cache");
+      checkMembership();
+    } catch (err) {
+      console.error("Error canceling membership:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsCanceling(false);
+    }
+  };
   useEffect(() => {
     const fetchMemberData = async () => {
       if (!user) return;
@@ -131,6 +175,58 @@ const DashboardMembership = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Cancel Membership */}
+                {!canceled && (
+                  <div className="pt-4 border-t">
+                    {!showCancelConfirm ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowCancelConfirm(true)}
+                        className="text-muted-foreground hover:text-destructive"
+                      >
+                        Cancel Membership
+                      </Button>
+                    ) : (
+                      <div className="space-y-3 p-4 rounded-lg bg-destructive/5 border border-destructive/20">
+                        <p className="text-sm text-muted-foreground">
+                          Are you sure? You'll retain access until{" "}
+                          <span className="font-medium text-foreground">
+                            {subscriptionEnd
+                              ? format(new Date(subscriptionEnd), "MMMM d, yyyy")
+                              : "the end of your billing period"}
+                          </span>.
+                        </p>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={handleCancelMembership}
+                            disabled={isCanceling}
+                          >
+                            {isCanceling ? (
+                              <>
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                Canceling...
+                              </>
+                            ) : (
+                              "Yes, Cancel"
+                            )}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setShowCancelConfirm(false)}
+                            disabled={isCanceling}
+                          >
+                            Keep Membership
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
               </CardContent>
             </Card>

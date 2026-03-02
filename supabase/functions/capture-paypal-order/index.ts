@@ -72,8 +72,8 @@ serve(async (req) => {
     } = body;
 
     if (!paypalOrderId) throw new Error("Missing paypalOrderId");
-    if (!type || (type !== "order" && type !== "membership")) {
-      throw new Error("Invalid type: must be 'order' or 'membership'");
+    if (type !== "order") {
+      throw new Error("Invalid type: must be 'order'");
     }
 
     // Authenticate the user (required for all requests)
@@ -139,352 +139,242 @@ serve(async (req) => {
     );
     logStep("PayPal order amount", { paypalAmount });
 
-    if (type === "order") {
-      // --- ORDER FLOW ---
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      throw new Error("Missing or empty items array");
+    }
 
-      if (!items || !Array.isArray(items) || items.length === 0) {
-        throw new Error("Missing or empty items array");
+    // Look up each item's price from the database
+    const isMember = await checkActiveMembership(supabaseClient, userId);
+    logStep("Membership check", { isMember });
+
+    let expectedSubtotal = 0;
+    const verifiedItems: Array<{
+      slug: string;
+      size: string;
+      quantity: number;
+      name: string;
+      price: number;
+    }> = [];
+
+    for (const item of items) {
+      if (!item.slug || !item.size || !item.quantity) {
+        throw new Error(`Invalid item: missing slug, size, or quantity`);
       }
 
-      // Look up each item's price from the database
-      const isMember = await checkActiveMembership(supabaseClient, userId);
-      logStep("Membership check", { isMember });
+      const { data: variant, error: variantError } = await supabaseClient
+        .from('product_variants')
+        .select('price, member_price, products!inner(slug, name)')
+        .eq('products.slug', item.slug)
+        .eq('size_label', item.size)
+        .single();
 
-      let expectedSubtotal = 0;
-      const verifiedItems: Array<{
-        slug: string;
-        size: string;
-        quantity: number;
-        name: string;
-        price: number;
-      }> = [];
-
-      for (const item of items) {
-        if (!item.slug || !item.size || !item.quantity) {
-          throw new Error(`Invalid item: missing slug, size, or quantity`);
-        }
-
-        const { data: variant, error: variantError } = await supabaseClient
-          .from('product_variants')
-          .select('price, member_price, products!inner(slug, name)')
-          .eq('products.slug', item.slug)
-          .eq('size_label', item.size)
-          .single();
-
-        if (variantError || !variant) {
-          logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
-          throw new Error(`Product not found: ${item.slug} (${item.size})`);
-        }
-
-        const unitPrice = (isMember && variant.member_price != null)
-          ? Number(variant.member_price)
-          : Number(variant.price);
-        const lineTotal = unitPrice * item.quantity;
-        expectedSubtotal += lineTotal;
-
-        verifiedItems.push({
-          slug: item.slug,
-          size: item.size,
-          quantity: item.quantity,
-          name: item.name || (variant.products as any).name,
-          price: unitPrice,
-        });
-
-        logStep("Item verified", {
-          slug: item.slug,
-          size: item.size,
-          quantity: item.quantity,
-          unitPrice,
-          lineTotal,
-        });
+      if (variantError || !variant) {
+        logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
+        throw new Error(`Product not found: ${item.slug} (${item.size})`);
       }
 
-      // Server-determined shipping and tax — never trust client values
-      const shippingAmount = 0; // Free shipping
-      const taxLineItems = verifiedItems.map((v) => ({
-        quantity: v.quantity,
-        unit_price: v.price,
-      }));
-      let taxAmount = 0;
-      if (shippingAddress?.state && (shippingAddress?.zip || shippingAddress?.zipCode)) {
-        taxAmount = await calculateTax({
-          toAddress: {
-            street: shippingAddress.street || "",
-            city: shippingAddress.city || "",
-            state: shippingAddress.state,
-            zip: shippingAddress.zip || shippingAddress.zipCode || "",
-          },
-          shipping: shippingAmount,
-          lineItems: taxLineItems,
-        });
-      }
-      const expectedTotal = Math.round((expectedSubtotal + shippingAmount + taxAmount) * 100) / 100;
+      const unitPrice = (isMember && variant.member_price != null)
+        ? Number(variant.member_price)
+        : Number(variant.price);
+      const lineTotal = unitPrice * item.quantity;
+      expectedSubtotal += lineTotal;
 
-      logStep("Price verification", {
-        expectedSubtotal,
-        shippingAmount,
-        taxAmount,
-        expectedTotal,
-        paypalAmount,
+      verifiedItems.push({
+        slug: item.slug,
+        size: item.size,
+        quantity: item.quantity,
+        name: item.name || (variant.products as any).name,
+        price: unitPrice,
       });
 
-      // Compare expected total against PayPal order amount (allow +/- $0.01)
-      if (Math.abs(expectedTotal - paypalAmount) > 0.01) {
-        return new Response(
-          JSON.stringify({
-            error: `Price mismatch — expected $${expectedTotal.toFixed(2)}, PayPal order is $${paypalAmount.toFixed(2)}`,
-          }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
-        );
-      }
+      logStep("Item verified", {
+        slug: item.slug,
+        size: item.size,
+        quantity: item.quantity,
+        unitPrice,
+        lineTotal,
+      });
+    }
 
-      // Duplicate prevention: check if order with this paypalOrderId already exists
-      const { data: existingOrder } = await supabaseClient
-        .from('orders')
-        .select('id, order_number')
-        .eq('stripe_payment_id', paypalOrderId)
-        .maybeSingle();
-
-      if (existingOrder) {
-        logStep("Duplicate order detected", { existingOrderId: existingOrder.id });
-        return new Response(
-          JSON.stringify({
-            error: "This payment has already been processed",
-            orderNumber: existingOrder.order_number,
-            orderId: existingOrder.id,
-          }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 409 }
-        );
-      }
-
-      // Capture the payment via PayPal
-      const captureRes = await fetch(`${apiUrl}/v2/checkout/orders/${paypalOrderId}/capture`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
+    // Server-determined shipping and tax — never trust client values
+    const shippingAmount = 0; // Free shipping
+    const taxLineItems = verifiedItems.map((v) => ({
+      quantity: v.quantity,
+      unit_price: v.price,
+    }));
+    let taxAmount = 0;
+    if (shippingAddress?.state && (shippingAddress?.zip || shippingAddress?.zipCode)) {
+      taxAmount = await calculateTax({
+        toAddress: {
+          street: shippingAddress.street || "",
+          city: shippingAddress.city || "",
+          state: shippingAddress.state,
+          zip: shippingAddress.zip || shippingAddress.zipCode || "",
         },
+        shipping: shippingAmount,
+        lineItems: taxLineItems,
       });
+    }
+    const expectedTotal = Math.round((expectedSubtotal + shippingAmount + taxAmount) * 100) / 100;
 
-      if (!captureRes.ok) {
-        const text = await captureRes.text();
-        logStep("PayPal capture failed", { status: captureRes.status, body: text });
-        throw new Error(`PayPal capture failed: ${captureRes.status}`);
-      }
+    logStep("Price verification", {
+      expectedSubtotal,
+      shippingAmount,
+      taxAmount,
+      expectedTotal,
+      paypalAmount,
+    });
 
-      const captureData = await captureRes.json();
-      logStep("PayPal capture response", { status: captureData.status });
+    // Compare expected total against PayPal order amount (allow +/- $0.01)
+    if (Math.abs(expectedTotal - paypalAmount) > 0.01) {
+      return new Response(
+        JSON.stringify({
+          error: `Price mismatch — expected $${expectedTotal.toFixed(2)}, PayPal order is $${paypalAmount.toFixed(2)}`,
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
 
-      if (captureData.status !== "COMPLETED") {
-        throw new Error(`Payment capture not completed: ${captureData.status}`);
-      }
+    // Duplicate prevention: check if order with this paypalOrderId already exists
+    const { data: existingOrder } = await supabaseClient
+      .from('orders')
+      .select('id, order_number')
+      .eq('stripe_payment_id', paypalOrderId)
+      .maybeSingle();
 
-      // Insert order with server-calculated prices
-      const orderNumber = generateOrderNumber();
-      const orderItems = verifiedItems.map((v) => ({
-        peptide_name: v.name,
-        slug: v.slug,
-        size: v.size,
-        quantity: v.quantity,
-        price: v.price,
-      }));
+    if (existingOrder) {
+      logStep("Duplicate order detected", { existingOrderId: existingOrder.id });
+      return new Response(
+        JSON.stringify({
+          error: "This payment has already been processed",
+          orderNumber: existingOrder.order_number,
+          orderId: existingOrder.id,
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 409 }
+      );
+    }
 
-      let order: any;
-      try {
-        const { data: insertedOrder, error: orderError } = await supabaseClient
-          .from('orders')
-          .insert([{
-            order_number: orderNumber,
-            user_id: userId,
-            items: orderItems,
-            subtotal: Math.round(expectedSubtotal * 100) / 100,
-            shipping: Math.round(shippingAmount * 100) / 100,
-            tax: taxAmount,
-            total: Math.round(expectedTotal * 100) / 100,
-            shipping_address: shippingAddress || {},
-            status: 'processing',
-            stripe_payment_id: paypalOrderId,
-          }])
-          .select()
-          .single();
+    // Capture the payment via PayPal
+    const captureRes = await fetch(`${apiUrl}/v2/checkout/orders/${paypalOrderId}/capture`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-        if (orderError) {
-          // Check if it's a unique constraint violation (duplicate payment)
-          if (orderError.code === '23505') {
-            logStep("Duplicate payment ID on insert", { paypalOrderId });
-            const { data: existingOrder } = await supabaseClient
-              .from('orders')
-              .select('id, order_number')
-              .eq('stripe_payment_id', paypalOrderId)
-              .maybeSingle();
-            return new Response(JSON.stringify({
-              error: "This payment has already been processed",
-              orderNumber: existingOrder?.order_number,
-              orderId: existingOrder?.id,
-            }), {
-              headers: { ...corsHeaders, "Content-Type": "application/json" },
-              status: 409,
-            });
-          }
-          throw orderError;
-        }
-        order = insertedOrder;
-      } catch (insertErr) {
-        // CRITICAL: Payment was captured but order insert failed.
-        // Log everything needed for manual recovery.
-        logStep("CRITICAL: Payment captured but order insert failed", {
-          paypalOrderId,
-          captureStatus: captureData.status,
-          userId,
-          orderNumber,
+    if (!captureRes.ok) {
+      const text = await captureRes.text();
+      logStep("PayPal capture failed", { status: captureRes.status, body: text });
+      throw new Error(`PayPal capture failed: ${captureRes.status}`);
+    }
+
+    const captureData = await captureRes.json();
+    logStep("PayPal capture response", { status: captureData.status });
+
+    if (captureData.status !== "COMPLETED") {
+      throw new Error(`Payment capture not completed: ${captureData.status}`);
+    }
+
+    // Insert order with server-calculated prices
+    const orderNumber = generateOrderNumber();
+    const orderItems = verifiedItems.map((v) => ({
+      peptide_name: v.name,
+      slug: v.slug,
+      size: v.size,
+      quantity: v.quantity,
+      price: v.price,
+    }));
+
+    let order: any;
+    try {
+      const { data: insertedOrder, error: orderError } = await supabaseClient
+        .from('orders')
+        .insert([{
+          order_number: orderNumber,
+          user_id: userId,
           items: orderItems,
-          subtotal: expectedSubtotal,
-          shipping: shippingAmount,
-          total: expectedTotal,
-          error: insertErr instanceof Error ? insertErr.message : String(insertErr),
-        });
-        // Return success to the user since their payment went through.
-        // The order details are logged for manual recovery.
-        return new Response(JSON.stringify({
-          success: true,
-          orderNumber,
-          orderId: null,
-          warning: "Order recorded for processing. Please contact support if you don't receive a confirmation email.",
-        }), {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          status: 200,
-        });
+          subtotal: Math.round(expectedSubtotal * 100) / 100,
+          shipping: Math.round(shippingAmount * 100) / 100,
+          tax: taxAmount,
+          total: Math.round(expectedTotal * 100) / 100,
+          shipping_address: shippingAddress || {},
+          status: 'processing',
+          stripe_payment_id: paypalOrderId,
+        }])
+        .select()
+        .single();
+
+      if (orderError) {
+        // Check if it's a unique constraint violation (duplicate payment)
+        if (orderError.code === '23505') {
+          logStep("Duplicate payment ID on insert", { paypalOrderId });
+          const { data: existingOrder } = await supabaseClient
+            .from('orders')
+            .select('id, order_number')
+            .eq('stripe_payment_id', paypalOrderId)
+            .maybeSingle();
+          return new Response(JSON.stringify({
+            error: "This payment has already been processed",
+            orderNumber: existingOrder?.order_number,
+            orderId: existingOrder?.id,
+          }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            status: 409,
+          });
+        }
+        throw orderError;
       }
-
-      logStep("Order created", { orderId: order.id, orderNumber });
-
-      // Clear cart for authenticated user
-      const { error: cartError } = await supabaseClient
-        .from('carts')
-        .delete()
-        .eq('user_id', userId);
-
-      if (cartError) {
-        logStep("Warning: Failed to clear cart", { error: cartError.message });
-      } else {
-        logStep("Cart cleared");
-      }
-
+      order = insertedOrder;
+    } catch (insertErr) {
+      // CRITICAL: Payment was captured but order insert failed.
+      // Log everything needed for manual recovery.
+      logStep("CRITICAL: Payment captured but order insert failed", {
+        paypalOrderId,
+        captureStatus: captureData.status,
+        userId,
+        orderNumber,
+        items: orderItems,
+        subtotal: expectedSubtotal,
+        shipping: shippingAmount,
+        total: expectedTotal,
+        error: insertErr instanceof Error ? insertErr.message : String(insertErr),
+      });
+      // Return success to the user since their payment went through.
+      // The order details are logged for manual recovery.
       return new Response(JSON.stringify({
         success: true,
         orderNumber,
-        orderId: order.id,
-      }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
-
-    } else {
-      // --- MEMBERSHIP FLOW ---
-
-      // Verify PayPal order amount is exactly $50.00
-      if (Math.abs(paypalAmount - 50.00) > 0.01) {
-        return new Response(
-          JSON.stringify({
-            error: `Invalid membership amount — expected $50.00, PayPal order is $${paypalAmount.toFixed(2)}`,
-          }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
-        );
-      }
-
-      // Duplicate prevention: check if membership was already activated with this transaction
-      const { data: existingMembership } = await supabaseClient
-        .from('memberships')
-        .select('id, stripe_subscription_id')
-        .eq('user_id', userId)
-        .eq('stripe_subscription_id', paypalOrderId)
-        .maybeSingle();
-
-      if (existingMembership) {
-        logStep("Duplicate membership transaction detected", { existingId: existingMembership.id });
-        return new Response(
-          JSON.stringify({ error: "This membership payment has already been processed" }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 409 }
-        );
-      }
-
-      // Capture the payment via PayPal
-      const captureRes = await fetch(`${apiUrl}/v2/checkout/orders/${paypalOrderId}/capture`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!captureRes.ok) {
-        const text = await captureRes.text();
-        logStep("PayPal capture failed", { status: captureRes.status, body: text });
-        throw new Error(`PayPal capture failed: ${captureRes.status}`);
-      }
-
-      const captureData = await captureRes.json();
-      logStep("PayPal capture response", { status: captureData.status });
-
-      if (captureData.status !== "COMPLETED") {
-        throw new Error(`Payment capture not completed: ${captureData.status}`);
-      }
-
-      const now = new Date();
-      const periodEnd = new Date(now);
-      periodEnd.setDate(periodEnd.getDate() + 30);
-
-      let membership: any;
-      try {
-        const { data: upsertedMembership, error: upsertError } = await supabaseClient
-          .from('memberships')
-          .upsert({
-            user_id: userId,
-            status: 'active',
-            stripe_subscription_id: paypalOrderId,
-            current_period_start: now.toISOString(),
-            current_period_end: periodEnd.toISOString(),
-          }, {
-            onConflict: 'user_id',
-          })
-          .select()
-          .single();
-
-        if (upsertError) throw upsertError;
-        membership = upsertedMembership;
-      } catch (upsertErr) {
-        // Payment captured but membership upsert failed — log for manual recovery
-        logStep("CRITICAL: Payment captured but membership upsert failed", {
-          paypalOrderId,
-          userId,
-          error: upsertErr instanceof Error ? upsertErr.message : String(upsertErr),
-        });
-        return new Response(JSON.stringify({
-          success: true,
-          warning: "Payment received. Your membership will be activated shortly — please contact support if it doesn't appear within an hour.",
-        }), {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          status: 200,
-        });
-      }
-
-      logStep("Membership activated", {
-        membershipId: membership.id,
-        periodEnd: periodEnd.toISOString(),
-      });
-
-      return new Response(JSON.stringify({
-        success: true,
-        membership: {
-          id: membership.id,
-          status: membership.status,
-          currentPeriodEnd: membership.current_period_end,
-        },
+        orderId: null,
+        warning: "Order recorded for processing. Please contact support if you don't receive a confirmation email.",
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
     }
+
+    logStep("Order created", { orderId: order.id, orderNumber });
+
+    // Clear cart for authenticated user
+    const { error: cartError } = await supabaseClient
+      .from('carts')
+      .delete()
+      .eq('user_id', userId);
+
+    if (cartError) {
+      logStep("Warning: Failed to clear cart", { error: cartError.message });
+    } else {
+      logStep("Cart cleared");
+    }
+
+    return new Response(JSON.stringify({
+      success: true,
+      orderNumber,
+      orderId: order.id,
+    }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
 
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);

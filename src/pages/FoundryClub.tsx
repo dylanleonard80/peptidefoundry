@@ -11,7 +11,6 @@ import { Hexagon, Loader2, Percent, Truck, Clock, ArrowRight, ArrowLeft } from '
 import { toast } from 'sonner';
 import { usePrices } from '@/hooks/usePrices';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { supabase } from '@/integrations/supabase/client';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 
 const FoundryClub = () => {
@@ -227,8 +226,8 @@ const FoundryClub = () => {
                     <PayPalScriptProvider options={{
                       clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD",
-                      intent: "capture",
-                      "enable-funding": "venmo,applepay",
+                      intent: "subscription",
+                      vault: true,
                       "disable-funding": "paylater",
                     }}>
                       <PayPalButtons
@@ -236,67 +235,23 @@ const FoundryClub = () => {
                           layout: "vertical",
                           color: "gold",
                           shape: "rect",
-                          label: "paypal",
+                          label: "subscribe",
                         }}
-                        createOrder={async () => {
-                          const { data: { session } } = await supabase.auth.getSession();
-                          if (!session) {
-                            toast.error('Session expired. Please sign in and try again.');
-                            throw new Error('Session expired');
-                          }
-
-                          const { data: result, error } = await supabase.functions.invoke("create-paypal-order", {
-                            headers: { Authorization: `Bearer ${session.access_token}` },
-                            body: { type: "membership" },
+                        createSubscription={(_data, actions) => {
+                          return actions.subscription.create({
+                            plan_id: import.meta.env.VITE_PAYPAL_PLAN_ID,
+                            custom_id: user!.id,
                           });
-
-                          if (error) {
-                            let message = 'Could not create order. Please try again.';
-                            try {
-                              const body = JSON.parse(error.message);
-                              message = body.error || message;
-                            } catch {}
-                            toast.error(message);
-                            throw new Error(message);
-                          }
-
-                          return result.paypalOrderId;
                         }}
-                        onApprove={async (data, _actions) => {
-                          try {
-                            const { data: { session } } = await supabase.auth.getSession();
-                            if (!session) {
-                              toast.error('Session expired. Please sign in and try again.');
-                              return;
-                            }
-                            const { data: result, error } = await supabase.functions.invoke("capture-paypal-order", {
-                              headers: { Authorization: `Bearer ${session.access_token}` },
-                              body: {
-                                paypalOrderId: data.orderID,
-                                type: "membership",
-                              },
-                            });
-
-                            if (error) {
-                              console.error('Membership activation failed:', error);
-                              let message = 'Payment failed. Please contact support.';
-                              try {
-                                const body = JSON.parse(error.message);
-                                message = body.error || message;
-                              } catch {}
-                              toast.error(message);
-                              return;
-                            }
-
-                            toast.success('Welcome to The Foundry Club!', {
-                              description: 'Your membership is now active. Enjoy wholesale pricing on all peptides!'
-                            });
-                            setShowPayment(false);
-                            checkMembership();
-                          } catch (err) {
-                            console.error('Error capturing membership payment:', err);
-                            toast.error('Payment failed. Please contact support.');
-                          }
+                        onApprove={async () => {
+                          toast.success('Welcome to The Foundry Club!', {
+                            description: 'Your membership is now active. Enjoy wholesale pricing on all peptides!'
+                          });
+                          setShowPayment(false);
+                          // Clear membership cache so useMembership re-fetches
+                          localStorage.removeItem('membership_cache');
+                          // Brief delay for webhook to fire before re-checking
+                          setTimeout(() => checkMembership(), 2000);
                         }}
                         onCancel={() => {
                           toast.info('Payment cancelled', {

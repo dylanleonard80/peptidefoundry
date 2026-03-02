@@ -79,11 +79,11 @@ serve(async (req) => {
     const body = await req.json();
     const { type, items, shippingAddress } = body;
 
-    if (!type || (type !== "order" && type !== "membership")) {
-      throw new Error("Invalid type: must be 'order' or 'membership'");
+    if (type !== "order") {
+      throw new Error("Invalid type: must be 'order'");
     }
 
-    // Authenticate the user (required for both order and membership)
+    // Authenticate the user
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       return new Response(
@@ -119,148 +119,115 @@ serve(async (req) => {
     let serverTax = 0;
     const serverShipping = 0; // Free shipping
 
-    if (type === "order") {
-      // --- ORDER FLOW: Server-side price authority ---
-
-      if (!items || !Array.isArray(items) || items.length === 0) {
-        throw new Error("Missing or empty items array");
-      }
-
-      // Check membership for pricing tier
-      const isMember = await checkActiveMembership(supabaseClient, userId);
-      logStep("Membership check", { isMember });
-
-      // Look up each item's price from the database
-      const paypalItems: Array<{ name: string; unit_amount: { currency_code: string; value: string }; quantity: string; category: string }> = [];
-      const taxLineItems: Array<{ quantity: number; unit_price: number }> = [];
-
-      for (const item of items) {
-        if (!item.slug || !item.size || !item.quantity || item.quantity < 1) {
-          throw new Error(`Invalid item: missing slug, size, or quantity`);
-        }
-
-        const { data: variant, error: variantError } = await supabaseClient
-          .from('product_variants')
-          .select('price, member_price, products!inner(slug, name)')
-          .eq('products.slug', item.slug)
-          .eq('size_label', item.size)
-          .single();
-
-        if (variantError || !variant) {
-          logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
-          throw new Error(`Product not found: ${item.slug} (${item.size})`);
-        }
-
-        const unitPrice = (isMember && variant.member_price != null)
-          ? Number(variant.member_price)
-          : Number(variant.price);
-        const lineTotal = unitPrice * item.quantity;
-        serverSubtotal += lineTotal;
-
-        paypalItems.push({
-          name: `${(variant.products as any).name} (${item.size})`,
-          unit_amount: {
-            currency_code: "USD",
-            value: unitPrice.toFixed(2),
-          },
-          quantity: String(item.quantity),
-          category: "PHYSICAL_GOODS",
-        });
-
-        taxLineItems.push({
-          quantity: item.quantity,
-          unit_price: unitPrice,
-        });
-
-        logStep("Item verified", {
-          slug: item.slug,
-          size: item.size,
-          quantity: item.quantity,
-          unitPrice,
-          lineTotal,
-        });
-      }
-
-      // Calculate tax server-side via TaxJar
-      if (shippingAddress?.state && shippingAddress?.zip) {
-        serverTax = await calculateTax({
-          toAddress: {
-            street: shippingAddress.street || "",
-            city: shippingAddress.city || "",
-            state: shippingAddress.state,
-            zip: shippingAddress.zip || shippingAddress.zipCode || "",
-          },
-          shipping: serverShipping,
-          lineItems: taxLineItems,
-        });
-      }
-      logStep("Tax calculated", { serverTax });
-
-      serverSubtotal = Math.round(serverSubtotal * 100) / 100;
-      const serverTotal = Math.round((serverSubtotal + serverShipping + serverTax) * 100) / 100;
-
-      orderNumber = generateOrderNumber();
-
-      paypalBody = {
-        intent: "CAPTURE",
-        purchase_units: [{
-          reference_id: orderNumber,
-          description: `Peptide Foundry Order ${orderNumber}`,
-          amount: {
-            currency_code: "USD",
-            value: serverTotal.toFixed(2),
-            breakdown: {
-              item_total: {
-                currency_code: "USD",
-                value: serverSubtotal.toFixed(2),
-              },
-              shipping: {
-                currency_code: "USD",
-                value: serverShipping.toFixed(2),
-              },
-              ...(serverTax > 0 ? {
-                tax_total: {
-                  currency_code: "USD",
-                  value: serverTax.toFixed(2),
-                },
-              } : {}),
-            },
-          },
-          items: paypalItems,
-        }],
-      };
-
-      logStep("Creating PayPal order", { orderNumber, serverSubtotal, serverTax, serverTotal });
-    } else {
-      // --- MEMBERSHIP FLOW: Hardcoded $50 ---
-      paypalBody = {
-        intent: "CAPTURE",
-        purchase_units: [{
-          description: "Foundry Club Membership - 30 Days",
-          amount: {
-            currency_code: "USD",
-            value: "50.00",
-            breakdown: {
-              item_total: {
-                currency_code: "USD",
-                value: "50.00",
-              },
-            },
-          },
-          items: [{
-            name: "Foundry Club Membership - 30 Days",
-            unit_amount: {
-              currency_code: "USD",
-              value: "50.00",
-            },
-            quantity: "1",
-            category: "DIGITAL_GOODS",
-          }],
-        }],
-      };
-
-      logStep("Creating PayPal membership order", { userId });
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      throw new Error("Missing or empty items array");
     }
+
+    // Check membership for pricing tier
+    const isMember = await checkActiveMembership(supabaseClient, userId);
+    logStep("Membership check", { isMember });
+
+    // Look up each item's price from the database
+    const paypalItems: Array<{ name: string; unit_amount: { currency_code: string; value: string }; quantity: string; category: string }> = [];
+    const taxLineItems: Array<{ quantity: number; unit_price: number }> = [];
+
+    for (const item of items) {
+      if (!item.slug || !item.size || !item.quantity || item.quantity < 1) {
+        throw new Error(`Invalid item: missing slug, size, or quantity`);
+      }
+
+      const { data: variant, error: variantError } = await supabaseClient
+        .from('product_variants')
+        .select('price, member_price, products!inner(slug, name)')
+        .eq('products.slug', item.slug)
+        .eq('size_label', item.size)
+        .single();
+
+      if (variantError || !variant) {
+        logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
+        throw new Error(`Product not found: ${item.slug} (${item.size})`);
+      }
+
+      const unitPrice = (isMember && variant.member_price != null)
+        ? Number(variant.member_price)
+        : Number(variant.price);
+      const lineTotal = unitPrice * item.quantity;
+      serverSubtotal += lineTotal;
+
+      paypalItems.push({
+        name: `${(variant.products as any).name} (${item.size})`,
+        unit_amount: {
+          currency_code: "USD",
+          value: unitPrice.toFixed(2),
+        },
+        quantity: String(item.quantity),
+        category: "PHYSICAL_GOODS",
+      });
+
+      taxLineItems.push({
+        quantity: item.quantity,
+        unit_price: unitPrice,
+      });
+
+      logStep("Item verified", {
+        slug: item.slug,
+        size: item.size,
+        quantity: item.quantity,
+        unitPrice,
+        lineTotal,
+      });
+    }
+
+    // Calculate tax server-side via TaxJar
+    if (shippingAddress?.state && shippingAddress?.zip) {
+      serverTax = await calculateTax({
+        toAddress: {
+          street: shippingAddress.street || "",
+          city: shippingAddress.city || "",
+          state: shippingAddress.state,
+          zip: shippingAddress.zip || shippingAddress.zipCode || "",
+        },
+        shipping: serverShipping,
+        lineItems: taxLineItems,
+      });
+    }
+    logStep("Tax calculated", { serverTax });
+
+    serverSubtotal = Math.round(serverSubtotal * 100) / 100;
+    const serverTotal = Math.round((serverSubtotal + serverShipping + serverTax) * 100) / 100;
+
+    orderNumber = generateOrderNumber();
+
+    paypalBody = {
+      intent: "CAPTURE",
+      purchase_units: [{
+        reference_id: orderNumber,
+        description: `Peptide Foundry Order ${orderNumber}`,
+        amount: {
+          currency_code: "USD",
+          value: serverTotal.toFixed(2),
+          breakdown: {
+            item_total: {
+              currency_code: "USD",
+              value: serverSubtotal.toFixed(2),
+            },
+            shipping: {
+              currency_code: "USD",
+              value: serverShipping.toFixed(2),
+            },
+            ...(serverTax > 0 ? {
+              tax_total: {
+                currency_code: "USD",
+                value: serverTax.toFixed(2),
+              },
+            } : {}),
+          },
+        },
+        items: paypalItems,
+      }],
+    };
+
+    logStep("Creating PayPal order", { orderNumber, serverSubtotal, serverTax, serverTotal });
 
     const res = await fetch(`${apiUrl}/v2/checkout/orders`, {
       method: "POST",
