@@ -424,9 +424,9 @@ const Checkout = () => {
                             throw new Error('Invalid shipping address');
                           }
 
-                          // Server creates the PayPal order with DB-sourced prices
-                          const { data: { session } } = await supabase.auth.getSession();
-                          if (!session) {
+                          // Force a fresh token to avoid stale JWT issues
+                          const { data: { session }, error: refreshError } = await supabase.auth.refreshSession();
+                          if (refreshError || !session) {
                             toast({ title: 'Session expired', description: 'Please sign in and try again.', variant: 'destructive' });
                             throw new Error('Session expired');
                           }
