@@ -68,6 +68,7 @@ serve(async (req) => {
       type,
       items,
       shippingAddress,
+      couponCode,
     } = body;
 
     if (!paypalOrderId) throw new Error("Missing paypalOrderId");
@@ -155,6 +156,7 @@ serve(async (req) => {
     const expectedSubtotal = parseFloat(paypalBreakdown.item_total?.value || "0");
     const shippingAmount = parseFloat(paypalBreakdown.shipping?.value || "0");
     const taxAmount = parseFloat(paypalBreakdown.tax_total?.value || "0");
+    const discountAmount = parseFloat(paypalBreakdown.discount?.value || "0");
     const expectedTotal = paypalAmount;
 
     if (items.length !== paypalOrderItems.length) {
@@ -272,6 +274,8 @@ serve(async (req) => {
           shipping: Math.round(shippingAmount * 100) / 100,
           tax: taxAmount,
           total: Math.round(expectedTotal * 100) / 100,
+          discount: Math.round(discountAmount * 100) / 100,
+          coupon_code: couponCode ? String(couponCode).toUpperCase().trim() : null,
           shipping_address: shippingAddress || {},
           status: 'processing',
           stripe_payment_id: paypalOrderId,
@@ -328,6 +332,26 @@ serve(async (req) => {
     }
 
     logStep("Order created", { orderId: order.id, orderNumber });
+
+    // Record coupon usage if applicable
+    if (couponCode && order) {
+      const code = String(couponCode).toUpperCase().trim();
+      const { data: coupon } = await supabaseClient
+        .from('coupons')
+        .select('id')
+        .eq('code', code)
+        .maybeSingle();
+
+      if (coupon) {
+        await supabaseClient
+          .from('coupon_usages')
+          .insert({ coupon_id: coupon.id, user_id: userId, order_id: order.id });
+
+        await supabaseClient.rpc('increment_coupon_uses', { coupon_id_param: coupon.id });
+
+        logStep("Coupon usage recorded", { couponId: coupon.id, code });
+      }
+    }
 
     // Clear cart for authenticated user
     const { error: cartError } = await supabaseClient

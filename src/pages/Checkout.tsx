@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus } from 'lucide-react';
+import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus, Tag, X } from 'lucide-react';
 import { usePrices } from '@/hooks/usePrices';
 import { useMembership } from '@/hooks/useMembership';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
@@ -39,7 +39,14 @@ const Checkout = () => {
     addItem,
     updateQuantity,
     clearCart,
-    syncPrices
+    syncPrices,
+    couponCode,
+    couponDiscount,
+    couponError,
+    setCouponCode,
+    setCouponDiscount,
+    setCouponError,
+    clearCoupon,
   } = useCart();
   const { prices: peptidePrices, memberPrices, isLoading: pricesLoading, isDbLoaded } = usePrices();
   const { isMember } = useMembership();
@@ -63,6 +70,7 @@ const Checkout = () => {
   const [password, setPassword] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
   const [pricesSynced, setPricesSynced] = useState(false);
+  const [couponInput, setCouponInput] = useState('');
   const [street2, setStreet2] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
@@ -323,6 +331,55 @@ const Checkout = () => {
                     </div>)}
                 </div>
 
+                {/* Coupon Code Input */}
+                <div className="space-y-2">
+                  {couponCode ? (
+                    <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-md px-3 py-2">
+                      <div className="flex items-center gap-2">
+                        <Tag className="h-4 w-4 text-green-600" />
+                        <span className="text-sm font-medium text-green-700">{couponCode} applied</span>
+                      </div>
+                      <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-green-600 hover:text-red-500" onClick={() => {
+                        clearCoupon();
+                        setCouponInput('');
+                      }}>
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="Coupon code"
+                        value={couponInput}
+                        onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' && couponInput.trim()) {
+                            setCouponCode(couponInput.trim());
+                            setCouponError(null);
+                            setCouponDiscount(0);
+                          }
+                        }}
+                        className="flex-1"
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={!couponInput.trim()}
+                        onClick={() => {
+                          setCouponCode(couponInput.trim());
+                          setCouponError(null);
+                          setCouponDiscount(0);
+                        }}
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                  )}
+                  {couponError && (
+                    <p className="text-sm text-red-500">{couponError}</p>
+                  )}
+                </div>
+
                 <Separator />
 
                 <div className="space-y-2">
@@ -330,6 +387,12 @@ const Checkout = () => {
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
+                  {couponDiscount > 0 && (
+                    <div className="flex justify-between text-sm text-green-600">
+                      <span>Discount ({couponCode})</span>
+                      <span>-${couponDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm">
                     <span>Shipping</span>
                     <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
@@ -349,7 +412,7 @@ const Checkout = () => {
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>${(total + taxAmount).toFixed(2)}</span>
+                    <span>${(subtotal - couponDiscount + taxAmount).toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -446,22 +509,36 @@ const Checkout = () => {
                                 state: shippingAddress.state,
                                 zip: shippingAddress.zip,
                               },
+                              couponCode: couponCode || undefined,
                             },
                           });
 
                           if (error) {
                             let message = 'Could not create order. Please try again.';
+                            let isCouponError = false;
                             try {
                               const body = JSON.parse(error.message);
                               message = body.error || message;
+                              isCouponError = !!body.couponError;
                             } catch {}
-                            toast({ title: 'Order failed', description: message, variant: 'destructive' });
+                            if (isCouponError) {
+                              setCouponError(message);
+                              setCouponDiscount(0);
+                            } else {
+                              toast({ title: 'Order failed', description: message, variant: 'destructive' });
+                            }
                             throw new Error(message);
                           }
 
                           // Update displayed tax with server-calculated value
                           if (result.taxAmount != null) {
                             setTaxAmount(result.taxAmount);
+                          }
+
+                          // Update coupon discount from server
+                          if (result.discount != null) {
+                            setCouponDiscount(result.discount);
+                            setCouponError(null);
                           }
 
                           return result.paypalOrderId;
@@ -491,6 +568,7 @@ const Checkout = () => {
                                   state: shippingAddress.state,
                                   zip: shippingAddress.zip,
                                 },
+                                couponCode: couponCode || undefined,
                               },
                             });
 

@@ -20,6 +20,13 @@ interface CartContextType {
   shipping: number;
   total: number;
   loading: boolean;
+  couponCode: string | null;
+  couponDiscount: number;
+  couponError: string | null;
+  setCouponCode: (code: string | null) => void;
+  setCouponDiscount: (amount: number) => void;
+  setCouponError: (error: string | null) => void;
+  clearCoupon: () => void;
   addItem: (item: Omit<CartItem, 'quantity'>) => Promise<boolean>;
   updateQuantity: (peptideName: string, size: string, quantity: number) => Promise<void>;
   removeItem: (peptideName: string, size: string) => Promise<void>;
@@ -51,6 +58,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { toast } = useToast();
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [couponCode, setCouponCode] = useState<string | null>(null);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [couponError, setCouponError] = useState<string | null>(null);
   const hasFetchedRef = useRef(false);
   const previousUserRef = useRef<string | null>(null);
   // Ref to track the latest items for sync operations (prevents race conditions)
@@ -231,14 +241,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   }, [toast, user]);
 
+  const clearCoupon = useCallback(() => {
+    setCouponCode(null);
+    setCouponDiscount(0);
+    setCouponError(null);
+  }, []);
+
   const clearCart = useCallback(async () => {
     itemsRef.current = [];
     setItems([]);
     localStorage.removeItem(CART_STORAGE_KEY);
+    clearCoupon();
     if (user) {
       await syncCart([]);
     }
-  }, [user]);
+  }, [user, clearCoupon]);
 
   const syncPrices = useCallback(async (
     prices: PriceMap,
@@ -274,7 +291,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 0;
-  const total = subtotal;
+  const total = Math.max(0, subtotal - couponDiscount);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -286,6 +303,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         shipping,
         total,
         loading,
+        couponCode,
+        couponDiscount,
+        couponError,
+        setCouponCode,
+        setCouponDiscount,
+        setCouponError,
+        clearCoupon,
         addItem,
         updateQuantity,
         removeItem,

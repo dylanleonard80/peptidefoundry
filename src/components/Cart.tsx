@@ -18,6 +18,8 @@ export const Cart = ({ isFoundryClubPage = false, isDarkHero = false }: CartProp
     subtotal,
     shipping,
     total,
+    couponCode,
+    couponDiscount,
     updateQuantity,
     removeItem
   } = useCart();
@@ -82,6 +84,12 @@ export const Cart = ({ isFoundryClubPage = false, isDarkHero = false }: CartProp
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
+                  {couponDiscount > 0 && (
+                    <div className="flex justify-between text-sm text-green-600">
+                      <span>Discount ({couponCode})</span>
+                      <span>-${couponDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm">
                     <span>Shipping</span>
                     <span>${shipping.toFixed(2)}</span>

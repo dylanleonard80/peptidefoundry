@@ -41,7 +41,6 @@ const DashboardIndex = lazy(() => import("./pages/dashboard/Index"));
 const DashboardOrders = lazy(() => import("./pages/dashboard/Orders"));
 const DashboardCalculator = lazy(() => import("./pages/dashboard/Calculator"));
 const DashboardMembership = lazy(() => import("./pages/dashboard/Membership"));
-const DashboardResearchBriefs = lazy(() => import("./pages/dashboard/ResearchBriefs"));
 const DashboardResearchAudit = lazy(() => import("./pages/dashboard/ResearchAudit"));
 const DashboardDocuments = lazy(() => import("./pages/dashboard/Documents"));
 const DashboardSettings = lazy(() => import("./pages/dashboard/Settings"));
@@ -84,8 +83,10 @@ const AdminIndex = lazy(() => import("./pages/admin/Index"));
 const AdminSales = lazy(() => import("./pages/admin/SalesOverview"));
 const AdminOrders = lazy(() => import("./pages/admin/OrderManagement"));
 const AdminInventory = lazy(() => import("./pages/admin/Inventory"));
-const AdminActivity = lazy(() => import("./pages/admin/Activity"));
 const AdminMemberships = lazy(() => import("./pages/admin/Memberships"));
+const AdminFinances = lazy(() => import("./pages/admin/Finances"));
+const AdminInvestors = lazy(() => import("./pages/admin/Investors"));
+const AdminCoupons = lazy(() => import("./pages/admin/Coupons"));
 
 // Supplies
 const BacteriostaticWater = lazy(() => import("./pages/BacteriostaticWater"));
@@ -131,7 +132,6 @@ const App = () => (
                 <Route path="/dashboard/orders" element={<DashboardOrders />} />
                 <Route path="/dashboard/calculator" element={<DashboardCalculator />} />
                 <Route path="/dashboard/membership" element={<DashboardMembership />} />
-                <Route path="/dashboard/research-briefs" element={<DashboardResearchBriefs />} />
                 <Route path="/dashboard/research-audit" element={<DashboardResearchAudit />} />
                 <Route path="/dashboard/documents" element={<DashboardDocuments />} />
                 <Route path="/dashboard/settings" element={<DashboardSettings />} />
@@ -169,8 +169,10 @@ const App = () => (
                 <Route path="/admin/sales" element={<AdminSales />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/admin/inventory" element={<AdminInventory />} />
-                <Route path="/admin/activity" element={<AdminActivity />} />
                 <Route path="/admin/memberships" element={<AdminMemberships />} />
+                <Route path="/admin/finances" element={<AdminFinances />} />
+                <Route path="/admin/investors" element={<AdminInvestors />} />
+                <Route path="/admin/coupons" element={<AdminCoupons />} />
 
                 {/* Supplies */}
                 <Route path="/bacteriostatic-water" element={<BacteriostaticWater />} />

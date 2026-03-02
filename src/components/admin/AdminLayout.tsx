@@ -8,8 +8,10 @@ import {
   Package,
   BarChart3,
   ShoppingCart,
-  ClipboardList,
   Hexagon,
+  Wallet,
+  Landmark,
+  Ticket,
   ArrowLeft,
   Menu,
   LogOut,
@@ -29,7 +31,9 @@ const navItems = [
   { path: "/admin/orders", label: "Orders", icon: ShoppingCart },
   { path: "/admin/inventory", label: "Inventory", icon: Package },
   { path: "/admin/memberships", label: "Memberships", icon: Hexagon },
-  { path: "/admin/activity", label: "Activity Log", icon: ClipboardList },
+  { path: "/admin/coupons", label: "Coupons", icon: Ticket },
+  { path: "/admin/finances", label: "Finances", icon: Wallet },
+  { path: "/admin/investors", label: "Investors", icon: Landmark },
 ];
 
 export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
@@ -40,11 +44,11 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[hsl(25,20%,8%)] flex items-center justify-center">
         <div className="space-y-4 w-64">
-          <Skeleton className="h-8 w-full bg-slate-700" />
-          <Skeleton className="h-4 w-3/4 bg-slate-700" />
-          <Skeleton className="h-4 w-1/2 bg-slate-700" />
+          <Skeleton className="h-8 w-full bg-[hsl(25,15%,16%)]" />
+          <Skeleton className="h-4 w-3/4 bg-[hsl(25,15%,16%)]" />
+          <Skeleton className="h-4 w-1/2 bg-[hsl(25,15%,16%)]" />
         </div>
       </div>
     );
@@ -60,29 +64,35 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
   const Sidebar = ({ mobile = false }: { mobile?: boolean }) => (
     <div
       className={cn(
-        "flex flex-col h-full bg-slate-900 text-white",
+        "flex flex-col h-full bg-[hsl(25,20%,8%)] text-white relative",
         mobile ? "w-full" : "w-64"
       )}
     >
+      {/* Top accent line */}
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+
       {/* Header */}
-      <div className="p-4 border-b border-white/10">
+      <div className="px-5 pt-5 pb-4">
         <Link
           to="/"
-          className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
+          className="inline-flex items-center gap-1.5 text-[hsl(25,10%,50%)] hover:text-white transition-colors text-xs tracking-wide uppercase"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-3 w-3" />
           Back to Store
         </Link>
-        <div className="mt-4 flex items-center gap-2">
-          <span className="font-bold text-lg">Peptide Foundry</span>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-primary text-white">
+        <div className="mt-4 flex items-center gap-2.5">
+          <span className="font-display text-lg tracking-tight">Peptide Foundry</span>
+          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-[0.08em] bg-primary/90 text-white">
             Admin
           </span>
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="mx-5 h-px bg-white/[0.06]" />
+
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {navItems.map((item) => {
           const active = isActive(item);
           const Icon = item.icon;
@@ -93,13 +103,16 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
               to={item.path}
               onClick={() => mobile && setMobileOpen(false)}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 relative",
                 active
-                  ? "bg-primary text-white"
-                  : "text-slate-300 hover:text-white hover:bg-white/10"
+                  ? "bg-white/[0.08] text-white"
+                  : "text-[hsl(25,8%,58%)] hover:text-white hover:bg-white/[0.04]"
               )}
             >
-              <Icon className="h-4 w-4" />
+              {active && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-primary" />
+              )}
+              <Icon className={cn("h-4 w-4 transition-colors", active ? "text-primary" : "group-hover:text-white/70")} />
               {item.label}
             </Link>
           );
@@ -107,14 +120,16 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-white/10 space-y-2">
-        <p className="text-xs text-slate-500 truncate">{user?.email}</p>
+      <div className="mx-5 h-px bg-white/[0.06]" />
+      <div className="px-5 py-4 space-y-2">
+        <p className="text-[11px] text-[hsl(25,8%,36%)] truncate font-mono">{user?.email}</p>
         <Button
           variant="ghost"
-          className="w-full justify-start text-slate-400 hover:text-red-400 hover:bg-white/5"
+          size="sm"
+          className="w-full justify-start text-[hsl(25,10%,50%)] hover:text-red-400 hover:bg-white/[0.04] h-8 px-2 text-xs"
           onClick={() => signOut()}
         >
-          <LogOut className="h-4 w-4 mr-2" />
+          <LogOut className="h-3.5 w-3.5 mr-2" />
           Sign Out
         </Button>
       </div>
@@ -122,14 +137,14 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[hsl(30,20%,96%)]">
       {/* Desktop Sidebar */}
       <aside className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
         <Sidebar />
       </aside>
 
       {/* Mobile Header */}
-      <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3 bg-slate-900 text-white border-b border-white/10">
+      <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3 bg-[hsl(25,20%,8%)] text-white">
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
@@ -141,7 +156,7 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           </SheetContent>
         </Sheet>
 
-        <h1 className="font-semibold">{title || "Admin"}</h1>
+        <h1 className="font-display text-sm tracking-tight">{title || "Admin"}</h1>
 
         <div className="w-10" />
       </header>
@@ -150,7 +165,10 @@ export const AdminLayout = ({ children, title }: AdminLayoutProps) => {
       <main className="md:pl-64">
         <div className="p-4 md:p-8 max-w-6xl mx-auto">
           {title && (
-            <h1 className="hidden md:block text-2xl font-bold mb-6">{title}</h1>
+            <div className="hidden md:flex items-center gap-3 mb-8">
+              <h1 className="text-2xl font-display tracking-tight">{title}</h1>
+              <div className="flex-1 h-px bg-border/50 ml-2" />
+            </div>
           )}
           {children}
         </div>
