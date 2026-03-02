@@ -24,14 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
@@ -43,7 +35,6 @@ import {
   ChevronDown,
   ChevronRight,
   Search,
-  Pencil,
   Package,
   AlertCircle,
   ArrowUpDown,
@@ -76,12 +67,6 @@ const AdminInventory = () => {
   const [salesVelocity, setSalesVelocity] = useState<Record<string, number>>({});
   const [sortByVelocity, setSortByVelocity] = useState(false);
 
-  // Price edit dialog state
-  const [editingVariant, setEditingVariant] = useState<ProductVariant | null>(null);
-  const [editPrice, setEditPrice] = useState("");
-  const [editMemberPrice, setEditMemberPrice] = useState("");
-  const [saving, setSaving] = useState(false);
-
   const fetchProducts = useCallback(async () => {
     const { data, error } = await supabase
       .from("products" as any)
@@ -103,7 +88,7 @@ const AdminInventory = () => {
 
     const { data, error } = await supabase
       .from("orders")
-      .select("*")
+      .select("items")
       .gte("created_at", thirtyDaysAgo.toISOString());
 
     if (error) {
@@ -135,21 +120,21 @@ const AdminInventory = () => {
     }
   }, [isAdmin, fetchProducts, fetchSalesVelocity]);
 
-  /** Match a product name to aggregated order-item sales using case-insensitive partial matching */
-  const getProductVelocity = useCallback(
-    (productName: string): number => {
-      const pName = productName.toLowerCase().trim();
+  /** Pre-computed velocity map: product name → units sold in last 30 days */
+  const velocityByProduct = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const product of products) {
+      const pName = product.name.toLowerCase().trim();
       let total = 0;
       for (const [itemName, qty] of Object.entries(salesVelocity)) {
-        // Match if either string contains the other (handles slight naming differences)
         if (itemName.includes(pName) || pName.includes(itemName)) {
           total += qty;
         }
       }
-      return total;
-    },
-    [salesVelocity]
-  );
+      map[product.id] = total;
+    }
+    return map;
+  }, [products, salesVelocity]);
 
   const toggleExpand = (productId: string) => {
     setExpandedRows((prev) => {
@@ -200,55 +185,6 @@ const AdminInventory = () => {
     );
   };
 
-  const openPriceEdit = (variant: ProductVariant) => {
-    setEditingVariant(variant);
-    setEditPrice(variant.price.toString());
-    setEditMemberPrice(variant.member_price?.toString() || "");
-  };
-
-  const savePriceEdit = async () => {
-    if (!editingVariant) return;
-    setSaving(true);
-
-    const price = parseFloat(editPrice);
-    const memberPrice = editMemberPrice ? parseFloat(editMemberPrice) : null;
-
-    if (isNaN(price) || price < 0) {
-      toast({ title: "Invalid price", variant: "destructive" });
-      setSaving(false);
-      return;
-    }
-    if (memberPrice !== null && (isNaN(memberPrice) || memberPrice < 0)) {
-      toast({ title: "Invalid member price", variant: "destructive" });
-      setSaving(false);
-      return;
-    }
-
-    const { error } = await supabase
-      .from("product_variants" as any)
-      .update({ price, member_price: memberPrice } as any)
-      .eq("id", editingVariant.id);
-
-    if (error) {
-      toast({ title: "Error updating price", description: error.message, variant: "destructive" });
-      setSaving(false);
-      return;
-    }
-
-    setProducts((prev) =>
-      prev.map((p) => ({
-        ...p,
-        product_variants: p.product_variants.map((v) =>
-          v.id === editingVariant.id ? { ...v, price, member_price: memberPrice } : v
-        ),
-      }))
-    );
-
-    toast({ title: "Price updated" });
-    setEditingVariant(null);
-    setSaving(false);
-  };
-
   // Filtering
   const filtered = useMemo(() => {
     let result = products.filter((p) => {
@@ -259,16 +195,17 @@ const AdminInventory = () => {
     });
 
     if (sortByVelocity) {
-      result = [...result].sort((a, b) => getProductVelocity(b.name) - getProductVelocity(a.name));
+      result = [...result].sort((a, b) => (velocityByProduct[b.id] || 0) - (velocityByProduct[a.id] || 0));
     }
 
     return result;
-  }, [products, search, typeFilter, statusFilter, sortByVelocity, getProductVelocity]);
+  }, [products, search, typeFilter, statusFilter, sortByVelocity, velocityByProduct]);
 
+  const inStockCount = useMemo(() => products.filter((p) => p.in_stock).length, [products]);
   const stockSummary = {
     total: products.length,
-    inStock: products.filter((p) => p.in_stock).length,
-    outOfStock: products.filter((p) => !p.in_stock).length,
+    inStock: inStockCount,
+    outOfStock: products.length - inStockCount,
   };
 
   if (guardLoading || loading) {
@@ -390,7 +327,7 @@ const AdminInventory = () => {
                 {filtered.map((product) => {
                   const isExpanded = expandedRows.has(product.id);
                   const variants = product.product_variants || [];
-                  const velocity = getProductVelocity(product.name);
+                  const velocity = velocityByProduct[product.id] || 0;
                   const isBlend = product.type === "blend";
                   return (
                     <>
@@ -453,7 +390,6 @@ const AdminInventory = () => {
                                     <TableHead className="text-right">Price</TableHead>
                                     <TableHead className="text-right">Member Price</TableHead>
                                     <TableHead className="text-center">In Stock</TableHead>
-                                    <TableHead className="w-10" />
                                   </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -475,16 +411,6 @@ const AdminInventory = () => {
                                             checked={variant.in_stock}
                                             onCheckedChange={() => handleVariantStockToggle(variant)}
                                           />
-                                        </TableCell>
-                                        <TableCell>
-                                          <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-8 w-8"
-                                            onClick={() => openPriceEdit(variant)}
-                                          >
-                                            <Pencil className="h-3.5 w-3.5" />
-                                          </Button>
                                         </TableCell>
                                       </TableRow>
                                     ))}
@@ -510,47 +436,6 @@ const AdminInventory = () => {
         </Card>
       </TooltipProvider>
 
-      {/* Price Edit Dialog */}
-      <Dialog open={!!editingVariant} onOpenChange={() => setEditingVariant(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Price — {editingVariant?.size_label}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="price">Price ($)</Label>
-              <Input
-                id="price"
-                type="number"
-                step="0.01"
-                min="0"
-                value={editPrice}
-                onChange={(e) => setEditPrice(e.target.value)}
-              />
-            </div>
-            <div>
-              <Label htmlFor="memberPrice">Member Price ($)</Label>
-              <Input
-                id="memberPrice"
-                type="number"
-                step="0.01"
-                min="0"
-                value={editMemberPrice}
-                onChange={(e) => setEditMemberPrice(e.target.value)}
-                placeholder="Leave empty for no member price"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditingVariant(null)}>
-              Cancel
-            </Button>
-            <Button onClick={savePriceEdit} disabled={saving}>
-              {saving ? "Saving..." : "Save"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </AdminLayout>
   );
 };

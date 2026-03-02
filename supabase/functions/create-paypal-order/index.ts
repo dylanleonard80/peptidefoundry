@@ -56,7 +56,7 @@ async function checkActiveMembership(
     .from('memberships')
     .select('id')
     .eq('user_id', userId)
-    .eq('status', 'active')
+    .in('status', ['active', 'canceled'])
     .gt('current_period_end', new Date().toISOString())
     .maybeSingle();
 

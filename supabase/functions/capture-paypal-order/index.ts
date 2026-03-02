@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
-import { calculateTax } from "../_shared/taxjar.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -143,11 +142,26 @@ serve(async (req) => {
       throw new Error("Missing or empty items array");
     }
 
-    // Look up each item's price from the database
-    const isMember = await checkActiveMembership(supabaseClient, userId);
-    logStep("Membership check", { isMember });
+    // Use prices from the PayPal order itself (set by our server at creation time).
+    // Re-querying the DB here would cause a race condition if prices were changed
+    // between order creation and capture.
+    const purchaseUnit = orderData.purchase_units?.[0];
+    if (!purchaseUnit) {
+      throw new Error("PayPal order missing purchase unit");
+    }
 
-    let expectedSubtotal = 0;
+    const paypalOrderItems = purchaseUnit.items || [];
+    const paypalBreakdown = purchaseUnit.amount?.breakdown || {};
+    const expectedSubtotal = parseFloat(paypalBreakdown.item_total?.value || "0");
+    const shippingAmount = parseFloat(paypalBreakdown.shipping?.value || "0");
+    const taxAmount = parseFloat(paypalBreakdown.tax_total?.value || "0");
+    const expectedTotal = paypalAmount;
+
+    if (items.length !== paypalOrderItems.length) {
+      logStep("Item count mismatch", { clientItems: items.length, paypalItems: paypalOrderItems.length });
+      throw new Error("Item count mismatch between request and PayPal order");
+    }
+
     const verifiedItems: Array<{
       slug: string;
       size: string;
@@ -156,84 +170,44 @@ serve(async (req) => {
       price: number;
     }> = [];
 
-    for (const item of items) {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const ppItem = paypalOrderItems[i];
+
       if (!item.slug || !item.size || !item.quantity) {
         throw new Error(`Invalid item: missing slug, size, or quantity`);
       }
 
-      const { data: variant, error: variantError } = await supabaseClient
-        .from('product_variants')
-        .select('price, member_price, products!inner(slug, name)')
-        .eq('products.slug', item.slug)
-        .eq('size_label', item.size)
-        .single();
+      const unitPrice = parseFloat(ppItem.unit_amount?.value || "0");
+      const ppQuantity = parseInt(ppItem.quantity || "0", 10);
 
-      if (variantError || !variant) {
-        logStep("Variant lookup failed", { slug: item.slug, size: item.size, error: variantError?.message });
-        throw new Error(`Product not found: ${item.slug} (${item.size})`);
+      if (ppQuantity !== item.quantity) {
+        logStep("Quantity mismatch", { index: i, clientQty: item.quantity, paypalQty: ppQuantity });
+        throw new Error(`Quantity mismatch for ${item.slug}`);
       }
-
-      const unitPrice = (isMember && variant.member_price != null)
-        ? Number(variant.member_price)
-        : Number(variant.price);
-      const lineTotal = unitPrice * item.quantity;
-      expectedSubtotal += lineTotal;
 
       verifiedItems.push({
         slug: item.slug,
         size: item.size,
         quantity: item.quantity,
-        name: item.name || (variant.products as any).name,
+        name: item.name || ppItem.name,
         price: unitPrice,
       });
 
-      logStep("Item verified", {
+      logStep("Item verified from PayPal order", {
         slug: item.slug,
         size: item.size,
         quantity: item.quantity,
         unitPrice,
-        lineTotal,
       });
     }
 
-    // Server-determined shipping and tax — never trust client values
-    const shippingAmount = 0; // Free shipping
-    const taxLineItems = verifiedItems.map((v) => ({
-      quantity: v.quantity,
-      unit_price: v.price,
-    }));
-    let taxAmount = 0;
-    if (shippingAddress?.state && (shippingAddress?.zip || shippingAddress?.zipCode)) {
-      taxAmount = await calculateTax({
-        toAddress: {
-          street: shippingAddress.street || "",
-          city: shippingAddress.city || "",
-          state: shippingAddress.state,
-          zip: shippingAddress.zip || shippingAddress.zipCode || "",
-        },
-        shipping: shippingAmount,
-        lineItems: taxLineItems,
-      });
-    }
-    const expectedTotal = Math.round((expectedSubtotal + shippingAmount + taxAmount) * 100) / 100;
-
-    logStep("Price verification", {
+    logStep("Order totals from PayPal", {
       expectedSubtotal,
       shippingAmount,
       taxAmount,
       expectedTotal,
-      paypalAmount,
     });
-
-    // Compare expected total against PayPal order amount (allow +/- $0.01)
-    if (Math.abs(expectedTotal - paypalAmount) > 0.01) {
-      return new Response(
-        JSON.stringify({
-          error: `Price mismatch — expected $${expectedTotal.toFixed(2)}, PayPal order is $${paypalAmount.toFixed(2)}`,
-        }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
-      );
-    }
 
     // Duplicate prevention: check if order with this paypalOrderId already exists
     const { data: existingOrder } = await supabaseClient
@@ -385,23 +359,3 @@ serve(async (req) => {
     });
   }
 });
-
-async function checkActiveMembership(
-  supabaseClient: any,
-  userId: string,
-): Promise<boolean> {
-  const { data, error } = await supabaseClient
-    .from('memberships')
-    .select('id')
-    .eq('user_id', userId)
-    .eq('status', 'active')
-    .gt('current_period_end', new Date().toISOString())
-    .maybeSingle();
-
-  if (error) {
-    logStep("Membership check error", { message: error.message });
-    return false;
-  }
-
-  return !!data;
-}

@@ -17,7 +17,7 @@ export const peptidePrices: Record<string, Record<string, number>> = {
   "selank": { "10mg": 48 },
   "semax": { "10mg": 50 },
   "nad-buffered": { "500mg": 70 },
-  "glow": { "50mg/10mg/10mg": 160 },
+  "glow": { "50mg/10mg/10mg": 155 },
   "ipamorelin": { "10mg": 65 },
   "tb-500": { "10mg": 140 },
   "melanotan-2": { "10mg": 49 },
