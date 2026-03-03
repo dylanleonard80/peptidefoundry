@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TesamorelinIpamorelin = () => {
-  useDocumentMeta("Tesamorelin / Ipamorelin | Peptide Foundry");
+  useDocumentMeta({
+    title: "Tesamorelin / Ipamorelin | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity Tesamorelin + Ipamorelin research peptide blend from Peptide Foundry. A peptide blend studied for growth hormone secretion and somatotroph pathway research. Verified quality, fast shipping.",
+    canonicalPath: "/tesamorelin-ipamorelin",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="Tesamorelin + Ipamorelin Research Peptide Blend"
+    description="This research blend combines Tesamorelin, a synthetic growth hormone-releasing hormone (GHRH) analog, with Ipamorelin, a selective growth hormone secretagogue receptor (GHSR) agonist. Together, they represent a dual-pathway approach to studying growth hormone release mechanisms."
+    slug="tesamorelin-ipamorelin"
+    casNumber="218949-48-5"
+  />
     <PeptidePageTemplate
       slug="tesamorelin-ipamorelin"
       peptideName="Tesamorelin / Ipamorelin"
@@ -35,6 +48,7 @@ const TesamorelinIpamorelin = () => {
       ]}
       references={[]}
     />
+  </>
   );
 };
 

@@ -48,7 +48,7 @@ serve(async (req) => {
     // Fetch order
     const { data: order, error: orderError } = await supabaseClient
       .from("orders")
-      .select("id, shipping_address")
+      .select("id, user_id, shipping_address")
       .eq("id", orderId)
       .single();
 
@@ -57,7 +57,22 @@ serve(async (req) => {
     const addr = order.shipping_address as any;
     if (!addr) throw new Error("Order has no shipping address");
 
-    const toName = [addr.firstName, addr.lastName].filter(Boolean).join(" ") || addr.name || "";
+    // Fetch customer profile for name/email (no FK on orders)
+    let profile: any = null;
+    if (order.user_id) {
+      const { data } = await supabaseClient
+        .from("profiles")
+        .select("first_name, last_name, email")
+        .eq("id", order.user_id)
+        .single();
+      profile = data;
+    }
+
+    const toName = [addr.firstName, addr.lastName].filter(Boolean).join(" ")
+      || addr.name
+      || [profile?.first_name, profile?.last_name].filter(Boolean).join(" ")
+      || "";
+    const toEmail = addr.email || profile?.email || "";
     const toStreet = addr.address || addr.street || "";
     const toCity = addr.city || "";
     const toState = addr.state || "";
@@ -89,6 +104,7 @@ serve(async (req) => {
         state: toState,
         zip: toZip,
         country: "US",
+        email: toEmail,
       },
       parcels: [
         {

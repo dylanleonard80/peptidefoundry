@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const BPC157 = () => {
-  useDocumentMeta("BPC-157 | Peptide Foundry");
+  useDocumentMeta({
+    title: "BPC-157 | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity BPC-157 research peptide from Peptide Foundry. A peptide studied for tissue regeneration and healing mechanisms. Verified quality, fast shipping.",
+    canonicalPath: "/bpc-157",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="BPC-157 Research Peptide"
+    description="BPC-157 is a short chain of amino acids, a peptide originally isolated from gastric juice. Studied in preclinical models for effects on tissue regeneration pathways and inflammatory signaling cascades."
+    slug="bpc-157"
+    casNumber="137525-51-0"
+  />
   <PeptidePageTemplate
     slug="bpc-157"
     peptideName="BPC-157"
@@ -125,6 +138,7 @@ const BPC157 = () => {
       },
     ]}
   />
+  </>
   );
 };
 

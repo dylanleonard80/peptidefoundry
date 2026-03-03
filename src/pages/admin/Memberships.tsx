@@ -183,41 +183,41 @@ const AdminMemberships = () => {
     <AdminLayout title="Memberships">
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-purple-100">
-                <Users className="h-5 w-5 text-purple-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-violet-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{counts.total}</p>
-                <p className="text-xs text-muted-foreground">Total Accounts</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{counts.total}</p>
+                <p className="text-xs text-muted-foreground font-medium">Total Accounts</p>
+              </div>
+              <div className="p-2 rounded-lg bg-violet-50">
+                <Users className="h-4 w-4 text-violet-600" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-100">
-                <UserCheck className="h-5 w-5 text-green-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{counts.active}</p>
-                <p className="text-xs text-muted-foreground">Active Members</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{counts.active}</p>
+                <p className="text-xs text-muted-foreground font-medium">Active Members</p>
+              </div>
+              <div className="p-2 rounded-lg bg-emerald-50">
+                <UserCheck className="h-4 w-4 text-emerald-600" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-gray-100">
-                <UserX className="h-5 w-5 text-gray-500" />
-              </div>
+        <Card className="border-l-[3px] border-l-stone-400">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{counts.nonMember}</p>
-                <p className="text-xs text-muted-foreground">Non-Members</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{counts.nonMember}</p>
+                <p className="text-xs text-muted-foreground font-medium">Non-Members</p>
+              </div>
+              <div className="p-2 rounded-lg bg-stone-100">
+                <UserX className="h-4 w-4 text-stone-500" />
               </div>
             </div>
           </CardContent>

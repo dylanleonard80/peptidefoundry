@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GHKCu = () => {
-  useDocumentMeta("GHK-Cu | Peptide Foundry");
+  useDocumentMeta({
+    title: "GHK-Cu | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity GHK-Cu research peptide from Peptide Foundry. A peptide studied for tissue remodeling and gene expression modulation. Verified quality, fast shipping.",
+    canonicalPath: "/ghk-cu",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="GHK-Cu Research Peptide"
+    description="A naturally occurring copper-binding tripeptide with profound regenerative, anti-aging, and wound-healing properties. GHK-Cu remodels tissue architecture by stimulating collagen and glycosaminoglycan synthesis, modulating over 4,000+ human genes."
+    slug="ghk-cu"
+    casNumber="49557-75-7"
+  />
   <PeptidePageTemplate
     slug="ghk-cu"
     peptideName="GHK-Cu"
@@ -41,6 +54,7 @@ const GHKCu = () => {
       { value: "gene-expression", iconName: "Dna", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Gene Expression Remodeling", content: "Genomic studies show GHK-Cu modulates 4,000+ genes, upregulating those involved in tissue repair, collagen synthesis, and antioxidant defense while downregulating genes associated with inflammation, fibrosis, and cellular senescence." }
     ]}
   />
+  </>
   );
 };
 

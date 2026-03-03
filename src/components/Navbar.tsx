@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Menu, X, User, LogOut, Search, Hexagon, LayoutDashboard, Package, FileText, Settings, Calculator } from "lucide-react";
+import { Menu, X, User, LogOut, Search, Hexagon, LayoutDashboard, Package, FileText, Settings, Calculator, Shield } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useMembership } from "@/hooks/useMembership";
+import { useUserRole } from "@/hooks/useUserRole";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Cart } from "./Cart";
@@ -30,6 +31,7 @@ const Navbar = ({
   const {
     isMember
   } = useMembership();
+  const { isAdmin } = useUserRole();
 
   // Flatten all peptides for search and remove duplicates
   const allPeptides = peptideSections.flatMap(section => section.cards.map(card => ({
@@ -180,6 +182,15 @@ const Navbar = ({
                     <Settings className="h-4 w-4 mr-2" />
                     Settings
                   </DropdownMenuItem>
+                  {isAdmin && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={() => navigate('/admin')}>
+                        <Shield className="h-4 w-4 mr-2" />
+                        Admin
+                      </DropdownMenuItem>
+                    </>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
                     <LogOut className="h-4 w-4 mr-2" />
@@ -321,6 +332,12 @@ const Navbar = ({
                     <Hexagon className="h-3 w-3" />
                   </span>}
               </Link>
+              {isAdmin && (
+                <Link to="/admin" onClick={closeMenu} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 flex items-center justify-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  Admin
+                </Link>
+              )}
               <button onClick={() => { signOut(); closeMenu(); }} className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100 text-destructive">
                 Sign Out
               </button>

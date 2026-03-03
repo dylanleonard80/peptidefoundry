@@ -19,12 +19,12 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 
 import { DollarSign, ShoppingCart, TrendingUp, TrendingDown, Users, ArrowUp, ArrowDown, UserCheck, UserX } from "lucide-react";
 import { format, subDays, parseISO, startOfDay } from "date-fns";
 
-const statusColors: Record<string, string> = {
-  pending: "bg-yellow-100 text-yellow-800",
-  processing: "bg-blue-100 text-blue-800",
-  shipped: "bg-purple-100 text-purple-800",
-  delivered: "bg-green-100 text-green-800",
-  cancelled: "bg-red-100 text-red-800",
+const statusConfig: Record<string, { dot: string; label: string }> = {
+  pending: { dot: "bg-amber-400", label: "Pending" },
+  processing: { dot: "bg-blue-400", label: "Processing" },
+  shipped: { dot: "bg-violet-400", label: "Shipped" },
+  delivered: { dot: "bg-emerald-400", label: "Delivered" },
+  cancelled: { dot: "bg-red-400", label: "Cancelled" },
 };
 
 type Period = "7" | "30" | "90";
@@ -149,7 +149,7 @@ const AdminSalesOverview = () => {
   );
 
   const metrics: SalesMetrics = useMemo(() => {
-    const totalRevenue = periodOrders.reduce((sum, o) => sum + o.total, 0);
+    const totalRevenue = periodOrders.reduce((sum, o) => sum + Number(o.total), 0);
     const orderCount = periodOrders.length;
     return {
       totalRevenue,
@@ -160,7 +160,7 @@ const AdminSalesOverview = () => {
   }, [periodOrders, memberCount]);
 
   const prevMetrics: SalesMetrics = useMemo(() => {
-    const totalRevenue = prevPeriodOrders.reduce((sum, o) => sum + o.total, 0);
+    const totalRevenue = prevPeriodOrders.reduce((sum, o) => sum + Number(o.total), 0);
     const orderCount = prevPeriodOrders.length;
     return {
       totalRevenue,
@@ -203,10 +203,10 @@ const AdminSalesOverview = () => {
     periodOrders.forEach((order) => {
       if (order.user_id) {
         result.registeredCount++;
-        result.registeredRevenue += order.total;
+        result.registeredRevenue += Number(order.total);
       } else {
         result.guestCount++;
-        result.guestRevenue += order.total;
+        result.guestRevenue += Number(order.total);
       }
     });
 
@@ -228,7 +228,7 @@ const AdminSalesOverview = () => {
       if (!o.created_at) return;
       const key = format(new Date(o.created_at), "yyyy-MM-dd");
       if (buckets[key]) {
-        buckets[key].revenue += o.total;
+        buckets[key].revenue += Number(o.total);
         buckets[key].orders += 1;
       }
     });
@@ -292,57 +292,57 @@ const AdminSalesOverview = () => {
 
       {/* Metrics cards with period comparison */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-100">
-                <DollarSign className="h-5 w-5 text-green-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div className="min-w-0">
-                <p className="text-2xl font-bold">${metrics.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                <p className="text-xs text-muted-foreground">Total Revenue</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">${metrics.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                <p className="text-xs text-muted-foreground font-medium">Total Revenue</p>
                 <TrendIndicator change={revenueChange} />
               </div>
+              <div className="p-2 rounded-lg bg-emerald-50">
+                <DollarSign className="h-4 w-4 text-emerald-600" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-blue-100">
-                <ShoppingCart className="h-5 w-5 text-blue-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div className="min-w-0">
-                <p className="text-2xl font-bold">{metrics.orderCount}</p>
-                <p className="text-xs text-muted-foreground">Orders</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{metrics.orderCount}</p>
+                <p className="text-xs text-muted-foreground font-medium">Orders</p>
                 <TrendIndicator change={ordersChange} />
               </div>
+              <div className="p-2 rounded-lg bg-blue-50">
+                <ShoppingCart className="h-4 w-4 text-blue-600" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-orange-100">
-                <TrendingUp className="h-5 w-5 text-orange-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div className="min-w-0">
-                <p className="text-2xl font-bold">${metrics.avgOrderValue.toFixed(2)}</p>
-                <p className="text-xs text-muted-foreground">Avg Order Value</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">${metrics.avgOrderValue.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground font-medium">Avg Order Value</p>
                 <TrendIndicator change={aovChange} />
               </div>
+              <div className="p-2 rounded-lg bg-orange-50">
+                <TrendingUp className="h-4 w-4 text-primary" />
+              </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-purple-100">
-                <Users className="h-5 w-5 text-purple-700" />
-              </div>
+        <Card className="border-l-[3px] border-l-violet-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div className="min-w-0">
-                <p className="text-2xl font-bold">{metrics.activeMemberCount}</p>
-                <p className="text-xs text-muted-foreground">Active Members</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{metrics.activeMemberCount}</p>
+                <p className="text-xs text-muted-foreground font-medium">Active Members</p>
+              </div>
+              <div className="p-2 rounded-lg bg-violet-50">
+                <Users className="h-4 w-4 text-violet-600" />
               </div>
             </div>
           </CardContent>
@@ -422,8 +422,8 @@ const AdminSalesOverview = () => {
         <Card>
           <CardContent className="pt-5 pb-5">
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 rounded-lg bg-slate-100">
-                <UserX className="h-5 w-5 text-slate-600" />
+              <div className="p-2 rounded-lg bg-stone-100">
+                <UserX className="h-5 w-5 text-stone-600" />
               </div>
               <div>
                 <p className="text-sm font-medium">Guest Orders</p>
@@ -441,7 +441,7 @@ const AdminSalesOverview = () => {
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2">
               <div
-                className="bg-slate-400 h-2 rounded-full transition-all"
+                className="bg-stone-400 h-2 rounded-full transition-all"
                 style={{ width: `${guestRevPct}%` }}
               />
             </div>
@@ -487,30 +487,34 @@ const AdminSalesOverview = () => {
       {/* Recent orders */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Recent Orders</CardTitle>
+          <CardTitle className="text-sm font-semibold tracking-tight">Recent Orders</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {recentOrders.length === 0 ? (
-            <div className="py-8 text-center text-muted-foreground">No orders yet</div>
+            <div className="py-12 text-center text-muted-foreground text-sm">No orders yet</div>
           ) : (
-            <div className="divide-y">
-              {recentOrders.map((order) => (
-                <div key={order.id} className="flex items-center justify-between px-6 py-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-sm">{order.order_number}</span>
-                      <Badge className={statusColors[order.status || "pending"]} variant="secondary">
-                        {order.status?.charAt(0).toUpperCase()}{order.status?.slice(1)}
-                      </Badge>
+            <div className="divide-y divide-border/50">
+              {recentOrders.map((order) => {
+                const status = statusConfig[order.status || "pending"];
+                return (
+                  <div key={order.id} className="flex items-center gap-4 px-6 py-3.5 hover:bg-muted/30 transition-colors">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-mono text-sm font-medium">{order.order_number}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
+                          <span className="text-xs text-muted-foreground">{status.label}</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                        {getCustomerName(order)} &middot;{" "}
+                        {order.created_at ? format(new Date(order.created_at), "MMM d, yyyy") : "\u2014"}
+                      </p>
                     </div>
-                    <p className="text-sm text-muted-foreground truncate">
-                      {getCustomerName(order)} &middot;{" "}
-                      {order.created_at ? format(new Date(order.created_at), "MMM d, yyyy") : "—"}
-                    </p>
+                    <span className="font-mono text-sm font-semibold tabular-nums ml-4">${order.total.toFixed(2)}</span>
                   </div>
-                  <span className="font-mono font-medium ml-4">${order.total.toFixed(2)}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </CardContent>

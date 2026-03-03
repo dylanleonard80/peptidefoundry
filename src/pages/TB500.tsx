@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const TB500 = () => {
-  useDocumentMeta("TB-500 | Peptide Foundry");
+  useDocumentMeta({
+    title: "TB-500 | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity TB-500 research peptide from Peptide Foundry. A peptide studied for cellular migration and tissue repair mechanisms. Verified quality, fast shipping.",
+    canonicalPath: "/tb-500",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="TB-500 Research Peptide"
+    description="TB-500 is a synthetic version of a naturally occurring peptide present in virtually all human cells called Thymosin Beta 4 (Tβ4). It has been extensively studied in preclinical models for its effects on tissue repair, wound healing, and cellular migration."
+    slug="tb-500"
+    casNumber="77591-33-4"
+  />
   <PeptidePageTemplate
     slug="tb-500"
     peptideName="TB-500"
@@ -88,6 +101,7 @@ const TB500 = () => {
       },
     ]}
   />
+  </>
   );
 };
 

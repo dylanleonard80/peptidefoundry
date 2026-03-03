@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLP1SG = () => {
-  useDocumentMeta("Semaglutide | Peptide Foundry");
+  useDocumentMeta({
+    title: "GLP-1SG | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity GLP-1SG research peptide from Peptide Foundry. A peptide studied for metabolic regulation, glucose homeostasis, and appetite signaling. Verified quality, fast shipping.",
+    canonicalPath: "/glp-1sg",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="GLP-1SG Research Peptide"
+    description="GLP-1SG is a glucagon-like peptide-1 (GLP-1) receptor agonist that shares 94% structural homology with native human GLP-1. This synthetic peptide has become one of the most extensively studied compounds in metabolic and weight management research."
+    slug="glp-1sg"
+    casNumber="910463-68-2"
+  />
     <PeptidePageTemplate
       slug="glp-1sg"
       peptideName="GLP-1SG"
@@ -41,6 +54,7 @@ const GLP1SG = () => {
         { value: "metabolism", iconName: "Flame", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Metabolic Pathway Modulation", content: "Research indicates semaglutide may influence hepatic glucose production, gastric emptying, and lipid metabolism through both direct receptor activation and indirect hormonal effects." }
       ]}
     />
+  </>
   );
 };
 

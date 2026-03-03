@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Melanotan2 = () => {
-  useDocumentMeta("Melanotan II | Peptide Foundry");
+  useDocumentMeta({
+    title: "Melanotan 2 | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity Melanotan 2 research peptide from Peptide Foundry. A peptide studied for melanogenesis and melanocortin signaling. Verified quality, fast shipping.",
+    canonicalPath: "/melanotan-2",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="Melanotan 2 Research Peptide"
+    description="Melanotan 2 (MT-2) is a synthetic analog of alpha-melanocyte-stimulating hormone (α-MSH) developed to study melanocortin receptor binding and melanogenesis signaling in cell culture models."
+    slug="melanotan-2"
+    casNumber="121062-08-6"
+  />
   <PeptidePageTemplate
     slug="melanotan-2"
     peptideName="Melanotan 2"
@@ -37,6 +50,7 @@ const Melanotan2 = () => {
       { value: "signaling", iconName: "Signal", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Melanocortin Signaling", content: "All melanocortin receptors are G-protein coupled receptors that increase intracellular cAMP upon activation. This triggers downstream signaling cascades specific to each tissue type expressing the receptors." }
     ]}
   />
+  </>
   );
 };
 

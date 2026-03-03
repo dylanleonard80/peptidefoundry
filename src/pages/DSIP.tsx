@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const DSIP = () => {
-  useDocumentMeta("DSIP | Peptide Foundry");
+  useDocumentMeta({
+    title: "DSIP | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity DSIP research peptide from Peptide Foundry. A peptide studied for sleep architecture and neuroendocrine modulation. Verified quality, fast shipping.",
+    canonicalPath: "/dsip",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="DSIP Research Peptide"
+    description="A naturally occurring neuromodulatory peptide that regulates sleep architecture, stress response, and neuroendocrine function. DSIP promotes physiological sleep patterns, reduces stress-induced hormonal imbalances, and protects the nervous system from metabolic and oxidative damage."
+    slug="dsip"
+    casNumber="62568-57-4"
+  />
   <PeptidePageTemplate
     slug="dsip"
     peptideName="DSIP"
@@ -42,6 +55,7 @@ const DSIP = () => {
       { value: "neuroprotection", iconName: "Shield", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Neuroprotective Mechanisms", content: "DSIP activates cellular antioxidant defenses, including superoxide dismutase (SOD) and glutathione peroxidase, protecting neurons from oxidative damage. It also modulates glutamate neurotransmission to prevent excitotoxicity during metabolic stress." }
     ]}
   />
+  </>
   );
 };
 

@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLP1TZ = () => {
-  useDocumentMeta("Tirzepatide | Peptide Foundry");
+  useDocumentMeta({
+    title: "GLP-1 2TZ | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity GLP-1 2TZ research peptide from Peptide Foundry. A peptide studied for dual incretin receptor activation and metabolic regulation. Verified quality, fast shipping.",
+    canonicalPath: "/glp-1tz",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="GLP-1 2TZ Research Peptide"
+    description="GLP-1 2TZ is a dual glucose-dependent insulinotropic polypeptide (GIP) and glucagon-like peptide-1 (GLP-1) receptor agonist. This synthetic peptide represents a novel approach to incretin-based research by targeting two key metabolic pathways simultaneously."
+    slug="glp-1tz"
+    casNumber="2023788-19-2"
+  />
     <PeptidePageTemplate
       slug="glp-1tz"
       peptideName="GLP-1 2TZ"
@@ -46,6 +59,7 @@ const GLP1TZ = () => {
         { value: "synergy", iconName: "Signal", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Dual Agonist Synergy", content: "Research suggests the combined activation of both incretin receptors may produce effects greater than either pathway alone. Studies examine how this synergy affects weight regulation, glucose control, and overall metabolic function." }
       ]}
     />
+  </>
   );
 };
 

@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Glutathione = () => {
-  useDocumentMeta("Glutathione | Peptide Foundry");
+  useDocumentMeta({
+    title: "Glutathione | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity Glutathione research peptide from Peptide Foundry. A tripeptide studied for antioxidant activity and cellular redox signaling. Verified quality, fast shipping.",
+    canonicalPath: "/glutathione",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="Glutathione Research Peptide"
+    description="Glutathione (GSH) is a naturally occurring tripeptide composed of glutamate, cysteine, and glycine. It serves as the body's master antioxidant and has been extensively studied for its role in cellular detoxification, redox balance, and protection against oxidative stress."
+    slug="glutathione"
+    casNumber="70-18-8"
+  />
   <PeptidePageTemplate
     slug="glutathione"
     peptideName="Glutathione"
@@ -39,6 +52,7 @@ const Glutathione = () => {
       { value: "signaling", iconName: "Activity", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Redox Signaling", content: "The GSH/GSSG ratio serves as a cellular redox sensor that influences protein function through reversible S-glutathionylation. This post-translational modification regulates enzymes, transcription factors, and signaling proteins." }
     ]}
   />
+  </>
   );
 };
 

@@ -3,6 +3,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://peptidefoundry.com/</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -10,21 +11,25 @@
   <!-- Core pages -->
   <url>
     <loc>https://peptidefoundry.com/shop</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/about</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/contact</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/foundry-club</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -32,124 +37,129 @@
   <!-- Peptide product pages -->
   <url>
     <loc>https://peptidefoundry.com/bpc-157</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/tb-500</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/ipamorelin</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/igf-1-lr3</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/tesamorelin</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/sermorelin</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/aod-9604</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://peptidefoundry.com/cagrilintide</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/retatrutide</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/mots-c</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/dsip</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/ghk-cu</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/selank</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/semax</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/nad-buffered</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/glutathione</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/pt-141</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/melanotan-2</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/epithalon</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-
   <!-- Blend product pages -->
   <url>
     <loc>https://peptidefoundry.com/cjc-1295-ipamorelin</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/bpc-157-tb-500</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/glow</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://peptidefoundry.com/klow</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://peptidefoundry.com/tesamorelin-ipamorelin</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -157,6 +167,7 @@
   <!-- Supplies -->
   <url>
     <loc>https://peptidefoundry.com/bacteriostatic-water</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -164,21 +175,25 @@
   <!-- Legal pages -->
   <url>
     <loc>https://peptidefoundry.com/privacy-policy</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/terms-of-service</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/refund-policy</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://peptidefoundry.com/shipping-policy</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

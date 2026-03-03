@@ -3,7 +3,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { useAdminGuard } from "@/hooks/useAdminGuard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import type { AdminOrder, OrderItem, OrderStatus } from "@/types/admin";
+import type { AdminOrder, OrderItem, OrderStatus, OrderSource } from "@/types/admin";
 import {
   Table,
   TableBody,
@@ -33,17 +33,17 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Truck, Package, Eye, Printer, ExternalLink, Loader2, Hand } from "lucide-react";
+import { Search, Truck, Package, Eye, Printer, ExternalLink, Loader2, Hand, Plus, Trash2 } from "lucide-react";
 import { format, differenceInHours } from "date-fns";
 
 const ORDER_STATUSES: OrderStatus[] = ["pending", "processing", "shipped", "delivered", "cancelled"];
 
 const statusColors: Record<string, string> = {
-  pending: "bg-yellow-100 text-yellow-800",
-  processing: "bg-blue-100 text-blue-800",
-  shipped: "bg-purple-100 text-purple-800",
-  delivered: "bg-green-100 text-green-800",
-  cancelled: "bg-red-100 text-red-800",
+  pending: "bg-amber-50 text-amber-700 border border-amber-200",
+  processing: "bg-blue-50 text-blue-700 border border-blue-200",
+  shipped: "bg-violet-50 text-violet-700 border border-violet-200",
+  delivered: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+  cancelled: "bg-red-50 text-red-600 border border-red-200",
 };
 
 type StatusTab = "all" | OrderStatus;
@@ -62,6 +62,89 @@ const AdminOrderManagement = () => {
   // Inline tracking/notes state
   const [trackingInputs, setTrackingInputs] = useState<Record<string, string>>({});
   const [notesInputs, setNotesInputs] = useState<Record<string, string>>({});
+
+  // Log Sale state
+  const [logSaleOpen, setLogSaleOpen] = useState(false);
+  const [logSaleSubmitting, setLogSaleSubmitting] = useState(false);
+  const [saleCustomerName, setSaleCustomerName] = useState("");
+  const [saleDate, setSaleDate] = useState(() => new Date().toISOString().split("T")[0]);
+  const [salePaymentMethod, setSalePaymentMethod] = useState("Cash");
+  const [salePaymentDest, setSalePaymentDest] = useState("");
+  const [saleNotes, setSaleNotes] = useState("");
+  interface SaleLineItem {
+    name: string;
+    size: string;
+    quantity: number;
+    price: number;
+  }
+  const [saleItems, setSaleItems] = useState<SaleLineItem[]>([
+    { name: "", size: "", quantity: 1, price: 0 },
+  ]);
+
+  const saleTotal = saleItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const resetLogSaleForm = () => {
+    setSaleCustomerName("");
+    setSaleDate(new Date().toISOString().split("T")[0]);
+    setSalePaymentMethod("Cash");
+    setSalePaymentDest("");
+    setSaleNotes("");
+    setSaleItems([{ name: "", size: "", quantity: 1, price: 0 }]);
+  };
+
+  const handleLogSale = async () => {
+    if (!saleCustomerName.trim()) {
+      toast({ title: "Customer name is required", variant: "destructive" });
+      return;
+    }
+    const validItems = saleItems.filter((i) => i.name.trim() && i.price > 0);
+    if (validItems.length === 0) {
+      toast({ title: "Add at least one line item with a name and price", variant: "destructive" });
+      return;
+    }
+
+    setLogSaleSubmitting(true);
+
+    const orderNumber = `MAN-${Date.now().toString(36).toUpperCase()}`;
+    const subtotal = validItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+    const orderRow = {
+      order_number: orderNumber,
+      user_id: null,
+      items: validItems.map((i) => ({
+        name: i.name,
+        size: i.size || "N/A",
+        quantity: i.quantity,
+        price: i.price,
+      })),
+      subtotal,
+      shipping: 0,
+      total: subtotal,
+      tax: 0,
+      status: "delivered",
+      source: "manual",
+      payment_method: salePaymentMethod,
+      payment_destination: salePaymentDest || null,
+      shipping_address: { name: saleCustomerName },
+      guest_email: null,
+      internal_notes: saleNotes || null,
+      created_at: new Date(saleDate + "T12:00:00").toISOString(),
+      delivered_at: new Date(saleDate + "T12:00:00").toISOString(),
+    };
+
+    const { error } = await supabase.from("orders").insert(orderRow as any);
+    setLogSaleSubmitting(false);
+
+    if (error) {
+      toast({ title: "Error logging sale", description: error.message, variant: "destructive" });
+      return;
+    }
+
+    toast({ title: `Manual sale ${orderNumber} logged` });
+    setLogSaleOpen(false);
+    resetLogSaleForm();
+    fetchOrders();
+  };
 
   // Shipping label state
   interface ShippingRate {
@@ -325,6 +408,18 @@ const AdminOrderManagement = () => {
       setSelectedOrder((prev) => prev ? { ...prev, ...updatedFields } : null);
     }
 
+    // Auto-create operating expense for the shipping label cost
+    const labelCost = parseFloat(rate.amount);
+    if (labelCost > 0) {
+      await supabase.from("expenses" as any).insert({
+        category: "operating",
+        description: `Shipping — ${shippingOrder.order_number} (${rate.provider} ${rate.servicelevel_name})`,
+        amount: labelCost,
+        expense_date: new Date().toISOString().split("T")[0],
+        notes: "Auto-created from shipping label purchase",
+      });
+    }
+
     setShippingOrder(null);
     toast({ title: `Label purchased — ${data.carrier} ${data.tracking_number}` });
 
@@ -373,6 +468,11 @@ const AdminOrderManagement = () => {
   const getCustomerName = (order: AdminOrder) => {
     if (order.profiles) {
       return `${order.profiles.first_name} ${order.profiles.last_name}`.trim() || order.profiles.email || "\u2014";
+    }
+    // Manual orders store customer name in shipping_address.name
+    if ((order as any).source === "manual" && order.shipping_address) {
+      const name = (order.shipping_address as any).name;
+      if (name) return name;
     }
     return order.guest_email || "Guest";
   };
@@ -525,7 +625,7 @@ const AdminOrderManagement = () => {
         </div>
       )}
 
-      {/* Search bar */}
+      {/* Search bar + Log Sale */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -536,27 +636,45 @@ const AdminOrderManagement = () => {
             className="pl-9"
           />
         </div>
+        <Button onClick={() => setLogSaleOpen(true)} className="shrink-0">
+          <Plus className="h-4 w-4 mr-2" />
+          Log Sale
+        </Button>
       </div>
 
       {/* Status tab bar */}
-      <div className="flex flex-wrap gap-1 mb-4 border-b pb-3">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => {
-              setStatusFilter(tab.key);
-              setSelectedIds(new Set());
-            }}
-            className={
-              "px-3 py-1.5 rounded-md text-sm font-medium transition-colors " +
-              (statusFilter === tab.key
-                ? "bg-primary text-white"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground")
-            }
-          >
-            {tab.label} ({statusCounts[tab.key]})
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-1 mb-4 pb-3 border-b border-border/50">
+        {tabs.map((tab) => {
+          const dotColors: Record<string, string> = {
+            all: "bg-foreground/40",
+            pending: "bg-amber-400",
+            processing: "bg-blue-400",
+            shipped: "bg-violet-400",
+            delivered: "bg-emerald-400",
+            cancelled: "bg-red-400",
+          };
+          return (
+            <button
+              key={tab.key}
+              onClick={() => {
+                setStatusFilter(tab.key);
+                setSelectedIds(new Set());
+              }}
+              className={
+                "px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5 " +
+                (statusFilter === tab.key
+                  ? "bg-[hsl(25,20%,8%)] text-white"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground")
+              }
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${dotColors[tab.key]}`} />
+              {tab.label}
+              <span className={statusFilter === tab.key ? "text-white/60" : "text-muted-foreground/60"}>
+                {statusCounts[tab.key]}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Orders table */}
@@ -598,7 +716,16 @@ const AdminOrderManagement = () => {
                       aria-label={`Select order ${order.order_number}`}
                     />
                   </TableCell>
-                  <TableCell className="font-mono text-sm">{order.order_number}</TableCell>
+                  <TableCell className="font-mono text-sm">
+                    <span className="flex items-center gap-1.5">
+                      {order.order_number}
+                      {(order as any).source === "manual" && (
+                        <Badge className="bg-indigo-50 text-indigo-600 border-indigo-200 text-[10px] px-1.5 py-0" variant="outline">
+                          Manual
+                        </Badge>
+                      )}
+                    </span>
+                  </TableCell>
                   <TableCell className="max-w-[160px] truncate">{getCustomerName(order)}</TableCell>
                   <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                     {order.created_at ? format(new Date(order.created_at), "MMM d, yyyy") : "\u2014"}
@@ -917,6 +1044,164 @@ const AdminOrderManagement = () => {
           )}
         </DialogContent>
       </Dialog>
+      {/* Log Sale Dialog */}
+      <Dialog open={logSaleOpen} onOpenChange={(open) => { if (!open) { setLogSaleOpen(false); resetLogSaleForm(); } }}>
+        <DialogContent className="max-w-lg p-0">
+          <div
+            className="max-h-[85vh] overflow-y-auto p-6"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+          >
+            <DialogHeader>
+              <DialogTitle>Log Off-Platform Sale</DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-4 mt-4">
+              <div>
+                <Label>Customer Name *</Label>
+                <Input
+                  className="mt-1"
+                  value={saleCustomerName}
+                  onChange={(e) => setSaleCustomerName(e.target.value)}
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Date</Label>
+                  <Input
+                    type="date"
+                    className="mt-1"
+                    value={saleDate}
+                    onChange={(e) => setSaleDate(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label>Payment Method</Label>
+                  <Select value={salePaymentMethod} onValueChange={setSalePaymentMethod}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {["Cash", "Venmo", "Zelle", "Check", "Other"].map((m) => (
+                        <SelectItem key={m} value={m}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div>
+                <Label>Where did the money go?</Label>
+                <Input
+                  className="mt-1"
+                  value={salePaymentDest}
+                  onChange={(e) => setSalePaymentDest(e.target.value)}
+                  placeholder="e.g. Business account, personal bank, cash on hand"
+                />
+              </div>
+
+              {/* Line Items */}
+              <div>
+                <Label>Line Items</Label>
+                <div className="space-y-2 mt-1">
+                  {saleItems.map((item, idx) => (
+                    <div key={idx} className="flex gap-2 items-start">
+                      <Input
+                        placeholder="Product name"
+                        className="flex-1"
+                        value={item.name}
+                        onChange={(e) => {
+                          const next = [...saleItems];
+                          next[idx] = { ...next[idx], name: e.target.value };
+                          setSaleItems(next);
+                        }}
+                      />
+                      <Input
+                        placeholder="Size"
+                        className="w-20"
+                        value={item.size}
+                        onChange={(e) => {
+                          const next = [...saleItems];
+                          next[idx] = { ...next[idx], size: e.target.value };
+                          setSaleItems(next);
+                        }}
+                      />
+                      <Input
+                        type="number"
+                        placeholder="Qty"
+                        className="w-16"
+                        min={1}
+                        value={item.quantity}
+                        onChange={(e) => {
+                          const next = [...saleItems];
+                          next[idx] = { ...next[idx], quantity: parseInt(e.target.value) || 1 };
+                          setSaleItems(next);
+                        }}
+                      />
+                      <Input
+                        type="number"
+                        placeholder="Price"
+                        className="w-24"
+                        min={0}
+                        step={0.01}
+                        value={item.price || ""}
+                        onChange={(e) => {
+                          const next = [...saleItems];
+                          next[idx] = { ...next[idx], price: parseFloat(e.target.value) || 0 };
+                          setSaleItems(next);
+                        }}
+                      />
+                      {saleItems.length > 1 && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-9 w-9 shrink-0 text-muted-foreground hover:text-red-500"
+                          onClick={() => setSaleItems(saleItems.filter((_, i) => i !== idx))}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSaleItems([...saleItems, { name: "", size: "", quantity: 1, price: 0 }])}
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    Add Item
+                  </Button>
+                </div>
+              </div>
+
+              <div>
+                <Label>Notes (optional)</Label>
+                <Textarea
+                  className="mt-1"
+                  rows={2}
+                  value={saleNotes}
+                  onChange={(e) => setSaleNotes(e.target.value)}
+                  placeholder="Any additional notes..."
+                />
+              </div>
+
+              {/* Total + Submit */}
+              <div className="flex items-center justify-between pt-2 border-t">
+                <div className="text-lg font-semibold">
+                  Total: <span className="font-mono">${saleTotal.toFixed(2)}</span>
+                </div>
+                <Button onClick={handleLogSale} disabled={logSaleSubmitting}>
+                  {logSaleSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                  Log Sale
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Shipping Rate Selection Dialog */}
       <Dialog open={!!shippingOrder} onOpenChange={() => setShippingOrder(null)}>
         <DialogContent className="max-w-lg p-0">

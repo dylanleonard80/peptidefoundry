@@ -15,7 +15,6 @@ import {
   X,
   LogOut,
   ChevronLeft,
-  Newspaper,
   Calculator,
   Shield,
 } from "lucide-react";
@@ -33,7 +32,6 @@ const navItems = [
   { path: "/dashboard/orders", label: "Orders", icon: Package },
   { path: "/dashboard/calculator", label: "Peptide Calculator", icon: Calculator },
   { path: "/dashboard/membership", label: "Foundry Club", icon: Hexagon },
-  { path: "/dashboard/research-briefs", label: "Research Briefs", icon: Newspaper },
   { path: "/dashboard/documents", label: "Documents", icon: FileText },
   { path: "/dashboard/settings", label: "Settings", icon: Settings },
 ];

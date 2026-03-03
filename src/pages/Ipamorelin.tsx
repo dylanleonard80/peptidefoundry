@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const Ipamorelin = () => {
-  useDocumentMeta("Ipamorelin | Peptide Foundry");
+  useDocumentMeta({
+    title: "Ipamorelin | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity Ipamorelin research peptide from Peptide Foundry. A peptide studied for selective growth hormone secretion. Verified quality, fast shipping.",
+    canonicalPath: "/ipamorelin",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="Ipamorelin Research Peptide"
+    description="Ipamorelin is the first truly selective growth hormone secretagogue. It stimulates GH release without affecting cortisol, prolactin, or other hormones, making it one of the safest and most targeted GHRPs available."
+    slug="ipamorelin"
+    casNumber="170851-70-4"
+  />
   <PeptidePageTemplate
     slug="ipamorelin"
     peptideName="Ipamorelin"
@@ -38,6 +51,7 @@ const Ipamorelin = () => {
       { value: "safety", iconName: "Shield", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Favorable Safety Profile", content: "Unlike GHRP-2 and GHRP-6, ipamorelin does not significantly stimulate appetite or cause cortisol spikes. This clean pharmacological profile makes it well-suited for long-term research applications." }
     ]}
   />
+  </>
   );
 };
 

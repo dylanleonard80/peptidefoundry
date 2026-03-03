@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const GLOW = () => {
-  useDocumentMeta("GLOW Blend | Peptide Foundry");
+  useDocumentMeta({
+    title: "GLOW | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity GLOW research peptide blend from Peptide Foundry. A peptide blend studied for tissue repair and collagen synthesis. Verified quality, fast shipping.",
+    canonicalPath: "/glow",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="GLOW Research Peptide Blend"
+    description="GLOW is a multi-peptide research blend for studying tissue remodeling, cellular migration, and collagen synthesis pathways. It combines BPC-157, TB-500, and GHK-Cu to enable investigation of complementary extracellular matrix signaling mechanisms."
+    slug="glow"
+    casNumber="137525-51-0"
+  />
   <PeptidePageTemplate
     slug="glow"
     peptideName="GLOW"
@@ -39,6 +52,7 @@ const GLOW = () => {
       { value: "ghkcu", iconName: "Sparkles", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "GHK-Cu Gene Modulation", content: "GHK-Cu modulates expression of 4,000+ genes, upregulating collagen, elastin, and glycosaminoglycan synthesis while downregulating inflammatory and senescence-associated genes. This resets skin to more youthful patterns." }
     ]}
   />
+  </>
   );
 };
 

@@ -225,35 +225,43 @@ const AdminInventory = () => {
     <AdminLayout title="Inventory">
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <Package className="h-5 w-5 text-muted-foreground" />
+        <Card className="border-l-[3px] border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{stockSummary.total}</p>
-                <p className="text-xs text-muted-foreground">Total Products</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{stockSummary.total}</p>
+                <p className="text-xs text-muted-foreground font-medium">Total Products</p>
+              </div>
+              <div className="p-2 rounded-lg bg-orange-50">
+                <Package className="h-4 w-4 text-primary" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="h-3 w-3 rounded-full bg-green-500" />
+        <Card className="border-l-[3px] border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{stockSummary.inStock}</p>
-                <p className="text-xs text-muted-foreground">In Stock</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{stockSummary.inStock}</p>
+                <p className="text-xs text-muted-foreground font-medium">In Stock</p>
+              </div>
+              <div className="p-2 rounded-lg bg-emerald-50">
+                <div className="h-4 w-4 flex items-center justify-center">
+                  <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                </div>
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3">
-              <AlertCircle className="h-5 w-5 text-red-500" />
+        <Card className="border-l-[3px] border-l-red-500">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-2xl font-bold">{stockSummary.outOfStock}</p>
-                <p className="text-xs text-muted-foreground">Out of Stock</p>
+                <p className="text-[22px] font-bold tracking-tight leading-none mb-1.5">{stockSummary.outOfStock}</p>
+                <p className="text-xs text-muted-foreground font-medium">Out of Stock</p>
+              </div>
+              <div className="p-2 rounded-lg bg-red-50">
+                <AlertCircle className="h-4 w-4 text-red-500" />
               </div>
             </div>
           </CardContent>

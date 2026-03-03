@@ -67,7 +67,7 @@ serve(async (req) => {
     if (!txnRes.ok) {
       const text = await txnRes.text();
       logStep("Shippo transaction failed", { status: txnRes.status, body: text });
-      throw new Error(`Shippo label purchase failed: ${txnRes.status}`);
+      throw new Error(`Shippo label purchase failed (${txnRes.status}): ${text}`);
     }
 
     const txn = await txnRes.json();

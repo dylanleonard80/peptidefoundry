@@ -1,9 +1,22 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const AOD9604 = () => {
-  useDocumentMeta("AOD-9604 | Peptide Foundry");
+  useDocumentMeta({
+    title: "AOD-9604 | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity AOD-9604 research peptide from Peptide Foundry. A peptide studied for fat metabolism, lipolysis, and body composition. Verified quality, fast shipping.",
+    canonicalPath: "/aod-9604",
+    ogType: "product",
+  });
   return (
+  <>
+  <ProductJsonLd
+    name="AOD-9604 Research Peptide"
+    description="AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains lipolytic signaling activity in adipocyte models while lacking the glycemic effects associated with full-length HGH."
+    slug="aod-9604"
+    casNumber="221231-10-3"
+  />
   <PeptidePageTemplate
     slug="aod-9604"
     peptideName="AOD-9604"
@@ -46,6 +59,7 @@ const AOD9604 = () => {
       "Free fatty acids → mitochondrial transport via CPT1 → beta-oxidation → acetyl-CoA production"
     ]}
   />
+  </>
   );
 };
 

@@ -1,10 +1,23 @@
 import { PeptidePageTemplate } from "@/components/PeptidePageTemplate";
+import { ProductJsonLd } from "@/components/ProductJsonLd";
 import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const PT141 = () => {
-  useDocumentMeta("PT-141 | Peptide Foundry");
+  useDocumentMeta({
+    title: "PT-141 | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity PT-141 research peptide from Peptide Foundry. A peptide studied for melanocortin-4 receptor activation and downstream signaling. Verified quality, fast shipping.",
+    canonicalPath: "/pt-141",
+    ogType: "product",
+  });
 
   return (
+  <>
+  <ProductJsonLd
+    name="PT-141 Research Peptide"
+    description="PT-141 (Bremelanotide) is a synthetic melanocortin receptor agonist studied for melanocortin-4 receptor activation and downstream signaling in neuronal cell models."
+    slug="pt-141"
+    casNumber="189691-06-3"
+  />
   <PeptidePageTemplate
     slug="pt-141"
     peptideName="PT-141"
@@ -39,6 +52,7 @@ const PT141 = () => {
       { value: "response", iconName: "Zap", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Central vs Peripheral Action", content: "Unlike PDE5 inhibitors that act on blood vessels, PT-141's central mechanism means it can enhance desire and arousal independent of vascular function. Effects begin within 30-45 minutes and peak at 2-3 hours." }
     ]}
   />
+  </>
   );
 };
 
