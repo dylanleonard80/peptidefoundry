@@ -2194,6 +2194,133 @@ export const nadBufferedResearch: PeptideResearch = {
   ]
 };
 
+// BPC-157 + TB-500 Blend Research
+export const bpc157tb500Research: PeptideResearch = {
+  peptideSlug: "bpc-157-tb-500",
+  researchAreas: [
+    {
+      areaId: "tissue-repair-wound-healing",
+      areaTitle: "Tissue Repair & Wound Healing Research",
+      studies: [
+        {
+          title: "Stable Gastric Pentadecapeptide BPC 157 and Wound Healing",
+          authors: "Sikiric P, Seiwerth S, Rucman R, et al.",
+          journal: "Frontiers in Pharmacology",
+          year: 2021,
+          pmid: "34267654",
+          summary: "Comprehensive review examining BPC-157's effects on wound healing parameters across multiple preclinical models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/34267654/"
+        },
+        {
+          title: "Thymosin beta 4 stimulates directional migration of human umbilical vein endothelial cells",
+          authors: "Malinda KM, Sidhu GS, Mani H, et al.",
+          journal: "FASEB Journal",
+          year: 1997,
+          pmid: "9194528",
+          summary: "First direct evidence that TB4 has chemoattractive activity and promotes angiogenesis by stimulating endothelial cell migration.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/9194528/"
+        }
+      ]
+    },
+    {
+      areaId: "regenerative-mechanisms",
+      areaTitle: "Regenerative Mechanisms",
+      studies: [
+        {
+          title: "Thymosin β4: a multi-functional regenerative peptide. Basic properties and clinical applications",
+          authors: "Goldstein AL, Hannappel E, Sosne G, Kleinman HK",
+          journal: "Expert Opinion on Biological Therapy",
+          year: 2012,
+          pmid: "22074294",
+          summary: "Comprehensive review of TB4's role in repair and regeneration of injured cells and tissues.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/22074294/"
+        },
+        {
+          title: "Thymosin beta4 induces adult epicardial progenitor mobilization and neovascularization",
+          authors: "Smart N, Risebro CA, Melville AA, et al.",
+          journal: "Nature",
+          year: 2007,
+          pmid: "17108969",
+          summary: "Study showing TB4's ability to mobilize epicardial progenitor cells and promote neovascularization following cardiac injury.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/17108969/"
+        }
+      ]
+    },
+    {
+      areaId: "angiogenesis-vascular-repair",
+      areaTitle: "Angiogenesis & Vascular Repair Signaling",
+      studies: [
+        {
+          title: "Modulatory effect of gastric pentadecapeptide BPC 157 on angiogenesis in muscle and tendon healing",
+          authors: "Brcic L, Brcic I, Staresinic M, Novinscak T, Sikiric P, Seiwerth S",
+          journal: "Journal of Physiology and Pharmacology",
+          year: 2009,
+          pmid: "20388964",
+          summary: "In preclinical models of crushed and transected muscle and tendon, BPC-157 modulated new blood vessel formation by up-regulating VEGF expression, resulting in improved vascular architecture and enhanced tissue healing outcomes.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/20388964/"
+        },
+        {
+          title: "Thymosin beta4 enhances endothelial cell differentiation and angiogenesis",
+          authors: "Grant DS, Rose W, Yaen C, Goldstein A, Martinez J, Kleinman H",
+          journal: "Angiogenesis",
+          year: 1999,
+          pmid: "14517430",
+          summary: "TB-500's parent peptide thymosin beta-4 promoted endothelial cell attachment, proliferation, tube formation, and vascular sprouting through both autocrine and paracrine mechanisms, establishing its role as a potent pro-angiogenic signaling molecule.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/14517430/"
+        }
+      ]
+    },
+    {
+      areaId: "musculoskeletal-tendon-healing",
+      areaTitle: "Musculoskeletal Injury & Tendon Healing Models",
+      studies: [
+        {
+          title: "The promoting effect of pentadecapeptide BPC 157 on tendon healing involves tendon outgrowth, cell survival, and cell migration",
+          authors: "Chang CH, Tsai WC, Lin MS, Hsu YH, Pang JH",
+          journal: "Journal of Applied Physiology",
+          year: 2011,
+          pmid: "21030672",
+          summary: "BPC-157 significantly accelerated tendon fibroblast outgrowth, enhanced cell survival under oxidative stress, and promoted dose-dependent cell migration in preclinical models through activation of the FAK-paxillin signaling pathway.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/21030672/"
+        },
+        {
+          title: "Effective therapy of transected quadriceps muscle in rat: Gastric pentadecapeptide BPC 157",
+          authors: "Staresinic M, Petrovic I, Novinscak T, Jukic I, Pevec D, et al.",
+          journal: "Journal of Orthopaedic Research",
+          year: 2006,
+          pmid: "16609979",
+          summary: "In a rat model of complete quadriceps transection, BPC-157 promoted functional recovery, restored biomechanical strength, and stimulated muscle fiber reconnection with significant regeneration markers over a 72-day observation period.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/16609979/"
+        }
+      ]
+    },
+    {
+      areaId: "inflammatory-modulation-cytoprotection",
+      areaTitle: "Inflammatory Modulation & Cytoprotection",
+      studies: [
+        {
+          title: "Pentadecapeptide BPC 157 positively affects both non-steroidal anti-inflammatory agent-induced gastrointestinal lesions and adjuvant arthritis in rats",
+          authors: "Sikiric P, Seiwerth S, Grabarevic Z, Rucman R, Petek M, et al.",
+          journal: "Journal of Physiology - Paris",
+          year: 1997,
+          pmid: "9403784",
+          summary: "BPC-157 demonstrated dual anti-inflammatory and mucosal-protective effects by reducing NSAID-induced gastric lesions across multiple agents while simultaneously attenuating the development and severity of adjuvant-induced arthritis in preclinical rat models.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/9403784/"
+        },
+        {
+          title: "Stable gastric pentadecapeptide BPC 157 in the treatment of colitis and ischemia and reperfusion in rats: New insights",
+          authors: "Duzel A, Vlainic J, Antunovic M, Malekinusic D, Vrdoljak B, et al.",
+          journal: "World Journal of Gastroenterology",
+          year: 2017,
+          pmid: "29358856",
+          summary: "In rat models of ischemic colitis and ischemia-reperfusion injury, BPC-157 restored mucosal architecture, normalized oxidative stress markers, and promoted collateral vessel recruitment, demonstrating cytoprotective and anti-inflammatory activity through nitric oxide system modulation.",
+          url: "https://pubmed.ncbi.nlm.nih.gov/29358856/"
+        }
+      ]
+    }
+  ]
+};
+
 // GLOW Blend Research
 // Note: GLOW contains GHK-Cu, BPC-157, and TB-500. Research references their individual mechanisms.
 export const glowResearch: PeptideResearch = {
