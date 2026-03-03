@@ -1,4 +1,13 @@
 {
+  "redirects": [
+    { "source": "/cagrilintide", "destination": "/shop", "statusCode": 301 },
+    { "source": "/glp-1sg", "destination": "/shop", "statusCode": 301 },
+    { "source": "/glp-1tz", "destination": "/shop", "statusCode": 301 },
+    { "source": "/klow", "destination": "/shop", "statusCode": 301 },
+    { "source": "/tesamorelin-ipamorelin", "destination": "/shop", "statusCode": 301 },
+    { "source": "/pt-141-kisspeptin-pinealon", "destination": "/shop", "statusCode": 301 },
+    { "source": "/thymosin-thymulin", "destination": "/shop", "statusCode": 301 }
+  ],
   "rewrites": [
     { "source": "/((?!assets/|sitemap\\.xml|robots\\.txt|\\.well-known/).*)", "destination": "/index.html" }
   ]

@@ -11,7 +11,7 @@ export const peptidePrices: Record<string, Record<string, number>> = {
   "igf-1-lr3": { "1mg": 185 },
   "tesamorelin": { "10mg": 164 },
   "sermorelin": { "5mg": 61 },
-  "cagrilintide": { "10mg": 139 },
+
   "retatrutide": { "10mg": 105, "20mg": 150 },
   "mots-c": { "10mg": 56 },
   "selank": { "10mg": 48 },
@@ -30,12 +30,7 @@ export const peptidePrices: Record<string, Record<string, number>> = {
   // Blends
   "cjc-1295-ipamorelin": { "5mg/5mg": 90 },
   "bpc-157-tb-500": { "10mg/10mg": 150 },
-  "pt-141-kisspeptin-pinealon": { "5mg x 2mg x 3mg": 249 },
-  "thymosin-thymulin": { "10mg x 6mg": 199 },
-  "klow": { "50mg/10mg/10mg/10mg": 144 },
-  "tesamorelin-ipamorelin": { "12mg/2mg": 124 },
-  "glp-1sg": { "10mg": 98 },
-  "glp-1tz": { "10mg": 98, "15mg": 139, "20mg": 179 },
+
 
   // Supplies
   "bacteriostatic-water": { "30ml": 25 },
@@ -51,7 +46,7 @@ export const memberPrices: Record<string, Record<string, number>> = {
   "igf-1-lr3": { "1mg": 110 },
   "tesamorelin": { "10mg": 98 },
   "sermorelin": { "5mg": 48 },
-  "cagrilintide": { "10mg": 99 },
+
   "retatrutide": { "10mg": 70, "20mg": 90 },
   "mots-c": { "10mg": 46 },
   "selank": { "10mg": 38 },
@@ -70,10 +65,6 @@ export const memberPrices: Record<string, Record<string, number>> = {
   // Blends
   "cjc-1295-ipamorelin": { "5mg/5mg": 60 },
   "bpc-157-tb-500": { "10mg/10mg": 100 },
-  "klow": { "50mg/10mg/10mg/10mg": 103 },
-  "tesamorelin-ipamorelin": { "12mg/2mg": 92 },
-  "glp-1sg": { "10mg": 70 },
-  "glp-1tz": { "10mg": 70 },
 
   // Supplies
   "bacteriostatic-water": { "30ml": 0 },

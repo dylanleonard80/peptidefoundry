@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { cjc1295IpamorelinData, bpc157tb500Data, pt141BlendData, thymosinBlendData, klowData } from "./blendPageData";
+import { cjc1295IpamorelinData, bpc157tb500Data } from "./blendPageData";
 
 export interface PeptideBenefit {
   iconName: string;
@@ -244,50 +244,6 @@ export const SermorelinData: PeptidePageData = {
     "cAMP elevation → PKA activation → CREB phosphorylation → Pit-1 activation → GH gene transcription",
     "cAMP → L-type calcium channel opening → Ca²⁺ influx → secretory granule exocytosis → GH release",
     "GH → hepatic JAK2/STAT5 → IGF-1 synthesis → negative feedback on hypothalamus and pituitary"
-  ]
-};
-
-// Cagrilintide
-export const CagrilintideData: PeptidePageData = {
-  slug: "cagrilintide",
-  peptideName: "Cagrilintide",
-  productImage: "/products/cagrilintide.webp",
-  subtitle: "A peptide studied in laboratory settings for amylin receptor agonism and metabolic regulation",
-  description: "Cagrilintide is a long-acting acylated amylin analog designed for once-weekly administration. It activates amylin receptors to modulate appetite, gastric emptying, and glucose homeostasis through mechanisms distinct from GLP-1 receptor agonists.",
-  casNumber: "2170752-57-1",
-  molecularFormula: "C₂₀₆H₃₀₆N₅₆O₆₄S₂",
-  molarMass: "4693.0 g/mol",
-  benefits: [
-    { iconName: "TrendingDown", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Appetite Regulation", description: "Investigated in preclinical models for its effects on satiety signaling and food intake reduction", link: "(Preclinical Study)" },
-    { iconName: "Flame", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Weight Management Research", description: "Examined in laboratory studies for observations related to body weight and adipose tissue changes", link: "(Preclinical Study)" },
-    { iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Gastric Motility", description: "Studied for effects on gastric emptying rate and post-meal glucose excursions", link: "(Preclinical Study)" },
-    { iconName: "Zap", iconBgClass: "bg-yellow-100 dark:bg-yellow-900/30", title: "Glucagon Suppression", description: "Evaluated in research models examining post-prandial glucagon secretion inhibition", link: "(Preclinical Study)" },
-    { iconName: "Clock", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Extended Duration", description: "Engineered with acylation for prolonged half-life enabling once-weekly research dosing protocols", link: "(Preclinical Study)" },
-    { iconName: "Brain", iconBgClass: "bg-pink-100 dark:bg-pink-900/30", title: "Central Signaling", description: "Investigated for CNS-mediated effects on energy balance through area postrema activation", link: "(Preclinical Study)" }
-  ],
-  references: [
-    "Lau DCW, et al. Once-weekly cagrilintide for weight management in people with overweight and obesity. Lancet. 2021.",
-    "Enebo LB, et al. Safety, tolerability, pharmacokinetics of cagrilintide with semaglutide. Lancet. 2021.",
-    "Hay DL, et al. Amylin: Pharmacology, Physiology, and Clinical Potential. Pharmacological Reviews. 2015.",
-    "Lutz TA. Amylinergic control of food intake. Physiology & Behavior. 2006."
-  ],
-  aboutParagraphs: [
-    "Cagrilintide was developed by Novo Nordisk in the late 2010s as part of their research into next-generation metabolic therapies. Scientists were looking to harness the appetite-suppressing effects of amylin, a hormone co-secreted with insulin from pancreatic beta cells, which had long been recognized for its role in satiety but was limited by its very short half-life.",
-    "The breakthrough came through strategic acylation—attaching a fatty acid chain to the peptide backbone. This modification dramatically extended the molecule's duration of action by promoting albumin binding in circulation, allowing for once-weekly administration rather than multiple daily injections required by native amylin.",
-    "Cagrilintide has garnered significant research interest both as a standalone compound and in combination studies with GLP-1 receptor agonists. The rationale for combination research is that amylin and GLP-1 pathways are complementary, potentially offering enhanced effects through dual receptor engagement. This product is intended for research use only."
-  ],
-  howItWorksIntro: "Preclinical studies have examined Cagrilintide's mechanism as a long-acting amylin receptor agonist that activates calcitonin receptor/RAMP complexes in the brain to reduce appetite and slow gastric emptying.",
-  howItWorksAccordions: [
-    { value: "receptor", iconName: "Target", iconBgClass: "bg-blue-100 dark:bg-blue-900/30", title: "Amylin Receptor Activation", content: "Cagrilintide binds to amylin receptors (AMY1, AMY2, AMY3), which are heterodimers of the calcitonin receptor (CTR) with receptor activity-modifying proteins (RAMPs). These receptors are highly expressed in the area postrema and other hindbrain regions." },
-    { value: "satiety", iconName: "Brain", iconBgClass: "bg-purple-100 dark:bg-purple-900/30", title: "Central Satiety Signaling", content: "Activation of amylin receptors in the area postrema, a circumventricular organ outside the blood-brain barrier, triggers neuronal signaling to hypothalamic appetite centers. This reduces meal size and overall food intake through enhanced satiation." },
-    { value: "gastric", iconName: "Activity", iconBgClass: "bg-green-100 dark:bg-green-900/30", title: "Gastric Emptying Modulation", content: "Amylin receptor activation slows gastric emptying through vagal efferent pathways. This delays nutrient absorption, reducing post-meal glucose spikes and prolonging feelings of fullness after eating." },
-    { value: "glucagon", iconName: "TrendingDown", iconBgClass: "bg-orange-100 dark:bg-orange-900/30", title: "Glucagon Suppression", content: "Cagrilintide suppresses post-prandial glucagon secretion from pancreatic alpha cells. This reduces hepatic glucose output after meals, contributing to improved glycemic control in metabolic research models." }
-  ],
-  technicalPathways: [
-    "Cagrilintide binding → CTR/RAMP complex activation → Gs protein coupling → cAMP elevation",
-    "Area postrema activation → nucleus tractus solitarius signaling → hypothalamic integration → reduced appetite",
-    "Vagal efferent activation → pyloric contraction → delayed gastric emptying → prolonged satiety",
-    "Pancreatic alpha cell receptor activation → reduced glucagon secretion → decreased hepatic glucose output"
   ]
 };
 
@@ -628,7 +584,7 @@ export const allPeptideData: PeptidePageData[] = [
   IGF1LR3Data,
   TesamorelinData,
   SermorelinData,
-  CagrilintideData,
+
   RetatrutideData,
   MOTSCData,
   SelankData,
@@ -650,20 +606,17 @@ export const slugToDataMap: Record<string, PeptidePageData> = Object.fromEntries
 const blendImageMap: Record<string, string | undefined> = {
   [cjc1295IpamorelinData.slug]: (cjc1295IpamorelinData as any).productImage,
   [bpc157tb500Data.slug]: (bpc157tb500Data as any).productImage,
-  [pt141BlendData.slug]: (pt141BlendData as any).productImage,
-  [thymosinBlendData.slug]: (thymosinBlendData as any).productImage,
-  [klowData.slug]: (klowData as any).productImage,
+
+
   "glow": "/products/glow.webp",
   "retatrutide": "/products/glp-3rt-10mg.webp",
-  "tesamorelin-ipamorelin": "/products/tesamorelin-ipamorelin.webp",
+
   "dsip": "/products/dsip.webp",
   "epithalon": "/products/epithalon.webp",
   "ghk-cu": "/products/ghk-cu.webp",
   "glutathione": "/products/glutathione.webp",
   "pt-141": "/products/pt-141.webp",
   "melanotan-2": "/products/melanotan-2.webp",
-  "glp-1sg": "/products/glp-1sg.webp",
-  "glp-1tz": "/products/glp-1tz.webp",
 };
 
 // Get product image by slug - checks both peptides and blends

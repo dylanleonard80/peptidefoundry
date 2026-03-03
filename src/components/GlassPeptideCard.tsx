@@ -25,7 +25,7 @@ function GlassPeptideCard({
   showGlowEffect = false,
 }: GlassPeptideCardProps): JSX.Element {
   const isBlend = card.tags.includes("Blend");
-  const isGlowOrKlow = card.slug === "glow" || card.slug === "klow";
+  const isGlow = card.slug === "glow";
 
   const cardContent = (
     <Card className="h-full overflow-hidden transition-all duration-500 group flex flex-col cursor-pointer relative border-0 bg-transparent rounded-[inherit]">
@@ -66,8 +66,8 @@ function GlassPeptideCard({
             </div>
           )}
 
-          {/* Composition Badge for GLOW/KLOW */}
-          {isGlowOrKlow && card.composition && (
+          {/* Composition Badge for GLOW */}
+          {isGlow && card.composition && (
             <div className="absolute bottom-2 left-2 right-2 z-20">
               <Badge className="text-[9px] shadow-lg backdrop-blur-md bg-white/15 border-white/25 text-foreground/90 font-medium w-full justify-center">
                 {card.composition}
@@ -82,7 +82,7 @@ function GlassPeptideCard({
             <h3 className="font-display font-bold text-base mb-1 line-clamp-2 whitespace-pre-line bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
               {card.name}
             </h3>
-            {card.composition && !isGlowOrKlow && (
+            {card.composition && !isGlow && (
               <p className="text-[10px] text-muted-foreground/80 mb-1 font-medium backdrop-blur-sm">
                 {card.composition}
               </p>

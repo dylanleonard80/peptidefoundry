@@ -39,29 +39,14 @@ export const peptideStacks: Record<string, StackRecommendation[]> = {
 
   // Metabolic Research
   "retatrutide": [
-    { slug: "cagrilintide", label: "Amylin receptor signaling research", priority: 1 },
-    { slug: "aod-9604", label: "Lipolytic pathway research", priority: 2 },
-    { slug: "mots-c", label: "Mitochondrial signaling research", priority: 3 },
-  ],
-  "cagrilintide": [
-    { slug: "retatrutide", label: "Triple incretin receptor research", priority: 1 },
-    { slug: "glp-1tz", label: "Dual incretin receptor research", priority: 2 },
-    { slug: "aod-9604", label: "Lipolytic pathway research", priority: 3 },
+    { slug: "aod-9604", label: "Lipolytic pathway research", priority: 1 },
+    { slug: "mots-c", label: "Mitochondrial signaling research", priority: 2 },
+    { slug: "cjc-1295-ipamorelin", label: "GH secretagogue pathway research", priority: 3 },
   ],
   "aod-9604": [
     { slug: "cjc-1295-ipamorelin", label: "GH secretagogue pathway research", priority: 1 },
     { slug: "tesamorelin", label: "GHRH receptor signaling research", priority: 2 },
     { slug: "mots-c", label: "Mitochondrial signaling research", priority: 3 },
-  ],
-  "glp-1sg": [
-    { slug: "cagrilintide", label: "Amylin receptor signaling research", priority: 1 },
-    { slug: "mots-c", label: "Mitochondrial signaling research", priority: 2 },
-    { slug: "aod-9604", label: "Lipolytic pathway research", priority: 3 },
-  ],
-  "glp-1tz": [
-    { slug: "cagrilintide", label: "Amylin receptor signaling research", priority: 1 },
-    { slug: "mots-c", label: "Mitochondrial signaling research", priority: 2 },
-    { slug: "aod-9604", label: "Lipolytic pathway research", priority: 3 },
   ],
 
   // Growth Hormone Secretagogue Research
@@ -72,13 +57,8 @@ export const peptideStacks: Record<string, StackRecommendation[]> = {
   ],
   "tesamorelin": [
     { slug: "ipamorelin", label: "GHRP receptor signaling research", priority: 1 },
-    { slug: "tesamorelin-ipamorelin", label: "Pre-made blend", priority: 2 },
-    { slug: "cjc-1295-ipamorelin", label: "Complementary GHRH analog research", priority: 3 },
-  ],
-  "tesamorelin-ipamorelin": [
-    { slug: "igf-1-lr3", label: "Growth factor signaling research", priority: 1 },
-    { slug: "sermorelin", label: "Complementary GHRH analog research", priority: 2 },
-    { slug: "mots-c", label: "Mitochondrial signaling research", priority: 3 },
+    { slug: "cjc-1295-ipamorelin", label: "Complementary GHRH analog research", priority: 2 },
+    { slug: "sermorelin", label: "Complementary GHRH analog research", priority: 3 },
   ],
   "ipamorelin": [
     { slug: "tesamorelin", label: "GHRH receptor signaling research", priority: 1 },
@@ -138,18 +118,13 @@ export const peptideStacks: Record<string, StackRecommendation[]> = {
   // Melanocortin & Neuroendocrine Research
   "pt-141": [
     { slug: "melanotan-2", label: "Melanocortin receptor research", priority: 1 },
-    { slug: "klow", label: "Neuroendocrine signaling blend", priority: 2 },
+    { slug: "bpc-157", label: "Complementary signaling pathway research", priority: 2 },
     { slug: "cjc-1295-ipamorelin", label: "GH secretagogue pathway research", priority: 3 },
   ],
   "melanotan-2": [
     { slug: "pt-141", label: "Melanocortin receptor research", priority: 1 },
     { slug: "bpc-157", label: "Complementary signaling pathway research", priority: 2 },
     { slug: "ghk-cu", label: "Extracellular matrix research", priority: 3 },
-  ],
-  "klow": [
-    { slug: "pt-141", label: "Melanocortin receptor research", priority: 1 },
-    { slug: "cjc-1295-ipamorelin", label: "GH secretagogue pathway research", priority: 2 },
-    { slug: "nad-buffered", label: "NAD+ pathway research", priority: 3 },
   ],
 };
 
