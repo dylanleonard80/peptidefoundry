@@ -16,6 +16,7 @@ const IGF1LR3 = () => {
     name="IGF-1 LR3 Research Peptide"
     description={IGF1LR3Data.description}
     slug="igf-1-lr3"
+    price={185}
     casNumber={IGF1LR3Data.casNumber}
   />
   <PeptidePageTemplate

@@ -15,10 +15,12 @@ const GLOW = () => {
     name="GLOW Research Peptide Blend"
     description="GLOW is a multi-peptide research blend for studying tissue remodeling, cellular migration, and collagen synthesis pathways. It combines BPC-157, TB-500, and GHK-Cu to enable investigation of complementary extracellular matrix signaling mechanisms."
     slug="glow"
+    price={155}
     casNumber="137525-51-0"
   />
   <PeptidePageTemplate
     slug="glow"
+    price={155}
     peptideName="GLOW"
     productImage="/products/glow.webp"
     subtitle="A peptide blend studied in laboratory settings for tissue repair and collagen synthesis"

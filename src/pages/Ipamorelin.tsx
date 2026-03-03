@@ -15,10 +15,12 @@ const Ipamorelin = () => {
     name="Ipamorelin Research Peptide"
     description="Ipamorelin is the first truly selective growth hormone secretagogue. It stimulates GH release without affecting cortisol, prolactin, or other hormones, making it one of the safest and most targeted GHRPs available."
     slug="ipamorelin"
+    price={65}
     casNumber="170851-70-4"
   />
   <PeptidePageTemplate
     slug="ipamorelin"
+    price={65}
     peptideName="Ipamorelin"
     productImage="/products/ipamorelin.webp"
     coaSlot={<img src="/coa/ipamorelin.png" alt="Ipamorelin COA" className="w-full h-auto" />}

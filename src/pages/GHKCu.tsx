@@ -16,10 +16,12 @@ const GHKCu = () => {
     name="GHK-Cu Research Peptide"
     description="A naturally occurring copper-binding tripeptide with profound regenerative, anti-aging, and wound-healing properties. GHK-Cu remodels tissue architecture by stimulating collagen and glycosaminoglycan synthesis, modulating over 4,000+ human genes."
     slug="ghk-cu"
+    price={55}
     casNumber="49557-75-7"
   />
   <PeptidePageTemplate
     slug="ghk-cu"
+    price={55}
     peptideName="GHK-Cu"
     productImage="/products/ghk-cu.webp"
     subtitle="A peptide studied in laboratory settings for tissue remodeling and gene expression modulation"

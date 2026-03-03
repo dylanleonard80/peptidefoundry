@@ -16,10 +16,12 @@ const TesamorelinIpamorelin = () => {
     name="Tesamorelin + Ipamorelin Research Peptide Blend"
     description="This research blend combines Tesamorelin, a synthetic growth hormone-releasing hormone (GHRH) analog, with Ipamorelin, a selective growth hormone secretagogue receptor (GHSR) agonist. Together, they represent a dual-pathway approach to studying growth hormone release mechanisms."
     slug="tesamorelin-ipamorelin"
+    price={124}
     casNumber="218949-48-5"
   />
     <PeptidePageTemplate
       slug="tesamorelin-ipamorelin"
+    price={124}
       peptideName="Tesamorelin / Ipamorelin"
       productImage="/products/tesamorelin-ipamorelin.webp"
       coaSlot={<img src="/coa/tesamorelin-ipamorelin.png" alt="Tesamorelin / Ipamorelin COA" className="w-full h-auto" />}

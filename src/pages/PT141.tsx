@@ -16,10 +16,12 @@ const PT141 = () => {
     name="PT-141 Research Peptide"
     description="PT-141 (Bremelanotide) is a synthetic melanocortin receptor agonist studied for melanocortin-4 receptor activation and downstream signaling in neuronal cell models."
     slug="pt-141"
+    price={55}
     casNumber="189691-06-3"
   />
   <PeptidePageTemplate
     slug="pt-141"
+    price={55}
     peptideName="PT-141"
     productImage="/products/pt-141.webp"
     coaSlot={<img src="/coa/pt-141.png" alt="PT-141 COA" className="w-full h-auto" />}

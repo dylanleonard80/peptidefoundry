@@ -17,6 +17,7 @@ const Tesamorelin = () => {
     description={TesamorelinData.description}
     slug="tesamorelin"
     casNumber={TesamorelinData.casNumber}
+    price={164}
   />
   <PeptidePageTemplate
     {...TesamorelinData}

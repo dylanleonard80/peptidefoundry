@@ -15,10 +15,12 @@ const Melanotan2 = () => {
     name="Melanotan 2 Research Peptide"
     description="Melanotan 2 (MT-2) is a synthetic analog of alpha-melanocyte-stimulating hormone (α-MSH) developed to study melanocortin receptor binding and melanogenesis signaling in cell culture models."
     slug="melanotan-2"
+    price={49}
     casNumber="121062-08-6"
   />
   <PeptidePageTemplate
     slug="melanotan-2"
+    price={49}
     peptideName="Melanotan 2"
     productImage="/products/melanotan-2.webp"
     subtitle="A peptide studied in laboratory settings for melanogenesis and melanocortin signaling"

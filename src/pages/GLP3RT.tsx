@@ -16,6 +16,7 @@ const GLP3RT = () => {
     name="GLP-3RT Research Peptide"
     description={RetatrutideData.description}
     slug="retatrutide"
+    price={105}
     casNumber={RetatrutideData.casNumber}
   />
   <PeptidePageTemplate

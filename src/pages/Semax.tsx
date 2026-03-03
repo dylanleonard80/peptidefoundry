@@ -17,6 +17,7 @@ const Semax = () => {
     name="Semax Research Peptide"
     description={SemaxData.description}
     slug="semax"
+    price={50}
     casNumber={SemaxData.casNumber}
   />
   <PeptidePageTemplate

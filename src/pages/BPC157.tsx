@@ -16,6 +16,7 @@ const BPC157 = () => {
     description="BPC-157 is a short chain of amino acids, a peptide originally isolated from gastric juice. Studied in preclinical models for effects on tissue regeneration pathways and inflammatory signaling cascades."
     slug="bpc-157"
     casNumber="137525-51-0"
+    price={55}
   />
   <PeptidePageTemplate
     slug="bpc-157"

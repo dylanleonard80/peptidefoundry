@@ -17,6 +17,7 @@ const NADBuffered = () => {
     name="NAD+ Buffered Research Coenzyme"
     description={NADBufferedData.description}
     slug="nad-buffered"
+    price={70}
     casNumber={NADBufferedData.casNumber}
   />
   <PeptidePageTemplate

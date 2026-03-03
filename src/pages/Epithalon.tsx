@@ -15,10 +15,12 @@ const Epithalon = () => {
     name="Epithalon Research Peptide"
     description="Epithalon is a synthetic tetrapeptide (Ala-Glu-Asp-Gly) derived from epithalamin, a pineal gland extract. It is a powerful telomerase activator that lengthens telomeres, regulates circadian rhythms, and exhibits profound anti-aging, neuroprotective, and longevity-promoting effects."
     slug="epithalon"
+    price={55}
     casNumber="307297-39-8"
   />
   <PeptidePageTemplate
     slug="epithalon"
+    price={55}
     peptideName="Epithalon"
     productImage="/products/epithalon.webp"
     coaSlot={<img src="/coa/epithalon.png" alt="Epithalon COA" className="w-full h-auto" />}

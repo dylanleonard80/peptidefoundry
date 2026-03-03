@@ -61,16 +61,6 @@ const routes = [
     description:
       "Buy high-purity BPC-157 research peptide from Peptide Foundry. Studied for tissue regeneration and healing mechanisms. Verified quality, fast shipping.",
     ogType: "product",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: "BPC-157 Research Peptide",
-      url: `${BASE_URL}/bpc-157`,
-      image: `${BASE_URL}/products/bpc-157.webp`,
-      brand: { "@type": "Brand", name: "Peptide Foundry" },
-      description:
-        "BPC-157 is a short chain of amino acids originally isolated from gastric juice, studied in preclinical models for tissue regeneration.",
-    },
   },
   {
     path: "/tb-500",
@@ -78,14 +68,6 @@ const routes = [
     description:
       "Buy high-purity TB-500 (Thymosin Beta-4) from Peptide Foundry. Studied for tissue repair and cell migration. Verified quality, fast shipping.",
     ogType: "product",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: "TB-500 Research Peptide",
-      url: `${BASE_URL}/tb-500`,
-      image: `${BASE_URL}/products/tb-500.webp`,
-      brand: { "@type": "Brand", name: "Peptide Foundry" },
-    },
   },
   {
     path: "/cjc-1295-ipamorelin",

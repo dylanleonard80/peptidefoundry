@@ -16,10 +16,12 @@ const GLP1SG = () => {
     name="GLP-1SG Research Peptide"
     description="GLP-1SG is a glucagon-like peptide-1 (GLP-1) receptor agonist that shares 94% structural homology with native human GLP-1. This synthetic peptide has become one of the most extensively studied compounds in metabolic and weight management research."
     slug="glp-1sg"
+    price={98}
     casNumber="910463-68-2"
   />
     <PeptidePageTemplate
       slug="glp-1sg"
+    price={98}
       peptideName="GLP-1SG"
       productImage="/products/glp-1sg.webp"
       coaSlot={<img src="/coa/glp-1sg.png" alt="GLP-1SG COA" className="w-full h-auto" />}

@@ -16,10 +16,12 @@ const Glutathione = () => {
     name="Glutathione Research Peptide"
     description="Glutathione (GSH) is a naturally occurring tripeptide composed of glutamate, cysteine, and glycine. It serves as the body's master antioxidant and has been extensively studied for its role in cellular detoxification, redox balance, and protection against oxidative stress."
     slug="glutathione"
+    price={92}
     casNumber="70-18-8"
   />
   <PeptidePageTemplate
     slug="glutathione"
+    price={92}
     peptideName="Glutathione"
     productImage="/products/glutathione.webp"
     coaSlot={<img src="/coa/glutathione.png" alt="Glutathione COA" className="w-full h-auto" />}

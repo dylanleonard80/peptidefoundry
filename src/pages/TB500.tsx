@@ -15,10 +15,12 @@ const TB500 = () => {
     name="TB-500 Research Peptide"
     description="TB-500 is a synthetic version of a naturally occurring peptide present in virtually all human cells called Thymosin Beta 4 (Tβ4). It has been extensively studied in preclinical models for its effects on tissue repair, wound healing, and cellular migration."
     slug="tb-500"
+    price={140}
     casNumber="77591-33-4"
   />
   <PeptidePageTemplate
     slug="tb-500"
+    price={140}
     peptideName="TB-500"
     productImage="/products/tb-500.webp"
     coaSlot={<img src="/coa/tb-500.png" alt="TB-500 COA" className="w-full h-auto" />}

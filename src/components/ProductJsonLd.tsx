@@ -7,6 +7,9 @@ interface ProductJsonLdProps {
   image?: string;
   sku?: string;
   casNumber?: string;
+  price?: number;
+  priceCurrency?: string;
+  inStock?: boolean;
 }
 
 /**
@@ -20,6 +23,9 @@ export function ProductJsonLd({
   image,
   sku,
   casNumber,
+  price,
+  priceCurrency = "USD",
+  inStock = true,
 }: ProductJsonLdProps) {
   useEffect(() => {
     const script = document.createElement("script");
@@ -53,6 +59,21 @@ export function ProductJsonLd({
         value: casNumber,
       };
     }
+    if (price) {
+      productData.offers = {
+        "@type": "Offer",
+        url: `https://peptidefoundry.com/${slug}`,
+        priceCurrency,
+        price: price.toFixed(2),
+        availability: inStock
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+        seller: {
+          "@type": "Organization",
+          name: "Peptide Foundry",
+        },
+      };
+    }
 
     script.textContent = JSON.stringify(productData);
     document.head.appendChild(script);
@@ -61,7 +82,7 @@ export function ProductJsonLd({
       const existing = document.getElementById(`product-jsonld-${slug}`);
       if (existing) existing.remove();
     };
-  }, [name, description, slug, image, sku, casNumber]);
+  }, [name, description, slug, image, sku, casNumber, price, priceCurrency, inStock]);
 
   return null;
 }

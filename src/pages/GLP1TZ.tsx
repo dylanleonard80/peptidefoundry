@@ -16,10 +16,12 @@ const GLP1TZ = () => {
     name="GLP-1 2TZ Research Peptide"
     description="GLP-1 2TZ is a dual glucose-dependent insulinotropic polypeptide (GIP) and glucagon-like peptide-1 (GLP-1) receptor agonist. This synthetic peptide represents a novel approach to incretin-based research by targeting two key metabolic pathways simultaneously."
     slug="glp-1tz"
+    price={98}
     casNumber="2023788-19-2"
   />
     <PeptidePageTemplate
       slug="glp-1tz"
+    price={98}
       peptideName="GLP-1 2TZ"
       productImage="/products/glp-1tz.webp"
       productImages={{

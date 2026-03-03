@@ -16,10 +16,12 @@ const DSIP = () => {
     name="DSIP Research Peptide"
     description="A naturally occurring neuromodulatory peptide that regulates sleep architecture, stress response, and neuroendocrine function. DSIP promotes physiological sleep patterns, reduces stress-induced hormonal imbalances, and protects the nervous system from metabolic and oxidative damage."
     slug="dsip"
+    price={40}
     casNumber="62568-57-4"
   />
   <PeptidePageTemplate
     slug="dsip"
+    price={40}
     peptideName="DSIP"
     productImage="/products/dsip.webp"
     coaSlot={<img src="/coa/dsip.png" alt="DSIP COA" className="w-full h-auto" />}

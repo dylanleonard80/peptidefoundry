@@ -16,6 +16,7 @@ const BPC157TB500 = () => {
     name="BPC-157 + TB-500 Research Peptide Blend"
     description="This synergistic blend combines BPC-157's angiogenic and gastroprotective properties with TB-500's actin regulation and cellular migration capabilities, creating a comprehensive healing formula for accelerated recovery from musculoskeletal injuries, surgical wounds, and chronic inflammatory conditions."
     slug="bpc-157-tb-500"
+    price={150}
     casNumber="137525-51-0"
   />
   <PeptidePageTemplate {...bpc157tb500Data} />

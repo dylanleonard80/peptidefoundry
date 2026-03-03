@@ -17,6 +17,7 @@ const MOTSC = () => {
     name="MOTS-C Research Peptide"
     description={MOTSCData.description}
     slug="mots-c"
+    price={56}
     casNumber={MOTSCData.casNumber}
   />
   <PeptidePageTemplate

@@ -16,6 +16,7 @@ const CJC1295Ipamorelin = () => {
     name="CJC-1295 + Ipamorelin Research Peptide Blend"
     description="CJC-1295 with Ipamorelin is a synergistic peptide combination that optimizes natural growth hormone secretion without receptor desensitization. CJC-1295 (a long-acting GHRH analog) amplifies GH pulse amplitude, while Ipamorelin (a selective ghrelin mimetic) increases pulse frequency, resulting in sustained, physiological GH elevation."
     slug="cjc-1295-ipamorelin"
+    price={90}
     casNumber="863288-34-0"
   />
   <PeptidePageTemplate

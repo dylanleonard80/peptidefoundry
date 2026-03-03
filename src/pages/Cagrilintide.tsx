@@ -16,6 +16,7 @@ const Cagrilintide = () => {
     name="Cagrilintide Research Peptide"
     description={CagrilintideData.description}
     slug="cagrilintide"
+    price={139}
     casNumber={CagrilintideData.casNumber}
   />
   <PeptidePageTemplate

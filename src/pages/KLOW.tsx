@@ -16,6 +16,7 @@ const KLOW = () => {
     name="KLOW Research Peptide Blend"
     description={klowData.description}
     slug="klow"
+    price={144}
     casNumber="137525-51-0"
   />
     <PeptidePageTemplate

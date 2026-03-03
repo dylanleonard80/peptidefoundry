@@ -15,10 +15,12 @@ const AOD9604 = () => {
     name="AOD-9604 Research Peptide"
     description="AOD-9604 is a modified fragment of the C-terminus of human growth hormone (HGH), specifically amino acids 176-191. This synthetic peptide retains lipolytic signaling activity in adipocyte models while lacking the glycemic effects associated with full-length HGH."
     slug="aod-9604"
+    price={82}
     casNumber="221231-10-3"
   />
   <PeptidePageTemplate
     slug="aod-9604"
+    price={82}
     peptideName="AOD-9604"
     productImage="/products/aod-9604.webp"
     coaSlot={<img src="/coa/aod-9604.png" alt="AOD-9604 COA" className="w-full h-auto" />}
