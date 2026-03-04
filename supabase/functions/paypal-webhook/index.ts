@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { sendMembershipWelcome } from "../_shared/emails.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -169,6 +170,29 @@ serve(async (req) => {
           logStep("Failed to upsert membership", { error: error.message, userId });
         } else {
           logStep("Membership activated", { userId, subscriptionId, periodEnd: periodEnd.toISOString() });
+
+          // Send membership welcome email
+          try {
+            const { data: profile } = await supabaseClient
+              .from('profiles')
+              .select('email, first_name')
+              .eq('id', userId)
+              .maybeSingle();
+
+            if (profile?.email) {
+              await sendMembershipWelcome({
+                to: profile.email,
+                firstName: profile.first_name || "",
+              });
+              logStep("Membership welcome email sent", { email: profile.email });
+            } else {
+              logStep("Warning: No profile email found for membership welcome", { userId });
+            }
+          } catch (emailErr) {
+            logStep("Warning: Failed to send membership welcome email", {
+              error: emailErr instanceof Error ? emailErr.message : String(emailErr),
+            });
+          }
         }
         break;
       }
