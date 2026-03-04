@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Truck, Package, Eye, Printer, ExternalLink, Loader2, Hand, Plus, Trash2 } from "lucide-react";
+import { Search, Truck, Package, Eye, Printer, ExternalLink, Loader2, Hand, Plus, Trash2, Tag } from "lucide-react";
 import { format, differenceInHours } from "date-fns";
 
 const ORDER_STATUSES: OrderStatus[] = ["pending", "processing", "shipped", "delivered", "cancelled"];
@@ -460,6 +460,11 @@ const AdminOrderManagement = () => {
       setSelectedOrder((prev) => prev ? { ...prev, ...updatedFields } : null);
     }
     toast({ title: `Order ${order.order_number} marked as hand delivered` });
+
+    // Fire-and-forget: send delivered email
+    supabase.functions.invoke('send-delivered-email', {
+      body: { orderId: order.id },
+    }).catch(() => {});
   };
 
   const canShip = (order: AdminOrder) =>
@@ -1013,6 +1018,15 @@ const AdminOrderManagement = () => {
                     <span className="text-muted-foreground">Subtotal</span>
                     <span>${selectedOrder.subtotal.toFixed(2)}</span>
                   </div>
+                  {selectedOrder.coupon_code && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-green-600 flex items-center gap-1">
+                        <Tag className="h-3 w-3" />
+                        Coupon ({selectedOrder.coupon_code})
+                      </span>
+                      <span className="text-green-600">-${selectedOrder.discount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Shipping</span>
                     <span>${selectedOrder.shipping.toFixed(2)}</span>
