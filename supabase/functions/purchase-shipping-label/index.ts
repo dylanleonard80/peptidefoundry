@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { sendOrderShipped } from "../_shared/emails.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -44,6 +45,13 @@ serve(async (req) => {
 
     const { orderId, rateId, carrier, serviceName } = await req.json();
     if (!orderId || !rateId) throw new Error("Missing orderId or rateId");
+
+    // Fetch order to get user_id and order_number for email
+    const { data: orderForEmail } = await supabaseClient
+      .from('orders')
+      .select('user_id, order_number')
+      .eq('id', orderId)
+      .maybeSingle();
 
     const shippoToken = Deno.env.get("SHIPPO_API_TOKEN");
     if (!shippoToken) throw new Error("SHIPPO_API_TOKEN not configured");
@@ -103,6 +111,33 @@ serve(async (req) => {
     }
 
     logStep("Order updated to shipped", { orderId });
+
+    // Send shipped email
+    try {
+      if (orderForEmail?.user_id) {
+        const { data: profile } = await supabaseClient
+          .from('profiles')
+          .select('email, first_name')
+          .eq('id', orderForEmail.user_id)
+          .maybeSingle();
+
+        if (profile?.email) {
+          await sendOrderShipped({
+            to: profile.email,
+            firstName: profile.first_name || "",
+            orderNumber: orderForEmail.order_number,
+            trackingNumber,
+            carrier: carrier || txn.provider || "",
+            trackingUrl: txn.tracking_url_provider || undefined,
+          });
+          logStep("Shipped email sent", { email: profile.email });
+        }
+      }
+    } catch (emailErr) {
+      logStep("Warning: Failed to send shipped email", {
+        error: emailErr instanceof Error ? emailErr.message : String(emailErr),
+      });
+    }
 
     return new Response(JSON.stringify({
       success: true,
