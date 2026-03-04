@@ -7,15 +7,29 @@ const logStep = (step: string, details?: any) => {
   console.log(`[SEND-WELCOME-EMAIL] ${step}${detailsStr}`);
 };
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
 serve(async (req) => {
+  // Required for browser-based calls via supabase.functions.invoke()
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
   try {
     const payload = await req.json();
-    // Supabase DB webhook payload: { type, table, record, schema, old_record }
+    // Payload from browser: { record: { email, first_name } }
+    // Payload from DB webhook: { type, table, record, schema, old_record }
     const record = payload.record;
 
     if (!record?.email) {
       logStep("No email in record, skipping", { record });
-      return new Response(JSON.stringify({ ok: true, skipped: true }), { status: 200 });
+      return new Response(JSON.stringify({ ok: true, skipped: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
     }
 
     logStep("Sending welcome email", { email: record.email, firstName: record.first_name });
@@ -28,15 +42,15 @@ serve(async (req) => {
     logStep("Welcome email sent", { email: record.email });
 
     return new Response(JSON.stringify({ ok: true }), {
-      headers: { "Content-Type": "application/json" },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     logStep("ERROR", { message: msg });
     return new Response(JSON.stringify({ ok: false, error: msg }), {
-      headers: { "Content-Type": "application/json" },
-      status: 200, // Return 200 so Supabase doesn't retry endlessly
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
     });
   }
 });
