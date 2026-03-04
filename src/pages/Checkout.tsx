@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus, Tag, X } from 'lucide-react';
+import { Loader2, ShieldCheck, Plus, Minus, LogIn, UserPlus, Tag, X, Eye, EyeOff } from 'lucide-react';
 import { usePrices } from '@/hooks/usePrices';
 import { useMembership } from '@/hooks/useMembership';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
@@ -69,9 +69,11 @@ const Checkout = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
   const [pricesSynced, setPricesSynced] = useState(false);
   const [couponInput, setCouponInput] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
   const [street2, setStreet2] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     email: '',
@@ -211,6 +213,66 @@ const Checkout = () => {
     if (error) return;
   };
 
+  const handleApplyCoupon = async () => {
+    const code = couponInput.trim();
+    if (!code) return;
+
+    // If user isn't logged in, just set the code (server validates at checkout)
+    if (!user) {
+      setCouponCode(code);
+      setCouponError(null);
+      setCouponDiscount(0);
+      return;
+    }
+
+    setCouponLoading(true);
+    setCouponError(null);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setCouponCode(code);
+        setCouponDiscount(0);
+        return;
+      }
+
+      const { data: result, error } = await supabase.functions.invoke('validate-coupon', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+        body: {
+          couponCode: code,
+          items: items.map(item => ({
+            slug: item.slug || '',
+            size: item.size,
+            quantity: item.quantity,
+          })),
+        },
+      });
+
+      if (error) {
+        setCouponError('Could not validate coupon. Please try again.');
+        setCouponCode('');
+        setCouponDiscount(0);
+        return;
+      }
+
+      if (result.valid) {
+        setCouponCode(result.couponCode);
+        setCouponDiscount(result.discount);
+        setCouponError(null);
+      } else {
+        setCouponError(result.error || 'Invalid coupon code');
+        setCouponCode('');
+        setCouponDiscount(0);
+      }
+    } catch {
+      setCouponError('Could not validate coupon. Please try again.');
+      setCouponCode('');
+      setCouponDiscount(0);
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
   const shippingFields = (
     <>
       <div>
@@ -279,7 +341,12 @@ const Checkout = () => {
                         </div>
                         <div>
                           <Label htmlFor="password">Password</Label>
-                          <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Create a password (min 6 characters)" />
+                          <div className="relative">
+                            <Input id="password" type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="Create a password (min 6 characters)" className="pr-10" />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
                         </div>
                         <Separator />
                         {shippingFields}
@@ -303,7 +370,12 @@ const Checkout = () => {
                         </div>
                         <div>
                           <Label htmlFor="password">Password</Label>
-                          <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" onKeyDown={e => { if (e.key === 'Enter') handleSignIn(); }} />
+                          <div className="relative">
+                            <Input id="password" type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" className="pr-10" onKeyDown={e => { if (e.key === 'Enter') handleSignIn(); }} />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
                         </div>
                         <Button className="w-full" onClick={handleSignIn} disabled={authLoading}>
                           {authLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <LogIn className="h-4 w-4 mr-2" />}
@@ -446,26 +518,21 @@ const Checkout = () => {
                         placeholder="Coupon code"
                         value={couponInput}
                         onChange={e => setCouponInput(e.target.value.toUpperCase())}
-                        onKeyDown={e => {
-                          if (e.key === 'Enter' && couponInput.trim()) {
-                            setCouponCode(couponInput.trim());
-                            setCouponError(null);
-                            setCouponDiscount(0);
+                        onKeyDown={async e => {
+                          if (e.key === 'Enter' && couponInput.trim() && !couponLoading) {
+                            await handleApplyCoupon();
                           }
                         }}
+                        disabled={couponLoading}
                         className="flex-1"
                       />
                       <Button
                         variant="outline"
                         size="sm"
-                        disabled={!couponInput.trim()}
-                        onClick={() => {
-                          setCouponCode(couponInput.trim());
-                          setCouponError(null);
-                          setCouponDiscount(0);
-                        }}
+                        disabled={!couponInput.trim() || couponLoading}
+                        onClick={handleApplyCoupon}
                       >
-                        Apply
+                        {couponLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Apply'}
                       </Button>
                     </div>
                   )}
