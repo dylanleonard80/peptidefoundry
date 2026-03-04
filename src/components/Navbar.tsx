@@ -85,10 +85,7 @@ const Navbar = ({
       <header className={cn("fixed left-0 right-0 z-40 py-2 sm:py-3 md:py-4 transition-all duration-500", isFoundryClubPage ? "top-[28px]" : "top-0", isScrolled || isHomePage ? isFoundryClubPage ? "bg-charcoal/95 backdrop-blur-md shadow-lg shadow-black/20" : "bg-[hsl(30,25%,97%)]/90 backdrop-blur-md shadow-sm shadow-charcoal/5" : "bg-transparent", className)}>
         <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 my-[9px]">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 min-w-0" onClick={scrollToTop} aria-label="Peptide Foundry">
-            {/* Short logo for mobile */}
-            <img alt="Peptide Foundry Logo" width={40} height={40} className="h-10 w-auto object-contain md:hidden" src="/short-logo.svg" />
-            {/* Full logo for desktop */}
-            <img alt="Peptide Foundry Logo" width={140} height={56} className="hidden md:block h-[clamp(1.75rem,3.5vw,3rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
+            <img alt="Peptide Foundry Logo" width={140} height={56} className="h-[clamp(1.75rem,3.5vw,3rem)] w-auto object-contain" src="/lovable-uploads/da75d4b2-0e0d-4998-a153-a60a0882d732.webp" />
           </Link>
 
           {/* Search Bar - Desktop & Tablet */}

@@ -5,8 +5,8 @@ import { useDocumentMeta } from "@/hooks/useDocumentMeta";
 
 const NADBuffered = () => {
   useDocumentMeta({
-    title: "NAD+ Buffered | Peptide Foundry - Premium Research Peptides",
-    description: "Buy high-purity NAD+ Buffered research coenzyme from Peptide Foundry. A coenzyme studied for cellular energy metabolism and aging research. Verified quality, fast shipping.",
+    title: "NAD+ | Peptide Foundry - Premium Research Peptides",
+    description: "Buy high-purity NAD+ research coenzyme from Peptide Foundry. A coenzyme studied for cellular energy metabolism and aging research. Verified quality, fast shipping.",
     canonicalPath: "/nad-buffered",
     ogType: "product",
   });
@@ -14,7 +14,7 @@ const NADBuffered = () => {
   return (
   <>
   <ProductJsonLd
-    name="NAD+ Buffered Research Coenzyme"
+    name="NAD+ Research Coenzyme"
     description={NADBufferedData.description}
     slug="nad-buffered"
     price={70}
@@ -23,7 +23,7 @@ const NADBuffered = () => {
   <PeptidePageTemplate
     {...NADBufferedData}
     productImage="/products/nad-buffered.webp"
-    coaSlot={<img src="/coa/nad-buffered.png" alt="NAD+ Buffered COA" className="w-full h-auto" />}
+    coaSlot={<img src="/coa/nad-buffered.png" alt="NAD+ COA" className="w-full h-auto" />}
   />
   </>
   );

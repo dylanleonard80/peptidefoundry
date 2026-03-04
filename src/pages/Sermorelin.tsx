@@ -16,7 +16,7 @@ const Sermorelin = () => {
     name="Sermorelin Research Peptide"
     description={SermorelinData.description}
     slug="sermorelin"
-    price={61}
+    price={110}
     casNumber={SermorelinData.casNumber}
   />
   <PeptidePageTemplate

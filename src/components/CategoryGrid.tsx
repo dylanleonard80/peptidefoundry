@@ -61,45 +61,34 @@ const CategoryGrid = () => {
         {/* Category grid - organic cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
           {categories.map((category, index) => (
-            <Link
+            <div
               key={index}
-              to={category.link}
-              className="group relative aspect-[4/5] rounded-2xl overflow-hidden card-organic"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
+              className="relative aspect-[4/5] rounded-2xl overflow-hidden card-organic"
             >
               {/* Background Image */}
               <img
                 src={category.image}
                 alt={category.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover"
                 style={{
                   objectPosition:
                     (category as any).objectPosition || "center",
                 }}
               />
 
-              {/* Gradient Overlay - softer, more organic */}
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent transition-all duration-500 group-hover:from-charcoal/50" />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent" />
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
-                <div className="transform transition-transform duration-500 group-hover:translate-y-[-4px]">
-                  <h3 className="text-sm md:text-base font-medium text-white leading-tight">
-                    {category.title}
-                  </h3>
-                  <p className="mt-1 text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {category.subtitle}
-                  </p>
-                </div>
-
-                {/* Arrow indicator */}
-                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-white/20">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-white" />
-                </div>
+                <h3 className="text-sm md:text-base font-medium text-white leading-tight">
+                  {category.title}
+                </h3>
+                <p className="mt-1 text-xs text-white/70">
+                  {category.subtitle}
+                </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 

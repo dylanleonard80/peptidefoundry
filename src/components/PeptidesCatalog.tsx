@@ -279,61 +279,17 @@ const PeptidesCatalog = ({
                 <div className="overflow-x-auto py-1 pb-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
                   <div className="flex gap-4 w-max">
                     {/* Title Card - Glassmorphism Style */}
-                    {section.link ? <Link to={section.link} className="block group">
-                        <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/30 !bg-[#C8825A] bg-gradient-to-br from-primary/40 via-primary/25 to-primary/15 backdrop-blur-xl shadow-lg sm:shadow-[0_8px_32px_rgba(255,107,0,0.15)] relative cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_16px_48px_rgba(255,107,0,0.3)] hover:border-primary/50">
-                          {/* Glowing orb effects - hidden on mobile to prevent bleed past rounded corners */}
-                          <div className="hidden sm:block absolute -top-10 -right-10 w-32 h-32 bg-primary/40 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
-                          <div className="hidden sm:block absolute -bottom-10 -left-10 w-28 h-28 bg-primary/35 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
-                          
-                          {/* Background image if available */}
-                          {getCategoryBackground(section.title) && <div className="absolute inset-0 bg-cover bg-center opacity-20 transition-all duration-500 group-hover:opacity-30 group-hover:scale-105" style={{
-                    backgroundImage: `url(${getCategoryBackground(section.title)})`
-                  }} />}
-                          
-                          {/* Glass-morphism content */}
-                          <CardContent className="relative h-full flex flex-col justify-center items-center text-center p-6 z-10">
-                            {/* Glow effect */}
-                            <div className="mb-6 relative">
-                              <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-150 transition-all duration-500 group-hover:scale-[2] group-hover:bg-primary/60" />
-                            </div>
-                            
-                            {/* Text content */}
-                            <h3 className="text-2xl font-display font-bold text-white mb-3 transition-transform duration-500 group-hover:scale-105">
-                              {section.title}
-                            </h3>
-                            
-                            {/* Hover indicator */}
-                            <div className="flex items-center gap-2 mt-4 transition-all duration-300 group-hover:gap-3 text-white">
-                              <span className="text-sm font-medium text-white">Explore</span>
-                              <ChevronRight className="w-5 h-5 text-white" />
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </Link> : <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/30 !bg-[#C8825A] bg-gradient-to-br from-primary/40 via-primary/25 to-primary/15 backdrop-blur-xl shadow-lg sm:shadow-[0_8px_32px_rgba(255,107,0,0.15)] relative">
-                        {/* Glowing orb effects - hidden on mobile to prevent bleed past rounded corners */}
+                    <Card className="w-[140px] sm:w-[240px] h-[320px] flex-shrink-0 overflow-hidden rounded-3xl border border-primary/30 !bg-[#C8825A] bg-gradient-to-br from-primary/40 via-primary/25 to-primary/15 backdrop-blur-xl shadow-lg sm:shadow-[0_8px_32px_rgba(255,107,0,0.15)] relative">
                         <div className="hidden sm:block absolute -top-10 -right-10 w-32 h-32 bg-primary/40 rounded-full blur-2xl" />
                         <div className="hidden sm:block absolute -bottom-10 -left-10 w-28 h-28 bg-primary/35 rounded-full blur-2xl" />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
-
-                        {/* Glass-morphism content */}
+                        {getCategoryBackground(section.title) && <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${getCategoryBackground(section.title)})` }} />}
                         <CardContent className="relative h-full flex flex-col justify-center items-center text-center p-6 z-10">
-                          {/* Icon with glow - only for non-Research Supplies */}
-                          {section.title !== "Research Supplies" && (
-                            <div className="mb-6 relative">
-                              <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full scale-150" />
-                              <div className="relative p-3 rounded-2xl bg-white/20 backdrop-blur-sm shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                                <TrendingUp className="w-8 h-8 text-white" />
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Text content */}
                           <h3 className="text-2xl font-display font-bold text-white mb-3">
                             {section.title}
                           </h3>
                         </CardContent>
-                      </Card>}
+                      </Card>
 
                     {/* Peptide Cards */}
                     {section.cards.map(card => <PeptideCardComponent key={card.slug} card={enhanceCard(card)} isMember={isMember} getMemberPrice={getMemberPrice} outOfStock={stockMap[card.slug] === false} />)}
