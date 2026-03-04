@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { sendOrderDelivered } from "../_shared/emails.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -55,13 +56,39 @@ serve(async (req) => {
           delivered_at: new Date().toISOString(),
         } as any)
         .eq("tracking_number", trackingNumber)
-        .select("id, order_number")
+        .select("id, order_number, user_id")
         .single();
 
       if (error) {
         logStep("DB update failed", { error: error.message, trackingNumber });
       } else if (data) {
         logStep("Order delivered", { orderId: data.id, orderNumber: data.order_number });
+
+        // Send delivered email
+        try {
+          if (data.user_id) {
+            const { data: profile } = await supabaseClient
+              .from('profiles')
+              .select('email, first_name')
+              .eq('id', data.user_id)
+              .maybeSingle();
+
+            if (profile?.email) {
+              await sendOrderDelivered({
+                to: profile.email,
+                firstName: profile.first_name || "",
+                orderNumber: data.order_number,
+              });
+              logStep("Delivered email sent", { email: profile.email });
+            } else {
+              logStep("Warning: No profile email found for delivered email", { userId: data.user_id });
+            }
+          }
+        } catch (emailErr) {
+          logStep("Warning: Failed to send delivered email", {
+            error: emailErr instanceof Error ? emailErr.message : String(emailErr),
+          });
+        }
       } else {
         logStep("No order found for tracking number", { trackingNumber });
       }
