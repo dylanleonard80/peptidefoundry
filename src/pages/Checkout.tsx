@@ -279,7 +279,7 @@ const Checkout = () => {
         <Label htmlFor="street">Street Address</Label>
         <AddressAutocomplete
           value={shippingAddress.street}
-          onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })}
+          onChange={e => setShippingAddress(prev => ({ ...prev, street: e.target.value }))}
           onPlaceSelected={({ street, city, state, zip }) => {
             setShippingAddress(prev => ({ ...prev, street, city, state, zip }));
             setStreet2('');
