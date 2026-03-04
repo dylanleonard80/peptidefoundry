@@ -370,7 +370,7 @@ serve(async (req) => {
           })),
           subtotal: Math.round(expectedSubtotal * 100) / 100,
           shipping: Math.round(shippingAmount * 100) / 100,
-          tax: taxAmount,
+          tax: Math.round(taxAmount * 100) / 100,
           discount: Math.round(discountAmount * 100) / 100,
           total: Math.round(expectedTotal * 100) / 100,
           shippingAddress: {
