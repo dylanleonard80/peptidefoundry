@@ -621,6 +621,7 @@ const Checkout = () => {
                       "disable-funding": "paylater",
                     }}>
                       <PayPalButtons
+                        forceReRender={[couponCode, subtotal]}
                         disabled={!agreedToTerms}
                         style={{
                           layout: "vertical",
