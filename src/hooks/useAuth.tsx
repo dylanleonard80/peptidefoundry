@@ -111,6 +111,10 @@ export const useAuth = () => {
         title: 'Account created!',
         description: 'Welcome to Peptide Foundry!',
       });
+      // Fire-and-forget: send welcome email — must not block signup
+      supabase.functions.invoke('send-welcome-email', {
+        body: { record: { email, first_name: firstName } },
+      }).catch(() => {});
     }
     return { error };
   };
