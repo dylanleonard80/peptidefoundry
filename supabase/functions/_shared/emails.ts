@@ -9,6 +9,15 @@ const SITE_URL = "https://peptidefoundry.com";
 // Update LOGO_URL to your actual deployed logo path after verifying it exists
 const LOGO_URL = "https://peptidefoundry.com/logo.svg";
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function wrap(title: string, body: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -77,8 +86,8 @@ export async function sendOrderConfirmation(data: {
 }) {
   const itemRows = data.items.map(item => `
     <tr>
-      <td>${item.name}</td>
-      <td>${item.size}</td>
+      <td>${escapeHtml(item.name)}</td>
+      <td>${escapeHtml(item.size)}</td>
       <td style="text-align:center">${item.quantity}</td>
       <td style="text-align:right">$${item.price.toFixed(2)}</td>
     </tr>`).join("");
@@ -89,11 +98,11 @@ export async function sendOrderConfirmation(data: {
 
   const body = `
     <h1>Order Confirmed</h1>
-    <p>Hi ${data.firstName || "there"},</p>
+    <p>Hi ${escapeHtml(data.firstName || "there")},</p>
     <p>Thank you for your order. We've received it and it's being prepared for shipment. You'll get another email when it ships.</p>
 
     <p style="font-size:13px;color:#9E8E80;margin-bottom:4px">ORDER NUMBER</p>
-    <p style="font-size:20px;font-weight:700;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#1F1713;margin-bottom:24px;letter-spacing:.05em">${data.orderNumber}</p>
+    <p style="font-size:20px;font-weight:700;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#1F1713;margin-bottom:24px;letter-spacing:.05em">${escapeHtml(data.orderNumber)}</p>
 
     <table class="items">
       <thead><tr><th>Product</th><th>Size</th><th style="text-align:center">Qty</th><th style="text-align:right">Price</th></tr></thead>
@@ -110,8 +119,8 @@ export async function sendOrderConfirmation(data: {
 
     <p style="font-size:13px;color:#9E8E80;margin-bottom:6px">SHIPPING TO</p>
     <div class="address-box">
-      ${data.shippingAddress.street}<br>
-      ${data.shippingAddress.city}, ${data.shippingAddress.state} ${data.shippingAddress.zip}
+      ${escapeHtml(data.shippingAddress.street)}<br>
+      ${escapeHtml(data.shippingAddress.city)}, ${escapeHtml(data.shippingAddress.state)} ${escapeHtml(data.shippingAddress.zip)}
     </div>
 
     <a href="${SITE_URL}/dashboard/orders" class="cta">View Your Order</a>`;
@@ -135,16 +144,16 @@ export async function sendOrderShipped(data: {
   carrier: string;
   trackingUrl?: string;
 }) {
-  const trackingLink = data.trackingUrl || `https://tools.usps.com/go/TrackConfirmAction?tLabels=${data.trackingNumber}`;
+  const trackingLink = data.trackingUrl || `https://tools.usps.com/go/TrackConfirmAction?tLabels=${escapeHtml(data.trackingNumber)}`;
 
   const body = `
     <h1>Your Order Is On Its Way</h1>
-    <p>Hi ${data.firstName || "there"},</p>
-    <p>Great news — your order <strong>${data.orderNumber}</strong> has shipped via <strong>${data.carrier || "carrier"}</strong>.</p>
+    <p>Hi ${escapeHtml(data.firstName || "there")},</p>
+    <p>Great news — your order <strong>${escapeHtml(data.orderNumber)}</strong> has shipped via <strong>${escapeHtml(data.carrier || "carrier")}</strong>.</p>
 
     <div class="tracking-box">
       <p>TRACKING NUMBER</p>
-      <div class="tn">${data.trackingNumber}</div>
+      <div class="tn">${escapeHtml(data.trackingNumber)}</div>
     </div>
 
     <a href="${trackingLink}" class="cta">Track Your Package</a>
@@ -169,8 +178,8 @@ export async function sendOrderDelivered(data: {
 }) {
   const body = `
     <h1>Your Order Has Arrived</h1>
-    <p>Hi ${data.firstName || "there"},</p>
-    <p>Your order <strong>${data.orderNumber}</strong> has been delivered. We hope everything arrived in perfect condition.</p>
+    <p>Hi ${escapeHtml(data.firstName || "there")},</p>
+    <p>Your order <strong>${escapeHtml(data.orderNumber)}</strong> has been delivered. We hope everything arrived in perfect condition.</p>
     <p>If anything looks off or you have questions, don't hesitate to reach out — we're happy to help.</p>
 
     <a href="${SITE_URL}/catalog" class="cta">Shop Again</a>`;
@@ -192,7 +201,7 @@ export async function sendWelcome(data: {
 }) {
   const body = `
     <h1>Welcome to Peptide Foundry</h1>
-    <p>Hi ${data.firstName || "there"},</p>
+    <p>Hi ${escapeHtml(data.firstName || "there")},</p>
     <p>Your account is ready. We're glad to have you.</p>
     <p>Peptide Foundry offers a curated catalog of research-grade peptides for scientific and laboratory use. All products are for <strong>Research Use Only</strong> — not for human consumption.</p>
     <p>When you're ready, explore the full catalog. And if you're interested in member pricing and exclusive access, take a look at <strong>Foundry Club</strong> membership.</p>
@@ -216,7 +225,7 @@ export async function sendMembershipWelcome(data: {
 }) {
   const body = `
     <h1>Welcome to Foundry Club</h1>
-    <p>Hi ${data.firstName || "there"},</p>
+    <p>Hi ${escapeHtml(data.firstName || "there")},</p>
     <p>Your Foundry Club membership is now active. Here's what you get:</p>
     <ul style="margin:16px 0 20px 20px;font-size:15px;line-height:2;color:#3D3029">
       <li>Member pricing on the full catalog (~23% discount)</li>
