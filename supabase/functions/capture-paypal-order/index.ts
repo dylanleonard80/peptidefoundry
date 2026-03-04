@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { sendOrderConfirmation } from "../_shared/emails.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -347,6 +348,47 @@ serve(async (req) => {
     }
 
     logStep("Order created", { orderId: order.id, orderNumber });
+
+    // Send order confirmation email
+    try {
+      const { data: profile } = await supabaseClient
+        .from('profiles')
+        .select('email, first_name')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (profile?.email) {
+        await sendOrderConfirmation({
+          to: profile.email,
+          firstName: profile.first_name || "",
+          orderNumber,
+          items: orderItems.map(i => ({
+            name: i.peptide_name,
+            size: i.size,
+            quantity: i.quantity,
+            price: i.price,
+          })),
+          subtotal: Math.round(expectedSubtotal * 100) / 100,
+          shipping: Math.round(shippingAmount * 100) / 100,
+          tax: taxAmount,
+          discount: Math.round(discountAmount * 100) / 100,
+          total: Math.round(expectedTotal * 100) / 100,
+          shippingAddress: {
+            street: shippingAddress.street,
+            city: shippingAddress.city,
+            state: shippingAddress.state,
+            zip: shippingAddress.zip,
+          },
+        });
+        logStep("Order confirmation email sent", { email: profile.email });
+      } else {
+        logStep("Warning: No profile email found, skipping confirmation email", { userId });
+      }
+    } catch (emailErr) {
+      logStep("Warning: Failed to send order confirmation email", {
+        error: emailErr instanceof Error ? emailErr.message : String(emailErr),
+      });
+    }
 
     // Record coupon usage if applicable
     if (couponCode && order) {
