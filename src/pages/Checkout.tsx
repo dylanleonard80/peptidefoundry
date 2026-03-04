@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -273,6 +273,11 @@ const Checkout = () => {
     }
   };
 
+  const handlePlaceSelected = useCallback(({ street, city, state, zip }: { street: string; city: string; state: string; zip: string }) => {
+    setShippingAddress(prev => ({ ...prev, street, city, state, zip }));
+    setStreet2('');
+  }, []);
+
   const shippingFields = (
     <>
       <div>
@@ -280,10 +285,7 @@ const Checkout = () => {
         <AddressAutocomplete
           value={shippingAddress.street}
           onChange={e => setShippingAddress(prev => ({ ...prev, street: e.target.value }))}
-          onPlaceSelected={({ street, city, state, zip }) => {
-            setShippingAddress(prev => ({ ...prev, street, city, state, zip }));
-            setStreet2('');
-          }}
+          onPlaceSelected={handlePlaceSelected}
         />
       </div>
       <div>
