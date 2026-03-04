@@ -53,7 +53,17 @@ export default function AddressAutocomplete({
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const skipNextChange = useRef(false);
   const isLoaded = useGooglePlacesScript();
+
+  // Sync controlled value to the uncontrolled input when parent state changes,
+  // but skip if the change came from autocomplete (we handle that ourselves)
+  useEffect(() => {
+    if (inputRef.current && !skipNextChange.current) {
+      inputRef.current.value = value;
+    }
+    skipNextChange.current = false;
+  }, [value]);
 
   const handlePlaceChanged = useCallback(() => {
     const ac = autocompleteRef.current;
@@ -61,12 +71,23 @@ export default function AddressAutocomplete({
     const place = ac.getPlace();
     if (!place?.address_components) return;
     const parsed = parseAddressComponents(place.address_components);
-    // Override the input value to show only the street, not the full formatted address
+    // Tell parent to skip the next value sync — we set the input ourselves
+    skipNextChange.current = true;
     if (inputRef.current) {
       inputRef.current.value = parsed.street;
     }
     onPlaceSelected(parsed);
   }, [onPlaceSelected]);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Only forward manual typing, not Google's DOM manipulation
+      if (!skipNextChange.current) {
+        onChange(e);
+      }
+    },
+    [onChange]
+  );
 
   useEffect(() => {
     if (!isLoaded || !inputRef.current || autocompleteRef.current) return;
@@ -90,8 +111,8 @@ export default function AddressAutocomplete({
     <Input
       ref={inputRef}
       id={id}
-      value={value}
-      onChange={onChange}
+      defaultValue={value}
+      onChange={handleChange}
       placeholder={placeholder}
     />
   );
