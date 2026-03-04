@@ -76,6 +76,21 @@ serve(async (req) => {
       throw new Error("Invalid type: must be 'order'");
     }
 
+    // Validate shipping address before proceeding
+    if (
+      !shippingAddress ||
+      !shippingAddress.street?.trim() ||
+      !shippingAddress.city?.trim() ||
+      !shippingAddress.state?.trim() ||
+      !shippingAddress.zip?.trim()
+    ) {
+      logStep("Missing shipping address", { shippingAddress });
+      return new Response(
+        JSON.stringify({ error: "A complete shipping address is required (street, city, state, zip)" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
     // Authenticate the user (required for all requests)
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
@@ -363,6 +378,32 @@ serve(async (req) => {
       logStep("Warning: Failed to clear cart", { error: cartError.message });
     } else {
       logStep("Cart cleared");
+    }
+
+    // Save shipping address to profile if profile fields are empty
+    try {
+      const { data: profileData } = await supabaseClient
+        .from('profiles')
+        .select('street_address, city, state, zip_code')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (profileData && !profileData.street_address && !profileData.city) {
+        await supabaseClient
+          .from('profiles')
+          .update({
+            street_address: shippingAddress.street,
+            city: shippingAddress.city,
+            state: shippingAddress.state,
+            zip_code: shippingAddress.zip,
+          })
+          .eq('id', userId);
+        logStep("Profile updated with shipping address");
+      }
+    } catch (profileErr) {
+      logStep("Warning: Failed to update profile address", {
+        error: profileErr instanceof Error ? profileErr.message : String(profileErr),
+      });
     }
 
     return new Response(JSON.stringify({

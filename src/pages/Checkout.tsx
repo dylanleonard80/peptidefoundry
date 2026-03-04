@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -19,6 +19,7 @@ import { usePrices } from '@/hooks/usePrices';
 import { useMembership } from '@/hooks/useMembership';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
+import AddressAutocomplete from '@/components/AddressAutocomplete';
 
 // Shipping address validation schema
 const shippingSchema = z.object({
@@ -79,19 +80,22 @@ const Checkout = () => {
     state: '',
     zip: ''
   });
+  const addressLoadedFromProfile = useRef(false);
 
+  // Redirect to shop if cart is empty (unless order just completed)
   useEffect(() => {
-    // Don't redirect to catalog if we just completed an order and cleared the cart
     if (orderCompleting) return;
-
-    // Only redirect if cart is empty
     if (items.length === 0) {
       navigate('/shop');
-      return;
     }
+  }, [items, navigate, orderCompleting]);
 
-    // Load shipping address from profile if user is logged in
+  // Populate shipping address from profile ONCE on initial load
+  useEffect(() => {
+    if (addressLoadedFromProfile.current) return;
+
     if (user && profile) {
+      addressLoadedFromProfile.current = true;
       setShippingAddress({
         email: profile.email || user.email || '',
         street: profile.street_address || '',
@@ -105,7 +109,7 @@ const Checkout = () => {
         email: user.email || ''
       }));
     }
-  }, [user, items, profile, navigate, orderCompleting]);
+  }, [user, profile]);
 
   // Sync cart prices with DB on checkout load — only after DB prices are confirmed
   useEffect(() => {
@@ -211,7 +215,14 @@ const Checkout = () => {
     <>
       <div>
         <Label htmlFor="street">Street Address</Label>
-        <Input id="street" value={shippingAddress.street} onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })} placeholder="Street address" />
+        <AddressAutocomplete
+          value={shippingAddress.street}
+          onChange={e => setShippingAddress({ ...shippingAddress, street: e.target.value })}
+          onPlaceSelected={({ street, city, state, zip }) => {
+            setShippingAddress(prev => ({ ...prev, street, city, state, zip }));
+            setStreet2('');
+          }}
+        />
       </div>
       <div>
         <Label htmlFor="street2">Apt / Suite / Unit <span className="text-muted-foreground font-normal">(optional)</span></Label>
@@ -313,6 +324,89 @@ const Checkout = () => {
                 )}
               </CardContent>
             </Card>
+
+            {/* Bacteriostatic Water Upsell - Glass Card Style */}
+            {!items.some(item => item.peptide_name.toLowerCase().includes('bacteriostatic')) && <Card className="w-full h-auto overflow-hidden transition-all duration-500 group flex flex-col relative border-0 bg-transparent">
+                {/* Frosted Glass Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-lg border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group-hover:shadow-[0_16px_48px_rgba(255,107,0,0.15)] group-hover:border-primary/30 transition-all duration-500" />
+
+                {/* Subtle Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Glowing Orb Effect */}
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-all duration-700 group-hover:scale-150" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-700 group-hover:scale-125" />
+
+                {/* Content Container */}
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Requirement Banner at Top */}
+                  <div className="bg-primary/20 backdrop-blur-md px-3 py-2 rounded-t-lg border-b border-primary/30">
+                    <p className="text-sm font-semibold text-center text-foreground">
+                      BAC Water is Required for Peptide Reconstitution
+                    </p>
+                  </div>
+
+                  {/* Image Section with Glass Effect - Same as AllPeptides */}
+                  <div className="relative min-h-32 h-44 overflow-hidden flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent" />
+                    <img alt="Bacteriostatic Water" className="w-36 h-36 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10" src="/lovable-uploads/7ab040b5-aa74-42dc-b185-992059b06595.webp" />
+
+                    {/* Badge */}
+                    <div className="absolute top-2 right-2">
+                      <Badge className="text-xs shadow-lg backdrop-blur-md bg-white/20 border-white/30 text-foreground">
+                        Essential
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Content Section */}
+                  <CardContent className="p-3 flex flex-col flex-1 relative">
+                    <div className="flex-1">
+                      <h3 className="font-display font-bold text-base mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
+                        Bacteriostatic Water
+                      </h3>
+
+                      {/* Price Badge */}
+                      <Badge variant="outline" className="text-xs px-2 py-0.5 backdrop-blur-md bg-white/10 border-primary/30 text-primary font-medium group-hover:bg-primary/10 transition-all duration-300">
+                        30ml - ${peptidePrices['bacteriostatic-water']['30ml']}
+                      </Badge>
+                    </div>
+
+                    {/* Quantity Selector and Add Button */}
+                    <div className="flex items-center gap-2 mt-3">
+                      <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-md border border-white/20">
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10" onClick={() => setBacQuantity(Math.max(1, bacQuantity - 1))}>
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <span className="w-6 text-center text-sm font-medium">{bacQuantity}</span>
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10" onClick={() => setBacQuantity(bacQuantity + 1)}>
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <Button size="sm" className="flex-1 h-8 text-xs gap-1" onClick={async () => {
+                    const existingBac = items.find(item => item.peptide_name === 'Bacteriostatic Water' && item.size === '30ml');
+                    if (existingBac) {
+                      await updateQuantity('Bacteriostatic Water', '30ml', existingBac.quantity + bacQuantity);
+                    } else {
+                      await addItem({
+                        peptide_name: 'Bacteriostatic Water',
+                        size: '30ml',
+                        price: peptidePrices['bacteriostatic-water']['30ml'],
+                        slug: 'bacteriostatic-water'
+                      });
+                      if (bacQuantity > 1) {
+                        await updateQuantity('Bacteriostatic Water', '30ml', bacQuantity);
+                      }
+                    }
+                    setBacQuantity(1);
+                  }}>
+                        <Plus className="h-3 w-3" />
+                        Add to Order
+                      </Button>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>}
 
           </div>
 
@@ -629,88 +723,6 @@ const Checkout = () => {
               </CardContent>
             </Card>
 
-            {/* Bacteriostatic Water Upsell - Glass Card Style */}
-            {!items.some(item => item.peptide_name.toLowerCase().includes('bacteriostatic')) && <Card className="mt-4 w-full h-auto overflow-hidden transition-all duration-500 group flex flex-col relative border-0 bg-transparent">
-                {/* Frosted Glass Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-lg border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group-hover:shadow-[0_16px_48px_rgba(255,107,0,0.15)] group-hover:border-primary/30 transition-all duration-500" />
-
-                {/* Subtle Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Glowing Orb Effect */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-60 transition-all duration-700 group-hover:scale-150" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-700 group-hover:scale-125" />
-
-                {/* Content Container */}
-                <div className="relative z-10 flex flex-col h-full">
-                  {/* Requirement Banner at Top */}
-                  <div className="bg-primary/20 backdrop-blur-md px-3 py-2 rounded-t-lg border-b border-primary/30">
-                    <p className="text-sm font-semibold text-center text-foreground">
-                      BAC Water is Required for Peptide Reconstitution
-                    </p>
-                  </div>
-
-                  {/* Image Section with Glass Effect - Same as AllPeptides */}
-                  <div className="relative min-h-32 h-44 overflow-hidden flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent" />
-                    <img alt="Bacteriostatic Water" className="w-36 h-36 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)] relative z-10" src="/lovable-uploads/7ab040b5-aa74-42dc-b185-992059b06595.webp" />
-
-                    {/* Badge */}
-                    <div className="absolute top-2 right-2">
-                      <Badge className="text-xs shadow-lg backdrop-blur-md bg-white/20 border-white/30 text-foreground">
-                        Essential
-                      </Badge>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <CardContent className="p-3 flex flex-col flex-1 relative">
-                    <div className="flex-1">
-                      <h3 className="font-display font-bold text-base mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
-                        Bacteriostatic Water
-                      </h3>
-
-                      {/* Price Badge */}
-                      <Badge variant="outline" className="text-xs px-2 py-0.5 backdrop-blur-md bg-white/10 border-primary/30 text-primary font-medium group-hover:bg-primary/10 transition-all duration-300">
-                        30ml - ${peptidePrices['bacteriostatic-water']['30ml']}
-                      </Badge>
-                    </div>
-
-                    {/* Quantity Selector and Add Button */}
-                    <div className="flex items-center gap-2 mt-3">
-                      <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-md border border-white/20">
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10" onClick={() => setBacQuantity(Math.max(1, bacQuantity - 1))}>
-                          <Minus className="h-3 w-3" />
-                        </Button>
-                        <span className="w-6 text-center text-sm font-medium">{bacQuantity}</span>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10" onClick={() => setBacQuantity(bacQuantity + 1)}>
-                          <Plus className="h-3 w-3" />
-                        </Button>
-                      </div>
-                      <Button size="sm" className="flex-1 h-8 text-xs gap-1" onClick={async () => {
-                    const existingBac = items.find(item => item.peptide_name === 'Bacteriostatic Water' && item.size === '30ml');
-                    if (existingBac) {
-                      await updateQuantity('Bacteriostatic Water', '30ml', existingBac.quantity + bacQuantity);
-                    } else {
-                      await addItem({
-                        peptide_name: 'Bacteriostatic Water',
-                        size: '30ml',
-                        price: peptidePrices['bacteriostatic-water']['30ml'],
-                        slug: 'bacteriostatic-water'
-                      });
-                      if (bacQuantity > 1) {
-                        await updateQuantity('Bacteriostatic Water', '30ml', bacQuantity);
-                      }
-                    }
-                    setBacQuantity(1);
-                  }}>
-                        <Plus className="h-3 w-3" />
-                        Add to Order
-                      </Button>
-                    </div>
-                  </CardContent>
-                </div>
-              </Card>}
           </div>
         </div>
       </main>
