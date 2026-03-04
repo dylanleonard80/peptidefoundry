@@ -60,7 +60,12 @@ export default function AddressAutocomplete({
     if (!ac) return;
     const place = ac.getPlace();
     if (!place?.address_components) return;
-    onPlaceSelected(parseAddressComponents(place.address_components));
+    const parsed = parseAddressComponents(place.address_components);
+    // Override the input value to show only the street, not the full formatted address
+    if (inputRef.current) {
+      inputRef.current.value = parsed.street;
+    }
+    onPlaceSelected(parsed);
   }, [onPlaceSelected]);
 
   useEffect(() => {
