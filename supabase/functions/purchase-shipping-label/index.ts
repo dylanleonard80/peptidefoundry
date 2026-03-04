@@ -114,7 +114,9 @@ serve(async (req) => {
 
     // Send shipped email
     try {
-      if (orderForEmail?.user_id) {
+      if (!orderForEmail) {
+        logStep("Warning: Could not fetch order for shipped email", { orderId });
+      } else if (orderForEmail.user_id) {
         const { data: profile } = await supabaseClient
           .from('profiles')
           .select('email, first_name')
@@ -131,6 +133,8 @@ serve(async (req) => {
             trackingUrl: txn.tracking_url_provider || undefined,
           });
           logStep("Shipped email sent", { email: profile.email });
+        } else {
+          logStep("Warning: No profile email found for shipped email", { userId: orderForEmail.user_id });
         }
       }
     } catch (emailErr) {
