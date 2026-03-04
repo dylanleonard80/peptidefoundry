@@ -102,19 +102,13 @@ export const peptideStacks: Record<string, StackRecommendation[]> = {
   "semax": [
     { slug: "selank", label: "Complementary neuropeptide research", priority: 1 },
     { slug: "epithalon", label: "Telomere biology research", priority: 2 },
-    { slug: "dsip", label: "Sleep peptide signaling research", priority: 3 },
+    { slug: "epithalon", label: "Cellular health research", priority: 3 },
   ],
   "selank": [
     { slug: "semax", label: "Complementary neuropeptide research", priority: 1 },
-    { slug: "dsip", label: "GABAergic signaling research", priority: 2 },
+    { slug: "epithalon", label: "Cellular health research", priority: 2 },
     { slug: "epithalon", label: "Telomere biology research", priority: 3 },
   ],
-  "dsip": [
-    { slug: "selank", label: "GABAergic signaling research", priority: 1 },
-    { slug: "semax", label: "Neuropeptide signaling research", priority: 2 },
-    { slug: "epithalon", label: "Telomere biology research", priority: 3 },
-  ],
-
   // Melanocortin & Neuroendocrine Research
   "pt-141": [
     { slug: "melanotan-2", label: "Melanocortin receptor research", priority: 1 },

@@ -10,7 +10,7 @@ export const peptidePrices: Record<string, Record<string, number>> = {
   "bpc-157": { "10mg": 55 },
   "igf-1-lr3": { "1mg": 185 },
   "tesamorelin": { "10mg": 164 },
-  "sermorelin": { "5mg": 61 },
+  "sermorelin": { "10mg": 110 },
 
   "retatrutide": { "10mg": 105, "20mg": 150 },
   "mots-c": { "10mg": 56 },
@@ -21,7 +21,6 @@ export const peptidePrices: Record<string, Record<string, number>> = {
   "ipamorelin": { "10mg": 65 },
   "tb-500": { "10mg": 140 },
   "melanotan-2": { "10mg": 49 },
-  "dsip": { "5mg": 40 },
   "ghk-cu": { "50mg": 55 },
   "pt-141": { "10mg": 55 },
   "epithalon": { "10mg": 55 },
@@ -45,7 +44,7 @@ export const memberPrices: Record<string, Record<string, number>> = {
   "bpc-157": { "10mg": 45 },
   "igf-1-lr3": { "1mg": 110 },
   "tesamorelin": { "10mg": 98 },
-  "sermorelin": { "5mg": 48 },
+  "sermorelin": { "10mg": 68 },
 
   "retatrutide": { "10mg": 70, "20mg": 90 },
   "mots-c": { "10mg": 46 },
@@ -56,7 +55,6 @@ export const memberPrices: Record<string, Record<string, number>> = {
   "ipamorelin": { "10mg": 49 },
   "tb-500": { "10mg": 85 },
   "melanotan-2": { "10mg": 39 },
-  "dsip": { "5mg": 25 },
   "ghk-cu": { "50mg": 40 },
   "pt-141": { "10mg": 40 },
   "epithalon": { "10mg": 40 },

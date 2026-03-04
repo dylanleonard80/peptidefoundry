@@ -126,13 +126,6 @@ const routes = [
     ogType: "product",
   },
   {
-    path: "/dsip",
-    title: "DSIP | Peptide Foundry - Premium Research Peptides",
-    description:
-      "Buy high-purity DSIP (Delta Sleep-Inducing Peptide) from Peptide Foundry. Studied for sleep regulation and stress response. Verified quality.",
-    ogType: "product",
-  },
-  {
     path: "/ghk-cu",
     title: "GHK-Cu | Peptide Foundry - Premium Research Peptides",
     description:
@@ -155,7 +148,7 @@ const routes = [
   },
   {
     path: "/nad-buffered",
-    title: "NAD+ Buffered | Peptide Foundry - Premium Research Peptides",
+    title: "NAD+ | Peptide Foundry - Premium Research Peptides",
     description:
       "Buy high-purity buffered NAD+ from Peptide Foundry. Essential coenzyme studied for cellular energy and aging research. Verified quality.",
     ogType: "product",

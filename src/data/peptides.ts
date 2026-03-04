@@ -113,7 +113,7 @@ export const peptideSections: PeptideSection[] = [
         ["10mg", "20mg"]
       ),
       createCard(
-        "NAD+ (Buffered)",
+        "NAD+",
         "Coenzyme studied for cellular energy metabolism",
         ["Research"],
         "nad-buffered",
@@ -208,7 +208,7 @@ export const peptideSections: PeptideSection[] = [
         ["Research"],
         "sermorelin",
         ["GHRH Research", "GH Studies"],
-        ["5mg"]
+        ["10mg"]
       ),
     ],
   },
@@ -249,14 +249,6 @@ export const peptideSections: PeptideSection[] = [
     link: "/shop",
     cards: [
       createCard(
-        "DSIP",
-        "Studied for sleep regulation and circadian pathways",
-        ["Research"],
-        "dsip",
-        ["Sleep Research", "Circadian Studies"],
-        ["5mg"]
-      ),
-      createCard(
         "Epithalon",
         "Researched for telomerase activation pathways",
         ["Research"],
@@ -289,7 +281,7 @@ export const peptideSections: PeptideSection[] = [
         ["10mg"]
       ),
       createCard(
-        "NAD+ (Buffered)",
+        "NAD+",
         "Coenzyme studied for cellular energy metabolism",
         ["Research"],
         "nad-buffered",

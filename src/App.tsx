@@ -67,7 +67,6 @@ const AOD9604 = lazy(() => import("./pages/AOD9604"));
 const GLP3RT = lazy(() => import("./pages/GLP3RT"));
 const MOTSC = lazy(() => import("./pages/MOTSC"));
 
-const DSIP = lazy(() => import("./pages/DSIP"));
 const GHKCu = lazy(() => import("./pages/GHKCu"));
 const Selank = lazy(() => import("./pages/Selank"));
 const Semax = lazy(() => import("./pages/Semax"));
@@ -150,7 +149,6 @@ const App = () => (
 
                 <Route path="/retatrutide" element={<GLP3RT />} />
                 <Route path="/mots-c" element={<MOTSC />} />
-                <Route path="/dsip" element={<DSIP />} />
                 <Route path="/ghk-cu" element={<GHKCu />} />
                 <Route path="/selank" element={<Selank />} />
                 <Route path="/semax" element={<Semax />} />

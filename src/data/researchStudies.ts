@@ -1297,139 +1297,6 @@ export const semaxResearch: PeptideResearch = {
   ]
 };
 
-// DSIP Research Studies
-export const dsipResearch: PeptideResearch = {
-  peptideSlug: "dsip",
-  researchAreas: [
-    {
-      areaId: "sleep-quality-enhancement",
-      areaTitle: "Sleep Quality Enhancement",
-      studies: [
-        {
-          title: "The effects of delta-sleep-inducing peptide (DSIP) on wakefulness and sleep patterns in the cat",
-          authors: "Susić V, Masirević G, Totić S",
-          journal: "Brain Research",
-          year: 1987,
-          pmid: "3620931",
-          summary: "Intracerebroventricular DSIP injection in cats produced a significant decrease in sleep latency and a greater than 50% increase in total slow wave sleep within the first hour post-injection, with effects persisting for seven hours and derived from prolonged deep sleep episodes.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/3620931/"
-        }
-      ]
-    },
-    {
-      areaId: "stress-reduction",
-      areaTitle: "Stress Reduction",
-      studies: [
-        {
-          title: "Expression of the c-fos gene during emotional stress in rats: the clocking effect of delta sleep-inducing peptide",
-          authors: "Sudakov KV, Umryukhin PE, Koplik EV, Anokhin KV",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2001,
-          pmid: "11766904",
-          summary: "In rats exposed to emotional stress, intraperitoneal DSIP weakened stress-induced c-fos gene expression in limbic-reticular brain structures, with the strongest suppression observed in stress-susceptible animals in the paraventricular hypothalamus and septal regions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/11766904/"
-        },
-        {
-          title: "Structural-functional organization of neurons in the cerebral cortex of rats with different levels of resistance to emotional stress in conditions of exposure to delta sleep-inducing peptide",
-          authors: "Bogolepov NN, Popova EN, Koplik EV, Krivitskaya GN, Sudakov KV",
-          journal: "Neuroscience and Behavioral Physiology",
-          year: 2004,
-          pmid: "15368909",
-          summary: "Analysis of cortical neuron morphology in stress-susceptible rats found that DSIP pre-treatment prevented the appearance of ischemic and severely damaged cells following emotional stress exposure, suggesting the peptide exerts both antistress and antihypoxic effects at the cellular level.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/15368909/"
-        }
-      ]
-    },
-    {
-      areaId: "neuroprotection",
-      areaTitle: "Neuroprotection",
-      studies: [
-        {
-          title: "DSIP-Like KND Peptide Reduces Brain Infarction in C57Bl/6 and Reduces Myocardial Infarction in SD Rats When Administered during Reperfusion",
-          authors: "Tukhovskaya EA, Shaykhutdinova ER, Ismailova AM, Slashcheva GA, Prudchenko IA, Mikhaleva II, Khokhlova ON, Murashev AN, Ivanov VT",
-          journal: "Biomedicines",
-          year: 2021,
-          pmid: "33918965",
-          summary: "In animal models of ischemia-reperfusion injury, a structural DSIP analogue administered during reperfusion reduced brain infarction volume from 12.2% to 7.4% and myocardial infarction area from 42.1% to 19.1%, demonstrating pronounced neuroprotective and cardioprotective effects.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/33918965/"
-        },
-        {
-          title: "Delta sleep inducing peptide (DSIP): effect on respiration activity in rat brain mitochondria and stress protective potency under experimental hypoxia",
-          authors: "Khvatova EM, Samartzev VN, Zagoskin PP, Prudchenko IA, Mikhaleva II",
-          journal: "Peptides",
-          year: 2003,
-          pmid: "12668217",
-          summary: "DSIP significantly enhanced oxidative phosphorylation efficiency in rat brain mitochondria and completely prevented hypoxia-induced reductions in mitochondrial respiratory activity in pretreated animals, suggesting the peptide's neuroprotective properties may operate through mitochondrial energy metabolism pathways.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/12668217/"
-        }
-      ]
-    },
-    {
-      areaId: "pain-modulation",
-      areaTitle: "Pain Modulation",
-      studies: [
-        {
-          title: "Therapeutic effects of delta-sleep-inducing peptide (DSIP) in patients with chronic, pronounced pain episodes. A clinical pilot study",
-          authors: "Larbig W, Gerber WD, Kluck M, Schoenenberger GA",
-          journal: "European Neurology",
-          year: 1984,
-          pmid: "6548970",
-          summary: "This pilot study examined DSIP administration in subjects with migraine, vasomotor headaches, chronic tinnitus, and psychogenic pain, finding that the peptide significantly lowered pain levels in 6 of 7 participants alongside reductions in concurrent depressive states.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/6548970/"
-        },
-        {
-          title: "Potent antinociceptive effect of centrally administered delta-sleep-inducing peptide (DSIP)",
-          authors: "Nakamura A, Nakashima M, Sugao T, Kanemoto H, Fukumura Y, Shiomi H",
-          journal: "European Journal of Pharmacology",
-          year: 1988,
-          pmid: "2853064",
-          summary: "Preclinical study in mice and rats demonstrated that central administration of DSIP produced significant dose-dependent antinociceptive effects, with the response blocked by naloxone, indicating involvement of supraspinal opioid receptor mechanisms.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/2853064/"
-        }
-      ]
-    },
-    {
-      areaId: "cardiovascular-protection",
-      areaTitle: "Cardiovascular Protection",
-      studies: [
-        {
-          title: "The role of delta sleep-inducing peptide in the electric stability of the heart",
-          authors: "Zviaginsteva MA",
-          journal: "Kardiologiia",
-          year: 1988,
-          pmid: "3379896",
-          summary: "Experimental study in rabbits found that DSIP elevated ventricular fibrillation thresholds and increased cardiac electrical stability, while peptide deficiency induced by antiserum lowered arrhythmia thresholds, suggesting endogenous DSIP plays a cardiac-protective role under stress conditions.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/3379896/"
-        },
-        {
-          title: "Delta sleep-inducing peptide as a modulator of mediators acting on the heart",
-          authors: "Ul'ianinskiĭ LS, Zviaginstseva MA, Kosharskaia IL",
-          journal: "Bulletin of Experimental Biology and Medicine",
-          year: 1990,
-          pmid: "2378944",
-          summary: "Using isolated rabbit hearts, researchers demonstrated that DSIP enhances the negative chronotropic effect of acetylcholine while attenuating noradrenaline's positive chronotropic effect, indicating the peptide modulates autonomic neurotransmitter actions on cardiac rate regulation.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/2378944/"
-        }
-      ]
-    },
-    {
-      areaId: "metabolic-regulation",
-      areaTitle: "Metabolic Regulation",
-      studies: [
-        {
-          title: "Metabolic effects of delta-sleep inducing peptide during physiological aging of the organism",
-          authors: "Bondarenko TI, Maĭboroda EA, Mikhaleva II, Prudchenko IA",
-          journal: "Eksperimental'naya i Klinicheskaya Farmakologiya",
-          year: 2013,
-          pmid: "24432565",
-          summary: "Subcutaneous DSIP administration to rats across multiple age groups normalized age-related carbohydrate metabolism changes and produced hypoglycemic effects, while also decreasing total cholesterol and the atherogenicity index and increasing HDL cholesterol levels.",
-          url: "https://pubmed.ncbi.nlm.nih.gov/24432565/"
-        }
-      ]
-    }
-  ]
-};
-
 // Melanotan 2 Research Studies
 export const melanotan2Research: PeptideResearch = {
   peptideSlug: "melanotan-2",
@@ -2015,7 +1882,7 @@ export const glutathioneResearch: PeptideResearch = {
   ]
 };
 
-// NAD+ Buffered Research Studies
+// NAD+ Research Studies
 export const nadBufferedResearch: PeptideResearch = {
   peptideSlug: "nad-buffered",
   researchAreas: [
@@ -2442,7 +2309,6 @@ export const peptideResearchData: Record<string, PeptideResearch> = {
   "pt-141": pt141Research,
   "selank": selankResearch,
   "semax": semaxResearch,
-  "dsip": dsipResearch,
   "melanotan-2": melanotan2Research,
   "igf-1-lr3": igf1lr3Research,
   "glutathione": glutathioneResearch,

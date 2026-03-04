@@ -97,8 +97,8 @@ INSERT INTO public.products (id, name, slug, type, status, subtitle, description
  NULL, '80714-61-0', 'C₃₉H₆₃N₁₁O₁₀', '846.0 g/mol', '/products/semax.webp', true, 100,
  '{}'::jsonb),
 
--- 11. NAD+ (Buffered)
-('a0000000-0000-0000-0000-000000000011', 'NAD+ (Buffered)', 'nad-buffered', 'peptide', 'active',
+-- 11. NAD+
+('a0000000-0000-0000-0000-000000000011', 'NAD+', 'nad-buffered', 'peptide', 'active',
  'A coenzyme studied in laboratory settings for cellular energy metabolism and aging research',
  'NAD+ (Nicotinamide Adenine Dinucleotide) is a critical coenzyme found in every living cell. This buffered formulation maintains stability for research applications.',
  NULL, '53-84-9', 'C₂₁H₂₇N₇O₁₄P₂', '663.4 g/mol', '/products/nad-buffered.webp', true, 110,
@@ -123,13 +123,6 @@ INSERT INTO public.products (id, name, slug, type, status, subtitle, description
  'A peptide studied in laboratory settings for melanogenesis and melanocortin signaling',
  'Melanotan 2 (MT-2) is a synthetic analog of alpha-melanocyte-stimulating hormone (α-MSH) that activates melanocortin receptors.',
  NULL, '121062-08-6', 'C₅₀H₆₉N₁₅O₉', '1024.2 g/mol', '/products/melanotan-2.webp', true, 140,
- '{}'::jsonb),
-
--- 15. DSIP
-('a0000000-0000-0000-0000-000000000015', 'DSIP', 'dsip', 'peptide', 'active',
- 'A peptide studied in laboratory settings for sleep architecture and neuroendocrine modulation',
- 'A naturally occurring neuromodulatory peptide that regulates sleep architecture, stress response, and neuroendocrine function.',
- NULL, '62568-57-4', 'C₃₅H₄₈N₁₀O₁₅S', '848.87 g/mol', '/products/dsip.webp', true, 150,
  '{}'::jsonb),
 
 -- 16. GHK-Cu
@@ -246,7 +239,7 @@ INSERT INTO public.product_variants (product_id, size_label, price, member_price
 ('a0000000-0000-0000-0000-000000000002', '10mg',     83.00,  60.00, 'BPC-157-10MG',      true, 1),  -- bpc-157
 ('a0000000-0000-0000-0000-000000000003', '1mg',      77.00,  56.00, 'IGF1-LR3-1MG',      true, 1),  -- igf-1-lr3
 ('a0000000-0000-0000-0000-000000000004', '10mg',     88.00,  65.00, 'TESA-10MG',         true, 1),  -- tesamorelin
-('a0000000-0000-0000-0000-000000000005', '5mg',      53.00,  38.00, 'SERM-5MG',          true, 1),  -- sermorelin
+('a0000000-0000-0000-0000-000000000005', '10mg',    110.00,  68.00, 'SERM-10MG',          true, 1),  -- sermorelin
 ('a0000000-0000-0000-0000-000000000006', '10mg',    139.00,  99.00, 'CAGRI-10MG',        true, 1),  -- cagrilintide
 ('a0000000-0000-0000-0000-000000000007', '10mg',    134.00,  97.00, 'GLP3RT-10MG',       true, 1),  -- retatrutide 10mg
 ('a0000000-0000-0000-0000-000000000007', '20mg',    340.00,  NULL,  'GLP3RT-20MG',       true, 2),  -- retatrutide 20mg (no member price)
@@ -257,7 +250,6 @@ INSERT INTO public.product_variants (product_id, size_label, price, member_price
 ('a0000000-0000-0000-0000-000000000012', '10mg',     76.00,  55.00, 'IPAM-10MG',         true, 1),  -- ipamorelin
 ('a0000000-0000-0000-0000-000000000013', '10mg',     83.00,  60.00, 'TB500-10MG',        true, 1),  -- tb-500
 ('a0000000-0000-0000-0000-000000000014', '10mg',     62.00,  44.00, 'MT2-10MG',          true, 1),  -- melanotan-2
-('a0000000-0000-0000-0000-000000000015', '5mg',      54.00,  39.00, 'DSIP-5MG',          true, 1),  -- dsip
 ('a0000000-0000-0000-0000-000000000016', '50mg',     74.00,  53.00, 'GHKCU-50MG',        true, 1),  -- ghk-cu
 ('a0000000-0000-0000-0000-000000000017', '10mg',     65.00,  46.00, 'PT141-10MG',        true, 1),  -- pt-141
 ('a0000000-0000-0000-0000-000000000018', '10mg',     56.00,  40.00, 'EPITH-10MG',        true, 1),  -- epithalon
@@ -296,7 +288,7 @@ INSERT INTO public.product_categories (product_id, category_id, sort_order) VALU
 ('a0000000-0000-0000-0000-000000000025', 'c0000000-0000-0000-0000-000000000001', 6),  -- KLOW
 ('a0000000-0000-0000-0000-000000000016', 'c0000000-0000-0000-0000-000000000001', 7),  -- GHK-Cu
 ('a0000000-0000-0000-0000-000000000007', 'c0000000-0000-0000-0000-000000000001', 8),  -- GLP-3RT
-('a0000000-0000-0000-0000-000000000011', 'c0000000-0000-0000-0000-000000000001', 9),  -- NAD+ (Buffered)
+('a0000000-0000-0000-0000-000000000011', 'c0000000-0000-0000-0000-000000000001', 9),  -- NAD+
 
 -- Tissue Repair Research (c...002)
 ('a0000000-0000-0000-0000-000000000002', 'c0000000-0000-0000-0000-000000000002', 1),  -- BPC-157
@@ -322,12 +314,11 @@ INSERT INTO public.product_categories (product_id, category_id, sort_order) VALU
 ('a0000000-0000-0000-0000-000000000008', 'c0000000-0000-0000-0000-000000000004', 6),  -- MOTS-C
 
 -- Cellular Health Research (c...005)
-('a0000000-0000-0000-0000-000000000015', 'c0000000-0000-0000-0000-000000000005', 1),  -- DSIP
 ('a0000000-0000-0000-0000-000000000018', 'c0000000-0000-0000-0000-000000000005', 2),  -- Epithalon
 ('a0000000-0000-0000-0000-000000000016', 'c0000000-0000-0000-0000-000000000005', 3),  -- GHK-Cu
 ('a0000000-0000-0000-0000-000000000009', 'c0000000-0000-0000-0000-000000000005', 4),  -- Selank
 ('a0000000-0000-0000-0000-000000000010', 'c0000000-0000-0000-0000-000000000005', 5),  -- Semax
-('a0000000-0000-0000-0000-000000000011', 'c0000000-0000-0000-0000-000000000005', 6),  -- NAD+ (Buffered)
+('a0000000-0000-0000-0000-000000000011', 'c0000000-0000-0000-0000-000000000005', 6),  -- NAD+
 ('a0000000-0000-0000-0000-000000000019', 'c0000000-0000-0000-0000-000000000005', 7),  -- Glutathione
 
 -- Cognition & Mood Research (c...006)

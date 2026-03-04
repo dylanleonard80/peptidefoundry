@@ -420,10 +420,10 @@ export const SemaxData: PeptidePageData = {
   ]
 };
 
-// NAD+ (Buffered)
+// NAD+
 export const NADBufferedData: PeptidePageData = {
   slug: "nad-buffered",
-  peptideName: "NAD+ (Buffered)",
+  peptideName: "NAD+",
   productImage: "/products/nad-buffered.webp",
   subtitle: "A coenzyme studied in laboratory settings for cellular energy metabolism and aging research",
   description: "NAD+ (Nicotinamide Adenine Dinucleotide) is a critical coenzyme found in every living cell. This buffered formulation maintains stability for research applications studying cellular metabolism, DNA repair, and sirtuin activation pathways.",
@@ -611,7 +611,6 @@ const blendImageMap: Record<string, string | undefined> = {
   "glow": "/products/glow.webp",
   "retatrutide": "/products/glp-3rt-10mg.webp",
 
-  "dsip": "/products/dsip.webp",
   "epithalon": "/products/epithalon.webp",
   "ghk-cu": "/products/ghk-cu.webp",
   "glutathione": "/products/glutathione.webp",
