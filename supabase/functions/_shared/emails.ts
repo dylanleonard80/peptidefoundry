@@ -7,7 +7,7 @@ const FROM = "orders@orders.peptidefoundry.com";
 const REPLY_TO = "support@peptidefoundry.com";
 const SITE_URL = "https://peptidefoundry.com";
 // Update LOGO_URL to your actual deployed logo path after verifying it exists
-const LOGO_URL = "https://peptidefoundry.com/logo.svg";
+const LOGO_URL = "https://peptidefoundry.com/logo-full.png";
 
 function escapeHtml(s: string): string {
   return s
@@ -28,27 +28,27 @@ function wrap(title: string, body: string): string {
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F0E8;color:#1F1713}
-    .wrapper{max-width:600px;margin:0 auto;background:#F5F0E8}
-    .header{background:#C4581A;padding:28px 24px;text-align:center}
+    body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#ffffff;color:#1F1713}
+    .wrapper{max-width:600px;margin:0 auto;background:#ffffff}
+    .header{padding:32px 24px;text-align:center}
     .header img{max-height:44px;display:inline-block}
     .body{padding:40px 36px}
     h1{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:26px;font-weight:600;color:#1F1713;margin-bottom:20px;line-height:1.3}
     p{font-size:15px;line-height:1.65;color:#3D3029;margin-bottom:16px}
-    .cta{display:inline-block;background:#D4A84B;color:#fff!important;padding:14px 32px;border-radius:4px;text-decoration:none;font-weight:600;font-size:15px;margin:8px 0 20px}
+    .cta{display:inline-block;background:#C4581A;color:#fff!important;padding:14px 32px;border-radius:4px;text-decoration:none;font-weight:600;font-size:15px;margin:8px 0 20px}
     table.items{width:100%;border-collapse:collapse;margin:20px 0}
-    table.items th{background:#1F1713;color:#F5F0E8;padding:10px 12px;text-align:left;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    table.items th{background:#1F1713;color:#ffffff;padding:10px 12px;text-align:left;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
     table.items td{padding:10px 12px;border-bottom:1px solid #E8E0D5;font-size:14px;color:#3D3029}
     table.items tr:last-child td{border-bottom:none}
     .totals{width:100%;margin:12px 0 24px}
     .totals td{padding:5px 0;font-size:14px;color:#3D3029}
     .totals td:last-child{text-align:right;font-weight:600}
     .totals tr.grand td{font-size:16px;color:#1F1713;border-top:2px solid #1F1713;padding-top:10px}
-    .address-box{background:#EDE8DF;border-radius:6px;padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#3D3029}
+    .address-box{background:#f5f5f5;border-radius:6px;padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#3D3029}
     .tracking-box{background:#1F1713;border-radius:6px;padding:20px 24px;margin:20px 0;text-align:center}
-    .tracking-box p{color:#F5F0E8;font-size:13px;margin-bottom:4px}
-    .tracking-box .tn{color:#D4A84B;font-size:20px;font-weight:700;letter-spacing:.05em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
-    .footer{padding:24px 36px;border-top:1px solid #E0D8CC;text-align:center;font-size:12px;color:#9E8E80;line-height:1.6}
+    .tracking-box p{color:#ffffff;font-size:13px;margin-bottom:4px}
+    .tracking-box .tn{color:#C4581A;font-size:20px;font-weight:700;letter-spacing:.05em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+    .footer{padding:24px 36px;border-top:1px solid #e0e0e0;text-align:center;font-size:12px;color:#9E8E80;line-height:1.6}
     .footer a{color:#C4581A;text-decoration:none}
   </style>
 </head>
@@ -182,7 +182,7 @@ export async function sendOrderDelivered(data: {
     <p>Your order <strong>${escapeHtml(data.orderNumber)}</strong> has been delivered. We hope everything arrived in perfect condition.</p>
     <p>If anything looks off or you have questions, don't hesitate to reach out — we're happy to help.</p>
 
-    <a href="${SITE_URL}/catalog" class="cta">Shop Again</a>`;
+    <a href="${SITE_URL}/shop" class="cta">Shop Again</a>`;
 
   return resend.emails.send({
     from: FROM,
@@ -206,7 +206,7 @@ export async function sendWelcome(data: {
     <p>Peptide Foundry offers a curated catalog of research-grade peptides for scientific and laboratory use. All products are for <strong>Research Use Only</strong> — not for human consumption.</p>
     <p>When you're ready, explore the full catalog. And if you're interested in member pricing and exclusive access, take a look at <strong>Foundry Club</strong> membership.</p>
 
-    <a href="${SITE_URL}/catalog" class="cta">Browse the Catalog</a>`;
+    <a href="${SITE_URL}/shop" class="cta">Browse the Catalog</a>`;
 
   return resend.emails.send({
     from: FROM,
@@ -234,7 +234,7 @@ export async function sendMembershipWelcome(data: {
     </ul>
     <p>Member prices are applied automatically when you're signed in. Start shopping now.</p>
 
-    <a href="${SITE_URL}/catalog" class="cta">Shop as a Member</a>`;
+    <a href="${SITE_URL}/shop" class="cta">Shop as a Member</a>`;
 
   return resend.emails.send({
     from: FROM,
